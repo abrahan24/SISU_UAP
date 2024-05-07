@@ -55,10 +55,13 @@ public class CajaFichaController {
 	private FichaService fichaService;
 
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
-	public String ficha(Model model) {
-		
+	public String ficha(Model model,HttpServletRequest request) {
+		if (request.getSession().getAttribute("usuario") == null) {
+			return "redirect:/cerrar.da";
+		}
 		System.out.println("11111111111111111111111111111111111111111111");
-		return "busqueda/GenerarFicha"; 
+		return "busqueda/GenerarFicha";
+
 	}
 
     @RequestMapping(value = "universitarioC", method = RequestMethod.GET)
