@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Login | Xoric - Responsive Bootstrap 4 Admin Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesdesign" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/logoS.png">
+
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+                background-image: url("assets/images/logoSisu/sisu2.jpg")!important;
+                background-repeat: no-repeat;
+                background-size: cover!important;
+            }
+        </style>
+
+    </head>
+
+    <body class="bg-primary bg-pattern">
+        <div class="home-btn d-none d-sm-block">
+            <a href="admin"><i class="mdi mdi-home-variant h2 text-white"></i></a>
+        </div>
+
+        <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center mb-5">
+                            <a href="admin" class="logo"><img src="assets/images/logoS.png" height="100" alt="logo"> SISU</a>
+                            <br>
+                                                        <br>
+                            <h5 class="font-size-20 text-white-50 mb-10">Universidad Amazonica de Pando</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+               <div class="row justify-content-center">
+                    <div class="col-xl-5 col-sm-8">
+                   <div class="card bg-light">
+                            <div class="card-body p-4">
+                                <div class="p-2">
+                                    <h5 class="mb-5 text-center">SELECIONE AL ASEGURADO QUE VA HACER ENTENDIDO</h5>
+                                    
+                                    <form class="form-horizontal" action="" method="Post">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                     <div class="mt-4">
+                                                     <button type="button" class="btn btn-success btn-block waves-effect waves-light" data-toggle="modal" data-target="#modalAdministrativo">ADMINISTRATIVO</button>
+                                                     </div>
+                                                     
+                                                      <div class="mt-4">
+                                                     <button type="button" class="btn btn-success btn-block waves-effect waves-light" data-toggle="modal" data-target="#modalUniversitario">UNIVERSITARIO</button>
+                                                     </div>
+                                                     
+                                                      <div class="mt-4">
+                                                     <button type="button" class="btn btn-success btn-block waves-effect waves-light" data-toggle="modal" data-target="#modalDocente">DOCENTE</button>
+                                                     </div>
+                                                   
+                                                          
+                                                <!-- /.modal-1 -->
+                                                            <div class="modal fade" id="modalAdministrativo" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE CODIGO ADMINISTRATIVO</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p></p>
+                                                                    
+                                                                     <input type="text" class="form-control" name="codigoAdministrativo" placeholder="Introduzca solo números"   pattern="^[0-9]+$"  >
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                           <button class="btn btn-success btn-block waves-effect waves-light" type="submit" formaction="administrativo">ACEPTAR</button>
+                                                                        </div>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div><!-- /.modal -->
+                                                            
+                                                                     <!-- /.modal-2 -->
+                                                            <div class="modal fade" id="modalUniversitario" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE RU</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p></p>
+                                                                      
+                                                                        <input type="text" class="form-control" name="codigoUniversitario"  placeholder="Introduca solo numeros"  pattern="^[0-9]+$" >
+                                                                        </div>
+                                                                        <div class="modal-footer">
+
+                                                                           <button class="btn btn-success btn-block waves-effect waves-light" type="submit" formaction="universitario">ACEPTAR</button>
+                                                                            </div>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div><!-- /.modal -->
+                                                            
+                                                                     <!-- /.modal-3 -->
+                                                            <div class="modal fade" id="modalDocente" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-scrollable">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE CODIGO DOCENTE</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p></p>
+                                                                       <input type="text" class="form-control" name="rd"  placeholder="Introduca solo numeros"  pattern="^[0-9]+$" >
+                                                                        </div>
+                                                                        <div class="modal-footer">
+
+                                                                           <button class="btn btn-success btn-block waves-effect waves-light" type="submit" formaction="docente">ACEPTAR</button>
+                                                                            </div>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div><!-- /.modal --> 
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+        <!-- end Account pages -->
+
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+        <script src="assets/js/app.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+         <!-- Form Advanced init -->
+         <script src="assets/js/pages/form-advanced.init.js"></script>
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+
+<body>
+    <div th:fragment="contentdip">
+        <input type="hidden" name="dip" th:field="${dip.idDip}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <div class="row">
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">DIP</label>
+                <input type="text" class="form-control" name="dip" th:field="${dip.codDip}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom02">Descripcion</label>
+                <input type="text" class="form-control" name="dip" id="validationCustom02" th:field="${dip.descripcion}"
+                    required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -----contentHistorialRecetas---- -->
+
+    <div th:fragment="contentHistorialRecetas">
+        <input type="hidden" name="dip" th:field="${historialReceta.idHistorialReceta}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <div class="row">
+            <!-- --------------------------------- Receta--------------------------- -->
+
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Prescripcion</label>
+                <select class="custom-select" name="receta" required>
+                    <option value="">Selecciona un prescripcion medica</option>
+        
+                    <th:block th:each="rs: ${recetas}" th:if="${rs.estado != 'X'}">
+        
+                        <th:block th:if="${historialReceta.receta != null}"> 
+                            <option
+                                th:if="${rs.idReceta == historialReceta.receta.idReceta}"
+                                th:value="${rs.idReceta}" th:text="${rs.prescripcionMedica}" selected></option>
+                            <option
+                                th:if="${rs.idReceta != historialReceta.receta.idReceta}"
+                                th:value="${rs.idReceta}" th:text="${rs.prescripcionMedica}"></option>
+
+                        </th:block>
+        
+                        <th:block th:if="${historialReceta.receta == null}"> 
+                            <option th:value="${rs.idReceta}" th:text="${rs.prescripcionMedica}"></option>
+                        </th:block>
+        
+                    </th:block>
+        
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un Servicio</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+   <!-- --------------------------------- --------------------------- -->
+   <!-- --------------------------------- historial_medico--------------------------- -->
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Prescripcion</label>
+                <select class="custom-select" name="historial_medico" required>
+                    <option value="">Selecciona un prescripcion medica</option>
+        
+                    <th:block th:each="hr: ${historialMedicos}" th:if="${hr.estado != 'X'}">
+        
+                        <th:block th:if="${historialReceta.historial_medico != null}"> 
+                            <option
+                                th:if="${hr.idHistorialMedico == historialReceta.historial_medico.idHistorialMedico}"
+                                th:value="${hr.idHistorialMedico}" th:text="${hr.Observacion}" selected></option>
+                            <option
+                                th:if="${hr.idHistorialMedico != historialReceta.historial_medico.idHistorialMedico}"
+                                th:value="${hr.idHistorialMedico}" th:text="${hr.Observacion}"></option>
+                        </th:block>
+        
+                        <th:block th:if="${historialReceta.historial_medico == null}"> 
+                            <option th:value="${hr.idHistorialMedico}" th:text="${hr.Observacion}"></option>
+                        </th:block>
+        
+                    </th:block>
+        
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un Servicio</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+ <!-- --------------------------------- --------------------------- -->
+
+        </div>
+    </div>
+
+<!--   -->
+
+    <!-- ----------------------------------------------------------- -->
+
+    <!-- ----contentHistorialMedico----- -->
+    <div th:fragment="contentHistorialMedico">
+        <input type="hidden" name="historialMedico" th:field="${historialMedico.idHistorialMedico}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS DEL HISTORIAL MEDICO</h4>
+        <div class="row">
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">Fecha</label>
+                <input type="date" class="form-control" name="historialMedico" id="validationCustom02"
+                    th:field="${historialMedico.Fecha}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom02">Observación</label>
+                <input type="text" class="form-control" name="historialMedico" id="validationCustom02"
+                    th:field="${historialMedico.Observacion}" required>
+                <input th:if="${historialMedico.concepto_servicio != null}" type="hidden"
+                    th:value="${historialMedico.concepto_servicio.idConceptoServicio}">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <!-- ---------------ConceptoServicio.servicio---------------- -->
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Servicio</label>
+                <select class="custom-select" name="concepto_servicio" required>
+                    <option value="">Selecciona un Servicio</option>
+
+                    <th:block th:each="cs: ${conceptosServicios}" th:if="${cs.estado != 'X'}">
+
+                        <th:block th:if="${historialMedico.concepto_servicio != null}">
+                            <option
+                                th:if="${cs.idConceptoServicio == historialMedico.concepto_servicio.idConceptoServicio}"
+                                th:value="${cs.idConceptoServicio}" th:text="${cs.servicio}" selected></option>
+                            <option
+                                th:if="${cs.idConceptoServicio != historialMedico.concepto_servicio.idConceptoServicio}"
+                                th:value="${cs.idConceptoServicio}" th:text="${cs.servicio}"></option>
+                        </th:block>
+
+                        <th:block th:if="${historialMedico.concepto_servicio == null}">
+                            <option th:value="${cs.idConceptoServicio}" th:text="${cs.servicio}"></option>
+                        </th:block>
+
+                    </th:block>
+
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un Servicio</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+            <!-- -------------Asegurado.codigoAsegurado------------------ -->
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Asegurado</label>
+                <select class="custom-select" name="asegurado" required>
+
+                    <option value="">Selecciona un Seguro</option>
+
+                    <th:block th:each="a: ${asegurados}" th:if="${a.estado != 'X'}">
+
+                        <th:block th:if="${historialMedico.asegurado != null}">
+
+                            <option th:if="${a.idAsegurado == historialMedico.asegurado.idAsegurado}"
+                                th:value="${a.idAsegurado}" th:text="${a.codigoAsegurado}" selected></option>
+
+                            <option th:if="${a.idAsegurado != historialMedico.asegurado.idAsegurado}"
+                                th:value="${a.idAsegurado}" th:text="${a.codigoAsegurado}"></option>
+
+                        </th:block>
+
+                        <th:block th:if="${historialMedico.asegurado == null}">
+
+                            <option th:value="${a.idAsegurado}" th:text="${a.codigoAsegurado}"></option>
+
+                        </th:block>
+
+                    </th:block>
+
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un codigo Asegurado</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ---contentHistorialMedicoServicio------ -->
+
+    <div th:fragment="contentHistorialMedicoServicio">
+        <input type="hidden" name="historialMedicoServicio"
+            th:field="${historialMedicoServicio.idHistorialMedicoServicio}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS DEL HISTORIAL MEDICO SERVICIO</h4>
+        <div class="row">
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">Hora</label>
+                <input type="time" class="form-control" name="historialMedicoServicio"
+                    th:field="${historialMedicoServicio.hora}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">Fecha</label>
+                <input type="date" class="form-control" name="historialMedicoServicio"
+                    th:field="${historialMedicoServicio.fecha}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+                     <!-- -------------MedicoServicio------------------ -->
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Medico Servicio</label>
+                <select class="custom-select" name="medico_servicio" required>
+
+                    <option value="">Selecciona un Medico Servicio</option>
+
+                    <th:block th:each="ms: ${medicoServicios}" th:if="${ms.estado != 'X'}">
+
+                        <th:block th:if="${historialMedicoServicio.medico_servicio != null}">
+
+                            <option th:if="${ms.idMedicoServicio == historialMedicoServicio.medico_servicio.idMedicoServicio}"
+                                th:value="${ms.idMedicoServicio}" th:text="${ms.fechaAsignaqcion}" selected></option>
+
+                            <option th:if="${ms.idMedicoServicio != historialMedicoServicio.medico_servicio.idMedicoServicio}"
+                                th:value="${ms.idMedicoServicio}" th:text="${ms.fechaAsignaqcion}"></option>
+
+                        </th:block>
+
+                        <th:block th:if="${historialMedicoServicio.medico_servicio == null}">
+
+                            <option th:value="${ms.idMedicoServicio}" th:text="${ms.fechaAsignaqcion}"></option>
+
+                        </th:block>
+
+                    </th:block>
+
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un codigo Asegurado</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+
+                     <!-- -------------HistorialMedico------------------ -->
+                     <div class="col-md-4 mb-3">
+                        <label for="validationCustom03">Historial Medico</label>
+                        <select class="custom-select" name="historial_medico" required>
+        
+                            <option value="">Selecciona un Historial Medico</option>
+        
+                            <th:block th:each="hm: ${historialMedicos}" th:if="${hm.estado != 'X'}">
+        
+                                <th:block th:if="${historialMedicoServicio.historial_medico != null}">
+        
+                                    <option th:if="${hm.idHistorialMedico == historialMedicoServicio.historial_medico.idHistorialMedico}"
+                                        th:value="${hm.idHistorialMedico}" th:text="${hm.Observacion}" selected></option>
+        
+                                    <option th:if="${hm.idHistorialMedico != historialMedicoServicio.historial_medico.idHistorialMedico}"
+                                        th:value="${hm.idHistorialMedico}" th:text="${hm.Observacion}"></option>
+        
+                                </th:block>
+        
+                                <th:block th:if="${historialMedicoServicio.historial_medico == null}">
+        
+                                    <option th:value="${hm.idHistorialMedico}" th:text="${hm.Observacion}"></option>
+        
+                                </th:block>
+        
+                            </th:block>
+        
+                        </select>
+                        <div class="invalid-feedback">Debes seleccionar un codigo Asegurado</div>
+                        <div class="valid-feedback">¡Se ve bien!</div>
+                    </div>
+
+
+
+  <!-- ----------------------------------------------- -->
+
+        </div>
+    </div>
+                      
+        </div>
+    </div>
+
+
+    
+
+    <!-- -----contentConceptosServicios---- -->
+
+    <div th:fragment="contentConceptosServicios">
+        <input type="hidden" name="conceptosServicio" th:field="${conceptosServicio.idConceptoServicio}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS DEL CONCEPTO SERVICIO</h4>
+        <div class="row">
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">servicio</label>
+                <input type="text" class="form-control" name="conceptosServicio"
+                    th:field="${conceptosServicio.serviciocs}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">Descripcion</label>
+                <input type="text" class="form-control" name="conceptosServicio"
+                    th:field="${conceptosServicio.descripcion}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-6">
+                <label for="validationCustom03">Costo</label>
+                <input type="number" class="form-control" name="conceptosServicio" th:field="${conceptosServicio.costo}"
+                    required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <!-- ----------------------Servicios------------------------- -->
+
+            <div class="col-md-4 mb-3">
+                <input type="hidden" name="conceptosServicio" th:field="${conceptosServicio.idConceptoServicio}">
+                <label for="validationCustom03">Servicio</label>
+                <select class="custom-select" name="servicio" required>
+
+                    <option value="">Selecciona un Servicio</option>
+
+                    <th:block th:each="s: ${servicios}" th:if="${s.estado != 'X'}">
+
+                        <th:block th:if="${conceptosServicio.servicio != null}">
+
+                            <option th:if="${s.idServicio == conceptosServicio.servicio.idServicio}"
+                                th:value="${s.idServicio}" th:text="${s.servicios}" selected></option>
+
+                            <option th:if="${s.idServicio != conceptosServicio.servicio.idServicio}"
+                                th:value="${s.idServicio}" th:text="${s.servicios}"></option>
+
+                        </th:block>
+
+                        <th:block th:if="${conceptosServicio.servicio == null}">
+                            <option th:value="${s.idServicio}" th:text="${s.servicios}"></option>
+                        </th:block>
+
+                    </th:block>
+
+                </select>
+                <div class="invalid-feedback">Debes seleccionar un Servicio</div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+
+            </div>
+
+            <!-- ----------------------------------------------- -->
+
+           
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

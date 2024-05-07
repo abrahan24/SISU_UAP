@@ -1,0 +1,6 @@
+#hoverDiv:hover #openModal::after {
+    content: " - Click to insert administrative code";
+    font-size: 12px;
+    color: #007bff;
+    cursor: pointer;
+}

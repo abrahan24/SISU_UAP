@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>INFORMACION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesdesign" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/logoS.png">
+
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <!-- btnficha -->
+        <link rel="stylesheet" href="assets/css/btnficha.css">
+
+    </head>
+
+    <body>
+        <div class="home-btn d-none d-sm-block">
+            <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
+        </div>
+
+        <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="text-center mb-5">
+                            <img src="assets/images/logoS.png" height="100" alt="logo">
+                            <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
+                            <p class="text-muted">Universidad Amazonica de Pando</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- INICIO INFORMACION ADMINISTRATIVO -->
+
+                    <div class="col-lg-4 scale-down-center">
+                        <div class="card">
+                            <div class="card-body p-4 sombre">
+                                <div class="icons-lg mb-4" style="text-align: center;">
+                                    <i class="uim uim-analysis"></i>
+                                </div>
+                                <div class="mb-3" style="text-align: center;">
+                                    <h5 class="font-size-15 text-uppercase font-weight-bold">Personal Administrativo</h5>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <button type="button" style="font-size: 20px; background-color: #2E4053;" class="btn btn-dark btn-sm waves-effect waves-light" data-placement="top" 
+                                    data-toggle="modal" data-target=".bs-example-modal-center-admin">Verificar Informacion <i class="ti-clipboard"></i></button>
+                                </div>
+                                <div class="modal fade bs-example-modal-center" id="exampleModalScrollable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">Ingresar Datos</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation" action="../../../../saveAdministrativo" method="post">
+                                                    <input type="hidden" th:field="${personaAdministrativo.idPersona}">
+                                                    <input type="hidden" id="codigoAdministrativo" name="codigoAdministrativo" value="${codigoAdministrativo}" />
+
+                                                    
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Nombre</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaAdministrativo" th:field="${personaAdministrativo.nombres}" placeholder="medicamento"
+                                                                        class="form-control" id="personaAdministrativo1" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Apellido Paterno</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaAdministrativo" th:field="${personaAdministrativo.apPaterno}" placeholder="0.00 gr"
+                                                                        class="form-control" id="personaAdministrativo2" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Apellido Materno</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaAdministrativo" th:field="${personaAdministrativo.apMaterno}" placeholder="code"
+                                                                        class="form-control" id="personaAdministrativo3" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">CI</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaAdministrativo" th:field="${personaAdministrativo.ci}" placeholder="ATQ"
+                                                                        class="form-control" id="personaAdministrativo4" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <div class="col-6">
+                                                                <button type="submit" style="padding: 5%;" class="btn btn-success btn-lg btn-sm waves-effect waves-light btn-block">Generar Ficha</button>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <button type="button" style="padding: 5%;"  class="btn btn-danger btn-lg btn-sm waves-effect waves-light btn-block" data-dismiss="modal">Cancelar Proceso</button>
+                                                            </div>
+                                                        </div>
+                                                </form> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIN INFORMACION ADMINISTRATIVO -->
+                    <!-- ------------------------------------------------------------------------------- -->
+                    <!-- INICIO INFORMACION UNIVERSITARIO -->
+
+                    <div class="col-lg-4 scale-down-center">
+                        <div class="card ">
+                            <div class="card-body p-4 sombre">
+                                <div class="icons-lg mb-4" style="text-align: center;">
+                                    <i class="uim uim-analysis"></i>
+                                </div>
+                                <div class="mb-3" style="text-align: center;">
+                                    <h5 class="font-size-15 text-uppercase font-weight-bold">Personal Universitario</h5>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <button type="button" style="font-size: 20px; background-color: #2E4053;" class="btn btn-dark btn-sm waves-effect waves-light" data-placement="top" 
+                                    data-toggle="modal" data-target=".bs-example-modal-center">Verificar Informacion <i class="ti-clipboard"></i></button>
+                                </div>
+                                <div class="modal fade bs-example-modal-center" id="exampleModalScrollable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">Datos Universitario</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation" action="../../../../saveUniveristario" method="post">
+                                                    <input type="hidden" th:field="${personaUniversitaria.idPersona}">
+                                                    <input type="hidden" id="codigoUniversitario" name="codigoUniversitario" value="${codigoUniversitario}" />
+
+                                                    <div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Nombre</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.nombres}" placeholder="medicamento"
+                                                                        class="form-control" id="personaUniversitaria" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Apellido Paterno</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.apPaterno}" placeholder="0.00 gr"
+                                                                        class="form-control" id="personaUniversitaria1" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Apellido Materno</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.apMaterno}" placeholder="code"
+                                                                        class="form-control" id="personaUniversitaria2" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">CI</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="number" name="personaUniversitaria" th:field="${personaUniversitaria.ci}" placeholder="ATQ"
+                                                                        class="form-control" id="personaUniversitaria3" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Direccion</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.direccion}" placeholder="code"
+                                                                        class="form-control" id="personaUniversitaria4" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Celular</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="number" name="personaUniversitaria" th:field="${personaUniversitaria.celular}" placeholder="code"
+                                                                        class="form-control" id="personaUniversitaria5" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Sexo</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.sexo}" placeholder="code"
+                                                                        class="form-control" id="personaUniversitaria2" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label for="validationCustom01">Fecha Nacimiento</label>
+                                                                <div class="form-group form-group-custom mb-6">
+                                                                    <input type="text" name="personaUniversitaria" th:field="${personaUniversitaria.apMaterno}" placeholder="code"
+                                                                        class="form-control" id="personaUniversitaria2" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <div class="col-6">
+                                                                <button type="submit" style="padding: 5%;" class="btn btn-success btn-lg btn-sm waves-effect waves-light btn-block">Generar Ficha</button>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <button type="button" style="padding: 5%;"  class="btn btn-danger btn-lg btn-sm waves-effect waves-light btn-block" data-dismiss="modal">Cancelar Proceso</button>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                </form> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-lg-4 scale-down-center">
+                        <div class="card sombre">
+                            <div class="card-body" >
+                                <div class="icons-lg mb-4" style="text-align: center;">
+                                    <i class="uim uim-clock-eight" ></i>
+                                </div>
+                                <div class="mb-3" style="text-align: center;">
+                                    <h5 class="font-size-15 text-uppercase font-weight-bold">Docente</h5>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <button type="button" style="font-size: 20px; background-color: #2E4053;" class="btn btn-dark btn-sm waves-effect waves-light" data-placement="top" 
+                                    data-toggle="modal" data-target=".bs-example-modal-center1111">Verificar Informacion <i class="ti-clipboard"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 scale-down-center">
+                        <div class="card sombre">
+                            <div class="card-body">
+                                <div class="icons-lg mb-4"  style="text-align: center;">
+                                    <i class="uim uim-clock-eight"></i>
+                                </div>
+                                <div class="mb-3" style="text-align: center;">
+                                    <h5 class="font-size-15 text-uppercase font-weight-bold">Estudiante</h5>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <button type="button" style="font-size: 20px; background-color: #2E4053;" class="btn btn-dark btn-sm waves-effect waves-light" data-placement="top" 
+                                    data-toggle="modal" data-target=".bs-example-modal-center222222">Verificar Informacion <i class="ti-clipboard"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+        <!-- end Account pages -->
+
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+
+        <script src="assets/js/app.js"></script>
+
+    </body>
+</html>

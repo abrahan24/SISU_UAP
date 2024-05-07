@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <div th:fragment="contentRemediosFarmacia">
+        <input type="hidden" th:field="${remediosFarmacia.idRemediosFarmacia}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <p class="card-title-desc">For custom Bootstrap form validation messages, you’ll need to add the
+            <code>novalidate</code>
+            boolean attribute to your <code>&lt;form&gt;</code>.</p>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Ubicacion</label>
+                <input type="text" class="form-control" name="RemediosFarmacia" id="validationCustom01"
+                    th:field="${remediosFarmacia.ubicacion}" placeholder="Introduce una ubicacion" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>  
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Liname</label>
+                <select class="custom-select" th:field="${remediosFarmacia.lista_liname}" required>
+                    <option value="">Seleciones una opcion</option>
+                    <th:block th:each="ll: ${listaLiname}" th:if="${ll.estadoLiname != 'X'}">
+                        <option th:value="${ll.idLiname}" th:text="${ll.codigoLiname}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar un codigo</div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="contentRemFarLote">
+        <input type="hidden" th:field="${remediosFarmaciaLote.idRemediosFarmaciaLote}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <p class="card-title-desc">For custom Bootstrap form validation messages, you’ll need to add the
+            <code>novalidate</code>
+            boolean attribute to your <code>&lt;form&gt;</code>.</p>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom04">Fecha Ingreso</label>
+                <input type="date" name="remediosFarmaciaLote" th:field="${remediosFarmaciaLote.fechaIngreso}"
+                    class="form-control datepicker-here" data-language="en" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">Debes introducir una fecha</div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Precio Venta</label>
+                <input type="number" class="form-control" name="remediosFarmaciaLote" id="validationCustom01"
+                    th:field="${remediosFarmaciaLote.precioVenta}" placeholder="Introduce el precio venta" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Observacion</label>
+                <input type="text" class="form-control" name="remediosFarmaciaLote" id="validationCustom01"
+                    th:field="${remediosFarmaciaLote.observacion}" placeholder="Introduce una observacion" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>  
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>ubicacion remedio farmacia</label>
+                <select class="custom-select" th:field="${remediosFarmaciaLote.remedios_farmacia}" required>
+                    <option value="">Seleciones una opcion</option>
+                    <th:block th:each="rf: ${remediosFarmacias}" th:if="${rf.estado != 'X'}">
+                        <option th:value="${rf.idRemediosFarmacia}" th:text="${rf.ubicacion}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar una ubicacion</div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>precio lote</label>
+                <select class="custom-select" th:field="${remediosFarmaciaLote.remedio_lote}" required>
+                    <option value="">Seleccione una opcion</option>
+                    <th:block th:each="rl: ${remedioLotes}" th:if="${rl.estado != 'X'}">    
+                        <option th:value="${rl.idRemedioLote}" th:text="${rl.precioLote}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar un codigo</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

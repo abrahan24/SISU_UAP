@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lista DIP | SISU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
+
+    <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+
+
+</head>
+
+<body data-topbar="colored">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="vertical-menu">
+
+            <div th:insert="~{layout/sidebar :: sidebar}"></div>
+
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">ADMINISTRACION DE DIP REGISTRADOS</h4>
+                                <!-- <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                                    <li class="breadcrumb-item active">Data Tables</li>
+                                </ol> -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="float-right d-none d-md-block">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-settings-outline mr-1"></i> OPCIONES
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                           
+                                            <div class="dropdown-divider"></div>
+                                            
+                                            <form th:action="@{${url}}" method="get">
+                                               
+                                                <input type="submit" th:value="${nameButton1}"></input>
+                                              </form>
+
+                                            <div class="dropdown-divider"></div>
+
+                                            <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                <!-- end page title end breadcrumb -->
+
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <h4 class="header-title"></i>Lista Dip</h4>
+
+                                        <!-- ------------- -->
+
+                                       
+                                        <div class="text-right mb-3">
+                                            <button type="button"
+                                                class="btn btn-primary btn-sm waves-effect waves-light"
+                                                onclick="NuevoRegistro()">Registrar</button>
+                                        </div>
+
+                                        <!-- ------------- -->
+
+                                        <table id="datatable-buttons"
+                                            class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Codigo</th>
+                                                    <th>Descripción</th>
+                                                    <th>OPCIONES</th>
+                                                    <!-- <th>Apellido Materno</th>
+                                                    <th>Usuario</th>
+                                                    <th>Clave</th> -->
+                                                    <!-- <th></th> -->
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr th:each="dip : ${dips}" th:if="${dip.estado != opcion1}">
+                                                    <td th:text="${dip.codDip}"></td>
+                                                    <td th:text="${dip.descripcion}"></td>
+                                                    <!-- <td th:text="${us.idPersona.apMaterno}"></td>
+                                                    <td th:text="${us.apodo}"></td> -->
+
+                                                    <td>
+                                                        <div class="row justify-content-center">
+                                                            <div class="mb-2">
+                                                                <a 
+                                                                    th:href="${'../../../../eliminarDip/' + dip.idDip}">
+                                                                    <button type="button"
+                                                                        class="btn btn-outline-danger alertElimin btn-sm"
+                                                                        style="margin: 5px; padding: 8px;">
+                                                                        <i class="dripicons-trash"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <a>
+                                                                    <button type="button"
+                                                                        class="btn btn-primary btn-sm waves-effect waves-light editarButton"
+                                                                        data-toggle="modal"
+                                                                        th:data-target="${'#bs-example-modal-center'}"
+                                                                        th:data-iddip="${dip.idDip}"
+                                                                        onclick="buscar(this)"
+                                                                        style="margin: 5px; padding: 8px;">
+                                                                        <i class="dripicons-document-edit"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> 
+                              </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+            </div>
+            <!-- End Page-content -->
+            
+            <div class="modal fade show" th:id="${'bs-example-modal-center'}" tabindex="-1" role="dialog"
+                aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title mt-0">Modificando registro de DIP</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form id="miFormulario" class="needs-validation" th:action="@{/guardarCambiosDip}"
+                                method="post" novalidate>
+
+                                <div id="replace_dip"></div>
+
+                                <div class="text-right mt-3">
+                                    <button type="submit" onclick="validarFormulario()"
+                                        class="btn btn-primary mr-2">Guardar</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div th:insert="~{layout/footer :: footer}"></div>
+    </div>
+    </div>
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        function buscar(button) {
+            // Capture the value of th:data-idpersona from the clicked button
+            var idDip = $(button).data('iddip');
+
+            // Create the URL to request the fragment using the captured idPersona
+            var url = "../../../../dip/" + idDip;
+
+            // Load the fragment and replace content in #replace_div
+            $('#replace_dip').load(url, function () {
+                $('#modal-form').attr('action', '/guardarCambiosDip');
+                $('#bs-example-modal-center').modal('show');
+            });
+        }
+
+        function NuevoRegistro() {
+
+            // Modifica la URL para cargar el modal vacío para registrar una nueva persona.
+
+            var url = "../../../../registrarDip";
+
+            // Load the fragment and replace content in #replace_div
+            $('#replace_dip').load(url, function () {
+                // Modifica cualquier configuración necesaria para un nuevo registro.
+                $('#modal-form').attr('action', '/guardarNuevaDip'); // Por ejemplo, cambiar la acción del formulario.
+                $('#bs-example-modal-center').modal('show');
+            });
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Selecciona el formulario por su id
+            const form = document.getElementById("miFormulario");
+
+            form.addEventListener("submit", function (event) {
+                let isValid = true; // Variable para rastrear la validez del formulario
+
+                // Obtén todos los campos obligatorios (los que tienen el atributo "required")
+                const requiredFields = form.querySelectorAll("[required]");
+
+                requiredFields.forEach(function (field) {
+                    if (!field.value) {
+                        // Si un campo obligatorio está vacío, muestra un mensaje de error
+                        isValid = false;
+                        field.classList.add("is-invalid");
+                    } else {
+                        field.classList.remove("is-invalid");
+                    }
+                });
+
+                if (!isValid) {
+                    // Si el formulario no es válido, evita que se envíe
+                    event.preventDefault();
+                }
+            });
+        });
+
+
+    </script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+<script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+<script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+<!-- Required datatable js -->
+<script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- Buttons examples -->
+<script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+<script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+<!-- alert -->
+<script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
+<script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+
+
+<script src="../../../../assets/js/app.js"></script>
+</body>
+
+</html>

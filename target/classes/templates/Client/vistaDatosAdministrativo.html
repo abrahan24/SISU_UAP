@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>INFORMACION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesdesign" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/logoS.png">
+
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <!-- btnficha -->
+        <link rel="stylesheet" href="assets/css/btnficha.css">
+
+    </head>
+
+    <body>
+        <div class="home-btn d-none d-sm-block">
+            <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
+        </div>
+
+        <div class="account-pages my-5 pt-sm-1">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="text-center mb-5">
+                            <img src="assets/images/logoS.png" height="100" alt="logo">
+                            <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
+                            <p class="text-muted">Universidad Amazonica de Pando</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- INICIO INFORMACION ADMINISTRATIVO -->
+                    
+                    <div class="container">     
+                        <div class="row justify-content-center" style="height: 50vh;">
+                            <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 500px;">
+                                <div class="card bg-light">
+                                    <div class="card-body p-4">   
+                                        <form action="/generarFichaA" method="post">
+                                        <input type="hidden" id="codigoAdministrativo" name="codigoAdministrativo" value="${codigoAdministrativo}" />
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="nombreAdministrativo">Nombre del Administrativo:</label>
+                                                    <input type="text"  class="form-control" th:value="${nombres}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="urlImagen">Foto Univeristario</label>
+                                                    <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="apPaternoA">Apellido Paterno</label>
+                                                    <input type="text" id="apPaternoA" name="apPaternoA" class="form-control" th:value="${apPaterno}" readonly>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="apMaternoA">Apellido Materno</label>
+                                                    <input type="text" id="apMaternoA" name="apMaternoA" class="form-control" th:value="${apMaterno}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="ci">CI:</label>
+                                                    <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="CA">Codigo Administrativo:</label>
+                                                    <input type="text" id="CA" name="CA" class="form-control" th:value="${CA}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="fechaNacimientoA">Fecha de Nacimiento:</label>
+                                                    <input type="text" id="fechaNacimientoA" name="fechaNacimientoA" class="form-control" th:value="${fechaNacimientoA}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="sexoA">Sexo:</label>
+                                                    <input type="text" id="sexoA" name="sexoA" class="form-control" th:value="${sexoA}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="gmailA">Correo:</label>
+                                                    <input type="text" id="gmailA" name="gmailA" class="form-control" th:value="${gmailA}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="descripcionA">Descripcion:</label>
+                                                    <input type="text" id="descripcionA" name="descripcionA" class="form-control" th:value="${descripcionA}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="descripcionA2">Descripcion2:</label>
+                                                    <input type="text" id="descripcionA2" name="descripcionA2" class="form-control" th:value="${descripcionA2}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="nivel">Nivel:</label>
+                                                    <input type="text" id="nivel" name="nivel" class="form-control" th:value="${nivel}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="text-right mt-3">
+                                                <button type="submit" class="btn btn-success mr-2" name="submitGenerar">Generar Ficha</button>
+                                                <button type="submit" class="btn btn-secondary" name="submitCancelar" formaction="/inicioCliente">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN INFORMACION ADMINISTRATIVO -->
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+        <!-- end Account pages -->
+
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+
+        <script src="assets/js/app.js"></script>
+
+    </body>
+</html>

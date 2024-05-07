@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Registro Persona | SISU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
+
+    <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="background-color: white;">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 100px;
+        }
+
+        .tabla {
+            width: 85%;
+            border: 3px solid #3051D3;
+        }
+
+        .tabla2 {
+            width: 85%;
+            border-right: 3px solid #3051D3;
+            border-left: 3px solid #3051D3;
+        }
+
+        .firma {
+            display: block;
+            left: 45%;
+            width: 200px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Georgia", sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+        form .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        input[type="text"] {
+            font-family: "Georgia", sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+        input[type="number"] {
+            font-family: "Georgia", sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+        input[type="date"] {
+            font-family: "Georgia", sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+        input[type="time"] {
+            font-family: "Georgia", sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+
+        textarea {
+            margin-top: 5PX;
+            font-family: "Georgia", sans-serif;
+            font-size: 30px;
+
+        }
+
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+            /* Ajusta según tus necesidades */
+        }
+
+
+        /* Estilos específicos para la impresión */
+        @media print {
+            body {
+                font-family: Arial, sans-serif;
+                /*padding: 100px;*/
+            }
+
+            .tabla {
+                width: 100% !important;
+            }
+
+            .tabla2 {
+                width: 100% !important;
+            }
+
+            .firma {
+                display: block;
+                left: 43%;
+                width: 200px;
+            }
+
+            .botonEmprimir {
+                display: none;
+            }
+
+            .fila {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 -15px;
+                /* Ajusta según tus necesidades */
+            }
+
+            form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: "Georgia", sans-serif;
+                font-size: 20px;
+                color: black;
+            }
+
+            form .row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            input[type="text"] {
+                font-family: "Georgia", sans-serif;
+                font-size: 20px;
+                color: black;
+            }
+
+            input[type="number"] {
+                font-family: "Georgia", sans-serif;
+                font-size: 20px;
+                color: black;
+            }
+
+            input[type="date"] {
+                font-family: "Georgia", sans-serif;
+                font-size: 20px;
+                color: black;
+            }
+
+            input[type="time"] {
+                font-family: "Georgia", sans-serif;
+                font-size: 20px;
+                color: black;
+            }
+
+
+            textarea {
+                margin-top: 5PX;
+                font-family: "Georgia", sans-serif;
+                font-size: 30px;
+
+            }
+
+        }
+    </style>
+    <!-- Begin page -->
+
+    <form class="fila" style="font-size: 15px;">
+        <table class="tabla">
+            <tbody>
+                <tr>
+                    <td style="padding-left: 5%; padding-top: 3%; padding-bottom: 3%;">
+                        <img style="  display: block;  height: 90%; width: 180px;"
+                            src="../../../../assets/images/logo UAP.png" alt="logo">
+                    </td>
+                    <td>
+                        <h1 style="font-size: 30px; display: flex; justify-content: space-around; color: black">
+                            HISTORIA CLINICA</h1>
+                    </td>
+                    <td style="padding-right: 3%; padding-top: 3%; padding-bottom: 3%;">
+                        <img style="  display: block;  height: 90%; width: 180px;"
+                            src="../../../../assets/images/logoS.png" alt="logo">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Contenido (Nombre, Edad, carrera, ru, FN) -->
+        <table class="tabla">
+            <tbody>
+                <tr style="border-bottom: 3px solid #3051D3; ">
+                    <td style="border-right: 3px solid #3051D3;">
+                        <div>
+                            <label for="validationCustom01" class="font-weight-bold d-inline">Nombre
+                                y
+                                Apellido:
+                            </label>
+                            <input style=" border: none; margin: 7px; z-index: 0;" type="text"
+                                th:value="${asegurado.persona.nombres} + ' ' + ${asegurado.persona.apPaterno} + ' ' + ${asegurado.persona.apMaterno}">
+                            <!-- th:field="${dip.codDip}" -->
+
+                        </div>
+                    </td>
+                    <td style="border-right: 1px solid #3051D3; border-top: 0;">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">EDAD:</label>
+
+                            <input style=" border: none;  width: 80%; margin: 7px; z-index: 0;" th:value="${edad}"
+                                type="text" class="form-number" id="validationCustom03" required>
+                            <!-- th:field="${dip.codDip}" -->
+
+
+                        </div>
+                    </td>
+                    <td style="border: 1px solid #3051D3; border-left: 3px solid #3051D3; border-top: 0; ;">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">CARRERA:</label>
+                            <input style=" border: none;" type="text" class="form-control" id="validationCustom03"
+                                value="Ing. de Sistemas" required>
+                            <!-- th:field="${dip.codDip}" -->
+
+                        </div>
+                    </td>
+                    <td style="border: 1px solid #3051D3; border-left: 3px solid #3051D3; border-top: 0; ">
+                        <div>
+                            <label for="validationCustom02" style="margin-top: 1px;"
+                                class="font-weight-bold d-inline">COD.
+                                ASEGURADO:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;" type="text" class="form-number"
+                                id="validationCustom03" th:value="${asegurado.codigoAsegurado}">
+                            <!-- th:field="${dip.codDip}" -->
+
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">FN:</label>
+                            <input type="text" style=" border: none; width: 40%;" class="form-control"
+                                id="validationCustom03" required>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabla">
+            <tbody>
+                <!-------------------------- <img src="../../../../assets/images/LOGOHC1.webp" alt=""> -------------------------->
+                <!-- Contenido (NACIONALIDAD, DOMICILIO, OCUPACION, ESTADO CIVIL, FECHA, HORA) -->
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">NACIONALIDAD:</label>
+                            <input value="Boliviana" style=" border: none; width: 80%; margin: 7px;" type="text"
+                                class="form-control" id="validationCustom03" required>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">DOMICILIO:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;"
+                                th:value="${asegurado.persona.direccion}" type="text" class="form-control"
+                                id="validationCustom03" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">OCUPACION:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;" type="text" class="form-control"
+                                id="validationCustom03" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for="validationCustom02"
+                                th:value="${asegurado.persona.tipos_estado_civil.NomEstadoCivil}"
+                                class="font-weight-bold d-inline">ESTADO
+                                CIVIL:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;" type="text" class="form-control"
+                                th:value="${asegurado.persona.tipos_estado_civil.NomEstadoCivil}"
+                                id="validationCustom03" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">FECHA:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;" type="text" class="form-control"
+                                th:value="${fechaH}" id="validationCustom03" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline">HORA:</label>
+                            <input style=" border: none; width: 80%; margin: 7px;" type="text" class="form-control"
+                                th:value="${horaH}" id="validationCustom03" required>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla2">
+            <tbody>
+                <tr style="border-top: 2px solid #3051D3;">
+                    <td>
+                        <div>
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX;">DATOS DEL
+                                INFORMANTE:</label>
+                            <br>
+
+                            <input th:field="${historiaClinica.relacionInformante}" type="text" id="otrosInput"
+                                placeholder="Escriba otro..." style=" margin-left: 20px; height: 30px; display: none;">
+
+                        </div>
+                        <div class="col-md-12" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX;">NOMBRE:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:value="${historialSeguro.asegurado.persona.nombres +' '+ historialSeguro.asegurado.persona.apPaterno + ' '+ historialSeguro.asegurado.persona.apMaterno}"
+                                required>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="col-md-12">
+                            <input th:field="${historiaClinica.relacionInformante}" type="text" id="otrosInput"
+                                placeholder="Escriba otro..." style=" margin-left: 20px; height: 30px; display: none;">
+
+                        </div>
+                        <div class="col-md-12" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX;">DOMICILIO:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:value="${historialSeguro.asegurado.persona.direccion}" required>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla2">
+            <tbody>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold d-inline">SIGNOS
+                            VITALES
+                        </label>
+
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">FC:</label>
+
+                        <input style=" border: none; width: 20%;" type="number" class="form-number"
+                            id="validationCustom03" th:field="${historiaClinica.frecuenciaCardiaca}" required>
+
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px; ">lpm</label>
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">Peso:</label>
+                        <input style=" border: none; width: 20%;" type="number" class="form-numberF"
+                            id="validationCustom03" th:field="${historiaClinica.peso}" required>
+
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">kg</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla2">
+            <tbody>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold d-inline" style="color: rgba(255, 255, 255, 0);">SIGNOS
+                            VITALES
+                        </label>
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">Talla:</label>
+                        <input style=" border: none; width: 20%;" type="number" class="form-numberF"
+                            id="validationCustom03" th:field="${historiaClinica.talla}" required>
+
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px; ">m</label>
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">PA:</label>
+                        <input style=" border: none; width: 30%;" type="number" class="form-numberF"
+                            id="validationCustom03" th:field="${historiaClinica.presiónArterial}" required>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px; ">mmHg</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="font-weight-bold d-inline" style="color: rgba(255, 255, 255, 0);">SIGNOS
+                            VITALES
+                        </label>
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">FR:</label>
+                        <input style=" border: none;  width: 25%;" type="number" class="form-number"
+                            id="validationCustom03" th:field="${historiaClinica.frecuenciaRespiratoria}" required>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px; ">rpm</label>
+                    </td>
+                    <td>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px;">T:</label>
+                        <input style=" border: none; width: 20%;" type="number" class="form-numberF"
+                            id="validationCustomNumber" th:field="${historiaClinica.temperaturaCorporal}" required>
+                        <label for="validationCustom02" class="form-label" style="margin-top: 8px; ">C</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla">
+            <tbody>
+                <tr class="border: 3px solid #3051D3; ">
+                    <td>
+                        <div style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">MOTIVO
+                                DE CONSULTA:</label>
+                            <textarea style=" border: none; width: 100%;" type="text" class="form-control"
+                                id="validationCustom03" th:field="${historiaClinica.motivoConsulta}"></textarea>
+
+                        </div>
+
+
+                        <div style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">ENFERMEDAD
+                                ACTUAL:</label>
+                            <textarea style=" border: none; width: 100%;" type="text" class="form-control"
+                                id="validationCustom03" th:field="${historiaClinica.enfermedadActual}"></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla">
+            <tbody>
+                <tr style="border: 3px solid #3051D3;">
+                    <td style="border-right: 3px solid #3051D3; width: 60%;">
+                        <div>
+                            <div>
+
+                                <div>
+                                    <label for="validationCustom02" class="font-weight-bold d-inline"
+                                        style="margin-top: 10PX; ">Ant.
+                                        Personales
+                                        patologicos</label>
+                                </div>
+
+                                <div style=" display: flex; justify-content: space-around;">
+                                    <label for="validationCustom02" class="font-weight-bold d-inline"
+                                        style="margin-top: 10PX;  ">Enf.
+                                        Congenitas:</label>
+                                    <textarea style=" border: none; " type="text" class="form-control"
+                                        id="validationCustom03" th:field="${historiaClinica.enfCongenitas}"></textarea>
+
+                                </div>
+
+                                <div style=" display: flex; justify-content: space-around;">
+                                    <label for="validationCustom02" class="font-weight-bold d-inline"
+                                        style="margin-top: 10PX;  ">Quirurgicos:</label>
+                                    <textarea style=" border: none; " type="text" class="form-control"
+                                        id="validationCustom03" th:field="${historiaClinica.quirurgicos}"></textarea>
+
+                                </div>
+
+                                <div style=" display: flex; justify-content: space-around;">
+                                    <label for="validationCustom02" class="font-weight-bold d-inline"
+                                        style="margin-top: 10PX;  ">Alergias:</label>
+                                    <textarea style=" border: none; " type="text" class="form-control"
+                                        id="validationCustom03"
+                                        th:field="${historiaClinica.alergiasPatologicos}"></textarea>
+                                </div>
+
+
+
+                                <div>
+                                    <label for="validationCustom02" class="font-weight-bold d-inline"
+                                        style="margin-top: 10PX; ">Patologias:</label>
+
+                                    <input class="OTROS2" th:field="${historiaClinica.patologias}" type="radio"
+                                        name="radioPat" value="HTA">
+                                    HTA
+
+                                    <input class="OTROS2" th:field="${historiaClinica.patologias}" type="radio"
+                                        name="radioPat" value="DM" style="margin-left: 5px;">
+                                    DM
+
+                                    <input class="OTROS2" name="patologias" type="radio" value="OTROS"
+                                        style="margin-left: 20px;">
+                                    OTROS
+                                    <!-- OTROS2 -->
+                                    <input th:field="${historiaClinica.patologias}" type="text" id="otrosInput1"
+                                        placeholder="Escriba otro..."
+                                        style="border-color: #3051D3; margin: 5px; display: none; width: 30%; height: 30px;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <label style="white-space: nowrap; margin-top: 10PX;" for="validationCustom12"
+                                class="font-weight-bold d-inline">Ant.
+                                Familiares
+                                Patologicos</label>
+                            <textarea th:field="${historiaClinica.antFamiliaresPatologicos}" style="border: none;  width: 100%; 
+                                resize: none;
+                                 height: 175px;
+                                padding: 0px;" class="form-control" id="exampleFormControlTextarea1"
+                                rows="3"></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tabla">
+            <tbody>
+
+                <tr style="border: 3px solid #3051D3;">
+                    <td>
+                        <div class="col-md-12">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; ">Ant.
+                                Personales
+                                No patologicos</label>
+
+
+                        </div>
+
+                        <div class="col-md-12" style=" display: flex; justify-content: space-around;">
+
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">Grupo
+                                Sanguineo:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:field="${historiaClinica.grupoSanguineo}" required>
+
+                        </div>
+
+                        <div class="col-md-6" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX;">Alergias:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:field="${historiaClinica.alergiasNoPatologicos}" required>
+
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; ">Factores
+                                de
+                                riesgo:</label>
+                            <!-- factoresRiesgo4 -->
+
+                            <input class="OTROS3" th:field="${historiaClinica.factoresRiesgo}" type="radio"
+                                name="factoresRiesgo" value="Tabaquismo" required>
+                            Tabaquismo
+
+                            <input class="OTROS3" th:field="${historiaClinica.factoresRiesgo}" type="radio"
+                                name="factoresRiesgo" value="Alcoholismo" style="margin-left: 5px;" required>
+                            Alcoholismo
+
+                            <input class="OTROS3" th:field="${historiaClinica.factoresRiesgo}" type="radio"
+                                name="factoresRiesgo" value="Drogas" style="margin-left: 5px;" required>
+                            Drogas
+
+                            <input class="OTROS3" name="factoresRiesgo" type="radio" value="OTROS"
+                                style="margin-left: 5px;" required>
+                            Otros
+
+                            <!-- OTROS3 -->
+
+                            <input th:field="${historiaClinica.factoresRiesgo}" type="text" id="otrosInput2"
+                                placeholder="Escriba otro..."
+                                style="border-color: #3051D3; margin-left: 20px; height: 30px; display: none;">
+                        </div>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3;">
+                    <td>
+                        <div class="col-md-12">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">Antecedentes
+                                Gineco-obstetricos</label>
+                        </div>
+
+                        <div class="col-md-6" style=" display: flex; align-items: center;">
+
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; ">Menarca:</label>
+
+                            <input style=" border: none; width: 12%; margin-top: 5PX;" min="0" type="number"
+                                class="form-number" id="validationCustom03" th:field="${historiaClinica.menarca}"
+                                required>
+
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; width: 50%;">Año</label>
+
+                        </div>
+
+                        <div class="col-md-6" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">Menst.
+                                Ritmo:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:field="${historiaClinica.menstRitmo}" required>
+                        </div>
+
+
+
+
+                        <div class="col-md-6" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">Met.
+                                Anticeptivo:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:field="${historiaClinica.metodoAnticeptivo}" required>
+                        </div>
+
+                        <div class="col-md-6" style=" display: flex; justify-content: space-around;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 10PX; white-space: nowrap;">Menopausia:</label>
+                            <input style=" border: none; " type="text" class="form-control" id="validationCustom03"
+                                th:field="${historiaClinica.menopausia}" required>
+                        </div>
+
+                        <div class="col-md-4" style="padding: 0px; display: flex; align-items: center;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style=" white-space: nowrap; margin: 0 5px;">Vida
+                                sexual:</label>
+
+                            <input th:field="${historiaClinica.vidaSexual}" type="radio" name="radioRies" value="+"
+                                style=" margin: 0 12px;" required>+
+                            <input th:field="${historiaClinica.vidaSexual}" type="radio" name="radioRies" value="-"
+                                style=" margin:  0 12px;" required>-
+                        </div>
+
+                        <div class="col-md-2" style="padding: 0px; display: flex; align-items: center;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 5PX; white-space: nowrap;">G:</label>
+
+                            <input style=" border: none; width: 27%;" type="number" class="form-number" id="numeroInput"
+                                th:field="${historiaClinica.numeroEmbarazos}" min="0" required>
+                        </div>
+                        <div class="col-md-2" style=" display: flex; align-items: center;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 5PX; white-space: nowrap;">P:</label>
+                            <input style=" border: none; width: 30%;" type="number" class="form-number" id="numeroInput"
+                                th:field="${historiaClinica.numeroPartos}" min="0" required>
+                        </div>
+                        <div class="col-md-2" style=" display: flex; align-items: center;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style="margin-top: 5PX; white-space: nowrap;">C:</label>
+                            <input style=" border: none; width: 30%;" type="number" class="form-number" id="numeroInput"
+                                th:field="${historiaClinica.numeroAbortos}" min="0" required>
+                        </div>
+                        <div class="col-md-2" style=" display: flex;     align-items: center;">
+                            <label for="validationCustom02" class="font-weight-bold d-inline"
+                                style=" white-space: nowrap; margin-top: 5PX; ">A:</label>
+                            <input style=" border: none; width: 30%;" type="number" class="form-number" id="numeroInput"
+                                th:field="${historiaClinica.numeroCesarias}" min="0" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 30%; border-left: 3px solid #3051D3;">
+                        <div class="">
+
+                            <div class="col-md-6">
+                                <label for="validationCustom02" class="font-weight-bold d-inline"
+                                    style=" margin-top: 5px; ">ESTADO
+                                    DEL PACIENTE IMPRESIÓN
+                                    GENERAL:</label>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 70%; border-right: 3px solid #3051D3;">
+                        <textarea th:field="${historiaClinica.estadoPaciente}" style="  resize: none; border: none;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">CABEZA:</label>
+                        <p th:text="${historiaClinica.cabeza}" style=" resize: none; border: none; height: 80px; "
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">CUELLO:</label>
+
+                        <p th:text="${historiaClinica.cuello}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">TORAX:</label>
+
+                        <textarea th:field="${historiaClinica.torax}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">ABDOMEN:</label>
+
+                        <p th:text="${historiaClinica.abdomen}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">EXTREMIDADES:</label>
+
+                        <p th:text="${historiaClinica.extremidades}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">NEUROLOGICO:</label>
+
+                        <p th:text="${historiaClinica.neurologico}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX; white-space: nowrap; " for="validationCustom12"
+                            class="font-weight-bold d-inline">EXAMENES
+                            COMPLEMENTARIOS:</label>
+
+                        <p th:text="${historiaClinica.examenesComplementarios}"
+                            style=" resize: none; border: none; height: 80px;" class="form-control"
+                            id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">DIAGNOSTICO:</label>
+
+                        <p th:text="${historiaClinica.diagnostico}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+                <tr style="border: 3px solid #3051D3; padding: 0;">
+                    <td>
+                        <label style=" margin-top: 10PX;" for="validationCustom12"
+                            class="font-weight-bold d-inline">TRATAMIENTO:</label>
+
+                        <p th:text="${historiaClinica.tratamiento}" style=" resize: none; border: none; height: 80px;"
+                            class="form-control" id="exampleFormControlTextarea1" rows="3"></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+    <div class="col-md-4 firma" style="margin-top: 60px; border-top: 3px solid black;">
+
+        <label style=" margin-top: 10PX;  display: flex; justify-content: space-around;" for="validationCustom12"
+            class="font-weight-bold d-inline">SELLO DEL
+            MEDICO</label>
+
+    </div>
+    <div class="botonEmprimir">
+        <a class="btn btn-primary" type="button" style="color: white;" href="javascript: window.print()">imprimir</a>
+
+    </div>
+    <!-- End Page-content -->
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar 
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>-->
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+
+    <script>
+        document.getElementById('registrarButton').addEventListener('click', function () {
+            // Realizar una solicitud AJAX a /fichaEstado
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/fichaEstado', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Redireccionar o manejar la respuesta según sea necesario
+                        window.location.href = '/formHistorialClinico';
+                    } else {
+                        // Manejar errores si es necesario
+                        console.error('Error al realizar la solicitud AJAX');
+                    }
+                }
+            };
+
+            xhr.send();
+        });
+    </script>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+
+
+
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+    <script src="../../../../assets/js/app.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS1').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput').show();
+                } else {
+                    $('#otrosInput').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+    <!-- OTROS2 -->
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS2').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput1').show();
+                } else {
+                    $('#otrosInput1').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+
+    <!-- OTROS3 -->
+
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS3').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput2').show();
+                } else {
+                    $('#otrosInput2').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+
+    <!-- OTROS1 -->
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS1').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput').show();
+                } else {
+                    $('#otrosInput').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+    <!-- OTROS2 -->
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS2').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput1').show();
+                } else {
+                    $('#otrosInput1').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+
+    <!-- OTROS3 -->
+
+    <script>
+        $(document).ready(function () {
+
+            $('.OTROS3').change(function () {
+
+                if ($(this).val() === 'OTROS') {
+                    $('#otrosInput2').show();
+                } else {
+                    $('#otrosInput2').hide().val('');
+                }
+            });
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

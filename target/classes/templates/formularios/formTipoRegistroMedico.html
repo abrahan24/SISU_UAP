@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" th:if="${modalVentana == null}">
+
+<head>
+    <meta charset="utf-8" />
+    <title>TIPO REGISTRO MEDICO | SISU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
+
+    <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../../../icono_fontawesome6.4.0/css/all.css">
+    <link rel="stylesheet" href="../../../../icono_fontawesome6.4.0/css/fontawesome.pro.min.css">
+    <link rel="stylesheet" href="../../../../assets/css/select2 4.1.css">
+    <link rel="stylesheet" href="../../../../assets/css/sweetaler2.css">
+</head>
+
+<body data-topbar="colored">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div th:insert="~{layout/sidebar :: sidebar}"></div>
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">FORMULARIO DE REGISTRO TIPO REGISTRO MEDICO</h4>
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                                    <li class="breadcrumb-item active">Form Validation</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="float-right d-none d-md-block">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-settings-outline mr-1"></i> Settings
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="needs-validation"
+                                            th:action="${edit}? @{/ModificarTipoRegistroMedico}: @{/RegistrarTipoRegistroMedico2}"
+                                            method="post">
+                                            <input type="hidden" th:field="${tipoRegistroMed.idTipoRegistroMedico}"
+                                                th:if="${tipoRegistroMed.idTipoRegistroMedico !=null}">
+                                            <h4 class="header-title"
+                                                th:text="${edit}? 'MODIFICA LOS SIGUIENTES DATOS': 'INTRODUZCA LOS SIGUIENTES DATOS'">
+                                            </h4>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="validationCustom01">Descripción</label>
+                                                    <input type="text" class="form-control" name="descripcion"
+                                                        id="descripcion" th:field="${tipoRegistroMed.descripcion}"
+                                                        placeholder="Introduce Descripción" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationCustom01">Nombre Tipo Registro Médico</label>
+                                                    <input type="text" class="form-control" name="descripcion"
+                                                        id="descripcion"
+                                                        th:field="${tipoRegistroMed.nombTipoRegistroMedico}"
+                                                        placeholder="Introduce Tipo Registro Médico" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div id="botonSubmit">
+                                                    <input type="submit" class="btn btn-success"
+                                                        th:value="${edit}? 'Modificar' :'Registrar'">
+                                                </div>
+                                                <button th:id="${edit}? 'botonCerrarM' :'botonCerrarR'"
+                                                    th:if="${tipoRegistroMed.idTipoRegistroMedico !=null}"
+                                                    class="btn btn-secondary">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end page-content-wrapper -->
+            </div>
+            <!-- End Page-content -->
+
+            <div th:insert="~{layout/footer :: footer}"></div>
+        </div>
+        <!-- end main content-->
+        <!-- formulario modal -->
+        <div>
+
+        </div>
+    </div>
+    <!-- END layout-wrapper -->
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+    <script src="../../../../assets/js/pages/jquery-3.7.0.min.js"></script>
+    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- alert -->
+    <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
+    <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+    <script src="../../../../assets/libs/icono_fontawesome6.4.0/js/all.js"></script>
+    <script src="../../../../assets/libs/icono_fontawesome6.4.0/js/all.min.js"></script>
+    <script src="../../../../assets/js/pages/dayjs.min.js"></script>
+    <script src="../../../../assets/js/pages/datepicker-bs4.js"></script>
+    <script src="../../../../assets/js/pages/swallAlert2.js"></script>
+
+
+    <script src="../../../../assets/js/app.js"></script>
+    <script src="../../../../assets/js/pages/select2 4.1.js"></script>
+    <!-- Right Sidebar -->
+
+
+</body>
+
+</html>
+
+<th:block th:if="${modalVentana != null}">
+    <form class="needs-validation"
+        th:action="${edit}? @{/ModificarTipoRegistroMedico}: @{/RegistrarTipoRegistroMedico}" method="post"
+        id="FormularioTipoRegistroMedico">
+        <input type="hidden" th:field="${tipoRegistroMed.idTipoRegistroMedico}"
+            th:if="${edit == 'true'}">
+        <h4 class="header-title" th:text="${edit}? 'MODIFICA LOS SIGUIENTES DATOS': 'INTRODUZCA LOS SIGUIENTES DATOS'">
+        </h4>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="validationCustom01">Nombre Tipo Registro Médico</label>
+                <input type="text" class="form-control" name="nombTipoRegistroMedico" id="nombTipoRegistroMedico"
+                    th:field="${tipoRegistroMed.nombTipoRegistroMedico}" placeholder="Introduce Tipo Registro Médico"
+                    required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom01">Descripción</label>
+                <input type="text" class="form-control" name="descripcion" id="descripcion"
+                    th:field="${tipoRegistroMed.descripcion}" placeholder="Introduce Descripción" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div id="botonSubmit">
+                <input type="submit" class="btn btn-success" th:value="${edit}? 'Modificar' :'Registrar'">
+            </div>
+            <button id="botonCerrarR" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+    </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // FORMULARIO RECETA REMEDIO
+            $('#FormularioTipoRegistroMedico').submit(function (event) {
+                event.preventDefault();
+                var form = this;
+                var action = $(this).attr('action');
+                var textAction = action.split("/");
+                var mens = "Registrando...";
+                var postMens = "Se Registró el Tipo Registro Médico Correctamente";
+                //alert(textAction[textAction.length - 1]);
+                if (textAction[textAction.length - 1] === "ModificarTipoRegistroMedico") {
+                    mens = "Modificando...";
+                    postMens = "Se Modificó el Tipo Registro Médico Correctamente";
+                }
+                $('#botonSubmit').html('<button class="btn btn-success" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + mens + '</button>');
+                Swal.fire({
+                    title: mens,
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: action,
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response === 'Registrar' || response === 'Modificar') {
+                            CargarTabla();
+                        Swal.fire({
+                            icon: 'success',
+                            title: postMens,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        }
+                        if (response === 'No registrar') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Imposible Registrar',
+                            text: "Ya existe un registro con este nombre",
+                            showConfirmButton: true
+                        });
+                        }
+                        $('#botonCerrarR').click();
+                        /*if (textAction[textAction.length - 1] === "ModificarReceta") {
+                            $('#botonCerrarM').click();
+                        } else {
+                            $('#botonCerrarR').click();
+                        }*/
+                        
+                    },
+                    error: function (xhr, status, error) {
+                        // Aquí puedes manejar errores o mostrar un mensaje de error
+                        console.error(error);
+                    }
+                });
+            });
+
+        });
+    </script>
+</th:block>

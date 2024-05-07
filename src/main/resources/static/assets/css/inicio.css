@@ -1,0 +1,26 @@
+#welcomeText {
+    font-size: 60px;
+    font-weight: bold; /* Hace que las letras sean más gruesas */
+    background: linear-gradient(45deg, #0306e0, #ca0303); /* Crea un fondo degradado */
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: initialAnimation 2s ease-in-out;
+    white-space: nowrap; /* Para evitar saltos de línea */
+}
+
+@keyframes initialAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.input-group {
+    display: flex;
+    align-items: flex-end;
+}
+

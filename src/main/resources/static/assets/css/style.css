@@ -1,0 +1,88 @@
+/* Estilo para pantallas de escritorio */
+#passwordInput {
+    width: 200px;
+}
+
+/* Estilo para pantallas más pequeñas, como tablets y móviles */
+@media (max-width: 768px) {
+    #passwordInput {
+        width: 100%;
+    }
+}
+
+.btn-rounde {
+    border: none; /* Elimina el borde */
+    background-color: #3498db; /* Color de fondo predeterminado */
+    color: #fff; /* Color de texto predeterminado */
+    padding: 5px 10px; /* Ajusta el espaciado interior según tus preferencias */
+    border-radius: 50%; /* Hace que el botón sea redondo */
+    transition: background-color 0.3s, color 0.3s; /* Agrega una transición suave */
+}
+
+.btn-rounde:hover {
+    background-color: #e74c3c; /* Cambia el color de fondo al pasar el cursor sobre el botón */
+}
+
+/*------------------MODAL-----------------------*/
+
+/* Estilo para centrar el formulario y sus elementos */
+.form-horizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.form-group-custom {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+}
+
+.btn {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Aumenta el z-index del calendario para que aparezca por encima del modal */
+.datepicker {
+    z-index: 1060; /* Aumenta el z-index del calendario */
+}
+
+.datepicker.datepicker-open {
+    position: absolute !important;
+}
+
+.clave {
+    display: none; /* Oculta la clave por defecto */
+}
+
+.toggle-button {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    background-color: transparent; /* Fondo transparente del botón */
+    border: none; /* Sin borde en el botón */
+    color: blue; /* Color de texto para el botón */
+    text-decoration: underline; /* Texto subrayado para indicar que es un enlace */
+}
+
+
+.clave-oculta {
+    display: none;
+}
+
+/* Modal de CajaFicha*/
+.modal-dialog {
+    max-width: 900px;
+    margin: 1.75rem auto;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+
+

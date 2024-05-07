@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <div th:fragment="contentTipoReceta">
+        <input type="hidden" th:field="${tipoReceta.idTipoRe}">
+        <div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="DesacripcionTipoReceta">Descripcion tipo Receta</label>
+                    <input type="text" name="tipoReceta" th:field="${tipoReceta.descripcionReceta}"
+                        placeholder="descripción" class="form-control" id="useremailA" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="">Vigencia Tipo Receta</label>
+                    <input type="text" name="tipoReceta" th:field="${tipoReceta.vigencia_receta}"
+                        placeholder="vigencia" class="form-control" id="userpasswordB" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------------------------Estado Receta----------------------------------------------------- -->
+
+    <div th:fragment="contentEstadoReceta">
+        <input type="hidden" th:field="${estadoReceta.idEstadoReceta}">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Estado receta</label>
+                <input type="text" class="form-control" id="validationCustom01" th:field="${estadoReceta.nombreEstado}" placeholder="Introduce el Estado" required >
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Descripcion</label>
+                <input type="text" class="form-control" id="validationCustom01" th:field="${estadoReceta.descripcion}" placeholder="Introduce una descripcion" required >
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+      
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------------------ -->
+
+    <div th:fragment="contentTp">
+        <input type="hidden" th:field="${tipoProveedor.idTipoProveedor}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <p class="card-title-desc">For custom Bootstrap form validation messages, you’ll need to add the
+            <code>novalidate</code>
+            boolean attribute to your <code>&lt;form&gt;</code>.</p>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Nombre Tipo Proveedor</label>
+                <input type="text" class="form-control" name="tipoProveedor" id="validationCustom01"
+                    th:field="${tipoProveedor.nombreProveedor}" placeholder="Introduce tu nombre" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-12 mb-6">
+                <label for="validationCustom02">Descripcion del tipo proveedor</label>
+                <input type="text" class="form-control" name="tipoProveedor" id="validationCustom02"
+                    th:field="${tipoProveedor.descripcion}" placeholder="Introduce tu apellido paterno" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------------------ -->
+
+    <div th:fragment="contentProveedor">
+        <input type="hidden" th:field="${proveedor.idProveedor}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <p class="card-title-desc">For custom Bootstrap form validation messages, you’ll need to add the
+            <code>novalidate</code>
+            boolean attribute to your <code>&lt;form&gt;</code>.</p>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Nombre Proveedor</label>
+                <input type="text" class="form-control" name="proveedor" id="validationCustom01"
+                    th:field="${proveedor.nombreProveedor}" placeholder="Introduce un nombre" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom06">NIT</label>
+                <input type="number" class="form-control" th:field="${proveedor.NIT}" placeholder="Introduce un NIT"
+                    required>
+                <div class="invalid-feedback">Debes introducir un NIT</div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Tipo Proveedor</label>
+                <select class="custom-select" th:field="${proveedor.tipo_proveedor}" required>
+                    <option value="">Seleciones una opcion</option>
+                    <th:block th:each="pro: ${tipoProveedores}" th:if="${pro.estado != 'X'}">
+                        <option th:value="${pro.idTipoProveedor}" th:text="${pro.nombreProveedor}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar un Estado Civil</div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="validationCustom02">Descripcion del Proveedor</label>
+                <input type="text" class="form-control" name="proveedor" id="validationCustom02"
+                    th:field="${proveedor.descripcion}" placeholder="Introduce la descripcion del proveedor" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label for="validationCustom02">Direccion</label>
+                <input type="text" class="form-control" name="proveedor" id="validationCustom02"
+                    th:field="${proveedor.direccion}" placeholder="Introduce la direccion" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="contentProveedor">
+
+
+
+
+
+        
+    </div>
+
+
+    <!-- ------------------------------------------------------------------------------------------ -->
+
+    <div th:fragment="contentRemedioLote">
+        <input type="hidden" th:field="${remedioLote.idRemedioLote}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <p class="card-title-desc">For custom Bootstrap form validation messages, you’ll need to add the
+            <code>novalidate</code>
+            boolean attribute to your <code>&lt;form&gt;</code>.</p>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Precio Lote</label>
+                <input type="number" class="form-control" name="remedioLote" id="validationCustom01"
+                    th:field="${remedioLote.precioLote}" placeholder="Introduce el precio lote" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom04">Fecha </label>
+                <input type="date" name="remedioLote" th:field="${remedioLote.fechaVencimiento}"
+                    class="form-control datepicker-here" data-language="en" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">Debes introducir una fecha</div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Cantidad</label>
+                <input type="number" class="form-control" th:field="${remedioLote.cantidad}"
+                    placeholder="Introduce una cantidad" required>
+                <div class="invalid-feedback">Debes introducir una cantidad</div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Numero Lote</label>
+                <input type="number" class="form-control" name="remedioLote" id="validationCustom02"
+                    th:field="${remedioLote.numeroLote}" placeholder="Introduce un numero lote" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Tipo Proveedor</label>
+                <select class="custom-select" th:field="${remedioLote.proveedor}" required>
+                    <option value="">Seleciones una opcion</option>
+                    <th:block th:each="prov: ${proveedores}" th:if="${prov.estado != 'X'}">
+                        <option th:value="${prov.idProveedor}" th:text="${prov.nombreProveedor}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar un Estado Civil</div>
+            </div>
+        </div>
+    </div>
+
+     <!-- --------------------------------  Servicio  ------------------------------------- -->
+     <div th:fragment="contentServicio">
+        <input type="hidden" th:field="${servicio.idServicio}">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Servicio</label>
+                <input type="text" class="form-control" id="validationCustom01" th:field="${servicio.servicios}" placeholder="Introduce Servicio" required >
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">Descripcion</label>
+                <input type="text" class="form-control" id="validationCustom01" th:field="${servicio.descripcion}" placeholder="Introduce una descripcion" required >
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+                    
+        </div>
+    </div>
+         <!-- --------------------------------  Servicio Medico  ------------------------------------- -->
+
+   
+         <div th:fragment="contentServicioMedico">
+            <input type="hidden" th:field="${servicioMedico.idServicioMedico}">
+            <div class="row">
+              
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Cantidad de Fichas</label>
+                    <input type="number" class="form-control" id="validationCustom01" th:field="${servicioMedico.cantidad_fichas}" placeholder="Cantidad de fichas" required >
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+          
+            </div>
+        </div>
+
+    <!-- -------------------------------------Medico Servicio----------------------------------------------------- -->
+
+    <div th:fragment="contentMedicoServicio">
+        <input type="hidden" th:field="${medicoServicio.idMedicoServicio}">     
+        <div class="row">
+               <div class="col-md-4 mb-3">
+                   <label for="validationCustom01">MEDICO SERVICIO</label>
+                   <input type="date" class="form-control" id="validationCustom01" th:field="${medicoServicio.fechaAsignacion}" placeholder="fecha Asignacion" required >
+                   <div class="valid-feedback">
+                       Looks good!
+                   </div>
+               </div>
+           </div>
+       </div>
+ 
+
+
+</body>
+
+</html>

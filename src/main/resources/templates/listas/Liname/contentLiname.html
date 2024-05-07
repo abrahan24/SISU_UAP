@@ -1,0 +1,230 @@
+
+<!------------------------------------------------------------Liname-------------------------------------------------------------------->
+
+<div th:fragment="contentLiname">
+    <input type="hidden" th:field="${listLiname.idLiname}">
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Medicamento</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="liname" th:field="${listLiname.medicamento}" placeholder="medicamento"
+                        class="form-control" id="listLiname" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Concentracion</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="listLiname" th:field="${listLiname.concentracion}" placeholder="0.00 gr"
+                        class="form-control" id="liname1" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Codigo Liname</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="liname" th:field="${listLiname.codigoLiname}" placeholder="code"
+                        class="form-control" id="listLiname" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Codigo ATQ</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="listLiname" th:field="${listLiname.codigoATQ}" placeholder="ATQ"
+                        class="form-control" id="liname1" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Fecha Incluido</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="date" name="listLiname" th:field="${listLiname.fechaIncluido}" placeholder="last name"
+                        class="form-control" id="liname2" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Fecha Excluido</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="date" name="listLiname" th:field="${listLiname.fechaExcluido}" placeholder="last name"
+                        class="form-control" id="liname3" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Medicamento en:</label>
+                <div class="form-group form-group-custom mb-6">
+                    <select class="custom-select" name="farmaceutica" >
+                      <option value="">Elegir..</option>
+                      <th:block th:each="f: ${farmaceuticas}" th:if="${f.estadoFF != 'X'}">
+                      <th:block th:if="${listLiname.forma_farmaceutica != null}"> 
+                        <option th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica == f.idFormaFarmaceutica}" th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}" selected></option>
+                        <option th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica != f.idFormaFarmaceutica}" th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"></option>
+                     </th:block>
+                       <!-- <option th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"></option> -->
+                      </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">De uso:</label>
+                <div class="form-group form-group-custom mb-6">
+                <select class="custom-select" name="tipoUso" >
+                    <option value="">Elegir..</option>
+                    <th:block th:each="tu: ${tipoUsos}" th:if="${tu.estado != 'X'}">
+                    <th:block th:if="${listLiname.tipo_uso != null}">
+                        <option th:if="${listLiname.tipo_uso.idTipoUso == tu.idTipoUso}" th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}" selected></option>
+                        <option th:if="${listLiname.tipo_uso.idTipoUso != tu.idTipoUso}" th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}"></option>
+                    </th:block>
+                    </th:block>
+                </select>
+                </div>
+            </div>
+        </div>
+       
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!------------------------------------------------------------Historial-------------------------------------------------------------------->
+
+<div th:fragment="contentHistorial">
+    <input type="hidden" th:field="${historialLiname.idHistorialLiname}">
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Medicamento</label>
+                <div class="form-group form-group-custom mb-6">
+                    <select class="custom-select" name="listaLiname" >
+                      <option value="">Elegir..</option>
+                      <th:block th:each="ls: ${listaLinames}" th:if="${ls.estadoLiname != 'X'}">
+                      <th:block th:if="${historialLiname.lista_liname != null}">
+                        <option th:if="${historialLiname.lista_liname.idLiname == ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.medicamento}" selected></option>
+                        <option th:if="${historialLiname.lista_liname.idLiname != ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.medicamento}"></option>
+                      </th:block>
+                      </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Concentracion</label>
+                <div class="form-group form-group-custom mb-6">
+                    <select class="custom-select" name="listaLiname" >
+                      <option value="">Elegir..</option>
+                      <th:block th:each="ls: ${listaLinames}" th:if="${ls.estadoLiname != 'X'}">
+                        <th:block th:if="${historialLiname.lista_liname != null}">
+                            <option th:if="${historialLiname.lista_liname.idLiname == ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.concentracion}" selected></option>
+                            <option th:if="${historialLiname.lista_liname.idLiname != ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.concentracion}"></option>
+                        </th:block>
+                      </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Precio</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="historialLiname" th:field="${historialLiname.precio}" placeholder="0.00$"
+                        class="form-control" id="historialLiname" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Observacion</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="historialLiname" th:field="${historialLiname.observacion}" placeholder="Descripcion"
+                        class="form-control" id="historial1" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Fecha</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="date" name="historialLiname" th:field="${historialLiname.fechaHistorialLiname}" placeholder="last name"
+                        class="form-control" id="historial2" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Codigo Liname</label>
+                <div class="form-group form-group-custom mb-6">
+                    <select class="custom-select" name="listaLiname" >
+                      <option value="">cod liname..</option>
+                      <th:block th:each="ls: ${listaLinames}" th:if="${ls.estadoLiname != 'X'}">
+                        <th:block th:if="${historialLiname.lista_liname != null}">
+                            <option th:if="${historialLiname.lista_liname.idLiname == ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.codigoLiname}" selected></option>
+                            <option th:if="${historialLiname.lista_liname.idLiname != ls.idLiname}" th:value="${ls.idLiname}" th:text="${ls.codigoLiname}"></option>
+                        </th:block>
+                      </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!------------------------------------------------------------Uso-------------------------------------------------------------------->
+
+<div th:fragment="contentTipoUso">
+    <input type="hidden" th:field="${tipoUso.idTipoUso}">
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">De usu:</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="tipoUso" th:field="${tipoUso.nombreTipoUso}" placeholder=""
+                        class="form-control" id="tipoUso" required>
+                </div>
+            </div>
+           
+            <div class="col-sm-6">
+                <label for="validationCustom01">Descripcion</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="tipoUso" th:field="${tipoUso.descripcion}" placeholder="ATQ"
+                        class="form-control" id="tipoUso1" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!------------------------------------------------------------FormaFarmaceutica-------------------------------------------------------------------->
+
+<div th:fragment="contentFarmaceutica">
+    <input type="hidden" th:field="${formaFarmaceutica.idFormaFarmaceutica}">
+    <div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="validationCustom01">Tipo Medicamento</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="formaFarmaceutica" th:field="${formaFarmaceutica.nombreFormaFarmaceutica}" placeholder="forma"
+                        class="form-control" id="formaFarmaceutica" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="validationCustom01">Descripcion</label>
+                <div class="form-group form-group-custom mb-6">
+                    <input type="text" name="formaFarmaceutica" th:field="${formaFarmaceutica.descripcion}" placeholder="descripcion"
+                        class="form-control" id="formaFarmaceutica1" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

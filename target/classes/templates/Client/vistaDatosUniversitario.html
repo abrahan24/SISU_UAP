@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>INFORMACION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesdesign" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/logoS.png">
+
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <!-- btnficha -->
+        <link rel="stylesheet" href="assets/css/btnficha.css">
+
+    </head>
+
+    <body>
+        <div class="home-btn d-none d-sm-block">
+            <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
+        </div>
+
+        <div class="account-pages my-3 pt-sm-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="text-center mb-5">
+                            <img src="assets/images/logoS.png" height="100" alt="logo">
+                            <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
+                            <p class="text-muted">Universidad Amazonica de Pando</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">     
+                        <div class="row justify-content-center" style="height: 20vh;">
+                            <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 600px;">
+                                <div class="card bg-light">
+                                    <div class="card-body p-4">   
+                                        <form action="/generarFicha" method="post">
+                                            <input type="hidden" id="codigoUniversitario" name="codigoUniversitario" value="${codigoUniversitario}" />
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="nombreUniversitario">Nombre del Universitario:</label>
+                                                    <input type="text" id="nombreUniversitario" name="nombreUniversitario" class="form-control" th:value="${nombreUniversitario}" readonly>
+                                                </div>
+                                                
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="urlImagen">Foto Univeristario</label>
+                                                    <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="apPaterno">Apellido Paterno</label>
+                                                    <input type="text" id="apPaterno" name="apPaterno" class="form-control" th:value="${apPaterno}" readonly>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="apMaterno">Apellido Materno</label>
+                                                    <input type="text" id="apMaterno" name="apMaterno" class="form-control" th:value="${apMaterno}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="ci">CI:</label>
+                                                    <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="ru">RU:</label>
+                                                    <input type="text" id="ru" name="ru" class="form-control" th:value="${ru}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" th:value="${fechaNacimiento}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="direccion">Dirección:</label>
+                                                    <input type="text" id="direccion" name="direccion" class="form-control" th:value="${direccion}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="correo">Correo:</label>
+                                                    <input type="text" id="correo" name="correo" class="form-control" th:value="${correo}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="celular">Celular:</label>
+                                                    <input type="text" id="celular" name="celular" class="form-control" th:value="${celular}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="carrera">Carrera:</label>   
+                                                    <input type="text" id="carrera" name="carrera" class="form-control" th:value="${carrera}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="tipoSanguineo">Tipo Sanguíne:</label>
+                                                    <input type="text" id="tipoSanguineo" name="tipoSanguineo" class="form-control" th:value="${tipoSanguineo}" readonly>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="sexo">Sexo:</label>
+                                                    <input type="hidden" id="codigoAsegurado" name="codigoAsegurado" value="${codigoAsegurado}">
+
+                                                    <input type="text" id="sexo" name="sexo" class="form-control" th:value="${sexo}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="estadoMatriculacion">Estado Matricula</label>
+                                                    <input type="text" id="estadoMatriculacion" name="estadoMatriculacion" class="form-control" th:value="${estadoMatriculacion}" readonly>
+                                                    <p th:if="${estadoMatriculacion}" class="text-success">Matrícula activa</p>
+                                                    <p th:if="${!estadoMatriculacion}" class="text-danger">Matrícula inactiva</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-right mt-3">
+                                                
+                                                <button type="submit" class="btn btn-success mr-2" th:text="${estadoMatriculacion ? 'Generar Ficha' : 'Generar Ficha Particular'}" name="submitGenerarFicha"></button>
+                                                <button type="submit" class="btn btn-secondary" name="submitCancelar" formaction="/inicioCliente">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+        <!-- end Account pages -->
+
+    
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+
+        <script src="assets/js/app.js"></script>
+
+    </body>
+</html>

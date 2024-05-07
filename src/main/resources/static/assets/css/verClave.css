@@ -1,0 +1,11 @@
+.clave {
+    display: none; /* Oculta la clave por defecto */
+}
+
+.toggle-button {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    background-color: transparent; /* Fondo transparente del botón */
+    border: none; /* Sin borde en el botón */
+    color: blue; /* Color de texto para el botón */
+    text-decoration: underline; /* Texto subrayado para indicar que es un enlace */
+}

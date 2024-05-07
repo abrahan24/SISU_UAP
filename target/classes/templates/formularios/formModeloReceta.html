@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>MODELO RECETA | SISU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+  <meta content="Themesdesign" name="author" />
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="../../../../assets/images/favicon.ico">
+
+  <!-- DataTables -->
+  <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+    type="text/css" />
+  <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+    type="text/css" />
+
+  <!-- Responsive datatable examples -->
+  <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+    type="text/css" />
+
+  <!-- Bootstrap Css -->
+  <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <!-- Icons Css -->
+  <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+  <!-- App Css-->
+  <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+  <style>
+    
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 2px solid black; /* Cambiado el color a negro */
+            text-align: left;
+            padding: 8px;
+        }
+    
+       textarea{
+          width: 900px;
+        }
+    
+        th{
+          color: black;
+        }
+        input[name="medicamento"] {
+          width: 300px;
+        }
+        h2 {
+          font-size: 30px;
+          font-family: 'Times New Roman';
+          text-align: center;
+        }
+      
+        input[name="NOMBRE"] {
+          width: 300px;
+          min-height: 0px;
+        } 
+
+        input[name="CÓDIGO"] {
+          width: 115px;
+          min-height: 10px;
+        }
+
+        input[name="ASEG/AFIL"] {
+          width: 300px;
+          min-height: 12px;
+        }
+
+        label[for="CÓDIGO"] {
+          margin-left: 290px;
+        }
+
+        label[for="FECHA"] {
+          margin-left: 290px;
+        }  
+</style>
+
+</head>
+
+ <body data-topbar="colored">
+   
+
+        <!-- ========== Left Sidebar Start ========== -->
+    <!-- <div th:insert="~{layout/sidebar :: sidebar}"></div> -->
+      <!-- Left Sidebar End -->
+
+      <!-- ============================================================== -->
+      <!-- Start right Content here -->
+      <!-- ============================================================== -->
+    <div class="main-content">
+      <div class="page-content">
+        <table width="98%" class='table table-bordered' align="center">
+          <tr>
+            <td colspan="3" align="right">
+              <table width="98%" class='table table-bordered' align="center">
+                <tr>
+                  <td rowspan="3" width="20%" align="center">
+                    <center><img border="0" src="../../../../assets/images/logoS.png" 
+                        width="180" height="180"></center>
+                  </td>
+                  <td align="center">
+                    <font size="6">
+                      <h2><b>Universidad Amazónica de Pando</b></h2>
+                    </font>
+                  </td>
+                  <td rowspan="3" width="20%" align="center">
+                    <center><img border="0" src="../../../../assets/images/logoS.png" 
+                        width="180" height="180"></center>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <h2><b> Sistema Integral Social Universitario<b></h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <h2><b> Seguro de Salud<b></h2>
+                  </td>
+                </tr>
+              </table>
+    
+              <table class="tabla" width="100%">
+                <thead>
+                  <tr>
+                    <td align="center">
+                      <table class='table table-bordered' align="center">
+                        <tr>
+                          <th>NOMBRE</th>
+                          <th>::</th>
+                          <td><input type="text" id="NOMBRE" name="NOMBRE"></td>
+                          <th>CÓDIGO</th>
+                          <th>::</th>
+                          <td><input type="int" id="CÓDIGO" name="CÓDIGO"> </td>
+                        </tr>
+    
+                        <tr>
+                          <th>ASEG/AFIL</th>
+                          <th width="1%">::</th>
+                          <td width="39%"><input type="text" id="ASEG/AFIL" name="ASEG/AFIL"></td>
+                          <th>FECHA</th>
+                          <th width="1%">::</th>
+                          <td width="39%"><input type="date" id="FECHA" name="FECHA"></td>
+                        </tr>
+    
+                      </table>
+                      <table class='table table-bordered' align="center">
+                        <tr>
+                          <th rowspan="2" width="15%">TIPO DE SERVICIO</th>
+                          <th width="1%">::</th>
+                          <th>MEDICINA GENERAL <input type="checkbox" checked="" id="medicina_general" name="tipo_servicio"
+                              value="MEDICINA GENERAL" style="width: 130px"></th>
+                          <th>FISIOTERAPIA <input type="checkbox" checked="" id="medicina_general" name="tipo_servicio"
+                              value="FISIOTERAPIA" style="width: 150px"></th>
+                        </tr>
+    
+                        <tr>
+                          <th width="1%">::</th>
+                          <th>CIRUGÍA <input type="checkbox" checked="" id="medicina_general" name="tipo_servicio"
+                              value="CIRUGÍA" style="width: 295px;"></th>
+                          <th>ODONTOLOGÍA <input type="checkbox" checked="" id="medicina_general" name="tipo_servicio"
+                              value="ODONTOLOGÍA" style="width: 130px"></th>
+    
+                        </tr>
+                      </table>
+    
+                      <table class='table table-bordered' align="center">
+                        <tr>
+                          <th width="15%">FARMACIA</th>
+                          <th width="1%">::</th>
+                          <td><input type="text" id="FARMACIA" name="FARMACIA" placeholder="Total:Bs"></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+    
+              <table width="100%" class='table table-bordered' align="center" style="text-align: center;">
+                <tr>
+                  <th style=font-family:TimesNewRoman;font-size:20px;>Cantidad</style></th>
+                  <th style=font-family:TimesNewRoman;font-size:20px;>Unidad</th>
+                  <th style=font-family:TimesNewRoman;font-size:20px;>Medicamento</th>
+                </tr>
+    
+                <tr>
+                  <td><input type="number" name="cantidad"></td>
+                  <td><input type="text" name="unidad"></td>
+                  <td><input type="text" name="medicamento"></td>
+                </tr>
+
+              </table>
+    
+              <table width="100%" class='table table-bordered' align="center" style="text-align: center;">
+                <tr>
+                  <th>Indicaciones médicas:<div>
+                      <textarea class="indicaciones" required="" rows="5" name="indicaciones"
+                        placeholder="Observaciones"></textarea>
+                </tr>
+              </table>
+              <i class="mdi mdi-printer-check">
+                <font size="3">
+              </i><a href='javascript: window.print()'>IMPRIMIR RECETA</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    
+
+        <!-- Page-Title -->
+      <!-- <div class="page-title-box">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h4 class="page-title mb-1">FORMULARIO MODELO RECETA</h4>
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                <li class="breadcrumb-item active">Form Validation</li>
+              </ol>
+            </div>         
+          </div>
+        </div>
+      </div> -->
+      <!-- end page title end breadcrumb -->
+
+  
+
+
+             
+    <!-- <div th:insert="~{layout/footer :: footer}"></div>
+  </div> -->
+  <!-- end main content-->
+
+  <!-- END layout-wrapper -->
+
+  <!-- Right Sidebar -->
+  <!-- <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div> -->
+  <!-- /Right-bar -->
+
+  <!-- Right bar overlay-->
+  <div class="rightbar-overlay"></div>
+
+  <!-- JAVASCRIPT -->
+  <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+  <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+  <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+  <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+
+  <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+  <!-- Required datatable js -->
+  <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <!-- Buttons examples -->
+  <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+  <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+  <!-- Responsive examples -->
+  <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+  <!-- Datatable init js -->
+  <script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+  <script src="../../../../assets/js/app.js"></script>
+
+
+
+</body>
+
+</html>

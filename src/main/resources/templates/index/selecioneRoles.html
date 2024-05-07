@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Login | Xoric - Responsive Bootstrap 4 Admin Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+	<meta content="Themesdesign" name="author" />
+	<!-- App favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Bootstrap Css -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- Icons Css -->
+	<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+	<!-- App Css-->
+	<link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+	<style>
+		body {
+			background-image: url("assets/images/sisu2.jpg") !important;
+			background-repeat: no-repeat;
+			background-size: cover !important;
+		}
+	</style>
+
+</head>
+
+<body class="bg-primary bg-pattern">
+	<div class="home-btn d-none d-sm-block">
+		<a href="index.html"><i class="mdi mdi-home-variant h2 text-white"></i></a>
+	</div>
+
+	<div class="account-pages my-5 pt-sm-5">
+		<div class="container">
+			<div class="row" >
+				<div class="col-lg-12">
+					<div class="text-center mb-5">
+                            <a href="index.html" class="logo"><img src="assets/images/logoS.png" height="180" alt="logo"> </a>
+					   <br>
+                                                        <br>
+                                <h5 class="font-size-20 text-white-50 mb-10">  <b>UNIVERSIDAD AMAZONICA DE PANDO </b></h5>
+					</div>
+				</div>
+			</div>
+			<!-- end row -->
+
+			<div class="row justify-content-center">
+				<div class="col-xl-5 col-sm-8">
+					<div class="card bg-light">
+						<div class="card-body p-4">
+							<div class="p-2">
+								<h5 class="mb-4 text-center"> <b> SISTEMA S.I.S.U.</b></h5>
+								<div class="login-box-body">
+									<p class="login-box-msg">
+										<center>
+											<i class="fa fa-user icon-title"></i> Seleccionar Rol
+											</center>
+									</p>
+									
+									<form method="post" action="seleccionarRoles">
+
+                                     <input type="hidden" name="idUsuario" value="${usuarios.idUsuario}">
+
+										<div class="input-group col-xs-12">
+											<select name="idUsrRol" id="idRol" class="form-control">
+												<option th:each="r : ${lRoles}" th:value="${r.idUsrRol}"
+													th:text="${r.idRol.idRol + '-' + r.idRol.rol}"></option>
+											</select>
+										</div>
+
+
+										<div class="mt-4">
+											<button class="btn btn-success btn-block waves-effect waves-light"
+												type="submit">Ingresar</button>
+
+										</div>
+
+									</form>
+								</div>
+
+
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+	<!-- end Account pages -->
+
+	<!-- JAVASCRIPT -->
+	<script src="assets/libs/jquery/jquery.min.js"></script>
+	<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/libs/metismenu/metisMenu.min.js"></script>
+	<script src="assets/libs/simplebar/simplebar.min.js"></script>
+	<script src="assets/libs/node-waves/waves.min.js"></script>
+
+	<script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+	<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

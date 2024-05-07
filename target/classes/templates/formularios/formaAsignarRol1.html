@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Enlaces</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/favicon.ico">
+    <link href="../../../../assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body data-topbar="colored">
+    <div id="layout-wrapper">
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+        <div th:insert="~{layout/sidebar :: sidebar}"></div>
+        <div class="main-content">
+            <div class="page-content">
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">ASIGNAR ROLES</h4>
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                                    <li class="breadcrumb-item active">Form Validation</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="float-right d-none d-md-block">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-settings-outline mr-1"></i> Settings
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                            <a class="dropdown-item" href="#">Más informaciones</a>
+                                            <a class="dropdown-item" href="#">Contactos</a>
+                                            <a class="dropdown-item" href="#">Guia</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Otros</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb --> 
+
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="needs-validation" action="/guardarEnlaceRolMenu" method="post"
+                                           novalidate>
+                                            <!-- <input type="hidden" th:field="${enlace.idEnlace}"> -->
+                                             <input type="hidden" name="idEnlacePadre" th:value="${idEnlacePadre}">
+
+                                            <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+                                            <div class="row">
+                                                <div class="col-md-3 mb-3">
+                                                    <label>Enlaces </label>
+                                                    <div th:each="solicitud : ${listaEnlaceHijo}" class="custom-control custom-radio mb-2">
+                                                        <input type="checkbox"
+                                                            th:id="${'solicitud-' + solicitud.idEnlace}"
+                                                            th:name="solicitudesSeleccionadas"
+                                                            th:value="${solicitud.idEnlace}" />
+                                                        <label th:for="${'solicitud-' + solicitud.idEnlace}"
+                                                            th:text="${solicitud.nombre_enlace}"></label><br />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <label for="validationCustom01">Roles</label>
+                                                    <div class="form-group form-group-custom">
+                                                        <select class="custom-select" name="idRol">
+                                                            <option value="">Elegir el Rol</option>
+                                                            <th:block th:each="r: ${roles}" th:if="${r.estado != 'X'}">
+                                                                <option th:value="${r.idRol}" th:text="${r.rol}">
+                                                                </option>
+                                                            </th:block>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <button class="btn btn-primary" type="submit">Registrar</button> -->
+                                            <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                                                <div class="p-3">
+                                                    <p></p>
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Registrar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end page-content-wrapper -->
+            </div>
+            <!-- End Page-content -->
+
+            <div th:insert="~{layout/footer :: footer}"></div>
+        </div>
+        <!-- end main content-->
+
+    </div>
+
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar -->
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+    <script src="../../../../assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="../../../../assets/js/pages/sweet-alerts.init.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+    <script src="../../../../assets/js/app.js"></script>
+
+
+</body>
+
+</html>

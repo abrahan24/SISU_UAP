@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lista Enlace| SISU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/favicon.ico">
+
+    <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
+
+    <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body data-topbar="colored">
+
+    <div id="layout-wrapper">
+
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+        <div class="vertical-menu">
+            <div th:insert="~{layout/sidebar :: sidebar}"></div>
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">LISTA DE TODOS LOS ENLACES PADRES DEL SISU</h4>
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tabla</a></li>
+                                    <li class="breadcrumb-item active">Datos Enlace</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="float-right d-none d-md-block">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-settings-outline mr-1"></i> Configuraciones
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                            <a class="dropdown-item" href="#">Más</a>
+                                            <a class="dropdown-item" href="#">Otros</a>
+                                            <a class="dropdown-item" href="#">Contactos</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="text-right mb-3">
+                                            <form class="needs-validation" action="/guardarEnlaceHijo" method="post"
+                                                id="form1" novalidate>
+                                                <input type="hidden" >
+                                        </div>
+                                        <table id="datatable-buttons"
+                                            class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>ROl</th>
+                                                    <th>ENLACES PADRES </th>
+                                                    <th>ENLACES HIJOS</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="en : ${enlaces}" th:if="${en.estado != 'X'}">
+                                                    <td th:text="${en.rol}"></td>
+                                                    <td >
+                                                        <ul th:each="e : ${en.menus_roles}">
+                                                            <li th:text="${e.idEnlace.nombre_enlace}">
+
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    <td >
+                                                        <ul th:each="e : ${en.menus_roles}">
+                                                            <li th:text="${e.idEnlace.ruta}">
+
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                        <!-- <a th:href="@{'../../../../formMenu2/' + ${en.idEnlace}}">
+                                                            <button class="btn btn-primary" type="button">Enviar</button>
+                                                        </a> -->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- lista -->
+        <!-- <label>Selecciona solicitudes de becas:</label>
+                <div th:each="solicitud : ${listaEnlace}">
+                    <input type="checkbox" th:id="${'solicitud-' + solicitud.id_tipobeca}"
+                        th:name="solicitudesSeleccionadas" th:value="${solicitud.id_tipobeca}" />
+                    <label th:for="${'solicitud-' + solicitud.idEnlace}"
+                        th:text="${solicitud.tipobeca_nom}"></label><br />
+                </div> -->
+    </div>
+    <div th:insert="~{layout/footer :: footer}"></div>
+    </div>
+    </div>
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <!-- <script src="../../../../assets/libs/jquery/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+            function buscar(button) {
+                // Capture the value of th:data-idpersona from the clicked button
+                var idPersona = $(button).data('idpersona');
+        
+                // Create the URL to request the fragment using the captured idPersona
+                var url = "../../../../persona/" + idPersona;
+        
+                // Load the fragment and replace content in #replace_div
+                $('#replace_div').load(url);
+            }
+        </script>   
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+    <!-- alert -->
+    <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
+    <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+
+
+    <script src="../../../../assets/js/app.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!-- lista enlace anterior, que no tenái botones -->
+
+<!-- <script>
+                    function registrarEnlace(id) {
+                        alert('Registrar enlace con ID ' + id);
+                    }
+                </script>
+                 -->
+
+<!-- <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="text-right mb-3">
+                                            <form class="needs-validation" action="/guardarEnlaceHijo" method="post" id="form1" novalidate>
+                                                <input type="hidden" th:field="${enlace.idEnlace}">
+                                        </div>
+                                        <table id="datatable-buttons"
+                                            class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Enlace</th>
+                                                    <th>Ruta</th>
+                                                    <th>Tabla</th>
+                                                    <th>Observaciones</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="en : ${listaEnlace}" th:if="${en.estado != 'X'}">
+                                                    <td th:text="${en.nombre_enlace}"></td>
+                                                    <td th:text="${en.ruta}"></td>
+                                                    <td th:text="${en.tabla}"></td>
+                                                    <td th:text="${en.obs}"></td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-primary" type="submit">Registrar</button>
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->

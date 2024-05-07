@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <!-- Tus enlaces a CSS y otros recursos -->
+    <meta charset="utf-8" />
+    <title>DATOS UNIVERISTARIO| SISU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logoS.png">
+
+    <!-- Bootstrap Css -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body class="bg-primary bg-pattern"> 
+    <div class="container">     
+        <div class="row justify-content-center" style="height: 100vh;">
+            <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center">
+                <div class="card bg-light">
+                    <div class="card-body p-4">   
+                        <form action="docente" method="POST">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="DatosDocente">Nombre del Docente:</label>
+                                    <input type="text" id="DatosDocente" name="DatosDocente" class="form-control" th:value="${DatosDocente}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="urlImagen">Foto del Docente</label>
+                                    <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="apellidoPaterno">Apellido Paterno:</label>
+                                    <input type="text" id="apellidoPaterno" name="apellidoPaterno" class="form-control" th:value="${apellidoPaterno}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="apellidoMaterno">apellido Materno:</label>
+                                    <input type="text" id="apellidoMaterno" name="apellidoMaterno" class="form-control" th:value="${apellidoMaterno}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="ci">CI:</label>
+                                    <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="rd">RD:</label>
+                                    <input type="text" id="rd" name="rd" class="form-control" th:value="${rd}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" th:value="${fechaNacimiento}" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="titulo">Titulo:</label>
+                                    <input type="text" id="titulo" name="direccitituloon" class="form-control" th:value="${titulo}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="gradoAcademico">Grado Academico:</label>
+                                    <input type="text" id="gradoAcademico" name="gradoAcademico" class="form-control" th:value="${gradoAcademico}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="tipoSanguineo">Tipo Sanguineo:</label>
+                                    <input type="text" id="tipoSanguineo" name="tipoSanguineo" class="form-control" th:value="${tipoSanguineo}" readonly>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="sexo">Sexo:</label>
+                                    <input type="text" id="sexo" name="sexo" class="form-control" th:value="${sexo}" readonly>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="direccion">Direccion:</label>
+                                    <input type="text" id="direccion" name="direccion" class="form-control" th:value="${direccion}" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="activo">Estado Docente</label>
+                                    <input type="text" id="activo" name="activo" class="form-control" th:value="${activo}" readonly>
+                                    <p th:if="${activo}" class="text-success">Docente activo</p>
+                                    <p th:if="${!activo}" class="text-danger">Docente inactivo</p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-right mt-3">
+                                <button type="submit" class="btn btn-success mr-2" formaction="loginE"
+                                    th:text="${activo ? 'Generar Ficha' : 'Generar Ficha Particular'}">
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="cancelarButton">Cancelar</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tus scripts y otros elementos de la página -->
+    <script>
+        document.getElementById("cancelarButton").addEventListener("click", function() {
+            window.location.href = "/loginK";
+        });
+    </script>
+    <script src="../../assets/libs/jquery/jquery.min.js"></script>
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../assets/libs/node-waves/waves.min.js"></script>
+
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+    <script src="../../assets/js/app.js"></script>
+</body>
+</html>
