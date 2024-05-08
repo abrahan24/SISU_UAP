@@ -36,24 +36,10 @@ public class login {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String iniciosesion(Model model) {
 
-		System.out.println("11111111111111111111111111111111111111111111");
 		return "index/login";
 	}
 
-	@RequestMapping(value = "/Inicio", method = RequestMethod.GET)
-	public String inicio(Model model) {
-
-		System.out.println("11111111111111111111111111111111111111111111");
-		return "index/index";
-	}
 	
-	
-	@RequestMapping(value = "/loginE", method = RequestMethod.POST)
-	public String loginE(Model model) {
-
-		System.out.println("11111111111111111111111111111111111111111111");
-		return "index/index";
-	}
 
 	@RequestMapping(value = "/loginK", method = RequestMethod.GET)
 	public String Ficha(Model model, HttpServletRequest request) {
@@ -86,7 +72,6 @@ public class login {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	    response.setHeader("Pragma", "no-cache");
 	    response.setDateHeader("Expires", 0);
-		
 		
 		System.out.println("---" + usuario + "---" + clave + "---");
 
@@ -178,6 +163,7 @@ public class login {
 		return "index/login";
 
 	}
+
 	
 	
 }
