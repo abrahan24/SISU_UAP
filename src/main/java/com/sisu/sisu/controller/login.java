@@ -48,10 +48,6 @@ public class login {
 	}
 	
 	
-	
-	
-
-
 	@RequestMapping(value = "/loginE", method = RequestMethod.POST)
 	public String loginE(Model model) {
 
@@ -137,8 +133,7 @@ public class login {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 		
-		
-		if (request.getSession().getAttribute("usuario") != null) {
+		if (usuario == null) {
 			
 			return "index/login";
 			
@@ -170,36 +165,19 @@ public class login {
 	
 	
 
-@RequestMapping(value = "cerrar.da", method = RequestMethod.GET)
-public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "cerrar.da", method = RequestMethod.GET)
+	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
-	  HttpSession session = request.getSession();
-			if (session != null) {
-				session.invalidate();
-				//flash.addAttribute("validado", "Se cerro sesion con exito!");
-				
-				
-				System.out.print(request.getSession().getAttribute("estado_user"));
-				System.out.println("/--------------------------------------------------------------/");
-				System.out.println("HOLA ESTRELLITAS EL MUNDO LES DICE HOLA");
-				System.out.println("/--------------------------------------------------------------/");		
-			}
-    return "index/login";
+		HttpSession session = request.getSession();
+		if (session != null) {
+			session.invalidate();
 
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			System.out.print(request.getSession().getAttribute("estado_user"));
 
+		}
+		return "index/login";
+
+	}
+	
+	
 }

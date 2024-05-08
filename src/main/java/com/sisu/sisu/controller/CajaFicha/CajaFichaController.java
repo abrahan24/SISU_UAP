@@ -36,6 +36,7 @@ import com.sisu.sisu.entitys.Institucion;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.TipoSeguro;
 import com.sisu.sisu.entitys.TiposEstadoCivil;
+import com.sisu.sisu.entitys.Usuario;
 
 import net.bytebuddy.asm.Advice.Return;
 
@@ -56,10 +57,13 @@ public class CajaFichaController {
 
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
 	public String ficha(Model model,HttpServletRequest request) {
-		if (request.getSession().getAttribute("usuario") == null) {
-			return "redirect:/cerrar.da";
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "index/login";
+			
 		}
-		System.out.println("11111111111111111111111111111111111111111111");
 		return "busqueda/GenerarFicha";
 
 	}

@@ -66,8 +66,16 @@ public class EnlaceController {
         }
     }
     @GetMapping(value = "formEnlaceHijo")
-    public String registroEnlaceHijo(@Validated Enlace enlace, Model model) {
-
+    public String registroEnlaceHijo(@Validated Enlace enlace, Model model, HttpServletRequest request) {
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "index/login";
+			
+		}
+        
         model.addAttribute("enlace", new Enlace());
         model.addAttribute("enlaces", enlaceService.findAll());
 
