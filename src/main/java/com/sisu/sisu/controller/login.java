@@ -98,9 +98,9 @@ public class login {
 
 		if (user != null) {
 			List<UsrRoles> lRolesUsr = usrRolesService.listRolesUsuario(user);
-			System.out.println("-------------------------------------------------3");
+			System.out.println("-------------------------------------------------");
 			System.out.println("rolesList " + lRolesUsr.size());
-			System.out.println("-------------------------------------------------4");
+			System.out.println("-------------------------------------------------");
 
 			if (lRolesUsr.size() == 0) {
 				String msn = "No tiene roles vigentes, comuniquese con el encargado de sistemas";
@@ -140,20 +140,9 @@ public class login {
 		
 		if (request.getSession().getAttribute("usuario") != null) {
 			
-			
 			return "index/login";
 			
 		}
-
-		// if (usuario != null) {
-		// 	System.err.append("El objeto Usuario se ha obtenido correctamente de la sesión.");
-
-		// } else {
-		// 	// logger.warn("No se ha encontrado el objeto Usuario en la sesión.");
-		// 	System.err.append("No se ha encontrado el objeto Usuario en la sesión.");
-		// }
-
-		System.out.println("Buen Dia Estrellitas la Tierra les Dice Hola");
 
 		System.out.println("Rol-- " + idUsrRol);
 
@@ -170,7 +159,6 @@ public class login {
 
 		model.addAttribute("Padres", lEnlaces);
 		model.addAttribute("Hijos", lHijos);
-
 
 		HttpSession sesion = request.getSession();
 		sesion.setAttribute("sessionlPadres", lHijos);
