@@ -1,5 +1,7 @@
 package com.sisu.sisu.Dao;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,6 +15,6 @@ public interface FichaDao extends CrudRepository<Ficha, Integer>{
     @Query("UPDATE Ficha f SET f.estado = 'E' WHERE f.idFicha = ?1")
     void cambiarEstadoById(@Param("idFicha") Integer idFicha);
 
-    @Query(value = "SELECT * FROM ficha WHERE ficha.id_asegurado =?1 AND  ficha.estado='A'", nativeQuery = true)
-    Ficha findFichaByAseguradoId(Integer aseguradoId);
+    @Query(value = "SELECT * FROM ficha WHERE ficha.id_asegurado = ?1 AND ficha.estado = 'A' AND DATE(fecha_registro_ficha) = DATE(?2)", nativeQuery = true)
+    Ficha findFichaByAseguradoId(Integer aseguradoId, Date fecha);
 }

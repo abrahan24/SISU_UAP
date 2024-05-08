@@ -214,27 +214,35 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFicha", method = RequestMethod.POST)
 	public String generarFicha(Model model) {
+		
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
+		Date fechaActualD = new Date(); 
 
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
-		if (codigoAseguradoUniCreado != null) {
-			Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado());
+		if (existeFicha != null) {
+			System.out.println("ESTE UNIVERSITARIO YA TIENE UNA FICHA");
 
-			if (existeFicha != null) {
-				System.out.println("YA TIENES UNA FICHA PARIENTE");
-			} else {
-				Ficha ficha = new Ficha();
-				ficha.setEstado("A");
-				ficha.setFechaRegistroFichaa(new Date());
-				ficha.setAsegurado(asegurado);
-				fichaService.save(ficha);
+			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+			LocalDate fechaActual = LocalDate.now();
+			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (fechaRegistroFicha.equals(fechaActual)) {
+				System.out
+						.println("El universitario asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+				return "redirect:/inicioCliente";
 			}
-			return "redirect:/inicioCliente";
-		} else {
-			System.out.println("NO EN CUNATRA CODIGO UNIVERSITARIO ASEGURADO");
-			return "redirect:/inicioCliente";
 		}
 
+		Ficha ficha = new Ficha();
+		ficha.setEstado("A");
+		ficha.setFechaRegistroFichaa(new Date());
+		ficha.setAsegurado(asegurado);
+		fichaService.save(ficha);
+		System.out.println("LA FICHA PARA ESTE UNIVERSITARIO SE HA CREADO");
+
+		return "redirect:/inicioCliente";
 	}
 
 	private String generateCodigoAsegurado(Persona persona) {
@@ -404,21 +412,33 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFichaD", method = RequestMethod.POST)
 	public String generarFichaD(Model model) {
+		
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
+		Date fechaActualD = new Date(); 
 
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado());
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
-			System.out.println("ESTE DOCENTE YA TIENES UNA FICHA PARIENTE");
-		} else {
-			Ficha ficha = new Ficha();
-			ficha.setEstado("A");
-			ficha.setFechaRegistroFichaa(new Date());
-			ficha.setAsegurado(asegurado);
-			fichaService.save(ficha);
-			System.out.println("LA FICHA PARA ESTE DOCENTE SE HA CREADO");
+			System.out.println("ESTE DOCENTE YA TIENE UNA FICHA");
+
+			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+			LocalDate fechaActual = LocalDate.now();
+			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (fechaRegistroFicha.equals(fechaActual)) {
+				System.out
+						.println("El docente asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+				return "redirect:/inicioCliente";
+			}
 		}
+
+		Ficha ficha = new Ficha();
+		ficha.setEstado("A");
+		ficha.setFechaRegistroFichaa(new Date());
+		ficha.setAsegurado(asegurado);
+		fichaService.save(ficha);
+		System.out.println("LA FICHA PARA ESTE DOCENTE SE HA CREADO");
 
 		return "redirect:/inicioCliente";
 	}
@@ -555,36 +575,33 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFichaA", method = RequestMethod.POST)
 	public String generarFichaA(Model model) {
-
+		
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
+		Date fechaActualD = new Date(); 
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado());
-		LocalDate fechaRegistroFicha = null;
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
+
 		if (existeFicha != null) {
-			fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			System.out.println("ESTE ADMINISTRATIVO YA TIENE UNA FICHA");
-			// Aquí puedes agregar cualquier acción adicional si la ficha ya existe
-		} else {
-			Ficha ficha = new Ficha();
-			ficha.setEstado("A");
-			ficha.setFechaRegistroFichaa(new Date());
-			ficha.setAsegurado(asegurado);
 
 			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 			LocalDate fechaActual = LocalDate.now();
-			fechaRegistroFicha = ficha.getFechaRegistroFichaa().toInstant().atZone(ZoneId.systemDefault())
-					.toLocalDate();
+			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
-				System.out.println(
-						"La fecha de registro de la ficha es igual a la fecha actual. No se guarda la ficha.");
-				
-			} else {
-				fichaService.save(ficha);
-				System.out.println("LA FICHA PARA ESTE ADMINISTRATIVO SE HA CREADO");
-				
+				System.out
+						.println("El administrativo asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+				return "redirect:/inicioCliente";
 			}
 		}
+
+		Ficha ficha = new Ficha();
+		ficha.setEstado("A");
+		ficha.setFechaRegistroFichaa(new Date());
+		ficha.setAsegurado(asegurado);
+		fichaService.save(ficha);
+		System.out.println("LA FICHA PARA ESTE ADMINISTRATIVO SE HA CREADO");
 
 		return "redirect:/inicioCliente";
 	}

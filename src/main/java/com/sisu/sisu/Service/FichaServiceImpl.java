@@ -1,5 +1,6 @@
 package com.sisu.sisu.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,8 @@ public class FichaServiceImpl implements FichaService{
     }
 
     @Override
-    public Ficha findFichaByAseguradoId(Integer aseguradoId) {
+    public Ficha findFichaByAseguradoId(Integer aseguradoId,Date fecha) {
         // TODO Auto-generated method stub
-        return fichaDao.findFichaByAseguradoId(aseguradoId);
+        return fichaDao.findFichaByAseguradoId(aseguradoId, fecha);
     }
 }

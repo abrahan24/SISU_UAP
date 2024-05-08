@@ -1,5 +1,6 @@
 package com.sisu.sisu.Service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.query.Param;
@@ -18,5 +19,5 @@ public interface FichaService {
 
     void cambiarEstadoById(@Param("idFicha") Integer idFicha);  //Modificar Estado de registro
 
-    Ficha findFichaByAseguradoId(Integer aseguradoId);
+    Ficha findFichaByAseguradoId(Integer aseguradoId, Date fecha);
 }
