@@ -111,7 +111,7 @@ public class FichaSisuController {
 
 					personaCreada = newUnipersona;
 					System.out.println("------------ ESTE UNIVERSITARIO YA ESTÁ REGISTRADO EN LA BD -----------------");
-					return "Client/vistaDatosUniversitario";
+					
 
 				} else {
 					newUnipersona = new Persona();
@@ -146,9 +146,8 @@ public class FichaSisuController {
 
 				}
 
-				Asegurado codigoAseguradoUniExistente = aseguradoService
-						.findAseguradoByPersonaId(personaCreada.getIdPersona());
-
+				Asegurado codigoAseguradoUniExistente = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
+				
 				if (codigoAseguradoUniExistente != null) {
 
 					codigoAseguradoUniCreado = codigoAseguradoUniExistente;
@@ -193,11 +192,11 @@ public class FichaSisuController {
 					historialSeguro.setTipo_seguro(tipoSeguro);
 					historialSeguroService.save(historialSeguro);
 
-					return "Client/vistaDatosUniversitario";
+					
 				}
 
 			}
-			return "Client/inicioCliente";
+			return "Client/vistaDatosUniversitario";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,10 +214,10 @@ public class FichaSisuController {
 	@RequestMapping(value = "/generarFicha", method = RequestMethod.POST)
 	public String generarFicha(Model model) {
 		
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
 		Date fechaActualD = new Date(); 
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("ESTE UNIVERSITARIO YA TIENE UNA FICHA");
@@ -413,10 +412,10 @@ public class FichaSisuController {
 	@RequestMapping(value = "/generarFichaD", method = RequestMethod.POST)
 	public String generarFichaD(Model model) {
 		
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
 		Date fechaActualD = new Date(); 
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("ESTE DOCENTE YA TIENE UNA FICHA");
