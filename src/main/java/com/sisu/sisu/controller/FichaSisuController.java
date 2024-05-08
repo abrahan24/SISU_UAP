@@ -31,7 +31,10 @@ import com.sisu.sisu.Dao.IAseguradoDao;
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
 import com.sisu.sisu.Service.IAseguradoService;
+import com.sisu.sisu.Service.IDipService;
+import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IPersonaService;
+import com.sisu.sisu.Service.ITiposEstadoCivilService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Dip;
 import com.sisu.sisu.entitys.EstadoSeguro;
@@ -58,6 +61,15 @@ public class FichaSisuController {
 
 	@Autowired
 	private IAseguradoService aseguradoService;
+
+	@Autowired
+	private IDipService dipService;
+
+	@Autowired
+	private IGradoService gradoService;
+
+	@Autowired
+	private ITiposEstadoCivilService tiposEstadoCivilService;
 
 	@RequestMapping(value = "universitario", method = RequestMethod.GET)
 	public String obtenerDatosUniversitario(HttpServletRequest request, Model model,
@@ -612,6 +624,31 @@ public class FichaSisuController {
 		return "index/index";
 	}
 
+<<<<<<< HEAD
 	
 	
+=======
+	@RequestMapping(value = "/externo", method = RequestMethod.GET)
+public String externo(HttpServletRequest request, Model model,
+    @RequestParam("ci") String ci) {
+
+    Persona persona = personaService.validarCI(ci);
+
+    if (persona != null) {
+        model.addAttribute("persona", persona);
+        return "Client/vistaDatosExternoExistente";	
+    } else {
+		model.addAttribute("persona", new Persona());
+		model.addAttribute("dips", dipService.findAll());
+		model.addAttribute("grados", gradoService.findAll());
+		model.addAttribute("civiles", tiposEstadoCivilService.findAll());
+        return "Client/vistaDatosExterno";	
+    }
+
+    
+}
+
+	
+
+>>>>>>> 1de7ff2 (8555)
 }
