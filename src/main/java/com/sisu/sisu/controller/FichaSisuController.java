@@ -624,25 +624,24 @@ public class FichaSisuController {
 		return "index/index";
 	}
 
-@RequestMapping(value = "/externo", method = RequestMethod.GET)
-public String externo(HttpServletRequest request, Model model,
-    @RequestParam("ci") String ci) {
+	@RequestMapping(value = "/externo", method = RequestMethod.GET)
+	public String externo(HttpServletRequest request, Model model,
+			@RequestParam("ci") String ci) {
 
-    Persona persona = personaService.validarCI(ci);
+		Persona persona = personaService.validarCI(ci);
 
-    if (persona != null) {
-        model.addAttribute("persona", persona);
-        return "Client/vistaDatosExternoExistente";	
-    } else {
-		model.addAttribute("persona", new Persona());
-		model.addAttribute("dips", dipService.findAll());
-		model.addAttribute("grados", gradoService.findAll());
-		model.addAttribute("civiles", tiposEstadoCivilService.findAll());
-        return "Client/vistaDatosExterno";	
-    }
+		if (persona != null) {
+			model.addAttribute("persona", persona);
+			return "Client/vistaDatosExternoExistente";
+		} else {
+			model.addAttribute("persona", new Persona());
+			model.addAttribute("dips", dipService.findAll());
+			model.addAttribute("grados", gradoService.findAll());
+			model.addAttribute("civiles", tiposEstadoCivilService.findAll());
+			return "Client/vistaDatosExterno";
+		}
 
-    
-}
+	}
 
 	
 
