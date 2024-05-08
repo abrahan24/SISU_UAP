@@ -624,11 +624,7 @@ public class FichaSisuController {
 		return "index/index";
 	}
 
-<<<<<<< HEAD
-	
-	
-=======
-	@RequestMapping(value = "/externo", method = RequestMethod.GET)
+@RequestMapping(value = "/externo", method = RequestMethod.GET)
 public String externo(HttpServletRequest request, Model model,
     @RequestParam("ci") String ci) {
 
@@ -650,5 +646,4 @@ public String externo(HttpServletRequest request, Model model,
 
 	
 
->>>>>>> 1de7ff2 (8555)
 }
