@@ -235,7 +235,9 @@ public class CajaFichaController {
 	
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaUniCreada.getIdPersona());
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado());
+		Date fechaActualD = new Date(); 
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("YA TIENES UNA FICHA PARIENTE");
@@ -397,7 +399,9 @@ public class CajaFichaController {
 	
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocCreada.getIdPersona());
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codDocAsegurado.getIdAsegurado());
+		Date fechaActualD = new Date(); 
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 
@@ -547,7 +551,9 @@ public class CajaFichaController {
 	
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaAdCreada.getIdPersona());
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado());
+		Date fechaActualD = new Date(); 
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("YA TIENES UNA FICHA PARIENTE");
