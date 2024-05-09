@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Dao.IAseguradoDao;
 import com.sisu.sisu.Service.FichaService;
@@ -45,6 +47,8 @@ import com.sisu.sisu.entitys.Institucion;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.TipoSeguro;
 import com.sisu.sisu.entitys.TiposEstadoCivil;
+import com.sisu.sisu.entitys.Usuario;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
@@ -643,6 +647,56 @@ public class FichaSisuController {
 
 	}
 
-	
 
+	@PostMapping(value = "externoNuevoF")
+      public ResponseEntity<String> externoNuevoF(@Validated Persona persona, RedirectAttributes flash,
+            HttpServletRequest request,Model model) {
+
+			Persona personaValidar = personaService.validarCI(persona.getCi());
+			if (personaValidar != null) {
+                
+            
+            return ResponseEntity.ok("error"); 
+            }
+
+			persona.setEstado("EP"); //Externo Pendiente
+			personaService.save(persona);
+
+               
+
+            return ResponseEntity.ok("exito");
+
+    }
+	
+// Asegurado codigoAseguradoAExiste = aseguradoService.findAseguradoByPersonaId(persona.getIdPersona());
+
+		// 		if (codigoAseguradoAExiste != null) {
+
+		// 			codigoAseguradoAdCreado = codigoAseguradoAExiste;
+				
+
+		// 		}else {
+		// 			String codigoAsegurado = generateCodigoAsegurado(persona);
+
+		// 			Asegurado aseguradoA = new Asegurado();
+		// 			aseguradoA.setCodigoAsegurado(codigoAsegurado);
+		// 			aseguradoA.setPersona(persona);
+		// 			aseguradoA.setEstado("A");
+		// 			aseguradoService.save(aseguradoA);
+
+		// 			codigoAseguradoAdCreado = aseguradoA;
+
+		// 			System.out.println("/------------------------------------------------/");
+		// 			System.out.println("SE GENERO EL CODIGO ASEGURADO PARA: " + persona.getNombres());
+		// 			System.out.println("/------------------------------------------------/");
+
+		// 			HistorialSeguro historialSeguro = new HistorialSeguro();
+		// 			historialSeguro.setCodigoSeguroPrincipal(codigoAsegurado);
+		// 			historialSeguro.setEstado("A"); // (o el estado que desees)
+		// 			historialSeguro.setFechaAlta(new Date());
+		// 			historialSeguro.setFechaBaja(new Date());
+		// 			historialSeguro.setTitularHS(true);
+		// 			historialSeguro.setAsegurado(aseguradoA);
+		// 			historialSeguroService.save(historialSeguro);
+		// 		}
 }

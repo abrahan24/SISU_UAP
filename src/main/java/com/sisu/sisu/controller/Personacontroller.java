@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.EstadoCivilService;
@@ -54,7 +55,7 @@ public class Personacontroller {
 
         return "formularios/formPersona";
     }
-    
+
     /* GUARDAR */
 
     @PostMapping(value = "/guardarPersona")
@@ -128,7 +129,7 @@ public class Personacontroller {
 
         model.addAttribute("estadoCivil", new TiposEstadoCivil());
         model.addAttribute("estadosCiviles", estadoCivilService.findAll());
-        
+
         return "content :: content1";
     }
 
@@ -165,5 +166,16 @@ public class Personacontroller {
         persona.setEstado("A");
         personaService.save(persona);
         return "redirect:/ListaPersona";
+    }
+
+    @PostMapping(value = "/rechazar-personaExterna/{id_persona}")
+    @ResponseBody
+    public void rechazarPersonaExterna(HttpServletRequest request, Model model,
+            @PathVariable("id_persona") int id_persona) {
+        Persona persona = personaService.findOne(id_persona);
+        persona.setEstado("EPX");
+        personaService.save(persona);
+     
+
     }
 }

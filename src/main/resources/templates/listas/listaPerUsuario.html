@@ -118,7 +118,7 @@
                                                             <td></td>
                                                             
                                                                 <!-- Small modal -->
-                                                                <button type="button" style="margin-left: 0%;" class="btn btn-danger btn-sm waves-effect waves-light" data-placement="top" title="Registate" data-toggle="modal" data-target="#exampleModalScrollable1"><i class="mdi mdi-plus-thick"></i>Registrar</button>
+                                                                <!-- <button type="button" style="margin-left: 0%;" class="btn btn-danger btn-sm waves-effect waves-light" data-placement="top" title="Registate" data-toggle="modal" data-target="#exampleModalScrollable1"><i class="mdi mdi-plus-thick"></i>Registrar</button> -->
                                                                 <div class="modal fade" id="exampleModalScrollable1" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-scrollable">
                                                                         <div class="modal-content">
@@ -300,37 +300,37 @@
                                                         <th>Grado Academico</th>
                                                         <th>N° Telefono</th>
                                                         <th>Direccion</th>
-                                                        <th>Usuario</th>
-                                                        <!-- <th>Clave</th> -->
+                                                       
                                                         <th> op</th>
                                                     </tr>
                                                 </thead>
             
                                                 <tbody>
-                                                    <tr th:each="u : ${usuarios}" th:if="${u.estado_usuario == 'PP'}">
+                                                    <tr th:each="p : ${personas1}" th:if="${p.estado == 'EP'}">
                                                          
-                                                        <td th:text="${u.persona.nombres}"></td>
+                                                        <td th:text="${p.nombres}"></td>
                                                       
-                                                        <td th:text="${u.persona.apPaterno + '  ' + u.persona.apMaterno}"></td>
-                                                        <td th:text="${u.persona.ci}"></td>
-                                                        <td th:text="${u.persona.dip.codDip}"></td>
-                                                        <td th:text="${u.persona.sexo}"></td>
-                                                        <td th:if="${u.persona.tipos_estado_civil != null}" th:text="${u.persona.tipos_estado_civil.NomEstadoCivil}"></td>
-                                                        <td th:if="${u.persona.grado_academico != null}" th:text="${u.persona.grado_academico.nombre_gradoAcademico}"></td>
-                                                        <td th:text="${u.persona.celular}"></td>
-                                                        <td th:text="${u.persona.direccion}"></td>
-                                                        <td th:text="${u.apodo}"></td>
+                                                        <td th:text="${p.apPaterno + '  ' + p.apMaterno}"></td>
+                                                        <td th:text="${p.ci}"></td>
+                                                        <td th:text="${p.dip.descripcion}"></td>
+                                                        <td th:text="${p.sexo}"></td>
+                                                        <td th:if="${p.tipos_estado_civil != null}" th:text="${p.tipos_estado_civil.NomEstadoCivil}"></td>
+                                                        <td th:if="${p.grado_academico != null}" th:text="${p.grado_academico.nombre_gradoAcademico}"></td>
+                                                        <td th:text="${p.celular}"></td>
+                                                        <td th:text="${p.direccion}"></td>
+                                                      
                                                        
                                                         <td>
                                                             <div class="row justify-content-center">
                                                                 <div class="mb-2">
-                                                                    <a th:href="${'../../../../eliminarUsuario/' + u.idUsuario}">
+                                                                    <a th:attr="onclick='EliminarRegistro(\'' + ${p.idPersona} + '\' , \'' + ${p.nombres} + '\')'">
                                                                         <button type="button" class="btn btn-outline-danger alertElimin btn-sm"
                                                                             style="margin: 3px; padding: 5px;">
-                                                                            <i class="dripicons-trash"></i>
+                                                                            <i class="dripicons-thumbs-down"></i>
                                                                         </button>
                                                                     </a>
                                                                 </div>
+                                                                <!-- 
                                                                 <div class="col-md-3 col-6 mb-2">
                                                                     <a style="padding: 2px; display: inline-block; margin: 0px;">
                                                                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light editarButton"
@@ -340,7 +340,7 @@
                                                                         </button>
                                                                     </a>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </td>                                                
                                                     </tr>
                                                 </tbody>
@@ -409,9 +409,7 @@
          <!-- Datatable init js -->
          <script src="../../../../assets/js/pages/datatables.init.js"></script>
  
-         <!-- alert -->
-         <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-         <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+      
 
          <script src="../../../../assets/js/pages/vistaPass.js"></script>
          <script src="../../../../assets/js/pages/calendario.js"></script>
@@ -444,6 +442,43 @@
         <script src="assets/js/pages/form-advanced.init.js"></script>
 
         <script src="assets/js/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script th:inline="javascript">
+           function EliminarRegistro(id, nombre) {
+        Swal.fire({
+          title: "Atencion!",
+          text: "¿Estas seguro que desea eliminar el registro: " + nombre + "?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "SI, Eliminar",
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Si el usuario hace clic en "Sí, eliminar"
+            $.ajax({
+              type: 'POST',
+              url: "/rechazar-personaExterna/" + id,
+              success: function (response) {
+                cargarTabla();
+                Swal.fire(
+                  'Eliminado!',
+                  'El registro se ha eliminado con éxito.',
+                  'success'
+                );
+              },
+              error: function (xhr, status, error) {
+                console.log(error);
+              }
+            });
+          }
+        });
+      }
+
+
+        </script>
 
 </body>
 </html>
