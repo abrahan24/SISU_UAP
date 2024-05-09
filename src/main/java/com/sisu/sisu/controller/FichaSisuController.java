@@ -622,11 +622,7 @@ public class FichaSisuController {
 		return "redirect:/inicioCliente";
 	}
 
-	@RequestMapping(value = "particular", method = RequestMethod.GET)
-	public String particular(HttpServletRequest request, Model model) {
-		System.out.print("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAA++PARTICULAR");
-		return "index/index";
-	}
+	
 
 	@RequestMapping(value = "/externo", method = RequestMethod.GET)
 	public String externo(HttpServletRequest request, Model model,
@@ -634,8 +630,11 @@ public class FichaSisuController {
 
 		Persona persona = personaService.validarCI(ci);
 
+		
+
 		if (persona != null) {
 			model.addAttribute("persona", persona);
+			personaECreada = persona;
 			return "Client/vistaDatosExternoExistente";
 		} else {
 			model.addAttribute("persona", new Persona());
@@ -647,6 +646,8 @@ public class FichaSisuController {
 
 	}
 
+	private Persona personaECreada;
+	private Asegurado codigoAseguradoEPCreado;
 
 	@PostMapping(value = "externoNuevoF")
       public ResponseEntity<String> externoNuevoF(@Validated Persona persona, RedirectAttributes flash,
@@ -667,36 +668,45 @@ public class FichaSisuController {
             return ResponseEntity.ok("exito");
 
     }
+
+	@RequestMapping(value = "/generarFichaE", method = RequestMethod.POST)
+	public String generarFichaE(Model model, RedirectAttributes redirectAttrs) {
+		
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
+		if (asegurado == null) {
+			redirectAttrs
+			.addFlashAttribute("mensaje", "No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
+			.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+			return "redirect:/inicioCliente";
+		}
+		Date fechaActualD = new Date(); 
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
+
+		if (existeFicha != null) {
+			System.out.println("ESTA PERSONA EXTERNA YA TIENE UNA FICHA");
+
+			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+			LocalDate fechaActual = LocalDate.now();
+			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (fechaRegistroFicha.equals(fechaActual)) {
+				System.out
+						.println("La persona externa asegurada ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+				return "redirect:/inicioCliente";
+			}
+		}
+
+		Ficha ficha = new Ficha();
+		ficha.setEstado("A");
+		ficha.setFechaRegistroFichaa(new Date());
+		ficha.setAsegurado(asegurado);
+		fichaService.save(ficha);
+		System.out.println("LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO");
+
+		return "redirect:/inicioCliente";
+	}
 	
-// Asegurado codigoAseguradoAExiste = aseguradoService.findAseguradoByPersonaId(persona.getIdPersona());
 
-		// 		if (codigoAseguradoAExiste != null) {
-
-		// 			codigoAseguradoAdCreado = codigoAseguradoAExiste;
-				
-
-		// 		}else {
-		// 			String codigoAsegurado = generateCodigoAsegurado(persona);
-
-		// 			Asegurado aseguradoA = new Asegurado();
-		// 			aseguradoA.setCodigoAsegurado(codigoAsegurado);
-		// 			aseguradoA.setPersona(persona);
-		// 			aseguradoA.setEstado("A");
-		// 			aseguradoService.save(aseguradoA);
-
-		// 			codigoAseguradoAdCreado = aseguradoA;
-
-		// 			System.out.println("/------------------------------------------------/");
-		// 			System.out.println("SE GENERO EL CODIGO ASEGURADO PARA: " + persona.getNombres());
-		// 			System.out.println("/------------------------------------------------/");
-
-		// 			HistorialSeguro historialSeguro = new HistorialSeguro();
-		// 			historialSeguro.setCodigoSeguroPrincipal(codigoAsegurado);
-		// 			historialSeguro.setEstado("A"); // (o el estado que desees)
-		// 			historialSeguro.setFechaAlta(new Date());
-		// 			historialSeguro.setFechaBaja(new Date());
-		// 			historialSeguro.setTitularHS(true);
-		// 			historialSeguro.setAsegurado(aseguradoA);
-		// 			historialSeguroService.save(historialSeguro);
-		// 		}
 }

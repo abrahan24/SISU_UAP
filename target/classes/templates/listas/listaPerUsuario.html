@@ -330,17 +330,15 @@
                                                                         </button>
                                                                     </a>
                                                                 </div>
-                                                                <!-- 
-                                                                <div class="col-md-3 col-6 mb-2">
-                                                                    <a style="padding: 2px; display: inline-block; margin: 0px;">
-                                                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light editarButton"
-                                                                            data-toggle="modal" th:data-target="${'#exampleModalScrollable2'}"
-                                                                            th:data-idusuario="${u.idUsuario}" onclick="buscar(this)" style="margin: 3px; padding: 5px;">
-                                                                            <i class="dripicons-document-edit"></i>
+                                                                <div class="mb-2">
+                                                                    <a th:attr="onclick='AceptarRegistro(\'' + ${p.idPersona} + '\' , \'' + ${p.nombres} + '\')'">
+                                                                        <button type="button" class="btn btn-outline-primary alertElimin btn-sm"
+                                                                            style="margin: 3px; padding: 5px;">
+                                                                            <i class="dripicons-thumbs-up"></i>
                                                                         </button>
                                                                     </a>
                                                                 </div>
-                                                            </div> -->
+                                                            </div> 
                                                         </td>                                                
                                                     </tr>
                                                 </tbody>
@@ -445,40 +443,74 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script th:inline="javascript">
-           function EliminarRegistro(id, nombre) {
-        Swal.fire({
-          title: "Atencion!",
-          text: "¿Estas seguro que desea eliminar el registro: " + nombre + "?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "SI, Eliminar",
-          cancelButtonText: "Cancelar"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Si el usuario hace clic en "Sí, eliminar"
-            $.ajax({
-              type: 'POST',
-              url: "/rechazar-personaExterna/" + id,
-              success: function (response) {
-                cargarTabla();
-                Swal.fire(
-                  'Eliminado!',
-                  'El registro se ha eliminado con éxito.',
-                  'success'
-                );
-              },
-              error: function (xhr, status, error) {
-                console.log(error);
-              }
-            });
-          }
-        });
-      }
-
-
+            function EliminarRegistro(id, nombre) {
+                Swal.fire({
+                    title: "Atencion!",
+                    text: "¿Estas seguro que desea eliminar el registro: " + nombre + "?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "SI, Eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario hace clic en "Sí, eliminar"
+                        $.ajax({
+                            type: 'POST',
+                            url: "/rechazar-personaExterna/" + id,
+                            success: function (response) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El registro se ha eliminado con éxito.',
+                                    'success'
+                                ).then((result) => {
+                                    // Redirigir a otro método después de eliminar
+                                    window.location.href = "/listaPerUsuario";
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                });
+            }
+            function AceptarRegistro(id, nombre) {
+                Swal.fire({
+                    title: "Atencion!",
+                    text: "¿Estas seguro que desea aceptar el registro: " + nombre + "?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "SI, aceptar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario hace clic en "Sí, eliminar"
+                        $.ajax({
+                            type: 'POST',
+                            url: "/aceptar-personaExterna/" + id,
+                            success: function (response) {
+                                Swal.fire(
+                                    'Aceptado!',
+                                    'El registro se ha aceptado con éxito.',
+                                    'success'
+                                ).then((result) => {
+                                    // Redirigir a otro método después de eliminar
+                                    window.location.href = "/listaPerUsuario";
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                });
+            }
         </script>
+        
 
 </body>
 </html>

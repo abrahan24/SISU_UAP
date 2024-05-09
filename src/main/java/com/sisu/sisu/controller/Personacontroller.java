@@ -1,5 +1,7 @@
 package com.sisu.sisu.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.EstadoCivilService;
+import com.sisu.sisu.Service.HistorialSeguroService;
+import com.sisu.sisu.Service.IAseguradoService;
 import com.sisu.sisu.Service.IDipService;
 import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IPersonaService;
+import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Dip;
 import com.sisu.sisu.entitys.GradoAcademico;
+import com.sisu.sisu.entitys.HistorialSeguro;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.TiposEstadoCivil;
 
@@ -37,6 +43,12 @@ public class Personacontroller {
 
     @Autowired
     private EstadoCivilService estadoCivilService;
+
+    @Autowired
+	private IAseguradoService aseguradoService;
+
+    @Autowired
+	private HistorialSeguroService historialSeguroService;
 
     @GetMapping(value = "/formRegistro")
     public String registroPersona(@Validated Persona persona, Model model) {
@@ -168,6 +180,22 @@ public class Personacontroller {
         return "redirect:/ListaPersona";
     }
 
+
+    private String generateCodigoAsegurado(Persona persona) {
+		String nombre = persona.getNombres();
+		String apPaterno = persona.getApPaterno();
+		String apMaterno = persona.getApMaterno();
+		String ci = persona.getCi();
+
+		// Obtener la primera letra de cada palabra y el CI
+		String codigoAsegurado = String.valueOf(nombre.charAt(0)) +
+				String.valueOf(apPaterno.charAt(0)) +
+				String.valueOf(apMaterno.charAt(0)) +
+				ci;
+
+		return codigoAsegurado;
+	}
+    
     @PostMapping(value = "/rechazar-personaExterna/{id_persona}")
     @ResponseBody
     public void rechazarPersonaExterna(HttpServletRequest request, Model model,
@@ -176,6 +204,47 @@ public class Personacontroller {
         persona.setEstado("EPX");
         personaService.save(persona);
      
+
+    }
+    private Asegurado codigoAseguradoAdCreado;
+    @PostMapping(value = "/aceptar-personaExterna/{id_persona}")
+    @ResponseBody
+    public void aceptarPersonaExterna(HttpServletRequest request, Model model,
+            @PathVariable("id_persona") int id_persona) {
+        Persona persona = personaService.findOne(id_persona);
+        persona.setEstado("EPA");
+        personaService.save(persona);
+        Asegurado codigoAseguradoAExiste = aseguradoService.findAseguradoByPersonaId(persona.getIdPersona());
+
+				if (codigoAseguradoAExiste != null) {
+
+					codigoAseguradoAdCreado = codigoAseguradoAExiste;
+				
+
+				}else {
+					String codigoAsegurado = generateCodigoAsegurado(persona);
+
+					Asegurado aseguradoA = new Asegurado();
+					aseguradoA.setCodigoAsegurado(codigoAsegurado);
+					aseguradoA.setPersona(persona);
+					aseguradoA.setEstado("A");
+					aseguradoService.save(aseguradoA);
+
+					codigoAseguradoAdCreado = aseguradoA;
+
+					System.out.println("/------------------------------------------------/");
+					System.out.println("SE GENERO EL CODIGO ASEGURADO PARA: " + persona.getNombres());
+					System.out.println("/------------------------------------------------/");
+
+					HistorialSeguro historialSeguro = new HistorialSeguro();
+					historialSeguro.setCodigoSeguroPrincipal(codigoAsegurado);
+					historialSeguro.setEstado("A"); // (o el estado que desees)
+					historialSeguro.setFechaAlta(new Date());
+					historialSeguro.setFechaBaja(new Date());
+					historialSeguro.setTitularHS(true);
+					historialSeguro.setAsegurado(aseguradoA);
+					historialSeguroService.save(historialSeguro);
+				}
 
     }
 }

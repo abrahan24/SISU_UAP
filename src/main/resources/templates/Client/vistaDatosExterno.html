@@ -79,16 +79,16 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
                                                 <label for="nombreAdministrativo">Nombres:</label>
-                                                <input type="text" class="form-control" th:field="${persona.nombres}" required>
+                                                <input type="text" class="form-control" th:field="${persona.nombres}" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <label for="apPaternoA">Apellido Paterno</label>
-                                                <input type="text" id="apPaternoA" name="apPaternoA" required
+                                                <input type="text" id="apPaternoA" name="apPaternoA" onkeyup="javascript:this.value=this.value.toUpperCase();" required
                                                     class="form-control" th:field="${persona.apPaterno}">
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <label for="apMaternoA">Apellido Materno</label>
-                                                <input type="text" id="apMaternoA" name="apMaternoA" required
+                                                <input type="text" id="apMaternoA" name="apMaternoA" onkeyup="javascript:this.value=this.value.toUpperCase();" required
                                                     class="form-control" th:field="${persona.apMaterno}">
                                             </div>
                                         </div>
@@ -189,6 +189,7 @@
 
 
                                     </form>
+                                  
                                 </div>
                             </div>
                         </div>
