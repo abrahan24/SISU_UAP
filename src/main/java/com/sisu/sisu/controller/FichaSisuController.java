@@ -625,7 +625,7 @@ public class FichaSisuController {
 	
 
 	@RequestMapping(value = "/externo", method = RequestMethod.GET)
-	public String externo(HttpServletRequest request, Model model,
+	public String externo(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
 			@RequestParam("ci") String ci) {
 
 		Persona persona = personaService.validarCI(ci);
@@ -633,9 +633,36 @@ public class FichaSisuController {
 		
 
 		if (persona != null) {
-			model.addAttribute("persona", persona);
-			personaECreada = persona;
-			return "Client/vistaDatosExternoExistente";
+			String estadoPersona = persona.getEstado();
+			String rol = "";	
+			if (estadoPersona.equals("RU")) {
+			rol = "Universitario";
+			}else{
+				if (estadoPersona.equals("RD")) {
+					rol = "Docente";
+					}else{
+						if (estadoPersona.equals("RA")) {
+							rol = "Administrativo";
+						}	
+					}
+			}
+			if (persona.getEstado() != "EPA" ) {
+				redirectAttrs
+			.addFlashAttribute("mensaje", "Usted está registrado como "+ rol + " No puede usar el Formulario de Persona Externa")
+			.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+			return "redirect:/inicioCliente";
+			}else{
+				if (persona.getEstado() == "EP" ) {
+					redirectAttrs
+					.addFlashAttribute("mensaje", "No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
+					.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";
+				}
+				model.addAttribute("persona", persona);
+				personaECreada = persona;
+				return "Client/vistaDatosExternoExistente";
+			}
+			
 		} else {
 			model.addAttribute("persona", new Persona());
 			model.addAttribute("dips", dipService.findAll());
