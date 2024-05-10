@@ -76,7 +76,7 @@ public class FichaSisuController {
 	private ITiposEstadoCivilService tiposEstadoCivilService;
 
 	@RequestMapping(value = "universitario", method = RequestMethod.GET)
-	public String obtenerDatosUniversitario(HttpServletRequest request, Model model,
+	public String obtenerDatosUniversitario(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
 			@RequestParam("codigoUniversitario") String ru) {
 
 		System.out.println("--------------------MOSTRANDO DATOS UNIVERSITARIO------------------");
@@ -104,7 +104,19 @@ public class FichaSisuController {
 			model.addAttribute("activarCreacionFicha", false);
 
 			if (resp.getBody().get("status").toString().equals("200")) {
+
+				
+
 				Map<String, Object> data = (Map) resp.getBody().get("data");
+
+				String estadoMatricula = data.get("estado_matriculacion").toString();
+				if (estadoMatricula.equals("false")) {
+					redirectAttrs
+							.addFlashAttribute("mensaje",
+									"Su Matricula de Estudiante Está deshabilitada")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";
+				}
 
 				model.addAttribute("nombreUniversitario", data.get("nombres").toString());
 				model.addAttribute("ci", data.get("ci").toString());
@@ -284,7 +296,7 @@ public class FichaSisuController {
 	 */
 
 	@RequestMapping(value = "docente", method = RequestMethod.GET)
-	public String docente(HttpServletRequest request, Model model,
+	public String docente(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
 			@RequestParam("codigoDocente") String rd) {
 
 		Map<String, Object> request1 = new HashMap<>();
@@ -313,6 +325,15 @@ public class FichaSisuController {
 				System.out.println("----------------------------------SS--------");
 
 				Map<String, Object> data = (Map) resp.getBody().get("data");
+
+				String estadoMatricula = data.get("activo").toString();
+				if (estadoMatricula.equals("false")) {
+					redirectAttrs
+							.addFlashAttribute("mensaje",
+									"Su Matricula de Docente Está deshabilitada")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";
+				}
 
 				System.out.println("------------RD: " + rd + "---------");
 				System.out.println("------------------------------------------");

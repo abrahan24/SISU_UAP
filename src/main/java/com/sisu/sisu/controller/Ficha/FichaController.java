@@ -45,7 +45,19 @@ public class FichaController {
 
      //-------------------------------to list---------------------------------
 
-     @GetMapping (value = "fichasAsegurado")
+     @GetMapping (value = "/listaFichasGeneral")
+    public String listaFichasGeneral(Model model, @Validated Ficha ficha) {
+
+        model.addAttribute("ficha", new Ficha());
+        model.addAttribute("fichas", fichaService.findAll());
+
+        
+  
+        return "Fichas/listaFichaGeneral";
+    }
+
+
+    @GetMapping (value = "/fichasAsegurado")
     public String generarFicha(Model model, @Validated Ficha ficha) {
 
         model.addAttribute("ficha", new Ficha());
