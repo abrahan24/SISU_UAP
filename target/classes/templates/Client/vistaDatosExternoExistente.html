@@ -70,7 +70,7 @@
                             <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 500px;">
                                 <div class="card bg-light">
                                     <div class="card-body p-4">   
-                                        <form action="/generarFichaE" method="post">
+                                        <form id="form1" action="/generarFichaE" method="post">
                                        
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
@@ -148,10 +148,18 @@
                                                     <input type="text" id="nivel" name="nivel" class="form-control" th:value="${nivel}" readonly>
                                                 </div> -->
                                             </div>
-                                            <div class="text-right mt-3">
-                                                <button type="submit" class="btn btn-success mr-2" name="submitGenerar">Generar Ficha</button>
-                                                <button type="submit" class="btn btn-secondary" name="submitCancelar" formaction="/inicioCliente">Cancelar</button>
+                                            <div class="container mt-3">
+                                                <div class="row">
+                                                    <div>
+                                                        <a style="margin-right: 215px;" class="btn btn-secondary"
+                                                            name="submitCancelar" href="../../../inicioCliente">Cancelar</a>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success mr-2" name="submitGenerar">Generar Ficha</button>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            
                                         </form>
                                        
                                     </div>
@@ -230,6 +238,72 @@
         <script src="assets/js/pages/form-advanced.init.js"></script>
 
         <script src="assets/js/app.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            $(document).ready(function () {
+             
+                $('#form1').submit(function (event) {
+                    event.preventDefault();
+                    var form = document.getElementById("form1");
+                    var action = form.action;
+                    var formData = $(this).serialize();
+    
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function (response) {
+                            var mensaje = response;
+                            if (mensaje == "exito") {
+                                Swal.fire({
+                                    title: 'Se Registro la Ficha con Exitoso!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                setTimeout(function () {
+                                    location.href = "../../../../inicioCliente";
+                                }, 2000);
+                            } else {
+                                if (mensaje == "error") {
+                                    Swal.fire({
+                                    title: 'No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                 setTimeout(function () {
+                                    location.href = "../../../../inicioCliente";
+                                }, 2000);
+                                }else{
+                                    Swal.fire({
+                                    title: 'Usted ya tiene una ficha en la fecha actual',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                 setTimeout(function () {
+                                    location.href = "../../../../inicioCliente";
+                                }, 2000);
+                                }
+                               
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                            console.error(error);
+                            // Manejo de errores
+                        }
+                    });
+    
+                });
+            });
+        </script>
     </body>
+
+
 </html>

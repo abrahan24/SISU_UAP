@@ -698,45 +698,40 @@ public class FichaSisuController {
 
 	}
 
-	@RequestMapping(value = "/generarFichaE", method = RequestMethod.POST)
-	public String generarFichaE(Model model, RedirectAttributes redirectAttrs) {
-
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
+	@PostMapping(value = "generarFichaE")
+	public ResponseEntity<String> generarFichaE( RedirectAttributes flash,
+		  HttpServletRequest request,Model model) {
+			System.out.println("ENTRA AL METODOOOOOOOOOOOOOOOOOOo");
+			Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
-			redirectAttrs
-					.addFlashAttribute("mensaje",
-							"No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
-					.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
-			return "redirect:/inicioCliente";
+			System.out.println("ENTRO AL IIIIIIIIIIIIF");
+			return ResponseEntity.ok("error"); //No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos
 		}
-		Date fechaActualD = new Date();
+		Date fechaActualD = new Date(); 
 
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
-			System.out.println("ESTA PERSONA EXTERNA YA TIENE UNA FICHA");
-
+			
 			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 			LocalDate fechaActual = LocalDate.now();
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
-				System.out
-						.println(
-								"La persona externa asegurada ya tiene una ficha en la fecha actual. No se guarda la ficha.");
-				return "redirect:/inicioCliente";
+				return ResponseEntity.ok("error1"); //Usted ya tiene una ficha en la fecha actual.
 			}
-		}
-
+		}	
 		Ficha ficha = new Ficha();
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
 		fichaService.save(ficha);
-		System.out.println("LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO");
+		
+			 
 
-		return "redirect:/inicioCliente";
-	}
+		return ResponseEntity.ok("exito"); //LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
+
+  }
 
 }
