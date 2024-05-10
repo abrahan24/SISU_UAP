@@ -128,7 +128,6 @@ public class FichaSisuController {
 
 					personaCreada = newUnipersona;
 					System.out.println("------------ ESTE UNIVERSITARIO YA ESTÁ REGISTRADO EN LA BD -----------------");
-					
 
 				} else {
 					newUnipersona = new Persona();
@@ -163,8 +162,9 @@ public class FichaSisuController {
 
 				}
 
-				Asegurado codigoAseguradoUniExistente = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
-				
+				Asegurado codigoAseguradoUniExistente = aseguradoService
+						.findAseguradoByPersonaId(personaCreada.getIdPersona());
+
 				if (codigoAseguradoUniExistente != null) {
 
 					codigoAseguradoUniCreado = codigoAseguradoUniExistente;
@@ -209,7 +209,6 @@ public class FichaSisuController {
 					historialSeguro.setTipo_seguro(tipoSeguro);
 					historialSeguroService.save(historialSeguro);
 
-					
 				}
 
 			}
@@ -230,11 +229,12 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFicha", method = RequestMethod.POST)
 	public String generarFicha(Model model) {
-		
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
-		Date fechaActualD = new Date(); 
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(), fechaActualD);
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
+		Date fechaActualD = new Date();
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(),
+				fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("ESTE UNIVERSITARIO YA TIENE UNA FICHA");
@@ -246,7 +246,8 @@ public class FichaSisuController {
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
 				System.out
-						.println("El universitario asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+						.println(
+								"El universitario asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
 				return "redirect:/inicioCliente";
 			}
 		}
@@ -428,11 +429,12 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFichaD", method = RequestMethod.POST)
 	public String generarFichaD(Model model) {
-		
-		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
-		Date fechaActualD = new Date(); 
 
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(), fechaActualD);
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
+		Date fechaActualD = new Date();
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(),
+				fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("ESTE DOCENTE YA TIENE UNA FICHA");
@@ -591,9 +593,9 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/generarFichaA", method = RequestMethod.POST)
 	public String generarFichaA(Model model) {
-		
+
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
-		Date fechaActualD = new Date(); 
+		Date fechaActualD = new Date();
 
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 
@@ -607,7 +609,8 @@ public class FichaSisuController {
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
 				System.out
-						.println("El administrativo asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+						.println(
+								"El administrativo asegurado ya tiene una ficha en la fecha actual. No se guarda la ficha.");
 				return "redirect:/inicioCliente";
 			}
 		}
@@ -622,47 +625,49 @@ public class FichaSisuController {
 		return "redirect:/inicioCliente";
 	}
 
-	
-
 	@RequestMapping(value = "/externo", method = RequestMethod.GET)
-	public String externo(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
+	public String externo(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
 			@RequestParam("ci") String ci) {
 
 		Persona persona = personaService.validarCI(ci);
 
-		
-
 		if (persona != null) {
 			String estadoPersona = persona.getEstado();
-			String rol = "";	
+			String rol = "";
 			if (estadoPersona.equals("RU")) {
-			rol = "Universitario";
-			}else{
+				rol = "Universitario";
+			} else {
 				if (estadoPersona.equals("RD")) {
 					rol = "Docente";
-					}else{
-						if (estadoPersona.equals("RA")) {
-							rol = "Administrativo";
-						}	
+				} else {
+					if (estadoPersona.equals("RA")) {
+						rol = "Administrativo";
 					}
+				}
 			}
-			if (persona.getEstado() != "EPA" ) {
-				redirectAttrs
-			.addFlashAttribute("mensaje", "Usted está registrado como "+ rol + " No puede usar el Formulario de Persona Externa")
-			.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
-			return "redirect:/inicioCliente";
-			}else{
-				if (persona.getEstado() == "EP" ) {
+			if (!persona.getEstado().equals("EPA")) {
+				if (!persona.getEstado().equals("EP")) {
 					redirectAttrs
-					.addFlashAttribute("mensaje", "No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
-					.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+							.addFlashAttribute("mensaje",
+									"Usted está registrado como " + rol
+											+ " No puede usar el Formulario de Persona Externa")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";
+				} else {
+					redirectAttrs
+							.addFlashAttribute("mensaje",
+									"No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
 					return "redirect:/inicioCliente";
 				}
+
+			} else {
+
 				model.addAttribute("persona", persona);
 				personaECreada = persona;
 				return "Client/vistaDatosExternoExistente";
 			}
-			
+
 		} else {
 			model.addAttribute("persona", new Persona());
 			model.addAttribute("dips", dipService.findAll());
@@ -677,36 +682,34 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoEPCreado;
 
 	@PostMapping(value = "externoNuevoF")
-      public ResponseEntity<String> externoNuevoF(@Validated Persona persona, RedirectAttributes flash,
-            HttpServletRequest request,Model model) {
+	public ResponseEntity<String> externoNuevoF(@Validated Persona persona, RedirectAttributes flash,
+			HttpServletRequest request, Model model) {
 
-			Persona personaValidar = personaService.validarCI(persona.getCi());
-			if (personaValidar != null) {
-                
-            
-            return ResponseEntity.ok("error"); 
-            }
+		Persona personaValidar = personaService.validarCI(persona.getCi());
+		if (personaValidar != null) {
 
-			persona.setEstado("EP"); //Externo Pendiente
-			personaService.save(persona);
+			return ResponseEntity.ok("error");
+		}
 
-               
+		persona.setEstado("EP"); // Externo Pendiente
+		personaService.save(persona);
 
-            return ResponseEntity.ok("exito");
+		return ResponseEntity.ok("exito");
 
-    }
+	}
 
 	@RequestMapping(value = "/generarFichaE", method = RequestMethod.POST)
 	public String generarFichaE(Model model, RedirectAttributes redirectAttrs) {
-		
+
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
 			redirectAttrs
-			.addFlashAttribute("mensaje", "No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
-			.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					.addFlashAttribute("mensaje",
+							"No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
+					.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
 			return "redirect:/inicioCliente";
 		}
-		Date fechaActualD = new Date(); 
+		Date fechaActualD = new Date();
 
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 
@@ -720,7 +723,8 @@ public class FichaSisuController {
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
 				System.out
-						.println("La persona externa asegurada ya tiene una ficha en la fecha actual. No se guarda la ficha.");
+						.println(
+								"La persona externa asegurada ya tiene una ficha en la fecha actual. No se guarda la ficha.");
 				return "redirect:/inicioCliente";
 			}
 		}
@@ -734,6 +738,5 @@ public class FichaSisuController {
 
 		return "redirect:/inicioCliente";
 	}
-	
 
 }
