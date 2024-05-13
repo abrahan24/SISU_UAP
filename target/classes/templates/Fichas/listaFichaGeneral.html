@@ -34,15 +34,15 @@
 
 
        <!-- Selectize -->
-       <link href="assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
+       <link href="../../../../assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
 
       <!-- spectrum colorpicker -->
-      <link href="assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
+      <link href="../../../../assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
 
       <!-- datepicker -->
-      <link href="assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+      <link href="../../../../assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
 
-      <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+      <link href="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
 </head>
 
@@ -116,7 +116,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="f : ${fichas}">
+                                            <tr th:each="f : ${fichas}" th:if="${f.estado != 'X' && f.estado != 'AA'}">
                                                 
                                                 <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.nombres}"></td>
                                               
@@ -173,41 +173,40 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
-                    <form id="form1" th:action="@{asignar_medico}" method="post">
-                        <input id="idFicha" name="idFicha" type="hidden" >
-                        <select  th:field="${personalMedico.idPersonalMedico}" class="selectize" required>
+                <form id="form1" th:action="@{asignar_medico}" method="post">
+                    <div class="modal-body">
+                        <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
+                
+                        <input id="idFicha" name="idFicha" type="hidden">
+                        <select th:field="${personalMedico.idPersonalMedico}" class="selectize" required>
                             <option value="" selected>Seleccione...</option>
-                            <!-- <optgroup label="Alaskan/Hawaiian Time Zone">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </optgroup> -->
-                            
+                
                             <th:block th:each="m : ${p_medicos}">
-                            <option th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno}" th:value="${m.idPersonalMedico}"></option>
+                                <option th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno}"
+                                    th:value="${m.idPersonalMedico}"></option>
                             </th:block>
                         </select>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
-                    <button type="submit" class="btn btn-outline-success">ENVIAR</button>
-                </div>
+                
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+                        <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
-    <div class="rightbar-overlay"></div>
-    
+    <!-- <div class="rightbar-overlay"></div> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#form1').submit(function (event) {
                 event.preventDefault();
-    
-                var form = document.getElementById("form1");
+                var form = document.getElementById("form1"); 
                 var action = form.action;
-    
                 var formData = $(this).serialize();
     
                 $.ajax({
@@ -219,21 +218,15 @@
                         var mensaje = response;
                         if (mensaje == "1") {
                             Swal.fire({
-                                title: 'Registro Exitoso!',
+                                title: 'Asignacion Realizada con Exitoso!',
                                 icon: "success",
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            setTimeout(function () {
+                                location.href = "../../../../listaFichasGeneral";
+                            }, 2000);
                         } 
-                        else {
-                            Swal.fire({
-                                title: 'Actualización Exitosa!',
-                                icon: "success",
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                        }
-                        
                     },
                     error: function (xhr, status, error) {
                         toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
@@ -259,7 +252,6 @@
          <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
          <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
          <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
          <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
 
@@ -300,22 +292,22 @@
 
         
         <!-- Spectrum colorpicker -->
-        <script src="assets/libs/spectrum-colorpicker/spectrum.js"></script>
+        <script src="../../../../assets/libs/spectrum-colorpicker/spectrum.js"></script>
 
         <!-- Selectize -->
-        <script src="assets/libs/selectize/js/standalone/selectize.min.js"></script>
+        <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
 
         <!-- datepicker -->
-        <script src="assets/libs/air-datepicker/js/datepicker.min.js"></script>
-        <script src="assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
+        <script src="../../../../assets/libs/air-datepicker/js/datepicker.min.js"></script>
+        <script src="../../../../assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
 
-        <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+        <script src="../../../../assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 
         <!-- Form Advanced init -->
-        <script src="assets/js/pages/form-advanced.init.js"></script>
+        <script src="../../../../assets/js/pages/form-advanced.init.js"></script>
 
-        <script src="assets/js/app.js"></script>
+        <script src="../../../../assets/js/app.js"></script>
 
 </body>
 

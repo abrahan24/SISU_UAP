@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sisu.sisu.Dao.PersonalMedicoDao;
+import com.sisu.sisu.Dao.PersonalMedicoFichaDao;
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
 import com.sisu.sisu.Service.IAseguradoService;
@@ -23,6 +25,7 @@ import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.PersonalMedico;
+import com.sisu.sisu.entitys.PersonalMedicoFicha;
 import com.sisu.sisu.entitys.Usuario;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +45,9 @@ public class FichaController {
 
     @Autowired
     private PersonalMedicoService personalMedicoService;
+
+    @Autowired
+    private PersonalMedicoFichaDao personalMedicoFichaDao;
 
     @RequestMapping(value = "/vistaF", method = RequestMethod.GET)
 	public String vistaFicha(Model model ) { 
@@ -83,12 +89,16 @@ public class FichaController {
 
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
-      @Validated PersonalMedico personalMedico ) {
+      @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico ) {
         
         Ficha ficha = fichaService.findOne(idFicha);
         ficha.setEstado("AA");
         fichaService.save(ficha);
-        personalMedicoService.registrar(personalMedico);
+        PersonalMedicoFicha personalMedicoFicha = new PersonalMedicoFicha();
+        personalMedicoFicha.setFicha(ficha);
+        personalMedicoFicha.setPersonal_medico(personalMedicoService.buscarId(idPersonalMedico));
+        personalMedicoFicha.setRegistro(new Date());
+        personalMedicoFichaDao.save(personalMedicoFicha);
 
         return ResponseEntity.ok("1");
      }
