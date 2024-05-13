@@ -2,21 +2,31 @@ package com.sisu.sisu.controller.Ficha;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
 import com.sisu.sisu.Service.IAseguradoService;
 import com.sisu.sisu.Service.IPersonaService;
+import com.sisu.sisu.Service.PersonalMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.Persona;
+import com.sisu.sisu.entitys.PersonalMedico;
+import com.sisu.sisu.entitys.Usuario;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class FichaController {
@@ -29,6 +39,9 @@ public class FichaController {
 
     @Autowired
     private IAseguradoService aseguradoService;
+
+    @Autowired
+    private PersonalMedicoService personalMedicoService;
 
     @RequestMapping(value = "/vistaF", method = RequestMethod.GET)
 	public String vistaFicha(Model model ) { 
@@ -48,17 +61,38 @@ public class FichaController {
      //-------------------------------to list---------------------------------
 
      @GetMapping (value = "/listaFichasGeneral")
-    public String listaFichasGeneral(Model model, @Validated Ficha ficha) {
+    public String listaFichasGeneral(Model model, @Validated Ficha ficha, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "index/login";
+			
+		}
+
         Date fechaActualD = new Date(); 
 
         model.addAttribute("ficha", new Ficha());
         model.addAttribute("fichas", fichaService.listaFichasFechaActual(fechaActualD));
+        model.addAttribute("p_medicos", personalMedicoService.listarTodo());    
 
-        
-  
+        model.addAttribute("personalMedico", new PersonalMedico());
         return "Fichas/listaFichaGeneral";
     }
 
+     @PostMapping("/asignar_medico")
+     public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
+      @Validated PersonalMedico personalMedico ) {
+        
+        Ficha ficha = fichaService.findOne(idFicha);
+        ficha.setEstado("AA");
+        fichaService.save(ficha);
+        personalMedicoService.registrar(personalMedico);
+
+        return ResponseEntity.ok("1");
+     }
+     
 
     @GetMapping (value = "/fichasAsegurado")
     public String generarFicha(Model model, @Validated Ficha ficha) {

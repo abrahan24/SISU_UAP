@@ -111,6 +111,7 @@
                                                 <th>Genero:</th>
                                                 <th>Estado Civil:</th>
                                                 <th>Grado Academico</th>
+                                                <th>Accion</th>
                                                 <th>Historial</th>
                                             </tr>
                                         </thead>
@@ -133,11 +134,15 @@
 
                                              
                                                 <td>
+                                                    <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
+                                                        th:attr="onclick='mostrarModal(\'' + ${f.idFicha} + '\')'">
+                                                        Asignar
+                                                    </button>
+                                                </td>
+                                                <td>
                                                     <input type="hidden" th:hidden="${f != null and f.asegurado != null}" />
                                                     <a class="btn btn-primary sombre" th:href="@{'../../../../vistaHistorialSeguro/'+${f.asegurado.idAsegurado}+'/'+${f.idFicha}}">Historial</a>
-                                              
                                                 </td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>
@@ -154,14 +159,95 @@
         <div th:insert="~{layout/footer :: footer}"></div>
     </div>
     </div>
+    <div class="modal fade text-left" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success white">
+                    <h4 class="modal-title" id="myModalLabel9"><div class="fonticon-wrap">
+                        <i class="ft-user-check"></i>
+                    </div> SELECCIONE MEDICO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
+                    <form id="form1" th:action="@{asignar_medico}" method="post">
+                        <input id="idFicha" type="hidden">
+                        <select  th:field="${personalMedico.fichas}" class="selectize" required>
+                            <option value="" selected>Seleccione...</option>
+                            <!-- <optgroup label="Alaskan/Hawaiian Time Zone">
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                            </optgroup> -->
+                            
+                            <th:block th:each="m : ${p_medicos}">
+                            <option th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno}" th:value="${m.idPersonalMedico}"></option>
+                            </th:block>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+                    <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <div class="rightbar-overlay"></div>
-
-    <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+    
+                var form = document.getElementById("form1");
+                var action = form.action;
+    
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        } 
+                        else {
+                            Swal.fire({
+                                title: 'Actualización Exitosa!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                        
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
+        <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
          <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
          <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
          <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
          <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
          <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
 
