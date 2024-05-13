@@ -48,8 +48,8 @@ public class HistorialSeguroController {
         model.addAttribute("asegurado", aseguradoService.findOne(idAsegurado));
         model.addAttribute("historial_seguro", historialSeguro);
     
-        System.out.println("NOMBRE: " + historialSeguro.getAsegurado().getPersona().getNombres());
-        System.out.println("IDFicha: " + idFicha);
+        // System.out.println("NOMBRE: " + historialSeguro.getAsegurado().getPersona().getNombres());
+        // System.out.println("IDFicha: " + idFicha);
     
         // Devolver la vista correspondiente
         return "formularios/formHistoriaClinica";

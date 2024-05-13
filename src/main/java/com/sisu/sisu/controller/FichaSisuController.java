@@ -543,7 +543,7 @@ public class FichaSisuController {
 					GradoAcademico gradoAcademico = new GradoAcademico();
 					TiposEstadoCivil tiposEstadoCivil = new TiposEstadoCivil();
 
-					dip.setIdDip(10);
+					dip.setIdDip(7);
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
 
