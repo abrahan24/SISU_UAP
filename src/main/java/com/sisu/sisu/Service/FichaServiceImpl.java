@@ -48,4 +48,9 @@ public class FichaServiceImpl implements FichaService{
         // TODO Auto-generated method stub
         return fichaDao.findFichaByAseguradoId(aseguradoId, fecha);
     }
+
+    @Override
+    public List<Ficha> listaFichasFechaActual(Date fecha) {
+        return (List<Ficha>) fichaDao.listaFichasFechaActual(fecha);
+    }
 }

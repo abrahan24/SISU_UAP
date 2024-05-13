@@ -1,5 +1,7 @@
 package com.sisu.sisu.controller.Ficha;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,9 +49,10 @@ public class FichaController {
 
      @GetMapping (value = "/listaFichasGeneral")
     public String listaFichasGeneral(Model model, @Validated Ficha ficha) {
+        Date fechaActualD = new Date(); 
 
         model.addAttribute("ficha", new Ficha());
-        model.addAttribute("fichas", fichaService.findAll());
+        model.addAttribute("fichas", fichaService.listaFichasFechaActual(fechaActualD));
 
         
   

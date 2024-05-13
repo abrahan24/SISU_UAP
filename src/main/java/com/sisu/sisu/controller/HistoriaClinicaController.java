@@ -89,7 +89,7 @@ public class HistoriaClinicaController {
                     .toLocalTime();
             model.addAttribute("fechaH", fecha);
             model.addAttribute("horaH", hora);
-            return "formularios/VistaHistoriaClinica";
+            return "formularios/VistaHistoriaClinica2";
         } catch (Exception e) {
 
             return "redirect:/formHistorialClinico";
