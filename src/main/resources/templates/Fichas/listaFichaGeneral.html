@@ -135,7 +135,9 @@
                                              
                                                 <td>
                                                     <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
-                                                        th:attr="onclick='mostrarModal(\'' + ${f.idFicha} + '\')'">
+                                                    th:data-value="${f.idFicha}" 
+                                                    onclick="enviarID(this.getAttribute('data-value'))"
+                                                    >
                                                         Asignar
                                                     </button>
                                                 </td>
@@ -174,8 +176,8 @@
                 <div class="modal-body">
                     <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
                     <form id="form1" th:action="@{asignar_medico}" method="post">
-                        <input id="idFicha" type="hidden" >
-                        <select  th:field="${personalMedico.fichas}" class="selectize" required>
+                        <input id="idFicha" name="idFicha" type="hidden" >
+                        <select  th:field="${personalMedico.idPersonalMedico}" class="selectize" required>
                             <option value="" selected>Seleccione...</option>
                             <!-- <optgroup label="Alaskan/Hawaiian Time Zone">
                                 <option value="AK">Alaska</option>
@@ -197,6 +199,7 @@
     </div>
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <div class="rightbar-overlay"></div>
+    
     <script>
         $(document).ready(function () {
             $('#form1').submit(function (event) {
@@ -241,6 +244,15 @@
     
             });
         });
+    </script>
+    <script>
+        function enviarID(valor) {
+            // Seleccionar el input
+            var input = document.getElementById('idFicha');
+    
+            // Asignar el valor al atributo value del input
+            input.value = valor;
+        }
     </script>
         <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
          <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
