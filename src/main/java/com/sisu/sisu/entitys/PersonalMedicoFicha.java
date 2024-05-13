@@ -31,25 +31,15 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "personal_medico")
-public class PersonalMedico implements Serializable{
+@Table(name = "personal_medico_ficha")
+public class PersonalMedicoFicha implements Serializable{
     private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_personal_medico")
-    private Integer idPersonalMedico;
+    @Column(name = "id_personal_medico_ficha")
+    private Integer idPersonalMedicoFicha;
 
-    @Column(name = "fecha_inico")
-	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    private Date fechaInicio;
-
-    @Column(name = "fecha_final")
-	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    private Date fechaFinal;
-
-    @Column(name = "estado")
-    private String estado;
-
+   
     @Column(name = "registro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registro;
@@ -61,28 +51,11 @@ public class PersonalMedico implements Serializable{
     //---------------------RELACIONES-------------------------------------------
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idPersona")
-    private Persona persona;
+    @JoinColumn(name = "id_personal_medico")
+    private PersonalMedico personal_medico;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoRegistroMedico")
-    private TipoRegistroMedico tipo_registro_medico;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idTipoPersonalMedico")
-    private TipoPersonalMedico tipo_personal_medico;
-
-   
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal_medico", fetch = FetchType.LAZY)
-	  private List<MedicoServicio> medico_servicio;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal_medico", fetch = FetchType.LAZY)
-	  private List<PersonalMedicoTurno> personalMedicoTurno;
-
-      @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal_medico", fetch = FetchType.LAZY)
-	  private List<PersonalMedicoFicha> personalMedicoFicha;
-
-
-
+    @JoinColumn(name = "id_ficha")
+    private Ficha ficha;
 
 }

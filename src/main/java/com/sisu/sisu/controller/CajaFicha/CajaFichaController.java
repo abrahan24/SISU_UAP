@@ -240,8 +240,8 @@ public class CajaFichaController {
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaUniCreada.getIdPersona());
 
 		Date fechaActualD = new Date(); 
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
+		System.out.println("ENTRO AL METODO GENERAR FICHA CAJA");
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
 			System.out.println("YA TIENES UNA FICHA PARIENTE");
