@@ -152,7 +152,7 @@ public class login {
 	
 	
 
-	@RequestMapping(value = "cerrar.da", method = RequestMethod.GET)
+	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
 	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
