@@ -1,12 +1,10 @@
 package com.sisu.sisu.Dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.PersonalMedicoFicha;
 
 public interface PersonalMedicoFichaDao extends CrudRepository<PersonalMedicoFicha,Integer>{

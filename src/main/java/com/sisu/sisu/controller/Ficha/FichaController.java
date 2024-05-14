@@ -114,8 +114,6 @@ public class FichaController {
         System.out.println(id_usuario);
         model.addAttribute("fichas", listFichas);
 
-        
-        
 
         return "Fichas/listaFichaP";
     }
