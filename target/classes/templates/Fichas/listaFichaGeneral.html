@@ -112,7 +112,7 @@
                                                 <th>Estado Civil:</th>
                                                 <th>Grado Academico</th>
                                                 <th>Accion</th>
-                                                <th>Historial</th>
+                                           
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,10 +141,7 @@
                                                         Asignar
                                                     </button>
                                                 </td>
-                                                <td>
-                                                    <input type="hidden" th:hidden="${f != null and f.asegurado != null}" />
-                                                    <a class="btn btn-primary sombre" th:href="@{'../../../../vistaHistorialSeguro/'+${f.asegurado.idAsegurado}+'/'+${f.idFicha}}">Historial</a>
-                                                </td>
+                                             
                                             </tr>
                                         </tbody>
                                     </table>

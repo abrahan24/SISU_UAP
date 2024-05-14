@@ -41,8 +41,12 @@ public class HistorialSeguroController {
         fichaService.save(ficha);
         }
         
-       HistorialSeguro historialSeguro = historialSeguroService.getHistorial_por_id_seguro(idFicha);
-        historialSeguro = historialSeguroService.getHistorial_por_id_seguro(idFicha);
+       HistorialSeguro historialSeguro = historialSeguroService.getHistorial_por_id_seguro(idAsegurado);
+        if (historialSeguro == null) {
+            System.out.println("NO ENCONTRO HISTORIAL");
+        }else{
+            System.out.println("Si ENCONTRO HISTORIAL");
+        }   
         
         model.addAttribute("historiaClinica", new HistoriaClinica());
         model.addAttribute("asegurado", aseguradoService.findOne(idAsegurado));

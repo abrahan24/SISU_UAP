@@ -1,6 +1,7 @@
 package com.sisu.sisu.controller.Ficha;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,14 +106,16 @@ public class FichaController {
      }
      
 
-    @GetMapping (value = "/fichasAsegurado")
-    public String generarFicha(Model model, @Validated Ficha ficha) {
+    @GetMapping (value = "/fichasAsegurado/{id_usuario}")
+    public String generarFicha( @PathVariable("id_usuario") int id_usuario,Model model, @Validated Ficha ficha) {
 
-        model.addAttribute("ficha", new Ficha());
-        model.addAttribute("fichas", fichaService.findAll());
+        List<PersonalMedicoFicha> listFichas = personalMedicoFichaDao.listaFichasAsignadasPersonalMedico(id_usuario);
+        System.out.println(listFichas.size());
+        System.out.println(id_usuario);
+        model.addAttribute("fichas", listFichas);
 
         
-        System.out.println("+++++++++++++++++++23222");
+        
 
         return "Fichas/listaFichaP";
     }
