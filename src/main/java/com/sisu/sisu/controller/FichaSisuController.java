@@ -497,8 +497,8 @@ public class FichaSisuController {
 		try {
 			request1.put("usuario", codigoAdministrativo);
 
-			//String url = "http://localhost:3333/api/londraPost/v1/personaLondra/obtenerDatos";
-			String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
+			String url = "http://172.16.21.2:3333/api/londraPost/v1/obtenerDatos";
+			//String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
