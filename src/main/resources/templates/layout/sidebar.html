@@ -28,6 +28,11 @@
                                                     <a th:href="${hijos.idEnlace.ruta}" th:text="${hijos.idEnlace.nombre_enlace}"></a>
                                                 </li>
                                             </th:block>
+                                            <th:block th:if="${hijos.idEnlace.nombre_enlace == 'Fichas Asignadas'}">
+                                                <li>
+                                                    <a th:href="${hijos.idEnlace.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.idEnlace.nombre_enlace}"></a>
+                                                </li>
+                                            </th:block>
                                         </th:block>
                                     </th:block>
                                 </ul>

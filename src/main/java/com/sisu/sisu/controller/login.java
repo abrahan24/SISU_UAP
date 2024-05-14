@@ -139,8 +139,10 @@ public class login {
 
 		model.addAttribute("Padres", lEnlaces);
 		model.addAttribute("Hijos", lHijos);
+		model.addAttribute("usuario", usuario);
 
-		HttpSession sesion = request.getSession();
+		HttpSession sesion = request.getSession(true);
+		sesion.setAttribute("usuario", usuario);
 		sesion.setAttribute("sessionlPadres", lHijos);
 		sesion.setAttribute("usrRolSession", usrRol);
 
