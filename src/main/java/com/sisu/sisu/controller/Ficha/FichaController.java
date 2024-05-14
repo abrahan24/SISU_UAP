@@ -107,7 +107,15 @@ public class FichaController {
      
 
     @GetMapping (value = "/fichasAsegurado/{id_usuario}")
-    public String generarFicha( @PathVariable("id_usuario") int id_usuario,Model model, @Validated Ficha ficha) {
+    public String generarFicha( @PathVariable("id_usuario") int id_usuario,Model model, @Validated Ficha ficha, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "index/login";
+			
+		}
 
         List<PersonalMedicoFicha> listFichas = personalMedicoFichaDao.listaFichasAsignadasPersonalMedico(id_usuario);
         System.out.println(listFichas.size());
