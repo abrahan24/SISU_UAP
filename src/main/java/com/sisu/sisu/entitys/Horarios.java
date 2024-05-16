@@ -1,6 +1,7 @@
 package com.sisu.sisu.entitys;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,10 @@ public class Horarios implements Serializable{
 
     @Column(name = "estado")
     private String estado;
+
+
+    @Column(name = "horario")
+    private LocalDateTime horario;
 
     @Column(name = "modificacion")
     @Temporal(TemporalType.TIMESTAMP)

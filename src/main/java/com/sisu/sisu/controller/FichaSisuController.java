@@ -76,7 +76,7 @@ public class FichaSisuController {
 	private ITiposEstadoCivilService tiposEstadoCivilService;
 
 	@RequestMapping(value = "universitario", method = RequestMethod.GET)
-	public String obtenerDatosUniversitario(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
+	public String obtenerDatosUniversitario(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
 			@RequestParam("codigoUniversitario") String ru) {
 
 		System.out.println("--------------------MOSTRANDO DATOS UNIVERSITARIO------------------");
@@ -105,15 +105,13 @@ public class FichaSisuController {
 
 			if (resp.getBody().get("status").toString().equals("200")) {
 
-				
-
 				Map<String, Object> data = (Map) resp.getBody().get("data");
 
 				String estadoMatricula = data.get("estado_matriculacion").toString();
 				if (estadoMatricula.equals("false")) {
 					redirectAttrs
 							.addFlashAttribute("mensaje",
-									"Su Matricula de Estudiante Está deshabilitada")
+									"Su Matricula de Estudiante Está deshabilitada, Debe estar Matriculado en la Gestión Actual")
 							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
 					return "redirect:/inicioCliente";
 				}
@@ -223,6 +221,12 @@ public class FichaSisuController {
 
 				}
 
+			}else{
+				redirectAttrs
+							.addFlashAttribute("mensaje",
+									"No existe esa Matricula de Estudiante, Por favor coloque un R.U. Válido")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";	
 			}
 			return "Client/vistaDatosUniversitario";
 
@@ -244,8 +248,9 @@ public class FichaSisuController {
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
 		if (asegurado == null) {
-			
-			return ResponseEntity.ok("error"); //No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos
+
+			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
+												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
 
@@ -261,7 +266,7 @@ public class FichaSisuController {
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
-				return ResponseEntity.ok("error1"); //Usted ya tiene una ficha en la fecha
+				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha
 			}
 		}
 
@@ -272,7 +277,7 @@ public class FichaSisuController {
 		fichaService.save(ficha);
 		System.out.println("LA FICHA PARA ESTE UNIVERSITARIO SE HA CREADO");
 
-		return ResponseEntity.ok("exito"); //LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
+		return ResponseEntity.ok("exito"); // LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
 	}
 
 	private String generateCodigoAsegurado(Persona persona) {
@@ -296,7 +301,7 @@ public class FichaSisuController {
 	 */
 
 	@RequestMapping(value = "docente", method = RequestMethod.GET)
-	public String docente(HttpServletRequest request, Model model,RedirectAttributes redirectAttrs,
+	public String docente(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
 			@RequestParam("codigoDocente") String rd) {
 
 		Map<String, Object> request1 = new HashMap<>();
@@ -318,8 +323,7 @@ public class FichaSisuController {
 			RestTemplate restTemplate = new RestTemplate();
 
 			ResponseEntity<Map> resp = restTemplate.exchange(url, HttpMethod.POST, req, Map.class);
-			System.out.println(
-					"---------------" + resp.getBody().get("status").toString() + "--------------------------");
+		
 
 			if (resp.getBody().get("status").toString().equals("200")) {
 				System.out.println("----------------------------------SS--------");
@@ -330,7 +334,7 @@ public class FichaSisuController {
 				if (estadoMatricula.equals("false")) {
 					redirectAttrs
 							.addFlashAttribute("mensaje",
-									"Su Matricula de Docente Está deshabilitada")
+									"Su Matricula de Docente Está deshabilitada, Debe estar Activa en la Gestión Actual")
 							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
 					return "redirect:/inicioCliente";
 				}
@@ -389,7 +393,7 @@ public class FichaSisuController {
 					existePersonaD.setApMaterno(data.get("apellido_materno").toString());
 					existePersonaD.setCi(data.get("ci").toString());
 					existePersonaD.setDireccion(data.get("direccion").toString());
-					//existePersonaD.setCelular(Integer.parseInt(data.get("celular").toString()));
+					// existePersonaD.setCelular(Integer.parseInt(data.get("celular").toString()));
 					existePersonaD.setSexo(data.get("sexo").toString());
 					existePersonaD.setFecha_nac(LocalDate.parse(data.get("fecha_nacimiento").toString()));
 					personaService.save(existePersonaD);
@@ -434,6 +438,12 @@ public class FichaSisuController {
 					historialSeguro.setAsegurado(aseguradoD);
 					historialSeguroService.save(historialSeguro);
 				}
+			}else{
+				redirectAttrs
+				.addFlashAttribute("mensaje",
+						"No existe esa Matricula de Docente, Por favor coloque un R.D. Válido")
+				.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+		return "redirect:/inicioCliente";	
 			}
 			return "Client/vistaDatosDocente";
 		} catch (Exception e) {
@@ -454,8 +464,9 @@ public class FichaSisuController {
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
 		if (asegurado == null) {
-			
-			return ResponseEntity.ok("error"); //No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos
+
+			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
+												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
 
@@ -463,7 +474,6 @@ public class FichaSisuController {
 				fechaActualD);
 
 		if (existeFicha != null) {
-			
 
 			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 			LocalDate fechaActual = LocalDate.now();
@@ -471,7 +481,7 @@ public class FichaSisuController {
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
-				return ResponseEntity.ok("error1"); //Usted ya tiene una ficha en la fecha
+				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha
 			}
 		}
 
@@ -482,7 +492,7 @@ public class FichaSisuController {
 		fichaService.save(ficha);
 		System.out.println("LA FICHA PARA ESTE DOCENTE SE HA CREADO");
 
-		return ResponseEntity.ok("exito"); //LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
+		return ResponseEntity.ok("exito"); // LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
 	}
 
 	/*
@@ -492,13 +502,14 @@ public class FichaSisuController {
 
 	@RequestMapping(value = "/administrativo", method = RequestMethod.GET)
 	public String administrativo(HttpServletRequest request, Model model,
-			@RequestParam("codigoAdministrativo") String codigoAdministrativo) {
+			@RequestParam("codigoAdministrativo") String codigoAdministrativo, RedirectAttributes redirectAttrs) {
 		Map<String, Object> request1 = new HashMap<>();
 		try {
 			request1.put("usuario", codigoAdministrativo);
 
-			String url = "http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
-			//String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
+			// String url =
+			// "http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
+			String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
@@ -507,12 +518,23 @@ public class FichaSisuController {
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<Map> resp = restTemplate.exchange(url, HttpMethod.POST, req, Map.class);
 
-			System.out.println("7777777777777777777777777777777777777+2");
-
 			if (resp.getBody().get("status").toString().equals("200")) {
-				System.out.println("hola-------------------------------------kiwi1");
+
+				String mensaje = null;
+				Object messageObj = resp.getBody().get("message");
+				if (messageObj != null) {
+					mensaje = messageObj.toString();
+				}
+				if (mensaje != null && mensaje.equals("Las credenciales son incorrectas")) {
+					redirectAttrs
+							.addFlashAttribute("mensaje", "Código de Funcionario Incorrecto, Por favor Ingrese un Código de Funcionario Válido")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/inicioCliente";
+				} else {
+					// Manejar el caso en el que la respuesta es correcta
+				}
+
 				Map<String, Object> data = (Map) resp.getBody();
-				System.out.println("hola-------------------------------------kiwi2");
 
 				model.addAttribute("nombres", data.get("per_nombres").toString());
 				model.addAttribute("apPaterno", data.get("per_ap_paterno").toString());
@@ -621,13 +643,14 @@ public class FichaSisuController {
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
 		if (asegurado == null) {
-			
-			return ResponseEntity.ok("error"); //No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos
+
+			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
+												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
 
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
-		
+
 		if (existeFicha != null) {
 			System.out.println("ESTE ADMINISTRATIVO YA TIENE UNA FICHA");
 
@@ -646,7 +669,6 @@ public class FichaSisuController {
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
 		fichaService.save(ficha);
-		
 
 		return ResponseEntity.ok("exito");
 	}
@@ -725,39 +747,38 @@ public class FichaSisuController {
 	}
 
 	@PostMapping(value = "generarFichaE")
-	public ResponseEntity<String> generarFichaE( RedirectAttributes flash,
-		  HttpServletRequest request,Model model) {
-			System.out.println("ENTRA AL METODOOOOOOOOOOOOOOOOOOo");
-			Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
+	public ResponseEntity<String> generarFichaE(RedirectAttributes flash,
+			HttpServletRequest request, Model model) {
+		System.out.println("ENTRA AL METODOOOOOOOOOOOOOOOOOOo");
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
 			System.out.println("ENTRO AL IIIIIIIIIIIIF");
-			return ResponseEntity.ok("error"); //No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos
+			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
+												// verificar sus datos
 		}
-		Date fechaActualD = new Date(); 
+		Date fechaActualD = new Date();
 
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 
 		if (existeFicha != null) {
-			
+
 			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 			LocalDate fechaActual = LocalDate.now();
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
-				return ResponseEntity.ok("error1"); //Usted ya tiene una ficha en la fecha actual.
+				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha actual.
 			}
-		}	
+		}
 		Ficha ficha = new Ficha();
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
 		fichaService.save(ficha);
-		
-			 
 
-		return ResponseEntity.ok("exito"); //LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
+		return ResponseEntity.ok("exito"); // LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
 
-  }
+	}
 
 }
