@@ -37,6 +37,7 @@ import com.sisu.sisu.Service.IDipService;
 import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.ITiposEstadoCivilService;
+import com.sisu.sisu.Service.ServicioMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Dip;
 import com.sisu.sisu.entitys.EstadoSeguro;
@@ -45,6 +46,7 @@ import com.sisu.sisu.entitys.GradoAcademico;
 import com.sisu.sisu.entitys.HistorialSeguro;
 import com.sisu.sisu.entitys.Institucion;
 import com.sisu.sisu.entitys.Persona;
+import com.sisu.sisu.entitys.ServicioMedico;
 import com.sisu.sisu.entitys.TipoSeguro;
 import com.sisu.sisu.entitys.TiposEstadoCivil;
 import com.sisu.sisu.entitys.Usuario;
@@ -74,6 +76,9 @@ public class FichaSisuController {
 
 	@Autowired
 	private ITiposEstadoCivilService tiposEstadoCivilService;
+
+	@Autowired
+	private ServicioMedicoService servicioMedicoService;
 
 	@RequestMapping(value = "universitario", method = RequestMethod.GET)
 	public String obtenerDatosUniversitario(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
@@ -129,7 +134,7 @@ public class FichaSisuController {
 				model.addAttribute("tipoSanguineo", data.get("tipo_sanguineo").toString());
 				model.addAttribute("sexo", data.get("sexo").toString());
 				model.addAttribute("estadoMatriculacion", data.get("estado_matriculacion").toString());
-				System.out.println("EL NOMBRE DEL UNIVERSITARIO ES " + data.get("nombres").toString());
+				model.addAttribute("servicios", servicioMedicoService.findAll());
 				// Otros atributos...
 
 				Persona newUnipersona = personaService.findByCi(data.get("ci").toString());
@@ -244,8 +249,9 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoUniCreado;
 
 	@RequestMapping(value = "/generarFicha", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFicha(Model model) {
-
+	public ResponseEntity<String> generarFicha(Model model, @RequestParam(name = "servicio")Integer idServicio) {
+		
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio); 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
 		if (asegurado == null) {
 
@@ -271,6 +277,7 @@ public class FichaSisuController {
 		}
 
 		Ficha ficha = new Ficha();
+		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
@@ -360,9 +367,7 @@ public class FichaSisuController {
 				model.addAttribute("celularD", data.get("celular").toString());
 				model.addAttribute("direccionD", data.get("direccion").toString());
 				model.addAttribute("activo", data.get("activo").toString());
-				System.out.println("---------------------------------------------------------------------------");
-				System.out.println("EL NOMBRE DEL DOCENTE ES: " + data.get("nombres").toString());
-				System.out.println("---------------------------------------------------------------------------");
+				model.addAttribute("servicios", servicioMedicoService.findAll());
 
 				Persona existePersonaD = personaService.findByCi(data.get("ci").toString());
 
@@ -460,7 +465,9 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoDocenteCreado;
 
 	@RequestMapping(value = "/generarFichaD", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFichaD(Model model) {
+	public ResponseEntity<String> generarFichaD(Model model,@RequestParam(name = "servicio")Integer idServicio) {
+
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
 		if (asegurado == null) {
@@ -486,6 +493,7 @@ public class FichaSisuController {
 		}
 
 		Ficha ficha = new Ficha();
+		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
@@ -507,8 +515,7 @@ public class FichaSisuController {
 		try {
 			request1.put("usuario", codigoAdministrativo);
 
-			// String url =
-			// "http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
+			// String url ="http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
 			String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
 
 			HttpHeaders headers = new HttpHeaders();
@@ -547,6 +554,8 @@ public class FichaSisuController {
 				model.addAttribute("descripcionA", data.get("p_descripcion").toString());
 				model.addAttribute("descripcionA2", data.get("cp_descripcion").toString());
 				model.addAttribute("nivel", data.get("nivelInstruccion").toString());
+				model.addAttribute("nivel", data.get("nivelInstruccion").toString());
+				model.addAttribute("servicios", servicioMedicoService.findAll());
 
 				Persona existPersonaA = personaService.findByCi(data.get("per_num_doc").toString());
 
@@ -639,8 +648,9 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoAdCreado;
 
 	@RequestMapping(value = "/generarFichaA", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFichaA(Model model) {
+	public ResponseEntity<String> generarFichaA(Model model, @RequestParam(name = "servicio")Integer idServicio) {
 
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
 		if (asegurado == null) {
 
@@ -665,6 +675,7 @@ public class FichaSisuController {
 		}
 
 		Ficha ficha = new Ficha();
+		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);
@@ -674,9 +685,9 @@ public class FichaSisuController {
 	}
 
 	@RequestMapping(value = "/externo", method = RequestMethod.GET)
-	public String externo(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
+	public String externo( HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
 			@RequestParam("ci") String ci) {
-
+	
 		Persona persona = personaService.validarCI(ci);
 
 		if (persona != null) {
@@ -710,7 +721,7 @@ public class FichaSisuController {
 				}
 
 			} else {
-
+				model.addAttribute("servicios", servicioMedicoService.findAll());
 				model.addAttribute("persona", persona);
 				personaECreada = persona;
 				return "Client/vistaDatosExternoExistente";
@@ -721,6 +732,7 @@ public class FichaSisuController {
 			model.addAttribute("dips", dipService.findAll());
 			model.addAttribute("grados", gradoService.findAll());
 			model.addAttribute("civiles", tiposEstadoCivilService.findAll());
+			model.addAttribute("servicios", servicioMedicoService.findAll());
 			return "Client/vistaDatosExterno";
 		}
 
@@ -748,11 +760,11 @@ public class FichaSisuController {
 
 	@PostMapping(value = "generarFichaE")
 	public ResponseEntity<String> generarFichaE(RedirectAttributes flash,
-			HttpServletRequest request, Model model) {
-		System.out.println("ENTRA AL METODOOOOOOOOOOOOOOOOOOo");
+			HttpServletRequest request, Model model, @RequestParam(name = "servicio")Integer idServicio) {
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
-			System.out.println("ENTRO AL IIIIIIIIIIIIF");
+
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
@@ -772,6 +784,7 @@ public class FichaSisuController {
 			}
 		}
 		Ficha ficha = new Ficha();
+		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
 		ficha.setFechaRegistroFichaa(new Date());
 		ficha.setAsegurado(asegurado);

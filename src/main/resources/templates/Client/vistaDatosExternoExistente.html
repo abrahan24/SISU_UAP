@@ -61,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="row">
 
                     <!-- INICIO INFORMACION ADMINISTRATIVO -->
@@ -69,6 +70,10 @@
                         <div class="row justify-content-center" style="height: 50vh;">
                             <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 500px;">
                                 <div class="card bg-light">
+                                    <div class="card  bg-danger mt-0">
+                                        <h2 style="text-align: center; color: rgb(245, 245, 245);">Datos Personales</h2>
+    
+                                    </div>
                                     <div class="card-body p-4">   
                                         <form id="form1" action="/generarFichaE" method="post">
                                        
@@ -120,12 +125,6 @@
                                             </div>
                                             <div class="row">
 
-                                                
-
-                                                <!-- <div class="col-md-4 mb-3">
-                                                    <label for="gmailA">Correo:</label>
-                                                    <input type="text" id="gmailA" name="gmailA" class="form-control" th:value="${gmailA}" readonly>
-                                                </div> -->
                                                 <div class="col-md-4 mb-3">
                                                     <label for="gmailA">Celular:</label>
                                                     <input type="text" id="celular" name="celular" class="form-control" th:value="${persona.celular}" readonly>
@@ -134,20 +133,24 @@
                                                     <label for="direccion">Dirección:</label>
                                                     <input type="text" id="direccion" name="direccion" class="form-control" th:value="${persona.direccion}"readonly >
                                                 </div>
-
-                                                <!-- <div class="col-md-4 mb-3">
-                                                    <label for="descripcionA">Descripcion:</label>
-                                                    <input type="text" id="descripcionA" name="descripcionA" class="form-control" th:value="${descripcionA}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="descripcionA2">Descripcion2:</label>
-                                                    <input type="text" id="descripcionA2" name="descripcionA2" class="form-control" th:value="${descripcionA2}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="nivel">Nivel:</label>
-                                                    <input type="text" id="nivel" name="nivel" class="form-control" th:value="${nivel}" readonly>
-                                                </div> -->
+                 
                                             </div>
+                                            <div class="form-group row mt-3">
+                                                <label class="col-md-4 col-form-label">Seleccionar Servicio
+                                                    Requerido</label>
+                                                <div class="col-md-8 ">
+                                                    <select class="selectize" name="servicio" required>
+                                                        <option value="">Elegir..</option>
+    
+                                                        <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                            <option th:value="${ser.idServicioMedico}"
+                                                                th:text="${ser.servicio.servicios}"></option>
+                                                        </th:block>
+    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
                                             <div class="container mt-3">
                                                 <div class="row">
                                                     <div>
