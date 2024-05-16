@@ -56,10 +56,5 @@ public class Servicio implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio", fetch = FetchType.LAZY)
 	private List<ConceptosServicios> concepto_servicio;
 
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> 838755d (update)
 
 }
