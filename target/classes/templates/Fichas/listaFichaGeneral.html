@@ -165,7 +165,7 @@
                 <div class="modal-header bg-success white">
                     <h4 class="modal-title" id="myModalLabel9"><div class="fonticon-wrap">
                         <i class="ft-user-check"></i>
-                    </div> SELECCIONE MEDICO</h4>
+                    </div> ASIGNAR FICHA</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -183,7 +183,12 @@
                                     th:value="${m.idPersonalMedico}"></option>
                             </th:block>
                         </select>
-                
+                        <div class="form-group row">
+                            <label for="example-time-input" class="col-md-2 col-form-label">Time</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="time" value="13:45:00" id="example-time-input">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>

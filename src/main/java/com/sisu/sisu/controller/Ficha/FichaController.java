@@ -85,6 +85,8 @@ public class FichaController {
         model.addAttribute("fichas", fichaService.listaFichasFechaActual(fechaActualD));
         model.addAttribute("p_medicos", personalMedicoService.listarTodo());    
 
+        
+
         model.addAttribute("personalMedico", new PersonalMedico());
         return "Fichas/listaFichaGeneral";
     }

@@ -9,4 +9,5 @@ public interface PersonalMedicoService {
     public void registrar(PersonalMedico personalMedico);
     public PersonalMedico buscarId(Integer id);
     public void eliminar(PersonalMedico personalMedico);
+    List<PersonalMedico> listaPersonalMedicoPorServicioFicha(int id_ficha);
 }

@@ -33,4 +33,9 @@ public class PersonalMedicoServiceImpl implements PersonalMedicoService{
         personalMedico.setEstado("X");
         personalMedicoDao.save(personalMedico);
     }
+
+    @Override
+    public List<PersonalMedico> listaPersonalMedicoPorServicioFicha(int id_ficha) {
+        return (List<PersonalMedico>) personalMedicoDao.listaPersonalMedicoPorServicioFicha(id_ficha);
+    }
 }
