@@ -96,36 +96,24 @@ public class MenuController {
     }
 
     @PostMapping(value = "/guardarEnlaceRolMenu")
-    public String manejarFormulario(@RequestParam(name = "idRol") Integer idRol,@RequestParam(name = "idEnlacePadre") Integer idEnlacePadre,
-            @RequestParam(name = "solicitudesSeleccionadas", required = false)Integer [] solicitudesSeleccionadas) {
-      
-    	System.out.println("EL ID ENLACE PADRE ES: " +idEnlacePadre+"teste");        
-    	Roles roles = rolesService.findOne(idRol);
-    	
-    	         Menu menuPadre = new Menu();
-    	         	
-    	            menuPadre.setIdEstado("A");
-    	            menuPadre.setIdEnlace(enlaceService.findOne(idEnlacePadre));
-    	            menuPadre.setIdRol(rolesService.findOne(roles.getIdRol()));
-    	            menuPadre.setId_usuario(usuarioService.findOne(1));
-    	            menuService.save(menuPadre);
-    	            
-                for (int i = 0; i < solicitudesSeleccionadas.length; i++) {
-                    
-                    Enlace enlace = enlaceService.findOne(solicitudesSeleccionadas[i]);
+    public String manejarFormulario(@RequestParam(name = "idRol") Integer idRol,
+            @RequestParam(name = "idEnlacePadre") Integer idEnlacePadre,
+            @RequestParam(name = "solicitudesSeleccionadas", required = false) Integer[] solicitudesSeleccionadas) {
 
-                    System.out.println(roles.getRol()+" "+enlace.getNombre_enlace());
-                   
+        Roles roles = rolesService.findOne(idRol);
 
-                   Menu menu = new Menu();
-                   menu.setIdEnlace(enlaceService.findOne(solicitudesSeleccionadas[i]));
-                   menu.setIdRol(rolesService.findOne(roles.getIdRol())); 
-                   menu.setId_usuario(usuarioService.findOne(1));
-                   menu.setIdEstado("A");
-                   menuService.save(menu);
-                }
+        for (int i = 0; i < solicitudesSeleccionadas.length; i++) {
+
+            Menu menu = new Menu();
+            menu.setIdEnlace(enlaceService.findOne(solicitudesSeleccionadas[i]));
+            menu.setIdRol(rolesService.findOne(roles.getIdRol()));
+            menu.setId_usuario(usuarioService.findOne(1));
+            menu.setIdEstado("A");
+            menuService.save(menu);
+        }
+
         return "redirect:/ListaEnlace";
-        
+
     }
 
     @GetMapping(value = "/listaMenu")

@@ -127,7 +127,6 @@ public class EnlaceController {
         model.addAttribute("enlace", new Enlace());
         model.addAttribute("enlaces", enlaceService.findAll());
 
-        System.out.println(enlaceService.findAll().size());
         model.addAttribute("listaEnlace", enlaceService.listaEnlacePadre());
 
         return "listas/listaEnlace";

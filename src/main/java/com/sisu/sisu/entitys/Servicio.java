@@ -31,11 +31,8 @@ public class Servicio implements Serializable {
 	@Column(name = "id_servicio")
 	private Integer idServicio;
 
-	@Column(name = "servicio")
-	private Integer servicio;
-
 	@Column(name = "descripcion")
-	private Integer descripcion;
+	private String descripcion;
 
 	@Column(name = "estado")
 	private String estado;
@@ -59,6 +56,10 @@ public class Servicio implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio", fetch = FetchType.LAZY)
 	private List<ConceptosServicios> concepto_servicio;
 
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 838755d (update)
 
 }

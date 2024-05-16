@@ -107,7 +107,7 @@
                                                     <td th:text="${en.obs}"></td>
                                                     <td>
                                                         <a th:href="@{'../../../../formMenu2/' + ${en.idEnlace}}">
-                                                            <button class="btn btn-primary" type="button">Enviar</button>
+                                                            <button class="btn btn-primary" type="button">SELECCIONAR</button>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -141,19 +141,6 @@
     <!-- JAVASCRIPT -->
     <!-- <script src="../../../../assets/libs/jquery/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-            function buscar(button) {
-                // Capture the value of th:data-idpersona from the clicked button
-                var idPersona = $(button).data('idpersona');
-        
-                // Create the URL to request the fragment using the captured idPersona
-                var url = "../../../../persona/" + idPersona;
-        
-                // Load the fragment and replace content in #replace_div
-                $('#replace_div').load(url);
-            }
-        </script>   
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -191,60 +178,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-<!-- lista enlace anterior, que no tenái botones -->
-
-<!-- <script>
-                    function registrarEnlace(id) {
-                        alert('Registrar enlace con ID ' + id);
-                    }
-                </script>
-                 -->
-
-<!-- <div class="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="text-right mb-3">
-                                            <form class="needs-validation" action="/guardarEnlaceHijo" method="post" id="form1" novalidate>
-                                                <input type="hidden" th:field="${enlace.idEnlace}">
-                                        </div>
-                                        <table id="datatable-buttons"
-                                            class="table table-striped table-bordered dt-responsive nowrap botonesH"
-                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Enlace</th>
-                                                    <th>Ruta</th>
-                                                    <th>Tabla</th>
-                                                    <th>Observaciones</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="en : ${listaEnlace}" th:if="${en.estado != 'X'}">
-                                                    <td th:text="${en.nombre_enlace}"></td>
-                                                    <td th:text="${en.ruta}"></td>
-                                                    <td th:text="${en.tabla}"></td>
-                                                    <td th:text="${en.obs}"></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <button class="btn btn-primary" type="submit">Registrar</button>
-                                    </form>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->

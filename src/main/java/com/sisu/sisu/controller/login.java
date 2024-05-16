@@ -89,7 +89,7 @@ public class login {
 				return "index/login";
 
 			}
-
+			
 			model.addAttribute("lRoles", lRolesUsr);
 
 			HttpSession sesion = request.getSession();
@@ -162,8 +162,8 @@ public class login {
 			System.out.print(request.getSession().getAttribute("estado_user"));
 
 		}
-		return "index/login";
-
+		return "redirect:/";
+		
 	}
 
 	

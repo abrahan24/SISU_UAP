@@ -60,10 +60,10 @@
 									
 									<form method="post" action="seleccionarRoles">
 
-                                     <input type="hidden" name="idUsuario" value="${usuarios.idUsuario}">
+                                     <input type="hidden" name="idUsuario" >
 
 										<div class="input-group col-xs-12">
-											<select name="idUsrRol" id="idRol" class="form-control">
+											<select name="idUsrRol"  class="form-control">
 												<option th:each="r : ${lRoles}" th:value="${r.idUsrRol}"
 													th:text="${r.idRol.idRol + '-' + r.idRol.rol}"></option>
 											</select>
@@ -78,10 +78,6 @@
 
 									</form>
 								</div>
-
-
-
-
 
 							</div>
 						</div>
