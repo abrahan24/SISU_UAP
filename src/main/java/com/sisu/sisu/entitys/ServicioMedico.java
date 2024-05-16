@@ -53,6 +53,13 @@ public class ServicioMedico implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio_medico", fetch = FetchType.LAZY)
 	private List<MedicoServicio> medico_servicio;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicioMedico", fetch = FetchType.LAZY)
+	private List<Ficha> ficha;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "servicioMedico", fetch = FetchType.LAZY)
+	private List<HorarioServicio> horarioServicio;
+
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idServicio")
 	private Servicio servicio;
