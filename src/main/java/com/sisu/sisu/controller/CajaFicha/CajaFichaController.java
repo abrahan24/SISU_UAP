@@ -18,15 +18,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
 import com.sisu.sisu.Service.IAseguradoService;
+import com.sisu.sisu.Service.IDipService;
+import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IPersonaService;
+import com.sisu.sisu.Service.ITiposEstadoCivilService;
 import com.sisu.sisu.Service.ServicioMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Dip;
@@ -60,6 +66,15 @@ public class CajaFichaController {
 
 	@Autowired
 	private ServicioMedicoService servicioMedicoService;
+
+	@Autowired
+	private IDipService dipService;
+
+	@Autowired
+	private IGradoService gradoService;
+
+	@Autowired
+	private ITiposEstadoCivilService tiposEstadoCivilService;
 
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
 	public String ficha(Model model, HttpServletRequest request) {
@@ -621,5 +636,115 @@ public class CajaFichaController {
 		fichaService.save(ficha);
 
 		return ResponseEntity.ok("exito");
+	}
+
+	@RequestMapping(value = "/externo2", method = RequestMethod.GET)
+	public String externo2( HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
+			@RequestParam("ci") String ci) {
+	
+		Persona persona = personaService.validarCI(ci);
+
+		if (persona != null) {
+			String estadoPersona = persona.getEstado();
+			String rol = "";
+			if (estadoPersona.equals("RU")) {
+				rol = "Universitario";
+			} else {
+				if (estadoPersona.equals("RD")) {
+					rol = "Docente";
+				} else {
+					if (estadoPersona.equals("RA")) {
+						rol = "Administrativo";
+					}
+				}
+			}
+			if (!persona.getEstado().equals("EPA")) {
+				if (!persona.getEstado().equals("EP")) {
+					redirectAttrs
+							.addFlashAttribute("mensaje",
+									"Usted está registrado como " + rol
+											+ " No puede usar el Formulario de Persona Externa")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/Ficha";
+				} else {
+					redirectAttrs
+							.addFlashAttribute("mensaje",
+									"No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos")
+							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+					return "redirect:/Ficha";
+				}
+
+			} else {
+				model.addAttribute("servicios", servicioMedicoService.findAll());
+				model.addAttribute("persona", persona);
+				personaECreada = persona;
+				return "Client/vistaDatosExternoExistente";
+			}
+
+		} else {
+			model.addAttribute("persona", new Persona());
+			model.addAttribute("dips", dipService.findAll());
+			model.addAttribute("grados", gradoService.findAll());
+			model.addAttribute("civiles", tiposEstadoCivilService.findAll());
+			model.addAttribute("servicios", servicioMedicoService.findAll());
+			return "Client/vistaDatosExterno";
+		}
+
+	}
+
+	private Persona personaECreada;
+	private Asegurado codigoAseguradoEPCreado;
+
+	@PostMapping(value = "externoNuevoF2")
+	public ResponseEntity<String> externoNuevoF2(@Validated Persona persona, RedirectAttributes flash,
+			HttpServletRequest request, Model model) {
+
+		Persona personaValidar = personaService.validarCI(persona.getCi());
+		if (personaValidar != null) {
+
+			return ResponseEntity.ok("error");
+		}
+
+		persona.setEstado("EP"); // Externo Pendiente
+		personaService.save(persona);
+
+		return ResponseEntity.ok("exito");
+
+	}
+
+	@PostMapping(value = "generarFichaE2")
+	public ResponseEntity<String> generarFichaE2(RedirectAttributes flash,
+			HttpServletRequest request, Model model, @RequestParam(name = "servicio")Integer idServicio) {
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
+		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
+		if (asegurado == null) {
+
+			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
+												// verificar sus datos
+		}
+		Date fechaActualD = new Date();
+
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
+
+		if (existeFicha != null) {
+
+			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+			LocalDate fechaActual = LocalDate.now();
+			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDate();
+
+			if (fechaRegistroFicha.equals(fechaActual)) {
+				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha actual.
+			}
+		}
+		Ficha ficha = new Ficha();
+		ficha.setServicioMedico(servicioMedico);
+		ficha.setEstado("A");
+		ficha.setFechaRegistroFichaa(new Date());
+		ficha.setAsegurado(asegurado);
+		fichaService.save(ficha);
+
+		return ResponseEntity.ok("exito"); // LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
+
 	}
 }

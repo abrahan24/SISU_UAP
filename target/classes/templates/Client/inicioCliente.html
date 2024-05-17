@@ -48,14 +48,15 @@
                             Universitaria</h3>
                         <h4 style="color: rgb(255, 255, 255); font-weight: bold;">Universidad Amazonica de Pando</h4>
                     </div>
+                    <div th:class="'alert alert-'+ (${clase != null} ? ${clase} : info)" role="alert" th:if="${mensaje != null}">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <p th:text="${mensaje}"></p>
+                       
+                    </div>
                 </div>
-                <div th:class="'alert alert-'+ (${clase != null} ? ${clase} : info)" role="alert" th:if="${mensaje != null}">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <p th:text="${mensaje}"></p>
-                   
-                </div>
+              
             </div>
             <br>
             
