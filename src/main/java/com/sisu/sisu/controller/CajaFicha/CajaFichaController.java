@@ -81,9 +81,15 @@ public class CajaFichaController {
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 		model.addAttribute("servicios", servicioMedicoService.findAll());
 		if (usuario == null) {
+<<<<<<< HEAD
 
 			return "index/login";
 
+=======
+			
+			return "redirect:/";
+			
+>>>>>>> 056aed1 (UPDATE)
 		}
 		return "busqueda/GenerarFicha";
 

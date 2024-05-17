@@ -1,8 +1,12 @@
 package com.sisu.sisu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -10,9 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sisu.sisu.Service.IRolesService;
 import com.sisu.sisu.entitys.Roles;
+import com.sisu.sisu.entitys.Usuario;
 
 @Controller
 public class RolesController {
@@ -29,59 +36,50 @@ public class RolesController {
     }
 
     @PostMapping(value = "/guardarRoles")
-    public String RegistroRol(@Validated Roles roles, RedirectAttributes flash, HttpServletRequest request,
+    public ResponseEntity<String> RegistroRol(@Validated Roles roles, RedirectAttributes flash,
+            HttpServletRequest request,
             Model model) {
+                
+        if (roles.getIdRol() == null) {
+            if (rolesService.validarRoles(roles.getRol(), roles.getDescripcion()) != null) {
 
-        String mensaje = "";
-
-        Roles existeRol = rolesService.validarRoles(roles.getRol());
-
-        if (existeRol == null || existeRol.getEstado().equals("X")) {
-            // System.out.println("Se guardo el rol que no existe bb uwu");
-            if (!roles.getDescripcion().isEmpty() && !roles.getSimbolo().isEmpty() && !roles.getRol().isEmpty()) {
-
-                roles.setDescripcion(roles.getDescripcion().toUpperCase());
-                roles.setSimbolo(roles.getSimbolo().toUpperCase());
-                roles.setRol(roles.getRol().toUpperCase());
-                roles.setObservacion(roles.getObservacion().toUpperCase());
-
+                return ResponseEntity.ok("2");
+            } else {
+                roles.setRegistro(new Date());
                 roles.setEstado("A");
                 rolesService.save(roles);
-                rolesService.findAll();
-                mensaje = "Se registro correctamente";
-                System.out.println("-----------1");
-
-                model.addAttribute("roles", rolesService.findAll());
-                return "redirect:/ListaDeRoles";
-
+                return ResponseEntity.ok("1");
             }
-
         } else {
-            mensaje = "ya existe el rol en la base de datos";
-            System.out.println("-----------2");
-
-            flash.addFlashAttribute("error", mensaje); // Agrega el mensaje como atributo flash
-            System.out.println("Ya hay un rol existente en la base de datos");
-            return "redirect:/ListaDeRoles";
+            Roles r = rolesService.findOne(roles.getIdRol());
+            r.setModificacion(new Date());
+            r.setRol(roles.getRol());
+            r.setObservacion(roles.getObservacion());
+            r.setDescripcion(roles.getDescripcion());
+            r.setSimbolo(roles.getSimbolo());
+            rolesService.save(r);
+            return ResponseEntity.ok("3");
         }
-        mensaje = "No se ha registrado el rol";
-        System.out.println("-----------3");
 
-        model.addAttribute("roles", rolesService.findAll());
-        model.addAttribute("mensaje", mensaje);
-        return "listas/listaRoles";
     }
 
-    @RequestMapping(value = "/eliminarRoles/{idRol}")
-    public String eliminarRol(@PathVariable("idRol") Integer idRol) {
+    @RequestMapping(value = "/eliminarRoles/{idRol}",method = RequestMethod.POST)
+    @ResponseBody
+    public void eliminarRol(@PathVariable("idRol") Integer idRol) {
         Roles roles = rolesService.findOne(idRol);
         roles.setEstado("X");
         rolesService.save(roles);
-        return "redirect:/ListaDeRoles";
     }
 
     @GetMapping(value = "/ListaDeRoles")
-    public String listarRol(Model model) {
+    public String listarRol(Model model, HttpServletRequest request) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
         model.addAttribute("roles", rolesService.findAll());
         
         return "listas/listaRoles";
@@ -94,7 +92,6 @@ public class RolesController {
 
         model.addAttribute("role", rolesService.findOne(idRol));
 
-        System.out.println("datos optenidos" + idRol);
         return "content :: contentRol";
     }
 

@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Lista Roles | SISU</title>
+        <title>SISU | UAP</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesdesign" name="author" />
@@ -57,10 +57,10 @@
                         <div class="container-fluid">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    <h4 class="page-title mb-1">Datos de Roles Registrados</h4>
+                                    <h4 class="page-title mb-1">GESTION ADMINISTRADOR</h4>
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tabla</a></li>
-                                    <li class="breadcrumb-item active">Datos de Roles</li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Administrador</a></li>
+                                    <li class="breadcrumb-item active">Lista de Roles</li>
                                     </ol>
                                 </div>
                                 <div class="col-md-4">
@@ -90,21 +90,10 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="header-title">TABLA DE LOS ROLES</h4>
-                                            <p class="card-title-desc">AQUÍ SE APRECIAN TODOS LOS ROLES QUE SE TIENEN</p>                    
-                                            <div class="">
-                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <span th:text="${mensaje}"></span>
-                                                </div>
-                                            </div>
-                    
                                             <div class="text-right mb-3" th>
-                                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
-                                                    onclick="NuevoRegistro()">Registrar
-                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm waves-effect waves-light"
+                                                    onclick="NuevoRegistro()">AGREGAR NUEVO REGISTRO
+                                                </button> 
                                             </div>
                     
                                             <form class="needs-validation" action="/../../../../guardarRoles" method="post">
@@ -116,41 +105,37 @@
                     
                     
                                                         <tr>
+                                                            <th>N°</th>
+                                                            <th>Nombre del Rol</th>
                                                             <th>Descripción del Rol</th>
                                                             <th>Simbolo del Rol</th>
-                                                            <th>Nombre del Rol</th>
                                                             <th>Observación</th>
                                                             <th>opciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="r : ${roles}" th:if="${r.estado !='X'}">
+                                                        <tr th:each="r , num : ${roles}" th:if="${r.estado !='X'}">
+                                                            <td th:text="${num.index +1}"></td>
+                                                            <td th:text="${r.rol}"></td>
                                                             <td th:text="${r.descripcion}"></td>
                                                             <td th:text="${r.simbolo}"></td>
-                                                            <td th:text="${r.rol}"></td>
-                                                            <td th:text="${r.observacion}"></td>
+                                                            <td th:if="${r.observacion != null && not #strings.isEmpty(r.observacion)}" th:text="${r.observacion}"></td>
+                                                            <td th:if="${r.observacion == null || #strings.isEmpty(r.observacion)}" th:text="${'SIN OBSERVACION'}"></td>
                                                             <td>
                                                                 <div class="row justify-content-center">
                                                                     <div class="col-md-3 col-6 mb-2">
-                                                                        <a th:href="${'../../../../eliminarRoles/' + r.idRol}"
-                                                                            style="padding: 2px; display: inline-block; margin: 0px;"
-                                                                            title="ELIMINAR">
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-danger alertElimin btn-sm"><i
-                                                                                    class="dripicons-trash"></i></button>
+                                                                        <a  title="ELIMINAR">
+                                                                            <button type="button" style="margin: 5px; padding: 8px;"
+                                                                            th:attr="onclick='EliminarRegistro(\'' + ${r.idRol} + '\',\'' + ${r.rol} + '\')'"
+                                                                            class="btn btn-outline-danger alertElimin btn-sm"><i class="dripicons-trash"></i></button>
                                                                         </a>
                                                                     </div>
-                                                                    <div class="mb-2">
-                                                                        <a>
-                                                                            <button type="button"
-                                                                                class="btn btn-primary btn-sm waves-effect waves-light editarButton"
-                                                                                data-toggle="modal"
-                                                                                th:data-target="${'#bs-example-modal-center'}"
-                                                                                th:data-idroless="${r.idRol}" onclick="buscarR(this)"
-                                                                                style="margin: 5px; padding: 8px;" title="MODIFICAR">
-                                                                                <i class="dripicons-document-edit"></i>
-                                                                            </button>
-                                                                        </a>
+                                                                    <div class="col-md-3 col-6 mb-2">
+                                                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light editarButton" data-toggle="modal"
+                                                                            th:data-target="${'#bs-example-modal-center'}" th:data-idroless="${r.idRol}" onclick="buscarR(this)"
+                                                                            style="margin: 5px; padding: 8px;" title="MODIFICAR">
+                                                                            <i class="dripicons-document-edit"></i>
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -169,29 +154,15 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title mt-0">Modificando registro de Rol</h5>
+                                    <h5 class="modal-title mt-0">FORMULARIO ROL</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="miFormulario" 
-                                    class="needs-validation"  th:action="@{/guardarRoles}" 
-                                        method="post" novalidate >
-                                
-                                        <div id="replace_div_rol">
+                                    <div id="replace_div_rol">
                                         
-                                        </div>
-                                    
-                                        <div class="text-right mt-3">
-                                          <button type="submit" onclick="validarFormulario()"
-                                                class="btn btn-primary mr-2">Guardar</button> 
-                                             
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancelar</button>
-                                        </div>
-
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -203,24 +174,12 @@
         </div>
         <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
         <div class="rightbar-overlay"></div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <!-- JAVASCRIPT -->
-
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            /* Obtén el mensaje de error directamente desde el modelo y muestra un alert */
-            var error = /*[[${error}]]*/ null;
-            if (error !== null) {
-                alert(error);
-            }
-            /*]]>*/
-
-            
-        </script>
         
-
         <script>
-
+            
             function buscarR(button) {
             
                 // Capture the value of th:data-idpersona from the clicked button
@@ -245,12 +204,38 @@
                 });
             }
 
+            function EliminarRegistro(id,dato) {
+                Swal.fire({
+                    title: 'Eliminar?',
+                    text: "Estas Segurgo que deseas Eliminar el registro: "+dato,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "/eliminarRoles/" + id,
+                            success: function () {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'El Registro se Elimino con Exito',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                setTimeout(function () {
+                                    location.href = "../../../../ListaDeRoles";
+                                }, 1600);
+                            }
+                        });
+                    }
+                })
+            }
+
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="js/sweetAlert.js"></script>
-
-        <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
         <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
         <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
@@ -277,27 +262,13 @@
         <!-- Datatable init js -->
         <script src="../../../../assets/js/pages/datatables.init.js"></script>
 
-         <!-- alertifyjs js -->
-         <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-
-         <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
- 
-
-        <!-- alert -->
-        <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-        <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
 
         <!-- modal -->
         <script src="../../../../assets/js/pages/modal.js"></script>
 
         <script src="../../../../assets/js/app.js"></script>
 
-        
-        <!-- Sweet Alerts js -->
-        <script src="../../../../assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-        <!-- Sweet alert init js-->
-        <script src="../../../../assets/js/pages/sweet-alerts.init.js"></script>
 
     </body>
 </html>

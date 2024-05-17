@@ -66,7 +66,7 @@ public class RecetaController {
         return "listas/listaReceta";
     }
 
-    @GetMapping(value = "/ListaReceta2")
+    @GetMapping(value = "/ListaReceta")
     public String ListaReceta(Model model) {
         model.addAttribute("recetas", recetaService.listarTodo());
         return "listas/listaReceta";

@@ -18,8 +18,6 @@ public class EstadoCivilController {
     @Autowired
     private ITiposEstadoCivilService tiposEstadoCivilService;
 
-
-
     /* Eliminar */
 
     @RequestMapping(value = "/eliminarEstadoC/{idTipoEstadoCivil}")

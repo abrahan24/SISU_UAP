@@ -9,6 +9,6 @@ public interface IRolesService {
     public void save(Roles roles);
     public Roles findOne(Integer id); 
     public void delete(Integer id);
-	Roles validarRoles(String rol);
+	public Roles validarRoles(String rol,String descripcion);
     
 }

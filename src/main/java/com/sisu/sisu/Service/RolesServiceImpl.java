@@ -35,11 +35,12 @@ public class RolesServiceImpl implements IRolesService {
     }
 
     @Override
-    public Roles validarRoles(String rol) {
-        return rolesDao.validarRoles(rol);
+    public Roles validarRoles(String rol, String descripcion) {
+        // TODO Auto-generated method stub
+        return rolesDao.validarRoles(rol, descripcion);
     }
 
-
+   
 }
 
    

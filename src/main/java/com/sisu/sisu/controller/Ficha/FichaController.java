@@ -75,7 +75,7 @@ public class FichaController {
 		
 		if (usuario == null) {
 			
-			return "index/login";
+			return "redirect:/";
 			
 		}
 
@@ -84,8 +84,6 @@ public class FichaController {
         model.addAttribute("ficha", new Ficha());
         model.addAttribute("fichas", fichaService.listaFichasFechaActual(fechaActualD));
         model.addAttribute("p_medicos", personalMedicoService.listarTodo());    
-
-        
 
         model.addAttribute("personalMedico", new PersonalMedico());
         return "Fichas/listaFichaGeneral";

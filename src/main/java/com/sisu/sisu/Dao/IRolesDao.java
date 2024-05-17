@@ -1,12 +1,9 @@
 package com.sisu.sisu.Dao;
 
-import org.springframework.data.jpa.mapping.JpaPersistentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.Roles;
 
 public interface IRolesDao extends JpaRepository<Roles, Integer>{
@@ -15,6 +12,8 @@ public interface IRolesDao extends JpaRepository<Roles, Integer>{
     Roles findByRol(@Param("rol") String rol);
 
 
-    @Query("SELECT ro FROM Roles ro WHERE ro.rol=?1 AND ro.estado='A'")
-	Roles validarRoles(String rol);
+    @Query(value = "SELECT ro FROM Roles ro WHERE ro.rol=?1 AND ro.descripcion=?2 AND ro.estado='A'")
+	public Roles validarRoles(String rol,String descripcion);
+
+   
 }

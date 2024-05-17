@@ -230,45 +230,97 @@
     <!-------------------------------------------------------------------------------------------------------------->
     
     <div th:fragment="contentRol">
-        <input type="hidden" th:field="${role.idRol}">
-        <h4 class="header-title">POR FAVOR, ASEGURESE DE LLENAR TODOS LOS CAMPOS CORRECTAMENTE</h4>
-        <p class="card-title-desc">PORFAVOR <code>&lt;form&gt;</code>.</p>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom01">Descripción del Rol</label>
-                <input type="text" class="form-control" id="validationCustom01" pattern="[A-Za-záéíóúüñÑ\s]+" title="Solo se permiten letras y espacios, sin números"
-                th:field="${role.descripcion}"
-                    placeholder="Introduce la descripcion del rol" required>
-                <div class="invalid-feedback">
-                    Looks good!
+        <form id="miFormulario" class="needs-validation" th:action="@{/guardarRoles}" method="post" >
+            <input type="hidden" th:field="${role.idRol}">
+            <h4 class="header-title">POR FAVOR, ASEGURESE DE LLENAR TODOS LOS CAMPOS CORRECTAMENTE</h4>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Descripción del Rol</label>
+                    <input type="text" class="form-control" id="validationCustom01" pattern="[A-Za-záéíóúüñÑ\s]+"
+                        title="Solo se permiten letras y espacios, sin números" th:field="${role.descripcion}"
+                        placeholder="Introduce la descripcion del rol" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Simbolo del Rol</label>
+                    <input type="text" class="form-control" id="validationCustom02" th:field="${role.simbolo}"
+                        placeholder="Introduce el simbolo del rol" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom03">Nombre del Rol</label>
+                    <input type="text" class="form-control" id="validationCustom03" pattern="[A-Za-záéíóúüñÑ\s]+"
+                        title="Solo se permiten letras y espacios, sin números" th:field="${role.rol}"
+                        placeholder="Introduce el nombre del rol" required>
+                    
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">Observación</label>
+                    <input type="text" class="form-control" id="validationCustom04" th:field="${role.observacion}"
+                        placeholder="Introduce la observación" >
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom02">Simbolo del Rol</label>
-                <input type="text" class="form-control" id="validationCustom02" th:field="${role.simbolo}"
-                    placeholder="Introduce el simbolo del rol" required>
-                <div class="invalid-feedback">
-                    Looks good!
-                </div>
+    
+            <div class="text-right mt-3">
+                <button type="submit" class="btn btn-primary mr-2">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom03">Nombre del Rol</label>
-                <input type="text" class="form-control" id="validationCustom03" pattern="[A-Za-záéíóúüñÑ\s]+" title="Solo se permiten letras y espacios, sin números"
-                th:field="${role.rol}"
-                    placeholder="Introduce el nombre del rol" required>
-                <div class="invalid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="validationCustom04">Observación</label>
-                <input type="text" class="form-control" id="validationCustom04" th:field="${role.observacion}"
-                    placeholder="Introduce la observación" required>
-                <div class="invalid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
+        </form>
+        <script>
+            $(document).ready(function () {
+                $('#miFormulario').submit(function (event) {
+                    event.preventDefault();
+                    var form = document.getElementById("miFormulario"); 
+                    var action = form.action;
+                    var formData = $(this).serialize();
+        
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function (response) {
+                            var mensaje = response;
+                            if (mensaje == "1") {
+                                Swal.fire({
+                                    title: 'Registro Realizado con Exitoso!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../ListaDeRoles";
+                                }, 1600);
+                            }else if(mensaje == "2"){
+                                Swal.fire({
+                                    title: '¡El registro que estás intentando agregar ya existe en nuestra base de datos!',
+                                    icon: "info",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../ListaDeRoles";
+                                }, 1600);
+                            } else if(mensaje == "3"){
+                                Swal.fire({
+                                    title: '¡El registro Se ah Editado con Exito!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../ListaDeRoles";
+                                }, 1600);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                            console.error(error);
+                            // Manejo de errores
+                        }
+                    });
+        
+                });
+            });
+        </script>
     </div>
 
 </body>

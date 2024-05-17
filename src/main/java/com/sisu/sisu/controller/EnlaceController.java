@@ -122,12 +122,20 @@ public class EnlaceController {
 
     /* LISTAR */
     @GetMapping(value = "/ListaEnlace")
-    public String listarEnlace(Model model) {
+    public String listarEnlace(Model model, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
 
         model.addAttribute("enlace", new Enlace());
         model.addAttribute("enlaces", enlaceService.findAll());
 
-        model.addAttribute("listaEnlace", enlaceService.listaEnlacePadre());
+        model.addAttribute("listaEnlace", enlaceService.findAll());
 
         return "listas/listaEnlace";
     }
@@ -136,8 +144,6 @@ public class EnlaceController {
     public String listarEnlaceDisponibles(Model model) {
 
         model.addAttribute("enlaces", rolesService.findAll());
-
-        Roles roles = new Roles();
 
         return "listas/listaEnlaceDisponibles";
     }
