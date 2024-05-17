@@ -7,16 +7,42 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesdesign" name="author" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/logoS.png">
+            <!-- DataTables -->
+    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+    type="text/css" />
+<link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+    type="text/css" />
 
-    <link rel="stylesheet" href="assets/css/inicio.css">
-    <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css" />
+
+<link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
+<link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Bootstrap Css -->
+<link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+<link href="../../../../assets/css/style.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+
+<!-- Selectize -->
+<link href="assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
+
+<!-- spectrum colorpicker -->
+<link href="assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
+
+<!-- datepicker -->
+<link href="assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+
+<link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
 </head>
 
@@ -107,10 +133,12 @@
                                                                         <div class="card-body">
                                                                             <div class="modal-body">
                                                                                 <div class="input-group mb-3">
-                                                                                    <input type="text" id="validationCustom01" autocomplete="off" class="form-control" placeholder="Registro Universitario" required>
+                                                                                    
+                                                                                    <input type="text" id="validationCustom01"  class="form-control" placeholder="Registro Universitario" >
                                                                                     <div class="input-group-append">
-                                                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cargarInformacion()">Cargar Información</button>
+                                                                                        <button type="button" class="btn btn-primary"  onclick="cargarInformacion()">Cargar Información</button>
                                                                                     </div>
+                                                                                
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -166,7 +194,7 @@
                                                                                     <input type="text" id="codigoAdministrativoInput" class="form-control"
                                                                                         placeholder="Código Administrativo" required>
                                                                                     <div class="input-group-append">
-                                                                                        <button type="button" class="btn btn-primary" onclick="cargarInformacion4()">Cargar
+                                                                                        <button type="button" class="btn btn-primary" onclick="cargarInformacion3()">Cargar
                                                                                             Información</button>
                                                                                     </div>
                                                                                 </div>
@@ -219,24 +247,14 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="/generarFichaCaja" method="post">
+                                                                    <form action="/generarFicha" method="post">
+                                                                        
                                                                         <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="nombreUniversitario">Nombre del Universitario:</label>
                                                                                 <input type="text" id="nombreUniversitario" name="nombreUniversitario" class="form-control"
                                                                                     th:value="${nombres}" readonly>
                                                                             </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                    
-                                                                            </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                                <label for="urlImagen">Foto
-                                                                                    Univeristario</label>
-                                                                                <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
-                                                                                <img src="assets/images/person-placeholder.webp" style="width: 25%; height: auto;" alt="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="apPaterno">Apellido
                                                                                     Paterno</label>
@@ -298,6 +316,19 @@
                                                                                 <input type="text" id="estadoMatriculacion" name="estadoMatriculacion" class="form-control"
                                                                                     th:value="${estadoMatriculacion}" readonly>
                                                                             </div>
+                                                                            <div class="col-md-8">
+                                                                                <label for="estadoMatriculacion">Seleccionar Servicio Requerido</label>
+                                                                                <select class="selectize" name="servicio">
+                                                                                    <option value="">Elegir..</option>
+                                
+                                                                                    <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                                                        <option th:value="${ser.idServicioMedico}"
+                                                                                            th:text="${ser.servicio.servicios}"></option>
+                                                                                    </th:block>
+                                
+                                                                                </select>
+                                                                             
+                                                                            </div>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -324,6 +355,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form action="/generarFichaDocCaja" method="post">
+                                                                        
                                                                         <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="DatosDocente">Nombre del
@@ -331,17 +363,6 @@
                                                                                 <input type="text" id="DatosDocente" name="DatosDocente" class="form-control" th:value="${DatosDocente}"
                                                                                     readonly>
                                                                             </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                        
-                                                                            </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                                <label for="urlImagen">Foto
-                                                                                    Docente</label>
-                                                                                <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
-                                                                                <img src="assets/images/person-placeholder.webp" style="width: 25%; height: auto;" alt="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="apellidoPaterno">Apellido
                                                                                     Paterno</label>
@@ -416,6 +437,19 @@
                                                                                     th:value="${activo}" readonly>
 
                                                                             </div>
+                                                                            <div class="col-md-8">
+                                                                                <label for="estadoMatriculacion">Seleccionar Servicio Requerido</label>
+                                                                                <select class="selectize" name="servicio2">
+                                                                                    <option value="">Elegir..</option>
+                                
+                                                                                    <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                                                        <option th:value="${ser.idServicioMedico}"
+                                                                                            th:text="${ser.servicio.servicios}"></option>
+                                                                                    </th:block>
+                                
+                                                                                </select>
+                                                                             
+                                                                            </div>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -423,7 +457,8 @@
                                                                     <button type="submit"
                                                                         id="generarFichaButton2"
                                                                         class="btn btn-success mr-2"                                                                        
-                                                                        th:text="${activo != null && activo ? 'Generar Ficha' : 'Generar Ficha Particular'}">
+                                                                        >
+                                                                        Generar Ficha
                                                                     </button>
                                                                     <button type="button"
                                                                         class="btn btn-secondary"
@@ -434,7 +469,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -444,24 +479,14 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="/generarFichaCaja" method="post">
+                                                                    <form action="/generarFichaAdmCaja" method="post">
+                                                                       
                                                                         <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="nombreA">Nombre del Administrativo:</label>
                                                                                 <input type="text" id="nombreA" name="nombreA" class="form-control"
                                                                                     th:value="${nombreA}" readonly>
                                                                             </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                    
-                                                                            </div>
-                                                                            <div class="col-md-4 mb-3">
-                                                                                <label for="urlImagen">Foto
-                                                                                    Administrativo</label>
-                                                                                <!-- <img src="${urlImagen}" alt="Foto del Univeristario" class="ing-fluid"> -->
-                                                                                <img src="assets/images/person-placeholder.webp" style="width: 25%; height: auto;" alt="">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-md-4 mb-3">
                                                                                 <label for="apPaternoA">Apellido
                                                                                     Paterno</label>
@@ -511,11 +536,25 @@
                                                                                 <label for="nivel">Nivel de Instruccion:</label>
                                                                                 <input type="text" id="nivel" name="nivel" class="form-control" th:value="${nivel}" readonly>
                                                                             </div>
+                                                                            <div class="col-md-8">
+                                                                                <label >Seleccionar Servicio Requerido</label>
+                                                                                <select class="selectize" name="servicio3">
+                                                                                    <option value="">Elegir..</option>
+                                
+                                                                                    <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                                                        <option th:value="${ser.idServicioMedico}"
+                                                                                            th:text="${ser.servicio.servicios}"></option>
+                                                                                    </th:block>
+                                
+                                                                                </select>
+                                                                             
+                                                                            </div>
                                                                         </div>
+                                                                        
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit" id="generarFichaButton4" class="btn btn-success mr-2">Generar Ficha</button>
+                                                                    <button type="submit" id="generarFichaButton3" class="btn btn-success mr-2">Generar Ficha</button>
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                                 </div>
                                                             </div>
@@ -557,20 +596,72 @@
     <script th:if="${alertMessage != null}">
         alert('${alertMessage}');
     </script>
-
-    <script src="assets/js/funcionesficha.js"></script>
-    <script src="assets/libs/jquery/jquery.min.js"></script>
-    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/metismenu/metisMenu.min.js"></script>
-    <script src="assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="assets/libs/node-waves/waves.min.js"></script>
-
-    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
-
-    <!-- alertifyjs js -->
-
-    <script src="assets/js/app.js"></script>
-    <!-- <script src="../../assets/js/modals.js"></script> -->
+     <!-- JAVASCRIPT -->
+     <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+     <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+     <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+     <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+     <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+   
+     <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+   
+     <!-- Required datatable js -->
+     <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+     <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+   
+     <!-- Buttons examples -->
+     <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+     <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+     <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+     <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+     <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+     <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+     <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+     <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+     <!-- Responsive examples -->
+     <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+     <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+   
+     <!-- Datatable init js -->
+     <script src="../../../../assets/js/pages/datatables.init.js"></script>
+   
+     <!-- alert -->
+     <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
+     <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+   
+     <script src="../../../../assets/js/pages/vistaPass.js"></script>
+     <script src="../../../../assets/js/pages/calendario.js"></script>
+     <script src="../../../../assets/js/pages/data.js"></script>
+   
+   
+     <!-- parsleyjs -->
+     <script src="../../../../assets/libs/parsleyjs/parsley.min.js"></script>
+     <!-- validation init -->
+     <script src="../../../../assets/js/pages/form-validation.init.js"></script>
+   
+     <!-- modal-->
+     <script src="../../../../assets/js/pages/modalLiname.js"></script>
+   
+   
+     <!-- Spectrum colorpicker -->
+     <script src="assets/libs/spectrum-colorpicker/spectrum.js"></script>
+   
+     <!-- Selectize -->
+     <script src="assets/libs/selectize/js/standalone/selectize.min.js"></script>
+   
+     <!-- datepicker -->
+     <script src="assets/libs/air-datepicker/js/datepicker.min.js"></script>
+     <script src="assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
+   
+     <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+     <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+   
+     <!-- Form Advanced init -->
+     <script src="assets/js/pages/form-advanced.init.js"></script>
+     <script src="assets/js/funcionesficha.js"></script>
+     <script src="assets/js/app.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 </body>
 
 </html>
