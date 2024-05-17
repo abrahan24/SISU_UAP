@@ -34,8 +34,8 @@ public class ServicioMedico implements Serializable {
 	@Column(name = "id_servicio_medico")
 	private Integer idServicioMedico;
 
-	@Column(name = "cantidad_fichas")
-	private Integer cantidad_fichas;
+	// @Column(name = "cantidad_fichas")
+	// private Integer cantidad_fichas;
 
 	@Column(name = "estado")
 	private String estado;

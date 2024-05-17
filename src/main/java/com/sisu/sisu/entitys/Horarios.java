@@ -44,6 +44,9 @@ public class Horarios implements Serializable{
     @Column(name = "horario")
     private LocalDateTime horario;
 
+    @Column(name = "dia")
+    private String dia;
+
     @Column(name = "modificacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
