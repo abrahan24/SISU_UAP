@@ -14,4 +14,6 @@ public interface HorarioServicioService {
     public HorarioServicio findOne(Integer id); //Muestra un registro
 
     public void delete(Integer id); //Elimina registro
+
+    List<HorarioServicio> listaHorariosServicios(int id_ficha);
 }

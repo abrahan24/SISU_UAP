@@ -34,4 +34,9 @@ public class HorariosServicioServiceImpl implements HorarioServicioService{
         horarioServicioDao.deleteById(id);
     }
 
+    @Override
+    public List<HorarioServicio> listaHorariosServicios(int id_ficha) {
+        return (List<HorarioServicio>) horarioServicioDao.listaHorariosServicios(id_ficha);
+    }
+
 }
