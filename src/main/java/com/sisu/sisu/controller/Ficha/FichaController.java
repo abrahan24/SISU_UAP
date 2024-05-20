@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sisu.sisu.Dao.HorarioServicioDao;
 import com.sisu.sisu.Dao.PersonalMedicoDao;
 import com.sisu.sisu.Dao.PersonalMedicoFichaDao;
 import com.sisu.sisu.Service.FichaService;
@@ -25,6 +26,7 @@ import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.PersonalMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
+import com.sisu.sisu.entitys.HorarioServicio;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.PersonalMedico;
 import com.sisu.sisu.entitys.PersonalMedicoFicha;
@@ -50,6 +52,9 @@ public class FichaController {
 
     @Autowired
     private PersonalMedicoFichaDao personalMedicoFichaDao;
+
+    @Autowired
+    private HorarioServicioDao horarioServicioDao;
 
     @RequestMapping(value = "/vistaF", method = RequestMethod.GET)
 	public String vistaFicha(Model model ) { 
@@ -93,15 +98,28 @@ public class FichaController {
             model.addAttribute("ficha", new Ficha());
             model.addAttribute("idFicha", idFicha);
             model.addAttribute("p_medicos", personalMedicoService.listaPersonalMedicoPorServicioFicha(idFicha));
+            model.addAttribute("horarios_s", horarioServicioDao.listaHorariosServicios(idFicha));
+            model.addAttribute("horarios", new HorarioServicio());
             model.addAttribute("personalMedico", new PersonalMedico());
             return "Fichas/Content_modal :: contentM";
         }
+
+        // @GetMapping(value = "/lista_horarios/{idFicha}")
+        // public String getListaHorarios(@PathVariable(name = "idFicha")Integer idFicha, Model model) {
+        //     model.addAttribute("ficha", new Ficha());
+        //     model.addAttribute("idFicha", idFicha);
+        //     model.addAttribute("horarios_s", horarioServicioDao.listaHorariosServicios(idFicha));
+        //     model.addAttribute("horarios", new HorarioServicio());
+        //     return "Fichas/Content_modal :: contentM";
+        // }
         
 
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
-      @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico ) {
-        
+      @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico,@RequestParam(name = "horario") String horario ) {
+
+        java.sql.Timestamp horarioTimestamp = java.sql.Timestamp.valueOf(horario.replace("T", " ") + ":00");
+  
         Ficha ficha = fichaService.findOne(idFicha);
         ficha.setEstado("AA");
         fichaService.save(ficha);
@@ -109,6 +127,7 @@ public class FichaController {
         personalMedicoFicha.setFicha(ficha);
         personalMedicoFicha.setPersonal_medico(personalMedicoService.buscarId(idPersonalMedico));
         personalMedicoFicha.setRegistro(new Date());
+        personalMedicoFicha.setHorario(horarioTimestamp);
         personalMedicoFichaDao.save(personalMedicoFicha);
 
         return ResponseEntity.ok("1");

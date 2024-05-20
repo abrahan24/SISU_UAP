@@ -183,50 +183,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#form1').submit(function (event) {
-                event.preventDefault();
-                var form = document.getElementById("form1"); 
-                var action = form.action;
-                var formData = $(this).serialize();
-    
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: formData,
-                    contentType: 'application/x-www-form-urlencoded',
-                    success: function (response) {
-                        var mensaje = response;
-                        if (mensaje == "1") {
-                            Swal.fire({
-                                title: 'Asignacion Realizada con Exitoso!',
-                                icon: "success",
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                            setTimeout(function () {
-                                location.href = "../../../../listaFichasGeneral";
-                            }, 1500);
-                        } 
-                    },
-                    error: function (xhr, status, error) {
-                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                        console.error(error);
-                        // Manejo de errores
-                    }
-                });
-    
-            });
-        });
-    </script>
-    <script>
         function enviarID(valor) {
           
             var url = "../../../../lista_medicos/" + valor;
 
+            // var url = "../../../../lista_horarios/" + valor;
+
             $('#replace').load(url);
             
         }
+
+     
       
     </script>
         <script src="../../../../assets/libs/jquery/jquery.min.js"></script>

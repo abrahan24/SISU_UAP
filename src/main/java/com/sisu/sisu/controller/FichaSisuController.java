@@ -150,7 +150,7 @@ public class FichaSisuController {
 					GradoAcademico gradoAcademico = new GradoAcademico();
 					TiposEstadoCivil tiposEstadoCivil = new TiposEstadoCivil();
 
-					dip.setIdDip(7);
+					dip.setIdDip(1);
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
 
@@ -388,9 +388,10 @@ public class FichaSisuController {
 					GradoAcademico gradoAcademico = new GradoAcademico();
 					TiposEstadoCivil tiposEstadoCivil = new TiposEstadoCivil();
 
-					dip.setIdDip(8);
+					dip.setIdDip(1);
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
+
 
 					existePersonaD.setEstado("RD");
 					existePersonaD.setNombres(data.get("nombres").toString());
@@ -401,6 +402,9 @@ public class FichaSisuController {
 					// existePersonaD.setCelular(Integer.parseInt(data.get("celular").toString()));
 					existePersonaD.setSexo(data.get("sexo").toString());
 					existePersonaD.setFecha_nac(LocalDate.parse(data.get("fecha_nacimiento").toString()));
+					existePersonaD.setDip(dip);
+					existePersonaD.setGrado_academico(gradoAcademico);
+					existePersonaD.setTipos_estado_civil(tiposEstadoCivil);
 					personaService.save(existePersonaD);
 
 					personaDocenteCreado = existePersonaD;
@@ -575,9 +579,10 @@ public class FichaSisuController {
 					GradoAcademico gradoAcademico = new GradoAcademico();
 					TiposEstadoCivil tiposEstadoCivil = new TiposEstadoCivil();
 
-					dip.setIdDip(7);
+					dip.setIdDip(1);
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
+
 
 					existPersonaA.setEstado("RA");
 					existPersonaA.setNombres(data.get("per_nombres").toString());
@@ -588,6 +593,9 @@ public class FichaSisuController {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					LocalDate fechaNacimiento = LocalDate.parse(data.get("fecha_nac").toString(), formatter);
 					existPersonaA.setFecha_nac(fechaNacimiento);
+					existPersonaA.setDip(dip);
+					existPersonaA.setGrado_academico(gradoAcademico);
+					existPersonaA.setTipos_estado_civil(tiposEstadoCivil);
 					personaService.save(existPersonaA);
 
 					personaACreada = existPersonaA;

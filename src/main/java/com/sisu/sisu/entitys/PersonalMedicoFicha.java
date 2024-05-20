@@ -1,6 +1,7 @@
 package com.sisu.sisu.entitys;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +48,12 @@ public class PersonalMedicoFicha implements Serializable{
     @Column(name = "modificacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
+
+    @Column(name = "horario")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horario;
+
+
 
     //---------------------RELACIONES-------------------------------------------
 
