@@ -678,7 +678,7 @@ public class CajaFichaController {
 				model.addAttribute("servicios", servicioMedicoService.findAll());
 				model.addAttribute("persona", persona);
 				personaECreada = persona;
-				return "Client/vistaDatosExternoExistente";
+				return "Client/vistaDatosExternoExistente2";
 			}
 
 		} else {
@@ -687,7 +687,7 @@ public class CajaFichaController {
 			model.addAttribute("grados", gradoService.findAll());
 			model.addAttribute("civiles", tiposEstadoCivilService.findAll());
 			model.addAttribute("servicios", servicioMedicoService.findAll());
-			return "Client/vistaDatosExterno";
+			return "Client/vistaDatosExterno2";
 		}
 
 	}
