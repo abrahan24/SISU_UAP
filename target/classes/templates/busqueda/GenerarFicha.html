@@ -112,12 +112,7 @@
                                             <div class="col-lg-10">
                                               
                                                 <div class="col-lg-7">
-                                                    <div class="text-center mb-5">
-                                                        <img src="assets/images/logoS.png" height="100" alt="logo">
-                                                        <h3 class="mt-4" style="color: rgb(0, 0, 0); font-weight: bold;">Servicio Integral de Salud
-                                                            Universitaria</h3>
-                                                        <h4 style="color: rgb(255, 255, 255); font-weight: bold;">Universidad Amazonica de Pando</h4>
-                                                    </div>
+                                                    
                                                     <div th:class="'alert alert-'+ (${clase != null} ? ${clase} : info)" role="alert" th:if="${mensaje != null}">
                                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -216,37 +211,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-lg-4">
-                                                            <div class="accordion custom-accordion" id="accordionExample5">
-                                                                <div class="card shadow-none mb-2">
-                                                                    <a class="collapsed faq" data-toggle="collapse" href="#collapseFive" aria-expanded="false"
-                                                                        aria-controls="collapseFive">
-                                                                        <div class="card-header" id="headingFive">
-                                                                            <h6 class="mb-0 faq-question">
-                                                                                <i class="mdi mdi-help text-primary h5 mr-3"></i>GENERAR FICHA PERSONA EXTERNA
-                                                                                <i class="mdi mdi-chevron-down float-right accor-plus-icon"></i>
-                                                                            </h6>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample5">
-                                                                        <div class="card-body">
-                                                                            <form  action="externo2" method="Get">
-                                                                            <div class="modal-body">
-                                                                                <div class="input-group mb-3">
-                                                                                    <input type="text" name="ci" id="codigoAdministrativoInput" class="form-control"
-                                                                                        placeholder="Cédula de Identidad" required>
-                                                                                    <div class="input-group-append">
-                                                                                        <button type="submit" class="btn btn-primary" >Cargar
-                                                                                            Información</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                       
                                                         
                                                        
                                                     <!-- Modal -->
@@ -575,8 +540,41 @@
                                                     </div>
                                                   
                                                 </form>
+                                                <div class="col-lg-4">
+                                                    <div class="accordion custom-accordion" id="accordionExample5">
+                                                        <div class="card shadow-none mb-2">
+                                                            <a class="collapsed faq" data-toggle="collapse" href="#collapseFive" aria-expanded="false"
+                                                                aria-controls="collapseFive">
+                                                                <div class="card-header" id="headingFive">
+                                                                    <h6 class="mb-0 faq-question">
+                                                                        <i class="mdi mdi-help text-primary h5 mr-3"></i>GENERAR FICHA PERSONA EXTERNA
+                                                                        <i class="mdi mdi-chevron-down float-right accor-plus-icon"></i>
+                                                                    </h6>
+                                                                </div>
+                                                            </a>
+                                                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample5">
+                                                                <div class="card-body">
+                                                                    <form  action="/externo2" method="Get">
+                                                                    <div class="modal-body">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="ci" class="form-control"
+                                                                                placeholder="Cédula de Identidad" required>
+                                                                            <div class="input-group-append">
+                                                                                <button type="submit" class="btn btn-primary" >Cargar
+                                                                                    Información</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                           
                                         </div>
+                                        
                                         <!-- end row -->
                                     </div>
                                 </div>
