@@ -117,23 +117,18 @@ public class login {
 	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idUsrRol") Integer idUsrRol) {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
-		
-		if (usuario == null) {
-			
-			return "index/login";
-			
-		}
 
-		System.out.println("Rol-- " + idUsrRol);
+		if (usuario == null) {
+
+			return "index/login";
+
+		}
 
 		UsrRoles usrRol = new UsrRoles();
 
 		usrRol = usrRolesService.findByIdUsrRol(idUsrRol);
-		System.out.println("USUARIO ROL" + usrRol.getIdUsrRol());
-
 
 		List<Menu> lEnlaces = menuService.findByIdRol(usrRol.getIdRol());
-		System.out.println("tama " + lEnlaces.size());
 
 		List<Menu> lHijos = menuService.findByIdRol(usrRol.getIdRol());
 
@@ -146,7 +141,6 @@ public class login {
 		sesion.setAttribute("sessionlPadres", lHijos);
 		sesion.setAttribute("usrRolSession", usrRol);
 
-		//return "formularios/Contenido";
 		return "index/inicio";
 	}
 	

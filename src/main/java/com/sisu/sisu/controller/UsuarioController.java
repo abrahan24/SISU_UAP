@@ -1,5 +1,7 @@
 package com.sisu.sisu.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +49,14 @@ public class UsuarioController {
     // -------------------------LISTAR---------------------------------------
 
     @GetMapping(value = "/listaUs")
-    public String listaUs(Model model, @Validated Usuario usuarios) {
+    public String listaUs(Model model, @Validated Usuario usuarios, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
 
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("usuarios", usuarioService.findAll());

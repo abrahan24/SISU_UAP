@@ -43,7 +43,7 @@
       <link href="../../../../assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
 
       <link href="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
-
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body data-topbar="colored">
@@ -170,31 +170,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="form1" th:action="@{asignar_medico}" method="post">
-                    <div class="modal-body">
-                        <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
+                <div id="replace">
+
+                </div>
                 
-                        <input id="idFicha" name="idFicha" type="hidden">
-                        <select th:field="${personalMedico.idPersonalMedico}" class="selectize" required>
-                            <option value="" selected>Seleccione...</option>
-                
-                            <th:block th:each="m : ${p_medicos}">
-                                <option th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno}"
-                                    th:value="${m.idPersonalMedico}"></option>
-                            </th:block>
-                        </select>
-                        <div class="form-group row">
-                            <label for="example-time-input" class="col-md-2 col-form-label">Time</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="time" value="13:45:00" id="example-time-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
-                        <button type="submit" class="btn btn-outline-success">ENVIAR</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -242,12 +221,13 @@
     </script>
     <script>
         function enviarID(valor) {
-            // Seleccionar el input
-            var input = document.getElementById('idFicha');
-    
-            // Asignar el valor al atributo value del input
-            input.value = valor;
+          
+            var url = "../../../../lista_medicos/" + valor;
+
+            $('#replace').load(url);
+            
         }
+      
     </script>
         <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
          <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -298,7 +278,7 @@
 
         <!-- Selectize -->
         <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <!-- datepicker -->
         <script src="../../../../assets/libs/air-datepicker/js/datepicker.min.js"></script>
         <script src="../../../../assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>

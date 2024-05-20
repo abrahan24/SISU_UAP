@@ -79,12 +79,13 @@ public class CajaFichaController {
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
 	public String ficha(Model model, HttpServletRequest request) {
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
-		model.addAttribute("servicios", servicioMedicoService.findAll());
 		if (usuario == null) {
 			
 			return "redirect:/";
 			
 		}
+		model.addAttribute("servicios", servicioMedicoService.findAll());
+
 		return "busqueda/GenerarFicha";
 
 	}

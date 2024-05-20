@@ -78,16 +78,24 @@ public class FichaController {
 			return "redirect:/";
 			
 		}
-
         Date fechaActualD = new Date(); 
 
         model.addAttribute("ficha", new Ficha());
         model.addAttribute("fichas", fichaService.listaFichasFechaActual(fechaActualD));
-        model.addAttribute("p_medicos", personalMedicoService.listarTodo());    
+        // model.addAttribute("p_medicos", personalMedicoService.listarTodo());    
 
         model.addAttribute("personalMedico", new PersonalMedico());
         return "Fichas/listaFichaGeneral";
     }
+
+        @GetMapping(value = "/lista_medicos/{idFicha}")
+        public String getMethodName(@PathVariable(name = "idFicha")Integer idFicha, Model model) {
+            model.addAttribute("ficha", new Ficha());
+            model.addAttribute("p_medicos", personalMedicoService.listaPersonalMedicoPorServicioFicha(idFicha));
+            model.addAttribute("personalMedico", new PersonalMedico());
+            return "Fichas/Content_modal :: contentM";
+        }
+        
 
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
