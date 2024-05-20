@@ -293,6 +293,18 @@
                                     location.href = "../../../../Ficha";
                                 }, 2000);
                                 }
+                                if (data == "error2") {
+                                Swal.fire({
+                                    title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                setTimeout(function () {
+                                    location.href = "../../../../inicioCliente";
+                                }, 3000);
+                            }
                                
                             }
                         },

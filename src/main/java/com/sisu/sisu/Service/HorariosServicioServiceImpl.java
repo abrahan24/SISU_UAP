@@ -39,4 +39,9 @@ public class HorariosServicioServiceImpl implements HorarioServicioService{
         return (List<HorarioServicio>) horarioServicioDao.listaHorariosServicios(id_ficha);
     }
 
+    @Override
+    public List<HorarioServicio> listaHorariosValidar(int id_servicio_medico) {
+        return (List<HorarioServicio>) horarioServicioDao.listaHorariosValidar(id_servicio_medico);
+    }
+
 }

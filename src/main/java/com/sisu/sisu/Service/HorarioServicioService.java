@@ -16,4 +16,6 @@ public interface HorarioServicioService {
     public void delete(Integer id); //Elimina registro
 
     List<HorarioServicio> listaHorariosServicios(int id_ficha);
+
+    List<HorarioServicio> listaHorariosValidar(int id_servicio_medico);
 }

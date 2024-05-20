@@ -1,10 +1,14 @@
 package com.sisu.sisu.controller.CajaFicha;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
+import com.sisu.sisu.Service.HorarioServicioService;
 import com.sisu.sisu.Service.IAseguradoService;
 import com.sisu.sisu.Service.IDipService;
 import com.sisu.sisu.Service.IGradoService;
@@ -40,6 +45,7 @@ import com.sisu.sisu.entitys.EstadoSeguro;
 import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.GradoAcademico;
 import com.sisu.sisu.entitys.HistorialSeguro;
+import com.sisu.sisu.entitys.HorarioServicio;
 import com.sisu.sisu.entitys.Institucion;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.ServicioMedico;
@@ -76,6 +82,9 @@ public class CajaFichaController {
 	@Autowired
 	private ITiposEstadoCivilService tiposEstadoCivilService;
 
+	@Autowired
+	private HorarioServicioService horarioServicioService;
+
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
 	public String ficha(Model model, HttpServletRequest request) {
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
@@ -89,6 +98,12 @@ public class CajaFichaController {
 		return "busqueda/GenerarFicha";
 
 	}
+	private static String capitalizeFirstLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
 
 	@RequestMapping(value = "universitarioC", method = RequestMethod.GET)
 	public ResponseEntity<Object> universitario(HttpServletRequest request, Model model,
@@ -266,6 +281,11 @@ public class CajaFichaController {
 		}
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+
+
+
 		if (servicioMedico == null) {
 			return ResponseEntity.badRequest().body("error: servicio no encontrado");
 		}
@@ -278,15 +298,29 @@ public class CajaFichaController {
 
 		Date fechaActualD = new Date();
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
-
+		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+		LocalDate fechaActual = LocalDate.now();
+		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
+		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		String nombreDiaCapitalizado = capitalizeFirstLetter(nombreDiaEnEspanol);
 		if (existeFicha != null) {
-			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
-			LocalDate fechaActual = LocalDate.now();
+
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
 				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha actual
+			}
+		
+		}
+
+		for (HorarioServicio horario : listaHorariosServicio) {
+		
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite 
+				}
 			}
 		}
 
@@ -444,25 +478,41 @@ public class CajaFichaController {
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocCreada.getIdPersona());
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 		if (asegurado == null) {
 
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codDocAsegurado.getIdAsegurado(),
-				fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+		LocalDate fechaActual = LocalDate.now();
+		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
+		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		String nombreDiaCapitalizado = capitalizeFirstLetter(nombreDiaEnEspanol);
 
 		if (existeFicha != null) {
 
-			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
-			LocalDate fechaActual = LocalDate.now();
+	
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
 				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha
+			}
+		}
+
+		
+
+for (HorarioServicio horario : listaHorariosServicio) {
+		
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite 
+				}
 			}
 		}
 
@@ -612,6 +662,9 @@ public class CajaFichaController {
 	public ResponseEntity<String> generarFichaA(Model model, @RequestParam(name = "servicio")Integer idServicio) {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaAdCreada.getIdPersona());
 		if (asegurado == null) {
 
@@ -619,14 +672,17 @@ public class CajaFichaController {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+		LocalDate fechaActual = LocalDate.now();
+		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
+		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		String nombreDiaCapitalizado3 = capitalizeFirstLetter(nombreDiaEnEspanol);
 
 		if (existeFicha != null) {
 			System.out.println("ESTE ADMINISTRATIVO YA TIENE UNA FICHA");
 
-			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
-			LocalDate fechaActual = LocalDate.now();
+			
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -634,7 +690,15 @@ public class CajaFichaController {
 				return ResponseEntity.ok("error1");
 			}
 		}
-
+		for (HorarioServicio horario : listaHorariosServicio) {
+		
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado3)) {
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite 
+				}
+			}
+		}
 		Ficha ficha = new Ficha();
 		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
@@ -723,6 +787,8 @@ public class CajaFichaController {
 	public ResponseEntity<String> generarFichaE2(RedirectAttributes flash,
 			HttpServletRequest request, Model model, @RequestParam(name = "servicio")Integer idServicio) {
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
 
@@ -730,13 +796,16 @@ public class CajaFichaController {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
+		LocalDate fechaActual = LocalDate.now();
+		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
+		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		String nombreDiaCapitalizado = capitalizeFirstLetter(nombreDiaEnEspanol);
 
 		if (existeFicha != null) {
 
-			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
-			LocalDate fechaActual = LocalDate.now();
+			
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -744,6 +813,17 @@ public class CajaFichaController {
 				return ResponseEntity.ok("error1"); // Usted ya tiene una ficha en la fecha actual.
 			}
 		}
+
+		for (HorarioServicio horario : listaHorariosServicio) {
+		
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite 
+				}
+			}
+		}
+		
 		Ficha ficha = new Ficha();
 		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");

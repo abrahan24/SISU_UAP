@@ -1,269 +1,299 @@
 <!doctype html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <title>INFORMACION</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="Themesdesign" name="author" />
-        <!-- DataTables -->
+<head>
+    <meta charset="utf-8" />
+    <title>INFORMACION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- DataTables -->
     <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
-    type="text/css" />
+        type="text/css" />
+    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
 
 
-<!-- Responsive datatable examples -->
-<link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
-    rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+        rel="stylesheet" type="text/css" />
 
-<link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
-<link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
 
-<!-- Bootstrap Css -->
-<link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<!-- Icons Css -->
-<link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-<!-- App Css-->
-<link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap Css -->
+    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
-<link href="../../../../assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/css/style.css" rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
 
-<!-- Selectize -->
-<link href="assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
+    <!-- Selectize -->
+    <link href="assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
 
-<!-- spectrum colorpicker -->
-<link href="assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
+    <!-- spectrum colorpicker -->
+    <link href="assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
 
-<!-- datepicker -->
-<link href="assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- datepicker -->
+    <link href="assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
 
-<link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 
-    </head>
+</head>
 
-    <body>
-        <div class="home-btn d-none d-sm-block">
-            <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
-        </div>
+<body>
+    <div class="home-btn d-none d-sm-block">
+        <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
+    </div>
 
-        <div class="account-pages my-3 pt-sm-3">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="text-center mb-5">
-                            <img src="assets/images/logoS.png" height="100" alt="logo">
-                            <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
-                            <p class="text-muted">Universidad Amazonica de Pando</p>
-                        </div>
+    <div class="account-pages my-3 pt-sm-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="text-center mb-5">
+                        <img src="assets/images/logoS.png" height="100" alt="logo">
+                        <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
+                        <p class="text-muted">Universidad Amazonica de Pando</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="container">     
-                        <div class="row justify-content-center" style="height: 20vh;">
-                            <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 600px;">
-                                <div class="card bg-light">
-                                    <div class="card  bg-danger mt-0">
-                                        <h2 style="text-align: center; color: rgb(245, 245, 245);">Datos Personales</h2>
-    
-                                    </div>
-    
-                                    <div class="card-body p-4">   
-                                        <form id="form1"action="/generarFicha" method="post">
-                                            <input type="hidden" id="codigoUniversitario" name="codigoUniversitario" value="${codigoUniversitario}" />
-                                          
-                                      
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="nombreUniversitario">Nombre del Universitario:</label>
-                                                    <input type="text" id="nombreUniversitario" name="nombreUniversitario" class="form-control" th:value="${nombreUniversitario}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="apPaterno">Apellido Paterno</label>
-                                                    <input type="text" id="apPaterno" name="apPaterno" class="form-control" th:value="${apPaterno}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="apMaterno">Apellido Materno</label>
-                                                    <input type="text" id="apMaterno" name="apMaterno" class="form-control" th:value="${apMaterno}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="ci">CI:</label>
-                                                    <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="ru">RU:</label>
-                                                    <input type="text" id="ru" name="ru" class="form-control" th:value="${ru}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" th:value="${fechaNacimiento}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="direccion">Dirección:</label>
-                                                    <input type="text" id="direccion" name="direccion" class="form-control" th:value="${direccion}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="correo">Correo:</label>
-                                                    <input type="text" id="correo" name="correo" class="form-control" th:value="${correo}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="celular">Celular:</label>
-                                                    <input type="text" id="celular" name="celular" class="form-control" th:value="${celular}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="carrera">Carrera:</label>   
-                                                    <input type="text" id="carrera" name="carrera" class="form-control" th:value="${carrera}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="tipoSanguineo">Tipo Sanguíne:</label>
-                                                    <input type="text" id="tipoSanguineo" name="tipoSanguineo" class="form-control" th:value="${tipoSanguineo}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="sexo">Sexo:</label>
-                                                    <input type="hidden" id="codigoAsegurado" name="codigoAsegurado" value="${codigoAsegurado}">
+            </div>
+            <div class="row">
+                <div class="container">
+                    <div class="row justify-content-center" style="height: 20vh;">
+                        <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center"
+                            style="height: 600px;">
+                            <div class="card bg-light">
+                                <div class="card  bg-danger mt-0">
+                                    <h2 style="text-align: center; color: rgb(245, 245, 245);">Datos Personales</h2>
 
-                                                    <input type="text" id="sexo" name="sexo" class="form-control" th:value="${sexo}" readonly>
-                                                </div>
+                                </div>
+
+                                <div class="card-body p-4">
+                                    <form id="form1" action="/generarFicha" method="post">
+                                        <input type="hidden" id="codigoUniversitario" name="codigoUniversitario"
+                                            value="${codigoUniversitario}" />
+
+
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreUniversitario">Nombre del Universitario:</label>
+                                                <input type="text" id="nombreUniversitario" name="nombreUniversitario"
+                                                    class="form-control" th:value="${nombreUniversitario}" readonly>
                                             </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="apPaterno">Apellido Paterno</label>
+                                                <input type="text" id="apPaterno" name="apPaterno" class="form-control"
+                                                    th:value="${apPaterno}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="apMaterno">Apellido Materno</label>
+                                                <input type="text" id="apMaterno" name="apMaterno" class="form-control"
+                                                    th:value="${apMaterno}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="ci">CI:</label>
+                                                <input type="text" id="ci" name="ci" class="form-control"
+                                                    th:value="${ci}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="ru">RU:</label>
+                                                <input type="text" id="ru" name="ru" class="form-control"
+                                                    th:value="${ru}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                                <input type="text" id="fechaNacimiento" name="fechaNacimiento"
+                                                    class="form-control" th:value="${fechaNacimiento}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="direccion">Dirección:</label>
+                                                <input type="text" id="direccion" name="direccion" class="form-control"
+                                                    th:value="${direccion}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="correo">Correo:</label>
+                                                <input type="text" id="correo" name="correo" class="form-control"
+                                                    th:value="${correo}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="celular">Celular:</label>
+                                                <input type="text" id="celular" name="celular" class="form-control"
+                                                    th:value="${celular}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="carrera">Carrera:</label>
+                                                <input type="text" id="carrera" name="carrera" class="form-control"
+                                                    th:value="${carrera}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="tipoSanguineo">Tipo Sanguíne:</label>
+                                                <input type="text" id="tipoSanguineo" name="tipoSanguineo"
+                                                    class="form-control" th:value="${tipoSanguineo}" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="sexo">Sexo:</label>
+                                                <input type="hidden" id="codigoAsegurado" name="codigoAsegurado"
+                                                    value="${codigoAsegurado}">
+
+                                                <input type="text" id="sexo" name="sexo" class="form-control"
+                                                    th:value="${sexo}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="estadoMatriculacion">Estado Matricula</label>
+                                                <input type="text" id="estadoMatriculacion" name="estadoMatriculacion"
+                                                    class="form-control" th:value="${estadoMatriculacion}" readonly>
+                                                <p th:if="${estadoMatriculacion}" class="text-success">Matrícula activa
+                                                </p>
+                                                <p th:if="${!estadoMatriculacion}" class="text-danger">Matrícula
+                                                    inactiva</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="estadoMatriculacion">Seleccionar Servicio Requerido</label>
+                                                <select class="selectize" name="servicio" required>
+                                                    <option value="">Elegir..</option>
+
+                                                    <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                        <option th:value="${ser.idServicioMedico}"
+                                                            th:text="${ser.servicio.servicios}"></option>
+                                                    </th:block>
+
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="container mt-3">
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <label for="estadoMatriculacion">Estado Matricula</label>
-                                                    <input type="text" id="estadoMatriculacion" name="estadoMatriculacion" class="form-control" th:value="${estadoMatriculacion}" readonly>
-                                                    <p th:if="${estadoMatriculacion}" class="text-success">Matrícula activa</p>
-                                                    <p th:if="${!estadoMatriculacion}" class="text-danger">Matrícula inactiva</p>
+                                                <div>
+                                                    <a style="margin-right: 215px;" class="btn btn-secondary"
+                                                        name="submitCancelar" href="../../../inicioCliente">Cancelar</a>
                                                 </div>
-                                                <div class="col-md-8">
-                                                    <label for="estadoMatriculacion">Seleccionar Servicio Requerido</label>
-                                                    <select class="selectize" name="servicio" required>
-                                                        <option value="">Elegir..</option>
-    
-                                                        <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
-                                                            <option th:value="${ser.idServicioMedico}"
-                                                                th:text="${ser.servicio.servicios}"></option>
-                                                        </th:block>
-    
-                                                    </select>
-                                                 
+                                                <div>
+                                                    <button type="submit" class="btn btn-success" name="submitRegistrar"
+                                                        formaction="/registroCliente">Generar Ficha</button>
                                                 </div>
                                             </div>
-                                            <div class="container mt-3">
-                                                <div class="row">
-                                                    <div>
-                                                        <a style="margin-right: 215px;" class="btn btn-secondary"
-                                                            name="submitCancelar" href="../../../inicioCliente">Cancelar</a>
-                                                    </div>
-                                                    <div>
-                                                        <button type="submit" class="btn btn-success" name="submitRegistrar"
-                                                            formaction="/registroCliente">Generar Ficha</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end row -->
             </div>
+            <!-- end row -->
         </div>
-        <!-- end Account pages -->
-
-    
-       <!-- JAVASCRIPT -->
-  <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
-  <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
-  <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
-  <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
-
-  <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
-
-  <!-- Required datatable js -->
-  <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-  <!-- Buttons examples -->
-  <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-  <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
-  <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
-  <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
-  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-  <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-  <!-- Responsive examples -->
-  <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
-  <!-- Datatable init js -->
-  <script src="../../../../assets/js/pages/datatables.init.js"></script>
-
-  <!-- alert -->
-  <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-  <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
-
-  <script src="../../../../assets/js/pages/vistaPass.js"></script>
-  <script src="../../../../assets/js/pages/calendario.js"></script>
-  <script src="../../../../assets/js/pages/data.js"></script>
+    </div>
+    <!-- end Account pages -->
 
 
-  <!-- parsleyjs -->
-  <script src="../../../../assets/libs/parsleyjs/parsley.min.js"></script>
-  <!-- validation init -->
-  <script src="../../../../assets/js/pages/form-validation.init.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
+    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
 
-  <!-- modal-->
-  <script src="../../../../assets/js/pages/modalLiname.js"></script>
+    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="../../../../assets/js/pages/datatables.init.js"></script>
+
+    <!-- alert -->
+    <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
+    <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+
+    <script src="../../../../assets/js/pages/vistaPass.js"></script>
+    <script src="../../../../assets/js/pages/calendario.js"></script>
+    <script src="../../../../assets/js/pages/data.js"></script>
 
 
-  <!-- Spectrum colorpicker -->
-  <script src="assets/libs/spectrum-colorpicker/spectrum.js"></script>
+    <!-- parsleyjs -->
+    <script src="../../../../assets/libs/parsleyjs/parsley.min.js"></script>
+    <!-- validation init -->
+    <script src="../../../../assets/js/pages/form-validation.init.js"></script>
 
-  <!-- Selectize -->
-  <script src="assets/libs/selectize/js/standalone/selectize.min.js"></script>
+    <!-- modal-->
+    <script src="../../../../assets/js/pages/modalLiname.js"></script>
 
-  <!-- datepicker -->
-  <script src="assets/libs/air-datepicker/js/datepicker.min.js"></script>
-  <script src="assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
 
-  <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-  <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+    <!-- Spectrum colorpicker -->
+    <script src="assets/libs/spectrum-colorpicker/spectrum.js"></script>
 
-  <!-- Form Advanced init -->
-  <script src="assets/js/pages/form-advanced.init.js"></script>
+    <!-- Selectize -->
+    <script src="assets/libs/selectize/js/standalone/selectize.min.js"></script>
 
-  <script src="assets/js/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            $(document).ready(function () {
-             
-                $('#form1').submit(function (event) {
-                    event.preventDefault();
-                    var form = document.getElementById("form1");
-                    var action = form.action;
-                    var formData = $(this).serialize();
-    
-                    $.ajax({
-                        type: 'POST',
-                        url: $(this).attr('action'),
-                        data: formData,
-                        contentType: 'application/x-www-form-urlencoded',
-                        success: function (response) {
-                            var mensaje = response;
-                            if (mensaje == "exito") {
+    <!-- datepicker -->
+    <script src="assets/libs/air-datepicker/js/datepicker.min.js"></script>
+    <script src="assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
+
+    <script src="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+
+    <!-- Form Advanced init -->
+    <script src="assets/js/pages/form-advanced.init.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("form1");
+                var action = form.action;
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "exito") {
+                            Swal.fire({
+                                title: 'Se Registro la Ficha con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                            setTimeout(function () {
+                                location.href = "../../../../inicioCliente";
+                            }, 2000);
+                        } else {
+                            if (mensaje == "error") {
                                 Swal.fire({
-                                    title: 'Se Registro la Ficha con Exitoso!',
-                                    icon: "success",
+                                    title: 'No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos',
+                                    icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
@@ -272,42 +302,43 @@
                                     location.href = "../../../../inicioCliente";
                                 }, 2000);
                             } else {
-                                if (mensaje == "error") {
-                                    Swal.fire({
-                                    title: 'No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos',
-                                    icon: "warning",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
-                                 setTimeout(function () {
-                                    location.href = "../../../../inicioCliente";
-                                }, 2000);
-                                }else{
-                                    Swal.fire({
+                                Swal.fire({
                                     title: 'Usted ya tiene una ficha en la fecha actual',
                                     icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
-                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
-                                 setTimeout(function () {
+                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                setTimeout(function () {
                                     location.href = "../../../../inicioCliente";
                                 }, 2000);
-                                }
-                               
                             }
-                        },
-                        error: function (xhr, status, error) {
-                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                            console.error(error);
-                            // Manejo de errores
-                        }
-                    });
-    
-                });
-            });
-        </script>
+                            if (data == "error2") {
+                                Swal.fire({
+                                    title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
+                                    icon: "warning",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                                setTimeout(function () {
+                                    location.href = "../../../../inicioCliente";
+                                }, 3000);
+                            }
 
-    </body>
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+
+            });
+        });
+    </script>
+
+</body>
+
 </html>

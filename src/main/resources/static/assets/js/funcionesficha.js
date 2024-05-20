@@ -131,6 +131,18 @@ function generarFicha() {
                     location.href = "../../../../Ficha";
                 }, 2000);
             }
+            if (data == "error2") {
+                Swal.fire({
+                    title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                setTimeout(function () {
+                    location.href = "../../../../Ficha";
+                }, 3000);
+            }
         },
         error: function (error) {
             console.error("Error en Generar la Ficha", error);
@@ -287,6 +299,18 @@ function generarFicha2() {
                     location.href = "../../../../Ficha";
                 }, 2000);
             }
+            if (data == "error2") {
+                Swal.fire({
+                    title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                setTimeout(function () {
+                    location.href = "../../../../Ficha";
+                }, 3000);
+            }
         },
         error: function (error) {
             console.error("Error en Generar la Ficha", error);
@@ -423,6 +447,18 @@ function generarFicha3() {
                 setTimeout(function () {
                     location.href = "../../../../Ficha";
                 }, 2000);
+            }
+            if (data == "error2") {
+                Swal.fire({
+                    title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                // Redireccionar a la página de inicioCliente después de la alerta de éxito
+                setTimeout(function () {
+                    location.href = "../../../../Ficha";
+                }, 3000);
             }
         },
         error: function (error) {

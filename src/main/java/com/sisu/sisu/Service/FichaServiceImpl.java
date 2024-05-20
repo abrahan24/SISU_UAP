@@ -53,4 +53,9 @@ public class FichaServiceImpl implements FichaService{
     public List<Ficha> listaFichasFechaActual(Date fecha) {
         return (List<Ficha>) fichaDao.listaFichasFechaActual(fecha);
     }
+
+    @Override
+    public List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico) {
+        return (List<Ficha>) fichaDao.listaFichasSinAsignar(id_servicio_medico);
+    }
 }
