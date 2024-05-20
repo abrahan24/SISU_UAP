@@ -91,6 +91,7 @@ public class FichaController {
         @GetMapping(value = "/lista_medicos/{idFicha}")
         public String getMethodName(@PathVariable(name = "idFicha")Integer idFicha, Model model) {
             model.addAttribute("ficha", new Ficha());
+            model.addAttribute("idFicha", idFicha);
             model.addAttribute("p_medicos", personalMedicoService.listaPersonalMedicoPorServicioFicha(idFicha));
             model.addAttribute("personalMedico", new PersonalMedico());
             return "Fichas/Content_modal :: contentM";
