@@ -244,13 +244,12 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function () {
-             
                 $('#form1').submit(function (event) {
                     event.preventDefault();
                     var form = document.getElementById("form1");
                     var action = form.action;
                     var formData = $(this).serialize();
-    
+        
                     $.ajax({
                         type: 'POST',
                         url: $(this).attr('action'),
@@ -258,66 +257,57 @@
                         contentType: 'application/x-www-form-urlencoded',
                         success: function (response) {
                             var mensaje = response;
-                            if (mensaje == "exito") {
+                            if (mensaje === "exito") {
                                 Swal.fire({
                                     title: 'Se Registro la Ficha con Exitoso!',
                                     icon: "success",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
-                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
                                 setTimeout(function () {
                                     location.href = "../../../../inicioCliente";
                                 }, 2000);
-                            } else {
-                                if (mensaje == "error") {
-                                    Swal.fire({
+                            } else if (mensaje === "error") {
+                                Swal.fire({
                                     title: 'No está habilitado para generar Fichas, debe apersonarse a SISU y verificar sus datos',
                                     icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
-                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
-                                 setTimeout(function () {
+                                setTimeout(function () {
                                     location.href = "../../../../inicioCliente";
                                 }, 2000);
-                                }else{
-                                    Swal.fire({
+                            } else if (mensaje === "error1") {
+                                Swal.fire({
                                     title: 'Usted ya tiene una ficha en la fecha actual',
                                     icon: "warning",
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
-                                 // Redireccionar a la página de inicioCliente después de la alerta de éxito
-                                 setTimeout(function () {
+                                setTimeout(function () {
                                     location.href = "../../../../inicioCliente";
                                 }, 2000);
-                                }
-                                if (data == "error2") {
+                            } else if (mensaje === "error2") {
                                 Swal.fire({
                                     title: 'Limite de Fichas para este Servicio esta al maximo, Por favor Solicite su Ficha en otro Momento',
                                     icon: "warning",
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
-                                // Redireccionar a la página de inicioCliente después de la alerta de éxito
                                 setTimeout(function () {
                                     location.href = "../../../../inicioCliente";
                                 }, 3000);
                             }
-                               
-                            }
                         },
                         error: function (xhr, status, error) {
-                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.');
                             console.error(error);
-                            // Manejo de errores
                         }
                     });
-    
                 });
             });
         </script>
+        
     </body>
 
 

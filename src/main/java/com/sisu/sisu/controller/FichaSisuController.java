@@ -176,7 +176,7 @@ public class FichaSisuController {
 					newUnipersona.setApMaterno(data.get("apellido_materno").toString());
 					newUnipersona.setCi(data.get("ci").toString());
 					newUnipersona.setDireccion(data.get("direccion").toString());
-					newUnipersona.setCelular(Integer.parseInt(data.get("celular").toString()));
+					newUnipersona.setCelular(data.get("celular").toString());
 					newUnipersona.setSexo(data.get("sexo").toString());
 					newUnipersona.setDip(dip);
 					newUnipersona.setGrado_academico(gradoAcademico);
@@ -535,6 +535,16 @@ public class FichaSisuController {
 			}
 		}
 
+		for (HorarioServicio horario : listaHorariosServicio) {
+		
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite 
+				}
+			}
+		}
+
 		Ficha ficha = new Ficha();
 		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
@@ -834,7 +844,7 @@ public class FichaSisuController {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoEPCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();

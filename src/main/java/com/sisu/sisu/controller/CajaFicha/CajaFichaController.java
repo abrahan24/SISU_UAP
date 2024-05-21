@@ -178,7 +178,7 @@ public class CajaFichaController {
 					univPersona.setApMaterno(data.get("apellido_materno").toString());
 					univPersona.setCi(data.get("ci").toString());
 					univPersona.setDireccion(data.get("direccion").toString());
-					univPersona.setCelular(Integer.parseInt(data.get("celular").toString()));
+					univPersona.setCelular(data.get("celular").toString());
 					univPersona.setSexo(data.get("sexo").toString());
 					univPersona.setDip(dip);
 					univPersona.setGrado_academico(gradoAcademico);
@@ -412,7 +412,7 @@ public class CajaFichaController {
 					docPersona.setApMaterno(data.get("apellido_materno").toString());
 					docPersona.setCi(data.get("ci").toString());
 					docPersona.setDireccion(data.get("direccion").toString());
-					docPersona.setCelular(Integer.parseInt(data.get("celular").toString()));
+					docPersona.setCelular(data.get("celular").toString());
 					docPersona.setSexo(data.get("sexo").toString());
 					docPersona.setFecha_nac(LocalDate.parse(data.get("fecha_nacimiento").toString()));
 					docPersona.setDip(dip);
