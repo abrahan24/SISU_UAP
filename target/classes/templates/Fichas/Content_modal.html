@@ -1,13 +1,13 @@
 <div th:fragment="contentM">
     <form id="form1" th:action="@{asignar_medico}" method="post">
         <div class="modal-body">
-            <h5><i class="fa fa-arrow-right"></i> MEDICO</h5>
+           
 
             <input id="idFicha" th:name="idFicha" th:value="${idFicha}" type="hidden">
             
             <div class="form-group row">
-                <label for="example-time-input" class="col-md-2 col-form-label">MEDICO DE SERVICIO</label>
-                <div class="col-md-10">
+                <label for="example-time-input" class="col-md-4 col-form-label">MEDICO DE SERVICIO</label>
+                <div class="col-md-8">
                     <select th:field="${personalMedico.idPersonalMedico}" class="js-example-basic-single" style="width: 100%;" required>
                         <option value="" selected>Seleccione...</option>
         
@@ -18,9 +18,9 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="example-time-input" class="col-md-2 col-form-label">HORA</label>
-                <div class="col-md-10">
+            <!-- <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">HORARIO DE ATENCIÓN</label>
+                <div class="col-md-8">
                     <select  name="horario" class="js-example-basic-single" style="width: 100%;" required>
                         <option value="" selected>Seleccione...</option>
         
@@ -30,50 +30,22 @@
                         </th:block>
                     </select>
                 </div>
+            </div> -->
+
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">HORARIO DE ATENCIÓN</label>
+                <div class="col-md-8">
+                    
+                    <input type="text" class="form-control datepicker-here" data-timepicker="true" data-language="en" />
+                </div>
             </div>
+           
         </div>
         <div class="modal-footer">
             <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
             <button type="submit" class="btn btn-outline-success">ENVIAR</button>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.js-example-basic-single').select2();
-                $('#form1').submit(function (event) {
-                event.preventDefault();
-                var form = document.getElementById("form1"); 
-                var action = form.action;
-                var formData = $(this).serialize();
-    
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: formData,
-                    contentType: 'application/x-www-form-urlencoded',
-                    success: function (response) {
-                        var mensaje = response;
-                        if (mensaje == "1") {
-                            Swal.fire({
-                                title: 'Asignacion Realizada con Exitoso!',
-                                icon: "success",
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                            setTimeout(function () {
-                                location.href = "../../../../listaFichasGeneral";
-                            }, 1500);
-                        } 
-                    },
-                    error: function (xhr, status, error) {
-                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                        console.error(error);
-                        // Manejo de errores
-                    }
-                });
-    
-            });
-            });
-        </script>
+     
     </form>
 
 </div>

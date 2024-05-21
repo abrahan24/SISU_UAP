@@ -1,7 +1,15 @@
 <!doctype html>
 <html lang="en">
 
-<head th:insert="~{layout/head :: head}"></head>
+<head th:insert="~{layout/head :: head}">
+
+    <style>
+        /* Asegúrate de que el datepicker tenga un z-index mayor que el modal */
+        .datepicker {
+            z-index: 1051 !important; /* el valor debe ser mayor que el z-index del modal */
+        }
+    </style>
+</head>
 
 <body data-topbar="colored">
 
@@ -36,6 +44,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                      
                                         <h4 class="header-title">Asegurados</h4><br>
 
                                        
@@ -49,8 +58,8 @@
                                                 <th>Expedido</th>
                                                 <th>Codigo Asegurado:</th>
                                                 <th>Genero:</th>
-                                                <th>Estado Civil:</th>
-                                                <th>Grado Academico</th>
+                                                <th>Fecha de Generación</th>
+                                               
                                                 <th>Accion</th>
                                            
                                             </tr>
@@ -67,10 +76,10 @@
                                                 <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.dip != null}" th:text="${f.asegurado.persona.dip.codDip}"></td>
                                                 <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
                                                 <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
+                                                <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
                                               
-                                                <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.tipos_estado_civil != null}" th:text="${f.asegurado.persona.tipos_estado_civil.NomEstadoCivil}"></td>
-                                                <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.grado_academico != null}" th:text="${f.asegurado.persona.grado_academico.nombre_gradoAcademico}"></td>
+                                             
 
                                              
                                                 <td>
@@ -121,19 +130,56 @@
     <!-- <div class="rightbar-overlay"></div> -->
     
 
-    <script>
-        function enviarID(valor) {
-          
-            var url = "../../../../lista_medicos/" + valor;
 
-            $('#replace').load(url);
-            
-        }
-
-    </script>
      
     <div th:insert="~{layout/scripts :: scripts}"></div>
+    <script>
+        function enviarID(valor) {
+            var url = "../../../../lista_medicos/" + valor;
+            $('#replace').load(url, function() {
+                // Re-inicializar los plugins aquí
+                $('.js-example-basic-single').select2();
+                $('input.datepicker-here').datepicker({
+                    timepicker: true,
+                    language: 'en',
+                    dateFormat: 'dd-mm-yyyy'
+                });
 
+                // Inicializar el AJAX para el formulario
+                $('#form1').submit(function(event) {
+                    event.preventDefault();
+                    var form = document.getElementById("form1"); 
+                    var action = form.action;
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function(response) {
+                            var mensaje = response;
+                            if (mensaje == "1") {
+                                Swal.fire({
+                                    title: 'Asignación Realizada con Éxito!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                setTimeout(function () {
+                                    location.href = "../../../../listaFichasGeneral";
+                                }, 1500);
+                            } 
+                        },
+                        error: function(xhr, status, error) {
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

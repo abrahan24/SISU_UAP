@@ -9,6 +9,16 @@
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/logoS.png">
+     <!-- DataTables -->
+     <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+     <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+     <!-- Responsive datatable examples -->
+     <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />   
+     
+     <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
+     <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Bootstrap Css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -24,6 +34,18 @@
     <link rel="stylesheet" href="assets/fontawesome-free-6.4.2-web/css/all.css">
     <link rel="stylesheet" href="assets/fontawesome-free-6.4.2-web/css/all.min.css">
 
+      <!-- Selectize -->
+      <link href="../../../../assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
+
+      <!-- spectrum colorpicker -->
+      <link href="../../../../assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
+
+      <!-- datepicker -->
+      <link href="../../../../assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+
+      <link href="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 
     <style>
         body {
@@ -37,252 +59,325 @@
 
 <body>
     <br><br>
-    <div class="account-pages my-5 pt-sm-5">
+    <div class="account-pages ">
         <div class="container">
 
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <div class="text-center mb-5">
-                        <img src="assets/images/logoS.png" height="100" alt="logo">
-                        <h3 class="mt-4" style="color: rgb(0, 0, 0); font-weight: bold;">Servicio Integral de Salud
-                            Universitaria</h3>
-                        <h4 style="color: rgb(255, 255, 255); font-weight: bold;">Universidad Amazonica de Pando</h4>
+                    <div class="text-center">
+                      
+                        <div style="max-width: 100%; overflow: hidden; text-align: center;">
+                            <img src="assets/images/titulo_sisu.png" style="width: 100%; max-width: 450px; height: auto;" alt="titulo_sisu">
+                        </div>
                     </div>
-                    <div th:class="'alert alert-'+ (${clase != null} ? ${clase} : info)" role="alert" th:if="${mensaje != null}">
+                  
+                    <div th:class="'alert alert-'+ (${clase != null} ? ${clase} : 'info')" role="alert" th:if="${mensaje != null}">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <p th:text="${mensaje}"></p>
-                       
                     </div>
                 </div>
-              
             </div>
+            
+            
             <br>
-            
             <div class="row">
-                <!-- ADMINISTRATIVO INICIO -->
-                <div class="col-lg-6 scale-down-center">
-                    <div class="card sombre">
-                        <form class="form-horizontal" action="administrativo" method="GET">
-                            <div class="card-body">
-                                <div class="icons-lg mb-4" style="text-align: center;">
-                                    <i class="fa-solid mdi mdi-account" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
-                                </div>
-                                <div>
-                                    <div class="mb-3" style="text-align: center;">
-                                        <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONAL ADMINISTRATIVO
-                                        </h5>
-                                    </div>
-                                    <h5 class="font-size-15 text-uppercase font-weight-bold">
-                                        <div class="text-center mb-3 sombre      ">
-                                            <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
-                                                data-target="#modalAdministrativo">ADMINISTRATIVO</button>
-                                        </div>
-                                    </h5>
-                                </div>
-                            </div>
-                            <!-- MODAL INICO administrativo-->
-                            <div class="modal fade" id="modalAdministrativo" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE CODIGO
-                                                ADMINISTRATIVO</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                        
-                                            <input type="text" class="form-control" name="codigoAdministrativo"
-                                                placeholder="Introduzca solo números" pattern="^[0-9]+$" required>
-                                        </div>
-                                        <div class="modal-footer">
-                        
-                                            <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
-                                                formaction="administrativo">ACEPTAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MODAL FINAL administrativo-->
-                        </form>
-                    </div>
-                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                         
 
-                <!-- ADMINISTRATIVO FINAL -->
-                <!-- ---------------------------------------------------------------------- -->
-                <!-- UNIVERSITARIO INICIO -->
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-pills nav-justified" role="tablist">
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link active" data-toggle="tab" href="#home-justify" role="tab">
+                                        <i class="fas fa-home mr-1"></i> <span class="d-none d-md-inline-block">Inicio</span> 
+                                    </a>
+                                </li>
+                               
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link" data-toggle="tab" href="#messages-justify" role="tab">
+                                        <i class="fas fa-laptop-medical mr-1"></i> <span class="d-none d-md-inline-block">Generar Fichas</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link" data-toggle="tab" href="#settings-justify" role="tab">
+                                        <i class="fas fa-notes-medical mr-1"></i> <span class="d-none d-md-inline-block">Seguimiento de Fichas</span>
+                                    </a>
+                                </li>
+                            </ul>
 
-                <div class="col-lg-6 scale-down-center">
-                    <div class="card sombre">
-                        <form class="form-horizontal" action="universitario" method="Get">
-                            <div class="card-body">
-                                <div class="icons-lg mb-4" style="text-align: center;">
-                                    <i class="fa-solid fa-user-graduate" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
+                            <!-- Tab panes -->
+                            <div class="tab-content p-3">
+                                <div class="tab-pane active" id="home-justify" role="tabpanel">
+                                    <p class="mb-0" style="font-size: 1.3rem; text-align: justify;">
+                                        ¡Bienvenidos a la Plataforma de Atención!
+                                        Nos complace presentarles nuestra nueva interfaz pública diseñada para facilitar la 
+                                        gestión de sus necesidades de atención. Este espacio está especialmente creado para servir a 
+                                        nuestros estimados universitarios, docentes, administrativos y también a las personas externas que 
+                                        requieren de nuestros servicios.
+                                    </p>
                                 </div>
-                                <div>
-                                    <div class="mb-3" style="text-align: center;">
-                                        <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONAL UNIVERSITARIO
-                                        </h5>
-                                    </div>
-                                    <h5 class="font-size-15 text-uppercase font-weight-bold">
-                                        <div class="text-center mb-3 sombre      ">
-                                            <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
-                                                data-target="#modalUniversitario">UNIVERSITARIO</button>
+                             
+                                <div class="tab-pane" id="messages-justify" role="tabpanel">
+                                    <h3 style="text-align: center;"> Generación de Fichas</h3>
+                                    <div class="row">
+                                        <div class="col-lg-6 scale-down-center">
+                                            <div class="card sombre">
+                                                <form class="form-horizontal" action="administrativo" method="GET">
+                                                    <div class="card-body">
+                                                        <div class="icons-lg mb-4" style="text-align: center;">
+                                                            <i class="fa-solid mdi mdi-account" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="mb-3" style="text-align: center;">
+                                                                <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONAL ADMINISTRATIVO
+                                                                </h5>
+                                                            </div>
+                                                            <h5 class="font-size-15 text-uppercase font-weight-bold">
+                                                                <div class="text-center mb-3 sombre      ">
+                                                                    <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
+                                                                        data-target="#modalAdministrativo">ADMINISTRATIVO</button>
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL INICO administrativo-->
+                                                    <div class="modal fade" id="modalAdministrativo" tabindex="-1" role="dialog"
+                                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE CODIGO
+                                                                        ADMINISTRATIVO</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p></p>
+                                                
+                                                                    <input type="text" class="form-control" name="codigoAdministrativo"
+                                                                        placeholder="Introduzca solo números" pattern="^[0-9]+$" required>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                
+                                                                    <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
+                                                                        formaction="administrativo">ACEPTAR</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL FINAL administrativo-->
+                                                </form>
+                                            </div>
                                         </div>
-                                    </h5>
-                                </div>
-                            </div>
-                            <!-- MODAL INICO universitario-->
-                            <div class="modal fade" id="modalUniversitario" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE RU
-                                                UNIVERSITARIO</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                        
-                                            <input type="text" class="form-control" name="codigoUniversitario"
-                                                placeholder="Introduzca solo números" pattern="^[0-9]+$" required> 
-                                        </div>
-                                        <div class="modal-footer">
-                        
-                                            <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
-                                                formaction="universitario">ACEPTAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MODAL FINAL universitario-->
-                        </form>
-                    </div>
-                </div>
 
-              
-            </div>
-            <!-- end row -->
+                                        <div class="col-lg-6 scale-down-center">
+                                            <div class="card sombre">
+                                                <form class="form-horizontal" action="universitario" method="Get">
+                                                    <div class="card-body">
+                                                        <div class="icons-lg mb-4" style="text-align: center;">
+                                                            <i class="fa-solid fa-user-graduate" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="mb-3" style="text-align: center;">
+                                                                <h5 class="font-size-15 text-uppercase font-weight-bold">UNIVERSITARIO
+                                                                </h5>
+                                                            </div>
+                                                            <h5 class="font-size-15 text-uppercase font-weight-bold">
+                                                                <div class="text-center mb-3 sombre      ">
+                                                                    <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
+                                                                        data-target="#modalUniversitario">UNIVERSITARIO</button>
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL INICO universitario-->
+                                                    <div class="modal fade" id="modalUniversitario" tabindex="-1" role="dialog"
+                                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE RU
+                                                                        UNIVERSITARIO</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p></p>
+                                                
+                                                                    <input type="text" class="form-control" name="codigoUniversitario"
+                                                                        placeholder="Introduzca solo números" pattern="^[0-9]+$" required> 
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                
+                                                                    <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
+                                                                        formaction="universitario">ACEPTAR</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL FINAL universitario-->
+                                                </form>
+                                            </div>
+                                        </div>
 
-            <div class="row">
-                  <!-- ---------------------------------------------------------------------- -->
+                                        <div class="col-lg-6 scale-down-center">
+                                            <div class="card sombre">
+                                                <form class="form-horizontal" action="docente" method="Get">
+                                                    <div class="card-body">
+                                                        <div class="icons-lg mb-4" style="text-align: center;">
+                                                            <i class="fa-solid mdi mdi-teach" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="mb-3" style="text-align: center;">
+                                                                <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONAL DOCENTE
+                                                                </h5>
+                                                            </div>
+                                                            <h5 class="font-size-15 text-uppercase font-weight-bold">
+                                                                <div class="text-center mb-3 sombre      ">
+                                                                    <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
+                                                                        data-target="#modalDocente">DOCENTE</button>
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL INICIO docente-->
+                                                    <div class="modal fade" id="modalDocente" tabindex="-1" role="dialog"
+                                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE RD
+                                                                        DOCENTE</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p></p>
+                                                
+                                                                    <input type="text" class="form-control" name="codigoDocente"
+                                                                        placeholder="Introduzca solo números" pattern="^[0-9]+$" required>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                
+                                                                    <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
+                                                                        formaction="docente">ACEPTAR</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL FINAL docente-->
+                                                </form>
+                                            </div>
+                                        </div>
 
-                  <div class="col-lg-6 scale-down-center">
-                    <div class="card sombre">
-                        <form class="form-horizontal" action="docente" method="Get">
-                            <div class="card-body">
-                                <div class="icons-lg mb-4" style="text-align: center;">
-                                    <i class="fa-solid mdi mdi-teach" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
-                                </div>
-                                <div>
-                                    <div class="mb-3" style="text-align: center;">
-                                        <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONAL DOCENTE
-                                        </h5>
+                                        <div class="col-lg-6 scale-down-center">
+                                            <div class="card sombre">
+                                                <form class="form-horizontal" action="externo" method="Get">
+                                                    <div class="card-body">
+                                                        <div class="icons-lg mb-4" style="text-align: center;">
+                                                            <i class="fa-solid mdi mdi-teach" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="mb-3" style="text-align: center;">
+                                                                <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONA EXTERNA
+                                                                </h5>
+                                                                 <p style="color: red">Los datos deben ser verificados y aprobados para su habilitación</p>
+                                                            </div>
+                                                            <h5 class="font-size-15 text-uppercase font-weight-bold">
+                                                                <div class="text-center mb-3 sombre      ">
+                                                                    <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
+                                                                        data-target="#modalExterno">EXTERNO</button>
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL INICIO docente-->
+                                                    <div class="modal fade" id="modalExterno" tabindex="-1" role="dialog"
+                                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE SU CI</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p></p>
+                                                
+                                                                    <input type="text" class="form-control" name="ci"
+                                                                        placeholder="Introduzca su número de carnet de identidad" required>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                
+                                                                    <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
+                                                                        formaction="externo">ACEPTAR</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL FINAL docente-->
+                                                </form>
+                                               
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <h5 class="font-size-15 text-uppercase font-weight-bold">
-                                        <div class="text-center mb-3 sombre      ">
-                                            <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
-                                                data-target="#modalDocente">DOCENTE</button>
-                                        </div>
-                                    </h5>
+                                   
                                 </div>
-                            </div>
-                            <!-- MODAL INICIO docente-->
-                            <div class="modal fade" id="modalDocente" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE RD
-                                                DOCENTE</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                        
-                                            <input type="text" class="form-control" name="codigoDocente"
-                                                placeholder="Introduzca solo números" pattern="^[0-9]+$" required>
-                                        </div>
-                                        <div class="modal-footer">
-                        
-                                            <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
-                                                formaction="docente">ACEPTAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MODAL FINAL docente-->
-                        </form>
-                    </div>
-                </div>
-                <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-                 <!-- ---------------------------------------------------------------------- -->
-                 <div class="col-lg-6 scale-down-center">
-                    <div class="card sombre">
-                        <form class="form-horizontal" action="externo" method="Get">
-                            <div class="card-body">
-                                <div class="icons-lg mb-4" style="text-align: center;">
-                                    <i class="fa-solid mdi mdi-teach" style="font-size: 3em; color: rgba(27, 27, 184, 0.945);"></i>
-                                </div>
-                                <div>
-                                    <div class="mb-3" style="text-align: center;">
-                                        <h5 class="font-size-15 text-uppercase font-weight-bold">PERSONA EXTERNA
-                                        </h5>
-                                         <p style="color: red">Los datos deben ser verificados y aprobados para su habilitación</p>
-                                    </div>
-                                    <h5 class="font-size-15 text-uppercase font-weight-bold">
-                                        <div class="text-center mb-3 sombre      ">
-                                            <button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal"
-                                                data-target="#modalExterno">EXTERNO</button>
-                                        </div>
-                                    </h5>
-                                </div>
-                            </div>
-                            <!-- MODAL INICIO docente-->
-                            <div class="modal fade" id="modalExterno" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0" id="exampleModalScrollableTitle">INGRESE SU CI</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                        
-                                            <input type="text" class="form-control" name="ci"
-                                                placeholder="Introduzca su número de carnet de identidad" required>
-                                        </div>
-                                        <div class="modal-footer">
-                        
-                                            <button class="btn btn-danger btn-block waves-effect waves-light" type="submit"
-                                                formaction="externo">ACEPTAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MODAL FINAL docente-->
-                        </form>
-                       
-                    </div>
-                </div>
+                                <div class="tab-pane" id="settings-justify" role="tabpanel">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="header-title">Lista de Fichas</h4><br>
                 
-                <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-            
-
+                                                       
+                                                            
+                                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Estado</th>
+                                                                <th>Fecha Generación</th>
+                                                                <th>Servicio</th>
+                                                                <th>Fecha de Atención</th>
+                                                           
+                                                           
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr >
+                                                                
+                                                               <td>Pendiente</td>
+                                                               <td>21/05/2024 14:42</td>
+                                                               <td>CONSULTA GENERAL</td>
+                                                               <td>En espera</td>
+                                                             
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                               
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        
+         
+         
         </div>
     </div>
     <!-- end Account pages -->
@@ -295,6 +390,25 @@
     <script src="assets/libs/node-waves/waves.min.js"></script>
 
     <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+    <!-- Required datatable js -->
+    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- Buttons examples -->
+    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="../../../../assets/js/pages/datatables.init.js"></script>
 
     <!-- Plugins js-->
     <script src="assets/libs/jquery-countdown/jquery.countdown.min.js"></script>
@@ -307,6 +421,10 @@
     <script src="assets/js/pages/inicioClient.js"></script>
 
     <script src="assets/js/app.js"></script>
+
+       <!-- Selectize -->
+       <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </body>
 
