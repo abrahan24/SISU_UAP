@@ -58,4 +58,9 @@ public class FichaServiceImpl implements FichaService{
     public List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico) {
         return (List<Ficha>) fichaDao.listaFichasSinAsignar(id_servicio_medico);
     }
+
+    @Override
+    public List<Ficha> listaFichasSeguimientoPersona(String ci) {
+        return (List<Ficha>) fichaDao.listaFichasSeguimientoPersona(ci);
+    }
 }

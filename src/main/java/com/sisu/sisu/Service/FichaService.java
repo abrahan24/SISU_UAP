@@ -23,4 +23,6 @@ public interface FichaService {
 
     List<Ficha> listaFichasFechaActual(Date fecha);
     List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico);
+
+    List<Ficha> listaFichasSeguimientoPersona(String ci);
 }

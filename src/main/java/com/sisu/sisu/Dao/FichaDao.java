@@ -27,4 +27,10 @@ public interface FichaDao extends CrudRepository<Ficha, Integer>{
                 "left join servicio_medico sm on sm.id_servicio_medico = f.id_servicio_medico\n" + //
                 "where f.estado = 'A' and sm.id_servicio_medico = ?1", nativeQuery = true)
     List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico);
+
+    @Query(value = "select * from ficha f \n" + //
+                "left join asegurado a on a.id_asegurado = f.id_asegurado \n" + //
+                "left join persona p on p.id_persona = a.id_persona \n" + //
+                "where p.ci = ?1", nativeQuery = true)
+    List<Ficha> listaFichasSeguimientoPersona(String ci);
 }
