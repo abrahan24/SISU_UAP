@@ -1,157 +1,177 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head th:insert="~{layout/head :: head}"></head>
 
-<head>
-    <meta charset="utf-8" />
-    <title>SISU | UAP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
-     <!-- App favicon -->
-     <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
-
-     <!-- DataTables -->
-     <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-         type="text/css" />
-     <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
-         type="text/css" />
- 
-     <!-- Responsive datatable examples -->
-     <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
-         rel="stylesheet" type="text/css" />
- 
-     <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
-     <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
- 
-     <!-- Bootstrap Css -->
-     <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-     <!-- Icons Css -->
-     <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-     <!-- App Css-->
-     <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
-     <style>
-        .btn-rounde {
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body data-topbar="colored">
-
+  <body data-topbar="colored">
     <!-- Begin page -->
     <div id="layout-wrapper">
+      <div th:insert="~{layout/topbar :: topbar}"></div>
 
-        <div th:insert="~{layout/topbar :: topbar}"></div>
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="vertical-menu">
+        <div th:insert="~{layout/sidebar :: sidebar}"></div>
+      </div>
+      <!-- Left Sidebar End -->
 
-        <!-- ========== Left Sidebar Start ========== -->
-        <div class="vertical-menu">
-
-            <div th:insert="~{layout/sidebar :: sidebar}"></div>
-
-        </div>
-        <!-- Left Sidebar End -->
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
-
-            <div class="page-content">
-
-                <!-- Page-Title -->
-                <div class="page-title-box">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <h4 class="page-title mb-1">GESTION ADMINISTRADOR</h4>
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Administrador</a></li>
-                                    <li class="breadcrumb-item active">Lista de Usuarios</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+      <!-- ============================================================== -->
+      <!-- Start right Content here -->
+      <!-- ============================================================== -->
+      <div class="main-content">
+        <div class="page-content">
+          <!-- Page-Title -->
+          <div class="page-title-box">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <h4 class="page-title mb-1">GESTION ADMINISTRADOR</h4>
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                      <a href="javascript: void(0);">Administrador</a>
+                    </li>
+                    <li class="breadcrumb-item active">Lista de Usuarios</li>
+                  </ol>
                 </div>
-
-                <!-- end page title end breadcrumb -->
-
-                <div class="page-content-wrapper">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="text-right mb-3" style="align-items:start;">
-                                            <button type="button" class="btn btn-info btn-sm waves-effect waves-light"
-                                                onclick="NuevoRegistro()">AGREGAR NUEVO REGISTRO
-                                            </button>
-                                        </div>
-                                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH"
-                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th>N°</th>
-                                                    <th>Usuario</th>
-                                                    <th>Clave</th>
-                                                    <th>Funciones</th>
-                                                    <th>Roles Asignados</th>
-                                                    <th>Operacion</th>
-                                                </tr>
-                                            </thead>
-                                        
-                                            <tbody>
-                                                <tr th:each="us , num : ${usuarios}" th:if="${us.estado_usuario !='X'}">
-                                                    <td th:text="${num.index +1}"></td>
-                                                    <td th:text="${us.apodo}"></td>
-                                                    <td th:text="${us.clave}"> </td>
-                                                    <td class="text-center">
-                                                        <a th:href="${'../../../../editarUs/' + us.idUsuario}">
-                                                            <button type="button" class="btn btn-primary alertEdit btn-sm"><i class="dripicons-document-edit"
-                                                                    data-toggle="tooltip" data-placement="bottom" title="MODIFICAR"></i></button>
-                                                        </a>
-                                                        <a th:href="${'../../../../eliminarUs/' + us.idUsuario}">
-                                                            <button type="button" class="btn btn-danger alertElimin btn-sm"><i class="dripicons-trash" data-toggle="tooltip"
-                                                                    data-placement="bottom" title="ELIMINAR"></i></button>
-                                                        </a>
-                                                    </td>
-                                                    <td >
-                                                        <ul>
-                                                            <li th:if="${us.usr_Roles.size() > 0}" th:each="ur : ${us.usr_Roles}" th:text="${ur.idRol.rol}"></li>
-                                                            <li th:if="${us.usr_Roles.size() <= 0}" th:text="${'SIN ROLES ASIGNADOS'}"></li>
-                                                        </ul>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a th:href="@{'../../../../asignacionrol/' + ${us.idUsuario}}">
-                                                            <button class="btn btn-success" type="button" title="AGREGAR ROL" data-toggle="tooltip" data-placement="bottom"> <i
-                                                                    class="fas fa-user-cog"></i></button>
-                                                        </a>
-                                                        <a th:href="@{'../../../../asignacionrol/' + ${us.idUsuario}}">
-                                                            <button class="btn btn-primary" type="button" title="SELECCIONAR ENLACES" data-toggle="tooltip" data-placement="bottom"> <i
-                                                                    class="fas fa-file-medical"></i></button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-
-                    </div>
-                    <!-- end container-fluid -->
-                </div>
-                <!-- end page-content-wrapper -->
+              </div>
             </div>
-            <!-- End Page-content -->
+          </div>
 
-            <div th:insert="~{layout/footer :: footer}"></div>
+          <!-- end page title end breadcrumb -->
 
+          <div class="page-content-wrapper">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="text-right mb-3" style="align-items: start">
+                        <button
+                          type="button"
+                          class="btn btn-info btn-sm waves-effect waves-light"
+                          onclick="NuevoRegistro()"
+                        >
+                          AGREGAR NUEVO REGISTRO
+                        </button>
+                      </div>
+                      <table
+                        id="datatable-buttons"
+                        class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                        style="
+                          border-collapse: collapse;
+                          border-spacing: 0;
+                          width: 100%;
+                        "
+                      >
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Usuario</th>
+                            <th>Clave</th>
+                            <th>Funciones</th>
+                            <th>Roles Asignados</th>
+                            <th>Operacion</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr
+                            th:each="us , num : ${usuarios}"
+                            th:if="${us.estado_usuario !='X'}"
+                          >
+                            <td th:text="${num.index +1}"></td>
+                            <td th:text="${us.apodo}"></td>
+                            <td th:text="${us.clave}"></td>
+                            <td class="text-center">
+                              <a
+                                th:href="${'../../../../editarUs/' + us.idUsuario}"
+                              >
+                                <button
+                                  type="button"
+                                  class="btn btn-primary alertEdit btn-sm"
+                                >
+                                  <i
+                                    class="dripicons-document-edit"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="MODIFICAR"
+                                  ></i>
+                                </button>
+                              </a>
+                              <a
+                                th:href="${'../../../../eliminarUs/' + us.idUsuario}"
+                              >
+                                <button
+                                  type="button"
+                                  class="btn btn-danger alertElimin btn-sm"
+                                >
+                                  <i
+                                    class="dripicons-trash"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="ELIMINAR"
+                                  ></i>
+                                </button>
+                              </a>
+                            </td>
+                            <td>
+                              <ul>
+                                <li
+                                  th:if="${us.usr_Roles.size() > 0}"
+                                  th:each="ur : ${us.usr_Roles}"
+                                  th:text="${ur.idRol.rol}"
+                                ></li>
+                                <li
+                                  th:if="${us.usr_Roles.size() <= 0}"
+                                  th:text="${'SIN ROLES ASIGNADOS'}"
+                                ></li>
+                              </ul>
+                            </td>
+                            <td class="text-center">
+                              <a>
+                                <button
+                                  class="btn btn-success"
+                                  type="button"
+                                  title="AGREGAR ROL"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  th:data-value="${us.idUsuario}"
+                                  onclick="buscarR(this.getAttribute('data-value'))"
+                                >
+                                  <i class="fas fa-user-cog"></i>
+                                </button>
+                              </a>
+                              <a
+                                th:href="@{'../../../../asignacionrol/' + ${us.idUsuario}}"
+                              >
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  title="SELECCIONAR ENLACES"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                >
+                                  <i class="fas fa-file-medical"></i>
+                                </button>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- end col -->
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- end container-fluid -->
+          </div>
+          <!-- end page-content-wrapper -->
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
 
+        <div th:insert="~{layout/footer :: footer}"></div>
+      </div>
+      <!-- end main content-->
     </div>
     <!-- END layout-wrapper -->
 
@@ -161,42 +181,39 @@
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
-    <!-- JAVASCRIPT -->
-    <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
-    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
-    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
+    <div
+      class="modal fade text-left"
+      id="success"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel9"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div id="replace"></div>
+        </div>
+      </div>
+    </div>
 
-    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
-
-    <!-- Required datatable js -->
-    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Buttons examples -->
-    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
-    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <!-- Responsive examples -->
-    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
-    <!-- Datatable init js -->
-    <script src="../../../../assets/js/pages/datatables.init.js"></script>
-
-    <!-- alert -->
-    <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-    <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
-
-
-
-    <script src="../../../../assets/js/app.js"></script>
-</body>
-
+    <script>
+      function buscarR(valor) {
+        $.ajax({
+          url: "/roles/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+          method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+          // Envía el parámetro "id" al servidor
+          success: function (response) {
+            $("#replace").html(response); // Actualiza el contenido del div con la respuesta del servidor
+            $(".js-example-basic-multiple").select2();
+            $("#success").modal("show");
+          },
+          error: function (xhr, status, error) {
+            // Maneja los errores de la solicitud AJAX
+            console.log(error);
+          },
+        });
+      }
+    </script>
+    <div th:insert="~{layout/scripts :: scripts}"></div>
+  </body>
 </html>

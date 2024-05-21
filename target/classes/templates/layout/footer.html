@@ -2,15 +2,18 @@
     <footer class="footer">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    2023 © SISU.
+                <div class="col-sm-6" >
+                    <span id="year">2023</span> © SISU.
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-right d-none d-sm-block">
-                        Universidad Amazonica de Pando <i class="mdi mdi-heart text-danger"></i> by Usic
-                    </div>
+                        <b>Unidad de Sistemas de Información y Comunicación
+                    </div></b>
                 </div>
             </div>
         </div>
     </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </div>

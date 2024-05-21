@@ -113,6 +113,15 @@ public class Usr_rolesController {
         return "redirect:listas/ListaUsr";
     }
 
+    @GetMapping(value = "/roles/{idUsuario}")
+    public String obtener_Roles(@PathVariable(name = "idUsuario")Integer idUsuario, Model model) {
+
+        model.addAttribute("idUsuario", idUsuario);
+        model.addAttribute("roles", iRolesService.findAll());
+        
+        return "content/content_user :: modal_user";
+    }
+    
 
     @GetMapping(value = "/cont")
     public String Content(Model model){

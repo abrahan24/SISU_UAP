@@ -104,16 +104,6 @@ public class FichaController {
             return "Fichas/Content_modal :: contentM";
         }
 
-        // @GetMapping(value = "/lista_horarios/{idFicha}")
-        // public String getListaHorarios(@PathVariable(name = "idFicha")Integer idFicha, Model model) {
-        //     model.addAttribute("ficha", new Ficha());
-        //     model.addAttribute("idFicha", idFicha);
-        //     model.addAttribute("horarios_s", horarioServicioDao.listaHorariosServicios(idFicha));
-        //     model.addAttribute("horarios", new HorarioServicio());
-        //     return "Fichas/Content_modal :: contentM";
-        // }
-        
-
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
       @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico,@RequestParam(name = "horario") String horario ) {

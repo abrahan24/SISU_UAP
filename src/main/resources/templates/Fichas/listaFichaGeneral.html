@@ -1,50 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <title>Lista Persona | SISU</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
-      <!-- App favicon -->
-      <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
-
-      <!-- DataTables -->
-      <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-      <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
-
-      <!-- Responsive datatable examples -->
-      <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />   
-      
-      <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
-      <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
-
-      <!-- Bootstrap Css -->
-      <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-      <!-- Icons Css -->
-      <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-      <!-- App Css-->
-      <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
-
-      <link href="../../../../assets/css/style.css" rel="stylesheet" type="text/css" />
-
-      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-
-       <!-- Selectize -->
-       <link href="../../../../assets/libs/selectize/css/selectize.css" rel="stylesheet" type="text/css" />
-
-      <!-- spectrum colorpicker -->
-      <link href="../../../../assets/libs/spectrum-colorpicker/spectrum.css" rel="stylesheet" type="text/css" />
-
-      <!-- datepicker -->
-      <link href="../../../../assets/libs/air-datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" />
-
-      <link href="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-</head>
+<head th:insert="~{layout/head :: head}"></head>
 
 <body data-topbar="colored">
 
@@ -67,23 +24,6 @@
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Asegurados</a></li>
                                     <li class="breadcrumb-item active">Datos de Personas</li>
                                 </ol>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="float-right d-none d-md-block">
-                                    <div class="dropdown">
-                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-settings-outline mr-1"></i> Settings
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -179,84 +119,20 @@
     </div>
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <!-- <div class="rightbar-overlay"></div> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 
     <script>
         function enviarID(valor) {
           
             var url = "../../../../lista_medicos/" + valor;
 
-            // var url = "../../../../lista_horarios/" + valor;
-
             $('#replace').load(url);
             
         }
 
-     
-      
     </script>
-        <script src="../../../../assets/libs/jquery/jquery.min.js"></script>
-         <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-         <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
-         <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
-         <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
-
-         <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
-
-         <!-- Required datatable js -->
-         <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-         <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-         
-         <!-- Buttons examples -->
-         <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-         <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-         <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
-         <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
-         <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
-         <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-         <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-         <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-         <!-- Responsive examples -->
-         <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-         <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
- 
-         <!-- Datatable init js -->
-         <script src="../../../../assets/js/pages/datatables.init.js"></script>
- 
-      
-
-         <script src="../../../../assets/js/pages/vistaPass.js"></script>
-         <script src="../../../../assets/js/pages/calendario.js"></script>
-         <script src="../../../../assets/js/pages/data.js"></script>
-
-
-            <!-- parsleyjs -->
-        <script src="../../../../assets/libs/parsleyjs/parsley.min.js"></script>
-        <!-- validation init -->
-        <script src="../../../../assets/js/pages/form-validation.init.js"></script>
-
-        <!-- modal-->
-        <script src="../../../../assets/js/pages/modal.js"></script>
-
-        
-        <!-- Spectrum colorpicker -->
-        <script src="../../../../assets/libs/spectrum-colorpicker/spectrum.js"></script>
-
-        <!-- Selectize -->
-        <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <!-- datepicker -->
-        <script src="../../../../assets/libs/air-datepicker/js/datepicker.min.js"></script>
-        <script src="../../../../assets/libs/air-datepicker/js/i18n/datepicker.en.js"></script>
-
-        <script src="../../../../assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-        <script src="../../../../assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-
-        <!-- Form Advanced init -->
-        <script src="../../../../assets/js/pages/form-advanced.init.js"></script>
-
-        <script src="../../../../assets/js/app.js"></script>
+     
+    <div th:insert="~{layout/scripts :: scripts}"></div>
 
 </body>
 
