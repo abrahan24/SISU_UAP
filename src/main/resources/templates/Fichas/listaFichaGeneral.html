@@ -2,13 +2,6 @@
 <html lang="en">
 
 <head th:insert="~{layout/head :: head}">
-
-    <style>
-        /* Asegúrate de que el datepicker tenga un z-index mayor que el modal */
-        .datepicker {
-            z-index: 1051 !important; /* el valor debe ser mayor que el z-index del modal */
-        }
-    </style>
 </head>
 
 <body data-topbar="colored">
@@ -145,38 +138,6 @@
                     dateFormat: 'dd-mm-yyyy'
                 });
 
-                // Inicializar el AJAX para el formulario
-                $('#form1').submit(function(event) {
-                    event.preventDefault();
-                    var form = document.getElementById("form1"); 
-                    var action = form.action;
-                    var formData = $(this).serialize();
-
-                    $.ajax({
-                        type: 'POST',
-                        url: $(this).attr('action'),
-                        data: formData,
-                        contentType: 'application/x-www-form-urlencoded',
-                        success: function(response) {
-                            var mensaje = response;
-                            if (mensaje == "1") {
-                                Swal.fire({
-                                    title: 'Asignación Realizada con Éxito!',
-                                    icon: "success",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                setTimeout(function () {
-                                    location.href = "../../../../listaFichasGeneral";
-                                }, 1500);
-                            } 
-                        },
-                        error: function(xhr, status, error) {
-                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
-                            console.error(error);
-                        }
-                    });
-                });
             });
         }
     </script>

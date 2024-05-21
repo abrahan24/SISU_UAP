@@ -8,8 +8,7 @@
             <div class="form-group row">
                 <label for="example-time-input" class="col-md-4 col-form-label">MEDICO DE SERVICIO</label>
                 <div class="col-md-8">
-                    <select th:field="${personalMedico.idPersonalMedico}" class="js-example-basic-single" style="width: 100%;" required>
-                        <option value="" selected>Seleccione...</option>
+                    <select th:field="${personalMedico.idPersonalMedico}" id="select1" class="js-example-basic-single" style="width: 100%;" required>
         
                         <th:block th:each="m : ${p_medicos}">
                             <option th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno}"
@@ -36,7 +35,9 @@
                 <label for="example-time-input" class="col-md-4 col-form-label">HORARIO DE ATENCIÓN</label>
                 <div class="col-md-8">
                     
-                    <input type="text" class="form-control datepicker-here" data-timepicker="true" data-language="en" />
+                    <!-- <input type="text" class="form-control datepickerformM" data-timepicker="true" data-language="en" /> -->
+                    <input type="text" class="form-control datepicker-here" name="fechaFinal"
+                     placeholder="Introduce fecha" required>
                 </div>
             </div>
            
@@ -48,4 +49,39 @@
      
     </form>
 
+   <script>
+    $(document).ready(function(){
+        $('#form1').submit(function(event) {
+            event.preventDefault();
+            var form = document.getElementById("form1"); 
+            var action = form.action;
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    var mensaje = response;
+                    if (mensaje == "1") {
+                        Swal.fire({
+                            title: 'Asignación Realizada con Éxito!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            location.href = "../../../../listaFichasGeneral";
+                        }, 1500);
+                    } 
+                },
+                error: function(xhr, status, error) {
+                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                    console.error(error);
+                }
+            });
+        });
+    });
+   </script>
 </div>
