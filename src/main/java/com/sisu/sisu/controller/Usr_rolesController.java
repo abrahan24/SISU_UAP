@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -78,30 +79,47 @@ public class Usr_rolesController {
         return "listas/ListaPrueva";
     }
 
-    @PostMapping("/obtenerrol")
-    public String manejarFormulario(@RequestParam(name = "idUsuario") Integer idUsuario,
-            @RequestParam(name = "solicitudesSeleccionadas", required = false) Integer[] solicitudesSeleccionadas) {
+    @PostMapping("/guardar_roles")
+    public ResponseEntity<String> guardar_roles(@RequestParam(name = "idUsuario") Integer idUsuario,
+            @RequestParam(name = "idRol", required = false) Integer[] idRol) {
+        Usuario usuario = usuarioService.findOne(idUsuario);
 
-        for (int i = 0; i < solicitudesSeleccionadas.length; i++) {
+        if (usuario == null) {
+            for (int i = 0; i < idRol.length; i++) {
 
-            Roles roles = iRolesService.findOne(solicitudesSeleccionadas[i]);
+                UsrRoles usrRoles = new UsrRoles();
+    
+                usrRoles.setEstado("A");
+                usrRoles.setRegistro(new Date());
+                usrRoles.setIdRol(iRolesService.findOne(idRol[i]));
+                usrRoles.setIdUsuario(usuario);
+                usrrolesservice.save(usrRoles);
+                
+            }
+            return ResponseEntity.ok("1");
 
-            Usuario usuario = usuarioService.findOne(idUsuario);
+        }else{
+            Usuario u = usuarioService.findOne(idUsuario);
 
-            System.out.println(
-                    "el usuario:" + usuario.getPersona().getNombres() + 
-                    " tiene el siguiente rol: " + roles.getRol());
+            for (UsrRoles usrRoles : u.getUsr_Roles()) {
+                for (int i = 0; i < idRol.length; i++) {
+                    if (usrRoles.getIdRol().getIdRol() != idRol[i]) {
+                        UsrRoles usr = new UsrRoles();
+                        usr.setEstado("A");
+                        usr.setModificacion(new Date());
+                        usr.setIdRol(iRolesService.findOne(idRol[i]));
+                        usr.setIdUsuario(u);
+                        usrrolesservice.save(usr);
+                    }else{
+                        return ResponseEntity.ok("3");
+                    }
+                }
+            }
 
-            UsrRoles usrRoles = new UsrRoles();
+            return ResponseEntity.ok("2");
 
-            usrRoles.setEstado("A");
-            usrRoles.setModificacion(new Date());
-            usrRoles.setRegistro(new Date());
-            usrRoles.setIdRol(iRolesService.findOne(roles.getIdRol()));
-            usrRoles.setIdUsuario(usuarioService.findOne(usuario.getIdUsuario()));
-            usrrolesservice.save(usrRoles);
         }
-        return "listas/ListaUsr";
+        
     }
 
 
@@ -113,12 +131,27 @@ public class Usr_rolesController {
         return "redirect:listas/ListaUsr";
     }
 
+    @GetMapping(value = "/editar_roles/{idUsuario}")
+    public String editar_roles(@PathVariable(name = "idUsuario")Integer idUsuario, Model model) {
+        Usuario usuario = usuarioService.findOne(idUsuario);
+
+        model.addAttribute("idUsuario", usuario.getIdUsuario());
+        model.addAttribute("roles", iRolesService.findAll());
+        model.addAttribute("roles_asignados", usuario.getUsr_Roles());
+        return "content/content_user :: modal_user";
+    }
+    
+
     @GetMapping(value = "/roles/{idUsuario}")
     public String obtener_Roles(@PathVariable(name = "idUsuario")Integer idUsuario, Model model) {
 
+        Usuario usuario = usuarioService.findOne(idUsuario);
+
+
         model.addAttribute("idUsuario", idUsuario);
         model.addAttribute("roles", iRolesService.findAll());
-        
+        model.addAttribute("roles_asignados", usuario.getUsr_Roles());
+
         return "content/content_user :: modal_user";
     }
     
