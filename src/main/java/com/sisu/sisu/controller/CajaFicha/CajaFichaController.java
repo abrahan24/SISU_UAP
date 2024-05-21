@@ -486,7 +486,7 @@ public class CajaFichaController {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codDocAsegurado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
@@ -672,7 +672,7 @@ for (HorarioServicio horario : listaHorariosServicio) {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
@@ -796,7 +796,7 @@ for (HorarioServicio horario : listaHorariosServicio) {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codUniAseguradoCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();

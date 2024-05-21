@@ -722,6 +722,7 @@ public class FichaSisuController {
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (fechaRegistroFicha.equals(fechaActual)) {
+				System.out.println("Entro en el if de la fecha actual");
 				return ResponseEntity.ok("error1");
 			}
 		}
