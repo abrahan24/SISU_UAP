@@ -2,6 +2,9 @@ package com.sisu.sisu.controller.Ficha;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -109,24 +112,24 @@ public class FichaController {
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
       @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico,@RequestParam(name = "fechaAtencion") String fechaAtencion ) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date fechaAtencionDate;
-        try {
-            fechaAtencionDate = formatter.parse(fechaAtencion);
-        } catch (ParseException e) {
-            return ResponseEntity.badRequest().body("Formato de fecha incorrecto");
-        }
+        // Define el formato de la fecha y hora recibida
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        
+        // Parsear la cadena a LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.parse(fechaAtencion, formatter);
+        
+        // Convertir LocalDateTime a Date
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
   
         Ficha ficha = fichaService.findOne(idFicha);
         ficha.setEstado("AA");
-        ficha.setHorario(fechaAtencionDate);
+         ficha.setHorario(date);
         fichaService.save(ficha);
         PersonalMedicoFicha personalMedicoFicha = new PersonalMedicoFicha();
         personalMedicoFicha.setFicha(ficha);
         personalMedicoFicha.setPersonal_medico(personalMedicoService.buscarId(idPersonalMedico));
         personalMedicoFicha.setRegistro(new Date());
-        personalMedicoFicha.setHorario(fechaAtencionDate);
+        personalMedicoFicha.setHorario(date);
         personalMedicoFichaDao.save(personalMedicoFicha);
 
         return ResponseEntity.ok("1");

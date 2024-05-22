@@ -106,8 +106,8 @@
                                                 <th>Expedido</th>
                                                 <th>Codigo Asegurado:</th>
                                                 <th>Genero:</th>
-                                                <th>Estado Civil:</th>
-                                                <th>Grado Academico</th>
+                                                <th>Num. Celular:</th>
+                                         
                                                 <th>Historial</th>
                                             </tr>
                                         </thead>
@@ -125,12 +125,12 @@
                                                 <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null and f.ficha.asegurado.persona.dip != null}" th:text="${f.ficha.asegurado.persona.dip.codDip}"></td>
                                                 <td th:if="${f.ficha.asegurado != null}" th:text="${f.ficha.asegurado.codigoAsegurado}"></td>
                                                 <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.sexo}"></td>
+                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.celular}"></td>
 
                                                 <!-- <td th:if="${f.asegurado.persona.tipos_estado_civil != null}" th:text="${f.asegurado.persona.tipos_estado_civil.NomEstadoCivil}"></td>
                                                 <td th:if="${f.asegurado.persona.grado_academico != null}" th:text="${f.asegurado.persona.grado_academico.nombre_gradoAcademico}"></td> -->
 
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null and f.ficha.asegurado.persona.tipos_estado_civil != null}" th:text="${f.ficha.asegurado.persona.tipos_estado_civil.NomEstadoCivil}"></td>
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null and f.ficha.asegurado.persona.grado_academico != null}" th:text="${f.ficha.asegurado.persona.grado_academico.nombre_gradoAcademico}"></td>
+                                               
 
                                                 <!-- <td>
                                                     <input type="hidden" th:hidden="${f.idFicha}">
