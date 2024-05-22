@@ -132,10 +132,11 @@
             $('#replace').load(url, function() {
                 // Re-inicializar los plugins aquí
                 $('.js-example-basic-single').select2();
-                $('input.datepicker-here').datepicker({
+                $('input.datepicker-here').datetimepicker({
                     timepicker: true,
-                    language: 'en',
-                    dateFormat: 'dd-mm-yyyy'
+                    language: 'es',
+                    dateFormat: 'dd-mm-yyyy',
+                    timeFormat: 'hh:ii'
                 });
 
             });
