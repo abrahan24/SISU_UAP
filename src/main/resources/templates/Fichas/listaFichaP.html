@@ -141,7 +141,21 @@
                                                 </td> -->
                                                 <td>
                                                     <input type="hidden" th:hidden="${f != null and f.ficha.asegurado != null}" />
-                                                    <a class="btn btn-primary sombre" th:href="@{'../../../../vistaHistorialSeguro/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}">Historial</a>
+                                                    <div class="btn-group" role="group">
+                                                        <a type="button" th:href="@{'../../../../vistaHistorialSeguro/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Historia Clinica">
+                                                            <i class="mdi mdi-folder-plus-outline"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Orden Quirurgica">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Rechazar">
+                                                            <i class="mdi mdi-trash-can"></i>
+                                                        </button>
+                                                    </div>
+                                                
                                                     <!--<form th:action="@{'../../../../vistaHistorialSeguro'}" method="POST">
                                                         <input type="hidden" th:if="${f != null and f.asegurado != null}" th:name="idFicha" th:value="${f.asegurado.idAsegurado}" />
                                                         <button class="btn btn-primary sombre" type="submit">Historial</button>
