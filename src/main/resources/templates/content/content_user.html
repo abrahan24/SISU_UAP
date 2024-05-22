@@ -76,8 +76,15 @@
                 <div class="col-md-8">
                     <select class="js-example-basic" name="idPersona" style="width: 100%;">
                         <option value="" selected></option>
-                        <option th:each="p ,num : ${personas}" th:if="${p.estado != 'X'}" th:value="${p.idPersona}"
-                            th:text="${p.nombres+' '+p.apPaterno+' '+p.apMaterno+' -- '+p.ci}"></option>
+                        <option th:each="p ,num : ${personas}"
+                            th:if="${p.estado != 'X' && usuario.persona == null}"
+                            th:value="${p.idPersona}" th:text="${p.nombres+' '+p.apPaterno+' '+p.apMaterno+' -- '+p.ci}" ></option>
+                        <option th:each="p ,num : ${personas}"
+                            th:if="${p.estado != 'X' && usuario.persona != null && usuario.persona.idPersona == p.idPersona}"
+                            th:value="${p.idPersona}" th:text="${p.nombres+' '+p.apPaterno+' '+p.apMaterno+' -- '+p.ci}" selected></option>
+                        <option th:each="p ,num : ${personas}"
+                            th:if="${p.estado != 'X' && usuario.persona != null && usuario.persona.idPersona != p.idPersona}"
+                            th:value="${p.idPersona}" th:text="${p.nombres+' '+p.apPaterno+' '+p.apMaterno+' -- '+p.ci}"></option>
                     </select>
                 </div>
             </div>
@@ -89,6 +96,10 @@
     </form>
     <script>
         $(document).ready(function(){
+            var passwordInput = document.getElementById('clave');
+            if (passwordInput.type === 'text') {
+                passwordInput.type = 'password';
+            } 
             $('#miFormulario').submit(function (event) {
                 event.preventDefault();
                 var form = document.getElementById("miFormulario"); 

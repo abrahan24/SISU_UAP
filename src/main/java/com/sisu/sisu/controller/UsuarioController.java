@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.UsuarioService;
@@ -73,7 +74,6 @@ public class UsuarioController {
         Usuario usuario = usuarioService.findOne(idUsuario);
 
         model.addAttribute("usuario", usuario);
-        System.out.println(usuario.getClave());
         model.addAttribute("personas", personaService.findAll());
 
         return "content/content_user :: modal_new_user";
@@ -81,16 +81,13 @@ public class UsuarioController {
 
     // -------------------------ELIMINAR---------------------------------------
 
-    @GetMapping(value = "/eliminarUs/{idUsuario}")
-    public String deleteUs(@PathVariable("idUsuario") Integer idUsuario) {
+    @PostMapping(value = "/eliminarUs/{idUsuario}")
+    @ResponseBody
+    public void deleteUs(@PathVariable(name = "idUsuario") Integer idUsuario) {
 
         Usuario usuario = usuarioService.findOne(idUsuario);
-
         usuario.setEstado_usuario("X");
-
         usuarioService.save(usuario);
-
-        return "redirect:/listaUs";
 
     }
 

@@ -169,9 +169,10 @@ public class Usr_rolesController {
             } else {
                 return ResponseEntity.ok("2");
             }
-            
+
         } else {
             Usuario u = usuarioService.findOne(usuario.getIdUsuario());
+
             u.setModificacion(new Date());
             u.setApodo(usuario.getApodo());
             u.setClave(usuario.getClave());

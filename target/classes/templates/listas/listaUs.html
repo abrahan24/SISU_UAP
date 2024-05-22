@@ -72,13 +72,14 @@
                                                 <tr th:each="us , num : ${usuarios}" th:if="${us.estado_usuario !='X'}">
                                                     <td th:text="${num.index +1}"></td>
                                                     <td th:text="${us.apodo}"></td>
-                                                    <td th:text="${us.clave}"> </td>
+                                                    <td id="passwordCell" class="password-hidden" th:text="${us.clave}"> </td>
                                                     <td class="text-center">
                                                         <button type="button" class="btn btn-primary " th:data-value="${us.idUsuario}"
                                                             onclick="editarU(this.getAttribute('data-value'))"><i class="dripicons-document-edit" data-toggle="tooltip"
                                                                 data-placement="bottom" title="EDITAR USUARIO"></i></button>
                                                     
-                                                        <button type="button" class="btn btn-danger "><i class="dripicons-trash" data-toggle="tooltip"
+                                                        <button type="button" class="btn btn-danger "
+                                                        th:attr="onclick='eliminarU(\'' + ${us.idUsuario} + '\',\'' + ${us.persona.nombres+' '+us.persona.apPaterno+' '+us.persona.apMaterno} + '\')'" ><i class="dripicons-trash" data-toggle="tooltip"
                                                                 th:data-value="${us.idUsuario}" data-placement="bottom" title="ELIMINAR"></i></button>
                                                     </td>
                                                     <td >
@@ -225,6 +226,35 @@
                   console.log(error);
                 },
               });
+        }
+        function eliminarU(id,dato) {
+            Swal.fire({
+                title: 'Eliminar?',
+                text: "Estas Segurgo que deseas Eliminar el registro que pertenece a la persona: "+dato,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/eliminarUs/" + id,
+                        success: function () {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'El Registro se Elimino con Exito',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        }
+                    });
+                }
+            })
         }
         function togglePassword() {
             var passwordInput = document.getElementById('clave');
