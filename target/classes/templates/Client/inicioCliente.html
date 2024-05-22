@@ -334,6 +334,21 @@
                                 <div class="tab-pane" id="settings-justify" role="tabpanel">
                                     <div class="container-fluid">
                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                
+                                                        <form class="form-inline" th:action="@{/tableFichas}" id="form1"  method="post">
+                                                           
+                                                            <input type="text" class="form-control mt-3 mt-sm-0 mr-sm-3" name="ci" placeholder="Ingrese C.I." required>
+                
+                                                            <button type="submit" class="btn btn-primary mt-3 mt-sm-0">Enviar</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-12">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -341,28 +356,7 @@
                 
                                                        
                                                             
-                                                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Estado</th>
-                                                                <th>Fecha Generación</th>
-                                                                <th>Servicio</th>
-                                                                <th>Fecha de Atención</th>
-                                                           
-                                                           
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr >
-                                                                
-                                                               <td>Pendiente</td>
-                                                               <td>21/05/2024 14:42</td>
-                                                               <td>CONSULTA GENERAL</td>
-                                                               <td>En espera</td>
-                                                             
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                        <div id="TablaFicha"></div>
                                                
                                                     </div>
                                                 </div>
@@ -425,6 +419,36 @@
        <!-- Selectize -->
        <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+       <script>
+        $(document).ready(function () {
+            
+          $('#form1').submit(function (event) {
+            event.preventDefault();
+            var form = document.getElementById("form1");
+            var action = form.action;
+            var formData = $(this).serialize();
+      
+            $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              data: formData,
+              contentType: 'application/x-www-form-urlencoded',
+              success: function (response) {
+        
+                $("#TablaFicha").html(response);
+      
+              },
+              error: function (xhr, status, error) {
+                toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                console.error(error);
+                // Manejo de errores
+              }
+            });
+      
+          });
+        });
+      </script>
 
 </body>
 

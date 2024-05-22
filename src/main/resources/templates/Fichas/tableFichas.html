@@ -1,0 +1,22 @@
+
+<table class="table display nowrap table-striped table-bordered scroll-horizontal-vertical" th:fragment="table">
+    <thead id="table_body">
+      <tr>
+        <th>Estado</th>
+        <th>Fecha Generación</th>
+        <th>Servicio</th>
+        <th>Fecha de Atención</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="f : ${fichas}" th:if="${f.estado == 'AA'}">
+     
+        <td th:text="${f.estado}" ></td>
+        <td th:text="${f.fechaRegistroFichaa}" ></td>
+        <td th:text="${f.servicioMedico.servicio.servicios}" ></td>
+        <td th:text="${f.horario}" ></td>
+      
+       
+      </tr>
+    </tbody>
+  </table>

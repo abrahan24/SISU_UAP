@@ -63,6 +63,10 @@ public class Ficha implements Serializable {
     @JoinColumn(name = "idServicioMedico")
     private ServicioMedico servicioMedico;
 
+    @Column(name = "horario")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horario;
+
     public String getCodigoAsegurado() {
         // Lógica para obtener el código del Asegurado desde la Ficha
         return this.asegurado.getCodigoAsegurado();

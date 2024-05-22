@@ -1,5 +1,7 @@
 package com.sisu.sisu.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -882,5 +885,18 @@ public class FichaSisuController {
 		return ResponseEntity.ok("exito"); // LA FICHA PARA ESTA PERSONA EXTERNA SE HA CREADO
 
 	}
+
+
+	@PostMapping("/tableFichas")
+    public String tableFichas( @RequestParam(name = "ci")String ci,Model model,RedirectAttributes flash,HttpServletRequest request) throws Exception {
+		
+        List<Ficha> fichas = fichaService.listaFichasSeguimientoPersona(ci);
+        model.addAttribute("fichas", fichas);
+
+        
+        return "Fichas/tableFichas";
+    }
+	
+
 
 }
