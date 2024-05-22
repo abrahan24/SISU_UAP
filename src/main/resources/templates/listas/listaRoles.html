@@ -146,7 +146,7 @@
                 // Capture the value of th:data-idpersona from the clicked button
                 var idRol = $(button).data('idroless');
                 // Create the URL to request the fragment using the captured idPersona
-                var url = "../../../../roles/" + idRol;
+                var url = "../../../../role/" + idRol;
 
                 // Load the fragment and replace content in #replace_div
                 $('#replace_div_rol').load(url, function () {

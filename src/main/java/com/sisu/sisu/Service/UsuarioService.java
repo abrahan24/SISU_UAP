@@ -20,5 +20,8 @@ public interface UsuarioService {
     Usuario buscarUsuarioPorId(Integer id);
     
     Usuario loguearse( String usuario, String clave);
+    
+    public Usuario validar_persona(Integer idPersona);
+
 
 }

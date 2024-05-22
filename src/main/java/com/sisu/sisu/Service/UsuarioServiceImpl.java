@@ -49,6 +49,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioDao.loguearse(usuario, clave);
     }
 
+    @Override
+    public Usuario validar_persona(Integer idPersona) {
+        // TODO Auto-generated method stub
+        return usuarioDao.validar_persona(idPersona);
+    }
+
     
     
 }

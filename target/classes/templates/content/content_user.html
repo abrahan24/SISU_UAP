@@ -38,3 +38,110 @@
         </div>
     </form>
 </div>
+
+<div th:fragment="modal_new_user">
+    <form th:action="@{/guardar_user}" id="miFormulario" method="post">
+        <div class="modal-header bg-success white">
+            <h4 class="modal-title" id="myModalLabel9">
+                <div class="fonticon-wrap">
+                    <i class="ft-user-check"></i>
+                </div>FORMULARIO REGISTRO USUARIO
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5><i class="fa fa-arrow-right"></i> USUARIO</h5>
+    
+            <input  type="hidden" th:field="${usuario.idUsuario}">
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-group-custom mb-4">
+                        <input type="text" class="form-control" th:field="${usuario.apodo}" required>
+                        <label for="useremail">Usuario</label> 
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-group-custom mb-4">
+                        <input type="text"  class="form-control" th:field="${usuario.clave}" required>
+                        <label for="userpassword">Contraseña</label>
+                        <span class="toggle-password" onclick="togglePassword()">Mostrar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">PERSONA </label>
+                <div class="col-md-8">
+                    <select class="js-example-basic" name="idPersona" style="width: 100%;">
+                        <option value="" selected></option>
+                        <option th:each="p ,num : ${personas}" th:if="${p.estado != 'X'}" th:value="${p.idPersona}"
+                            th:text="${p.nombres+' '+p.apPaterno+' '+p.apMaterno+' -- '+p.ci}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function(){
+            $('#miFormulario').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        }else if(mensaje == "2"){
+                            Swal.fire({
+                                title: '¡El registro que estás intentando agregar ya existe en nuestra base de datos!',
+                                icon: "info",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        } else if(mensaje == "3"){
+                            Swal.fire({
+                                title: '¡El registro Se ah Editado con Exito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
+</div>

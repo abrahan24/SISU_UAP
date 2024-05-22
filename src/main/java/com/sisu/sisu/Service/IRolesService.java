@@ -10,5 +10,9 @@ public interface IRolesService {
     public Roles findOne(Integer id); 
     public void delete(Integer id);
 	public Roles validarRoles(String rol,String descripcion);
+    public static int size() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'size'");
+    }
     
 }

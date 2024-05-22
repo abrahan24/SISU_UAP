@@ -68,16 +68,15 @@ public class UsuarioController {
     // -------------------------EDITAR---------------------------------------
 
     @GetMapping(value = "/editarUs/{idUsuario}")
-    public String editarUs(Model model, @PathVariable("idUsuario") Integer idUsuario) {
+    public String editarUs(Model model, @PathVariable(name = "idUsuario") Integer idUsuario) {
 
         Usuario usuario = usuarioService.findOne(idUsuario);
 
-        usuario.setEstado_usuario("A");
+        model.addAttribute("usuario", usuario);
+        System.out.println(usuario.getClave());
+        model.addAttribute("personas", personaService.findAll());
 
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("usuarios", usuarioService.findAll());
-
-        return "redirect:/listaUs";
+        return "content/content_user :: modal_new_user";
     }
 
     // -------------------------ELIMINAR---------------------------------------

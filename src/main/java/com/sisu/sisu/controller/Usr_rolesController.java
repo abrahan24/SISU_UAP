@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.IRolesService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
 import com.sisu.sisu.entitys.Roles;
 import com.sisu.sisu.entitys.UsrRoles;
 import com.sisu.sisu.entitys.Usuario;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class Usr_rolesController {
@@ -35,6 +38,9 @@ public class Usr_rolesController {
 
     @Autowired
     private IRolesService iRolesService;
+
+    @Autowired
+    private IPersonaService personaService;
 
     //----------------------Metodo listar----------------------------
     
@@ -101,20 +107,39 @@ public class Usr_rolesController {
         }else{
             Usuario u = usuarioService.findOne(idUsuario);
 
-            for (UsrRoles usrRoles : u.getUsr_Roles()) {
-                for (int i = 0; i < idRol.length; i++) {
-                    if (usrRoles.getIdRol().getIdRol() != idRol[i]) {
-                        UsrRoles usr = new UsrRoles();
-                        usr.setEstado("A");
-                        usr.setModificacion(new Date());
-                        usr.setIdRol(iRolesService.findOne(idRol[i]));
-                        usr.setIdUsuario(u);
-                        usrrolesservice.save(usr);
-                    }else{
-                        return ResponseEntity.ok("3");
+            for (Roles r : iRolesService.findAll()) {
+                UsrRoles usr = new UsrRoles();
+                usr.setEstado("X");
+                usr.setRegistro(new Date());
+                usr.setIdUsuario(u);
+                usr.setDescripcion(r.getDescripcion());
+                usrrolesservice.save(usr);
+            }
+
+            for (int i = 0; i < idRol.length; i++) {
+                for (UsrRoles ur : u.getUsr_Roles()) {
+                    if (ur.getIdRol().getIdRol() == idRol[i]) {
+                        ur.setEstado("A");
+                        ur.setModificacion(new Date());
+                        usrrolesservice.save(ur);
                     }
                 }
             }
+
+            // for (UsrRoles usrRoles : u.getUsr_Roles()) {
+            //     for (int i = 0; i < idRol.length; i++) {
+            //         if (usrRoles.getIdRol().getIdRol() != idRol[i]) {
+            //             UsrRoles usr = new UsrRoles();
+            //             usr.setEstado("A");
+            //             usr.setModificacion(new Date());
+            //             usr.setIdRol(iRolesService.findOne(idRol[i]));
+            //             usr.setIdUsuario(u);
+            //             usrrolesservice.save(usr);
+            //         }else{
+            //             return ResponseEntity.ok("3");
+            //         }
+            //     }
+            // }
 
             return ResponseEntity.ok("2");
 
@@ -122,7 +147,42 @@ public class Usr_rolesController {
         
     }
 
+    @GetMapping("/nuevo_user")
+    public String nuevo_user(Model model) {
 
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("personas", personaService.findAll());
+        return "content/content_user :: modal_new_user";
+    }
+    
+    @PostMapping("/guardar_user")
+    public ResponseEntity<String> guardar_usuario(@Validated Usuario usuario,
+            @RequestParam(name = "idPersona") Integer idPersona) {
+
+        if (usuario.getIdUsuario() == null) {
+            if (usuarioService.validar_persona(idPersona) == null) {
+                usuario.setRegistro(new Date());
+                usuario.setEstado_usuario("A");
+                usuario.setPersona(personaService.findOne(idPersona));
+                usuarioService.save(usuario);
+                return ResponseEntity.ok("1");
+            } else {
+                return ResponseEntity.ok("2");
+            }
+            
+        } else {
+            Usuario u = usuarioService.findOne(usuario.getIdUsuario());
+            u.setModificacion(new Date());
+            u.setApodo(usuario.getApodo());
+            u.setClave(usuario.getClave());
+            u.setPersona(personaService.findOne(idPersona));
+            u.setEstado_usuario("A");
+            usuarioService.save(u);
+            return ResponseEntity.ok("3");
+
+        }
+    }
+    
     @RequestMapping(value = "eliminarUsr/{idUsrRol}")
     private String eliminarUsr(@PathVariable("idUsrRol") Integer idUsrRol){
         UsrRoles usrRoles = usrrolesservice.findOne(idUsrRol);
@@ -143,7 +203,7 @@ public class Usr_rolesController {
     
 
     @GetMapping(value = "/roles/{idUsuario}")
-    public String obtener_Roles(@PathVariable(name = "idUsuario")Integer idUsuario, Model model) {
+    public String obtener_Roles_User(@PathVariable(name = "idUsuario")Integer idUsuario, Model model) {
 
         Usuario usuario = usuarioService.findOne(idUsuario);
 
@@ -153,6 +213,16 @@ public class Usr_rolesController {
         model.addAttribute("roles_asignados", usuario.getUsr_Roles());
 
         return "content/content_user :: modal_user";
+    }
+
+    @GetMapping(value = "/role/{idRol}")
+    public String obtener_Roles(@PathVariable(name = "idRol")Integer idRol, Model model) {
+
+        Roles roles = iRolesService.findOne(idRol);
+
+        model.addAttribute("role", roles);
+
+        return "content :: contentRol";
     }
     
 

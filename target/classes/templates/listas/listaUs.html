@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 
-<head th:insert="~{layout/head :: head}"></head>
+<head th:insert="~{layout/head :: head}">
+    
+</head>
 
 <body data-topbar="colored">
 
@@ -72,14 +74,12 @@
                                                     <td th:text="${us.apodo}"></td>
                                                     <td th:text="${us.clave}"> </td>
                                                     <td class="text-center">
-                                                        <a th:href="${'../../../../editarUs/' + us.idUsuario}">
-                                                            <button type="button" class="btn btn-primary alertEdit btn-sm"><i class="dripicons-document-edit"
-                                                                    data-toggle="tooltip" data-placement="bottom" title="MODIFICAR"></i></button>
-                                                        </a>
-                                                        <a th:href="${'../../../../eliminarUs/' + us.idUsuario}">
-                                                            <button type="button" class="btn btn-danger alertElimin btn-sm"><i class="dripicons-trash" data-toggle="tooltip"
-                                                                    data-placement="bottom" title="ELIMINAR"></i></button>
-                                                        </a>
+                                                        <button type="button" class="btn btn-primary " th:data-value="${us.idUsuario}"
+                                                            onclick="editarU(this.getAttribute('data-value'))"><i class="dripicons-document-edit" data-toggle="tooltip"
+                                                                data-placement="bottom" title="EDITAR USUARIO"></i></button>
+                                                    
+                                                        <button type="button" class="btn btn-danger "><i class="dripicons-trash" data-toggle="tooltip"
+                                                                th:data-value="${us.idUsuario}" data-placement="bottom" title="ELIMINAR"></i></button>
                                                     </td>
                                                     <td >
                                                         <ul>
@@ -139,7 +139,37 @@
         </div>
     </div>
 
+    <div class="modal fade text-left" id="modal_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="replace_1">
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
     <script>
+        function NuevoRegistro() {
+            $.ajax({
+                url: "/nuevo_user" , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_1").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    $('.js-example-basic').select2({
+                        placeholder : "Seleccione..."
+                    });
+                    $('#modal_user').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
+
         function buscarR(valor) {
             
             $.ajax({
@@ -176,6 +206,35 @@
                   console.log(error);
                 },
               });
+        }
+
+        function editarU(valor) {
+            
+            $.ajax({
+                url: "/editarUs/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_1").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    $('.js-example-basic').select2({
+                        placeholder : "Seleccione..."
+                    });
+                    $('#modal_user').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
+        function togglePassword() {
+            var passwordInput = document.getElementById('clave');
+            if (passwordInput.type === 'text') {
+                passwordInput.type = 'password';
+                document.querySelector('.toggle-password').textContent = 'Mostrar';
+            } else {
+                passwordInput.type = 'text';
+                document.querySelector('.toggle-password').textContent = 'Ocultar';
+            }
         }
     </script>
     <div th:insert="~{layout/scripts :: scripts}"></div>
