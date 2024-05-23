@@ -52,8 +52,7 @@ public class Enlace implements Serializable {
     @ManyToOne(optional = false)
     private Usuario id_usuario;
 
-     @ManyToMany(mappedBy = "enlaces")
+    @ManyToMany(mappedBy = "enlaces")
     private Set<Roles> roles;
     
-
  }

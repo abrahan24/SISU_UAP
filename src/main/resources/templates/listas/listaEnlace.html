@@ -1,37 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <title>SISU | UAP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
-
-    <!-- DataTables -->
-    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
-        type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
-        rel="stylesheet" type="text/css" />
-
-    <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Bootstrap Css -->
-    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
-
-
-</head>
+<head th:insert="~{layout/head :: head}"></head>
 
 <body data-topbar="colored">
 
@@ -74,27 +44,35 @@
                                             <thead>
                                                 <tr>
                                                     <th>N°</th>
-                                                    <th>Enlace</th>
+                                                    <th>Rol</th>
+                                                    <th>Enlaces</th>
                                                     <th>Sub Enlaces</th>
-                                                    <th>Tabla</th>
-                                                    <th>Observaciones</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="en , num : ${listaEnlace}" th:if="${en.estado != 'X' && en.obs == '0'}">
+                                                <tr th:each="r , num : ${roles}" th:if="${r.estado != 'X'}">
                                                     <td th:text="${num.index +1}"></td>
-                                                    <td th:text="${en.nombre_enlace}"></td>
+                                                    <td th:text="${r.rol}"></td>
                                                     <td>
                                                         <ul>
-                                                            <li th:each="e : ${listaEnlace}" th:if="${e.obs == '1' && e.tabla == en.idEnlace}"
+                                                            <li th:each="e : ${r.enlaces}" th:if="${e.estado != 'X' && e.obs == '0' && e.tabla == 1}"
                                                                 th:text="${e.nombre_enlace}"></li>
                                                         </ul>
                                                     </td>
-                                                    <td th:text="${en.tabla}"></td>
-                                                    <td th:text="${en.obs}"></td>
+                                                    <td>
+                                                        <ul>
+                                                            <li th:each="e : ${r.enlaces}" th:if="${e.estado != 'X' && e.obs == '1'}">
+                                                                <span th:text="${e.nombre_enlace}"></span>
+                                                                <ol th:each="en : ${r.enlaces}" th:if="${en.estado != 'X' && en.obs == '1' && en.tabla == e.idEnlace}">
+                                                                    <li th:text="${en.nombre_enlace}"></li>
+                                                                </ol>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    
                                                     <td class="text-center">
-                                                        <a th:href="@{'../../../../formMenu2/' + ${en.idEnlace}}">
+                                                        <a >
                                                             <button class="btn btn-primary" type="button">SELECCIONAR</button>
                                                         </a>
                                                     </td>
@@ -116,41 +94,61 @@
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <div class="rightbar-overlay"></div>
 
-    <!-- JAVASCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="modal fade bs-example-modal-lg" id="modal_nuevo_enlace" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id="replace_1">
 
-    <script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
-    <script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="../../../../assets/libs/node-waves/waves.min.js"></script>
-    <script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="modal_enlace" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id="replace_2">
 
-    <!-- Required datatable js -->
-    <script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Buttons examples -->
-    <script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../../../assets/libs/jszip/jszip.min.js"></script>
-    <script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <!-- Responsive examples -->
-    <script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
-    <!-- Datatable init js -->
-    <script src="../../../../assets/js/pages/datatables.init.js"></script>
-
-    <!-- alert -->
-    <script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-    <script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
-
-
-    <script src="../../../../assets/js/app.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function NuevoRegistro() {
+            $.ajax({
+                url: "/nuevo_enlace" , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_1").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    $('.js-example-basic').select2({
+                        placeholder : "Seleccione..."
+                    });
+                    $('#modal_nuevo_enlace').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
+        function buscarE(valor) {
+            $.ajax({
+                url: "/enlace/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_2").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    $('.js-example-basic-multiple').select2({
+                        placeholder : "Seleccione..."
+                    });
+                    $('#modal_enlace').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
+    </script>
+    <div th:insert="~{layout/scripts :: scripts}"></div>
 </body>
 
 </html>

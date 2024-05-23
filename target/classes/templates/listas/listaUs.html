@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head th:insert="~{layout/head :: head}">
-    
-</head>
+<head th:insert="~{layout/head :: head}"></head>
 
 <body data-topbar="colored">
 
@@ -58,7 +56,7 @@
                                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH"
                                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                             <thead>
-                                                <tr>
+                                                <tr >
                                                     <th>N°</th>
                                                     <th>Usuario</th>
                                                     <th>Clave</th>
@@ -69,7 +67,7 @@
                                             </thead>
                                         
                                             <tbody>
-                                                <tr th:each="us , num : ${usuarios}" th:if="${us.estado_usuario !='X'}">
+                                                <tr  th:each="us , num : ${usuarios}" th:if="${us.estado_usuario !='X'}">
                                                     <td th:text="${num.index +1}"></td>
                                                     <td th:text="${us.apodo}"></td>
                                                     <td id="passwordCell" class="password-hidden" th:text="${us.clave}"> </td>
@@ -93,12 +91,10 @@
                                                         <button class="btn btn-success" type="button" title="AGREGAR ROL O EDITAR ROL" data-toggle="tooltip" data-placement="bottom"
                                                             th:data-value="${us.idUsuario}" onclick="buscarR(this.getAttribute('data-value'))"> <i
                                                                 class="fas fa-user-cog"></i></button>
-                                                        <!-- <button class="btn btn-warning" type="button" title="EDITAR ROLES" data-toggle="tooltip" data-placement="bottom"
-                                                            th:data-value="${us.idUsuario}" onclick="editarR(this.getAttribute('data-value'))"> <i
-                                                                class="fas fa-user-cog"></i></button> -->
-                                                    
-                                                        <button class="btn btn-primary" type="button" title="SELECCIONAR ENLACES" data-toggle="tooltip"
-                                                            data-placement="bottom"> <i class="fas fa-file-medical"></i></button>
+                                                       
+                                                        <!-- <button class="btn btn-primary" type="button" title="SELECCIONAR ENLACES" data-toggle="tooltip" data-placement="bottom"
+                                                            th:data-value="${us.idUsuario}" onclick="buscarE(this.getAttribute('data-value'))"> <i
+                                                                class="fas fa-file-medical"></i></button> -->
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -152,7 +148,6 @@
             </div>
         </div>
     </div>
-
     <script>
         function NuevoRegistro() {
             $.ajax({
@@ -173,7 +168,6 @@
         }
 
         function buscarR(valor) {
-            
             $.ajax({
                 url: "/roles/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
                 method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
@@ -191,9 +185,7 @@
               });
         }
 
-
         function editarU(valor) {
-            
             $.ajax({
                 url: "/editarUs/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
                 method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
@@ -210,6 +202,7 @@
                 },
               });
         }
+
         function eliminarU(id,dato) {
             Swal.fire({
                 title: 'Eliminar?',
@@ -239,6 +232,7 @@
                 }
             })
         }
+
         function togglePassword() {
             var passwordInput = document.getElementById('clave');
             if (passwordInput.type === 'text') {

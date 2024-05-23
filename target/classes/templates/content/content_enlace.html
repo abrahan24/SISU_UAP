@@ -15,13 +15,56 @@
     
             <input  th:field="${rol.idRol}" type="hidden">
             
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
+                <div class="col-md-8">
+                    <select class="js-example-basic" th:field="${role.}" style="width: 100%;">
+                        <option value="" selected></option>
+                       
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+        </div>
+    </form>
+</div>
+
+<div th:fragment="modal_nuevo_enlace">
+    <form th:action="@{/guardar_enlace}" id="miFormulario2" method="post">
+        <div class="modal-header bg-success white">
+            <h4 class="modal-title" id="myModalLabel9">
+                <div class="fonticon-wrap">
+                    <i class="ft-user-check"></i>
+                </div>FORMULARIO REGISTRO DE ENLACES
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5><i class="fa fa-arrow-right"></i> ENLACES</h5>
+    
+            <input th:field="${enlace.idEnlace}" type="hidden">
             
             <div class="form-group row">
                 <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
                 <div class="col-md-8">
-                    <select class="js-example-basic-multiple" th:field="${usuario.roles}" multiple="multiple" style="width: 100%;">
-                        <option th:each="r : ${roles}" th:if="${r.estado != 'X'}" value="" th:text="${r.rol}" th:value="${r.idRol}"></option>
+                    <select class="js-example-basic" th:field="${enlace.roles}" style="width: 100%;">
+                        <option value="" selected></option>
+                        <option th:each="r : ${roles}" th:if="${r.estado != 'X'}" th:value="${r.idRol}" th:text="${r.rol}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">NOMBRE ENLACE</label>
+                <div class="col-md-8">
+                    <div class="form-group form-group-custom mb-4">
+                        <input type="text" class="form-control" th:field="${enlace.nombre_enlace}" required>
+                        <label for="useremail">Enlace</label> 
+                    </div>
                 </div>
             </div>
         </div>
