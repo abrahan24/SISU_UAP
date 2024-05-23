@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // import com.sisu.sisu.Service.IMenuService;
 import com.sisu.sisu.Service.UsrRolesService;
@@ -68,7 +69,7 @@ public class login {
 	
 	@RequestMapping(value = "usuarioContrasena", method = RequestMethod.POST)
 	public String selecionRoles(HttpServletRequest request, Model model, @RequestParam("usuario") String usuario,
-			@RequestParam("clave") String clave) {
+			@RequestParam("clave") String clave , RedirectAttributes flash) {
 		
 		Usuario user = usuarioService.loguearse(usuario, clave);
 
@@ -93,8 +94,6 @@ public class login {
 
 			String msn = "Error: Revise Usuario y Clave ";
 			model.addAttribute("msn", msn);
-			System.out.println("hola-------------------------------------");
-
 			return "index/login";
 		}
 
