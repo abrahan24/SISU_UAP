@@ -11,22 +11,22 @@
                     <li class="menu-title">Menu del sistema</li>
                 
                     <th:block th:each="p : ${session.sessionlPadres}">
-                        <th:block th:if="${p.idEnlace.obs == '0'}">
+                        <th:block th:if="${p.obs == '0'}">
                             <li class="treeview">
                                 <a href="#">
                 
                                     <div class="d-inline-block icons-sm mr-1"><i class="fas fa-plus-circle"
                                             style="font-size: 22px; color: rgba(223, 5, 5, 0.945)"></i></div>
-                                    <span th:text="${p.idEnlace.nombre_enlace}"></span>
+                                    <span th:text="${p.nombre_enlace}"></span>
                 
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <th:block th:each="hijos : ${session.sessionlPadres}">
-                                        <th:block th:if="${p.idEnlace.idEnlace == hijos.idEnlace.tabla}">
-                                            <th:block th:if="${hijos.idEnlace.obs == '1'}">
+                                        <th:block th:if="${p.idEnlace == hijos.tabla}">
+                                            <th:block th:if="${hijos.obs == '1'}">
                                                 <li>
-                                                    <a  th:if="${hijos.idEnlace.nombre_enlace != 'Fichas Asignadas'}" th:href="${hijos.idEnlace.ruta}" th:text="${hijos.idEnlace.nombre_enlace}"></a>
-                                                    <a  th:if="${hijos.idEnlace.nombre_enlace == 'Fichas Asignadas'}" th:href="${hijos.idEnlace.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.idEnlace.nombre_enlace}"></a>
+                                                    <a  th:if="${hijos.nombre_enlace != 'Fichas Asignadas'}" th:href="${hijos.ruta}" th:text="${hijos.nombre_enlace}"></a>
+                                                    <a  th:if="${hijos.nombre_enlace == 'Fichas Asignadas'}" th:href="${hijos.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.nombre_enlace}"></a>
                                                 </li>
                                             </th:block>
                                             <!-- <th:block th:if="${hijos.idEnlace.nombre_enlace == 'Fichas Asignadas'}">

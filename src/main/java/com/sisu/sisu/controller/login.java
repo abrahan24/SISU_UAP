@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sisu.sisu.Service.IRolesService;
 // import com.sisu.sisu.Service.IMenuService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
+import com.sisu.sisu.entitys.Enlace;
 // import com.sisu.sisu.entitys.Menu;
 import com.sisu.sisu.entitys.Roles;
 //import com.sisu.sisu.entitys.UsrRoles;
@@ -34,6 +36,9 @@ public class login {
 	
 	// @Autowired
 	// IMenuService menuService;
+
+	@Autowired
+	private IRolesService iRolesService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String iniciosesion(Model model) {
@@ -101,7 +106,7 @@ public class login {
 	
 	
 	@RequestMapping(value = "seleccionarRoles", method = RequestMethod.POST)
-	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idRol") Integer idUsrRol) {
+	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idRol") Integer idRol) {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 
@@ -115,6 +120,12 @@ public class login {
 
 		// usrRol = usrRolesService.findByIdUsrRol(idUsrRol);
 
+		Roles roles = iRolesService.findOne(idRol);
+
+		for (Enlace enlace : roles.getEnlaces()) {
+			System.out.println(enlace.getNombre_enlace());
+		}
+
 		// List<Menu> lEnlaces = menuService.findByIdRol(usrRol.getIdRol());
 
 		// List<Menu> lHijos = menuService.findByIdRol(usrRol.getIdRol());
@@ -123,9 +134,9 @@ public class login {
 		// model.addAttribute("Hijos", lHijos);
 		// model.addAttribute("usuario", usuario);
 
-		// HttpSession sesion = request.getSession(true);
-		// sesion.setAttribute("usuario", usuario);
-		// sesion.setAttribute("sessionlPadres", lHijos);
+		HttpSession sesion = request.getSession(true);
+		sesion.setAttribute("usuario", usuario);
+		sesion.setAttribute("sessionlPadres", roles.getEnlaces());
 		// sesion.setAttribute("usrRolSession", usrRol);
 
 		return "index/inicio";
