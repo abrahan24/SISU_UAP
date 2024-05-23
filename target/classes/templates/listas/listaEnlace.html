@@ -45,20 +45,26 @@
                                                 <tr>
                                                     <th>N°</th>
                                                     <th>Rol</th>
-                                                    <th>Enlaces</th>
-                                                    <th>Sub Enlaces</th>
-                                                    <th>Acciones</th>
+                                                    <th>Enlaces Disponibles</th>
+                                                    <th>Funciones</th>
+                                                    <th>Sub Enlaces Disponibles</th>
+                                                    <th>Operaciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr th:each="r , num : ${roles}" th:if="${r.estado != 'X'}">
                                                     <td th:text="${num.index +1}"></td>
                                                     <td th:text="${r.rol}"></td>
-                                                    <td>
+                                                    <td >
                                                         <ul>
                                                             <li th:each="e : ${r.enlaces}" th:if="${e.estado != 'X' && e.obs == '0' && e.tabla == 1}"
                                                                 th:text="${e.nombre_enlace}"></li>
                                                         </ul>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES PADRES" data-toggle="tooltip" data-placement="bottom"
+                                                        th:data-value="${r.idRol}" onclick="buscarR(this.getAttribute('data-value'))"> <i
+                                                            class="fas fa-user-cog"></i></button>
                                                     </td>
                                                     <td>
                                                         <ul>
@@ -72,9 +78,9 @@
                                                     </td>
                                                     
                                                     <td class="text-center">
-                                                        <a >
-                                                            <button class="btn btn-primary" type="button">SELECCIONAR</button>
-                                                        </a>
+                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES HIJOS" data-toggle="tooltip" data-placement="bottom"
+                                                        th:data-value="${r.idRol}" onclick="buscarR(this.getAttribute('data-value'))"> <i
+                                                            class="fas fa-user-cog"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
