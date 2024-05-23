@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sisu.sisu.Service.IMenuService;
+// import com.sisu.sisu.Service.IMenuService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
-import com.sisu.sisu.entitys.Menu;
+// import com.sisu.sisu.entitys.Menu;
 import com.sisu.sisu.entitys.Roles;
 //import com.sisu.sisu.entitys.UsrRoles;
 import com.sisu.sisu.entitys.Usuario;
@@ -31,8 +31,8 @@ public class login {
 	@Autowired
 	UsuarioService usuarioService;
 	
-	@Autowired
-	IMenuService menuService;
+	// @Autowired
+	// IMenuService menuService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String iniciosesion(Model model) {

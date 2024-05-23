@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -60,6 +62,11 @@ public class Roles implements Serializable {
 
     @ManyToMany(mappedBy = "roles")
     private Set<Usuario> usuario;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "menues_rol", joinColumns = @JoinColumn(name = "id_roles"), inverseJoinColumns = @JoinColumn(name = "id_enlaces"))
+	private Set<Enlace> enlaces;
 
 
 	
