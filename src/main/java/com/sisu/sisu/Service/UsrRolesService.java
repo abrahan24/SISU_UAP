@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.sisu.sisu.entitys.UsrRoles;
+
 import com.sisu.sisu.entitys.Usuario;
 
 
@@ -12,7 +12,7 @@ import com.sisu.sisu.entitys.Usuario;
 public interface UsrRolesService {
 
 	
-	public List<UsrRoles> findAll(); // MOSTRAR TODOS LOS REGSITROS
+	//public List<UsrRoles> findAll(); // MOSTRAR TODOS LOS REGSITROS
 
 	public void delete(Integer id); // ELIMINAR REGISTRO
 
@@ -20,14 +20,14 @@ public interface UsrRolesService {
 
 
 
-	public UsrRoles findOne(Integer id);
+	//public UsrRoles findOne(Integer id);
 	
-	 void registrarUsrRoles(UsrRoles usrRoles);
-	 public void save(UsrRoles usrRoles);
+	// void registrarUsrRoles(UsrRoles usrRoles);
+	// public void save(UsrRoles usrRoles);
 	 
-	 List<UsrRoles>listRolesUsuario(Usuario usuario);
+	// List<UsrRoles>listRolesUsuario(Usuario usuario);
 	 
-	 UsrRoles findByIdUsrRol(int idUsrRol);
+	 //UsrRoles findByIdUsrRol(int idUsrRol);
 
 
 }

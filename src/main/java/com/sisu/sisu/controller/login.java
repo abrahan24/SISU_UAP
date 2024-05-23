@@ -17,7 +17,7 @@ import com.sisu.sisu.Service.IMenuService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
 import com.sisu.sisu.entitys.Menu;
-import com.sisu.sisu.entitys.UsrRoles;
+//import com.sisu.sisu.entitys.UsrRoles;
 import com.sisu.sisu.entitys.Usuario;
 
 @Controller
@@ -48,117 +48,117 @@ public class login {
 		return "index/loginK";
 	}
 
-	@RequestMapping(value = "roles", method = RequestMethod.GET)
-	public String roles(Model model, HttpServletRequest request) {
+	// @RequestMapping(value = "roles", method = RequestMethod.GET)
+	// public String roles(Model model, HttpServletRequest request) {
 		
 		
-		UsrRoles usr=new UsrRoles();
+	// 	UsrRoles usr=new UsrRoles();
 		
-		List<UsrRoles>listadeUsuarios=usrRolesService.findAll();
+	// 	List<UsrRoles>listadeUsuarios=usrRolesService.findAll();
 		
-		System.out.println("hola");
+	// 	System.out.println("hola");
 
-		model.addAttribute("listadeUsuarios", listadeUsuarios);
-		return "formularios/formulario";
-	}
+	// 	model.addAttribute("listadeUsuarios", listadeUsuarios);
+	// 	return "formularios/formulario";
+	// }
 	
 	
 	//NUEVOS CONTROLADORES
 	
-	@RequestMapping(value = "usuarioContrasena", method = RequestMethod.POST)
-	public String selecionRoles(HttpServletRequest request, Model model,HttpServletResponse response, @RequestParam("usuario") String usuario,
-			@RequestParam("clave") String clave) {
+	// @RequestMapping(value = "usuarioContrasena", method = RequestMethod.POST)
+	// public String selecionRoles(HttpServletRequest request, Model model,HttpServletResponse response, @RequestParam("usuario") String usuario,
+	// 		@RequestParam("clave") String clave) {
 		
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-	    response.setHeader("Pragma", "no-cache");
-	    response.setDateHeader("Expires", 0);
+	// 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	//     response.setHeader("Pragma", "no-cache");
+	//     response.setDateHeader("Expires", 0);
 		
-		System.out.println("---" + usuario + "---" + clave + "---");
+	// 	System.out.println("---" + usuario + "---" + clave + "---");
 
-		Usuario user = usuarioService.loguearse(usuario, clave);
+	// 	Usuario user = usuarioService.loguearse(usuario, clave);
 
-		if (user != null) {
-			List<UsrRoles> lRolesUsr = usrRolesService.listRolesUsuario(user);
-			System.out.println("-------------------------------------------------");
-			System.out.println("rolesList " + lRolesUsr.size());
-			System.out.println("-------------------------------------------------");
+	// 	if (user != null) {
+	// 		List<UsrRoles> lRolesUsr = usrRolesService.listRolesUsuario(user);
+	// 		System.out.println("-------------------------------------------------");
+	// 		System.out.println("rolesList " + lRolesUsr.size());
+	// 		System.out.println("-------------------------------------------------");
 
-			if (lRolesUsr.size() == 0) {
-				String msn = "No tiene roles vigentes, comuniquese con el encargado de sistemas";
-				model.addAttribute("msn", msn);
-				return "index/login";
+	// 		if (lRolesUsr.size() == 0) {
+	// 			String msn = "No tiene roles vigentes, comuniquese con el encargado de sistemas";
+	// 			model.addAttribute("msn", msn);
+	// 			return "index/login";
 
-			}
+	// 		}
 			
-			model.addAttribute("lRoles", lRolesUsr);
+	// 		model.addAttribute("lRoles", lRolesUsr);
 
-			HttpSession sesion = request.getSession();
+	// 		HttpSession sesion = request.getSession();
 
-			sesion.setAttribute("sessionlRoles", lRolesUsr);
-			sesion.setAttribute("usuarioSession", user);
+	// 		sesion.setAttribute("sessionlRoles", lRolesUsr);
+	// 		sesion.setAttribute("usuarioSession", user);
 
-			System.out.println("TIENE ROLES HABILITADOS-------------------------------------");
-			return "index/selecioneRoles";
-			// return "uap/da/sistemada/vistas/login/mostrarRoles";
+	// 		System.out.println("TIENE ROLES HABILITADOS-------------------------------------");
+	// 		return "index/selecioneRoles";
+	// 		// return "uap/da/sistemada/vistas/login/mostrarRoles";
 
-		} else {
+	// 	} else {
 
-			String msn = "Error: Revise Usuario y Clave ";
-			model.addAttribute("msn", msn);
-			System.out.println("hola-------------------------------------");
+	// 		String msn = "Error: Revise Usuario y Clave ";
+	// 		model.addAttribute("msn", msn);
+	// 		System.out.println("hola-------------------------------------");
 
-			return "index/login";
-		}
+	// 		return "index/login";
+	// 	}
 
-	}
+	// }
 	
 	
-	@RequestMapping(value = "seleccionarRoles", method = RequestMethod.POST)
-	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idUsrRol") Integer idUsrRol) {
+	// @RequestMapping(value = "seleccionarRoles", method = RequestMethod.POST)
+	// public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idUsrRol") Integer idUsrRol) {
 
-		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+	// 	Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 
-		if (usuario == null) {
+	// 	if (usuario == null) {
 
-			return "index/login";
+	// 		return "index/login";
 
-		}
+	// 	}
 
-		UsrRoles usrRol = new UsrRoles();
+	// 	UsrRoles usrRol = new UsrRoles();
 
-		usrRol = usrRolesService.findByIdUsrRol(idUsrRol);
+	// 	usrRol = usrRolesService.findByIdUsrRol(idUsrRol);
 
-		List<Menu> lEnlaces = menuService.findByIdRol(usrRol.getIdRol());
+	// 	List<Menu> lEnlaces = menuService.findByIdRol(usrRol.getIdRol());
 
-		List<Menu> lHijos = menuService.findByIdRol(usrRol.getIdRol());
+	// 	List<Menu> lHijos = menuService.findByIdRol(usrRol.getIdRol());
 
-		model.addAttribute("Padres", lEnlaces);
-		model.addAttribute("Hijos", lHijos);
-		model.addAttribute("usuario", usuario);
+	// 	model.addAttribute("Padres", lEnlaces);
+	// 	model.addAttribute("Hijos", lHijos);
+	// 	model.addAttribute("usuario", usuario);
 
-		HttpSession sesion = request.getSession(true);
-		sesion.setAttribute("usuario", usuario);
-		sesion.setAttribute("sessionlPadres", lHijos);
-		sesion.setAttribute("usrRolSession", usrRol);
+	// 	HttpSession sesion = request.getSession(true);
+	// 	sesion.setAttribute("usuario", usuario);
+	// 	sesion.setAttribute("sessionlPadres", lHijos);
+	// 	sesion.setAttribute("usrRolSession", usrRol);
 
-		return "index/inicio";
-	}
+	// 	return "index/inicio";
+	// }
 	
 	
 
-	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
-	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
+	// @RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
+	// public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
-		HttpSession session = request.getSession();
-		if (session != null) {
-			session.invalidate();
+	// 	HttpSession session = request.getSession();
+	// 	if (session != null) {
+	// 		session.invalidate();
 
-			System.out.print(request.getSession().getAttribute("estado_user"));
+	// 		System.out.print(request.getSession().getAttribute("estado_user"));
 
-		}
-		return "redirect:/";
+	// 	}
+	// 	return "redirect:/";
 		
-	}
+	// }
 
 	
 	
