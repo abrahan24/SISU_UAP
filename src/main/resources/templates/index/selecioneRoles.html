@@ -60,20 +60,19 @@
 									
 									<form method="post" action="seleccionarRoles">
 
-                                     <input type="hidden" name="idUsuario" >
+                                     <input type="hidden" name="idUsuario" th:value="${idUsuario}">
 
 										<div class="input-group col-xs-12">
-											<select name="idUsrRol"  class="form-control">
-												<option th:each="r : ${lRoles}" th:value="${r.idUsrRol}"
-													th:text="${r.idRol.idRol + '-' + r.idRol.rol}"></option>
+											<select name="idRol"  class="form-control">
+												<option value="" selected disabled>Seleccione...</option>
+												<option th:each="r ,num : ${lRoles}" th:value="${r.idRol}"
+													th:text="${num.index +1 + '-' + r.rol}"></option>
 											</select>
 										</div>
-
 
 										<div class="mt-4">
 											<button class="btn btn-success btn-block waves-effect waves-light"
 												type="submit">Ingresar</button>
-
 										</div>
 
 									</form>
