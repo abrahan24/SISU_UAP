@@ -79,8 +79,9 @@
                                                                 data-placement="bottom" title="EDITAR USUARIO"></i></button>
                                                     
                                                         <button type="button" class="btn btn-danger "
-                                                        th:attr="onclick='eliminarU(\'' + ${us.idUsuario} + '\',\'' + ${us.persona.nombres+' '+us.persona.apPaterno+' '+us.persona.apMaterno} + '\')'" ><i class="dripicons-trash" data-toggle="tooltip"
-                                                                th:data-value="${us.idUsuario}" data-placement="bottom" title="ELIMINAR"></i></button>
+                                                            th:attr="onclick='eliminarU(\'' + ${us.idUsuario} + '\',\'' + ${us.persona.nombres+' '+us.persona.apPaterno+' '+us.persona.apMaterno} + '\')'"><i
+                                                                class="dripicons-trash" data-toggle="tooltip" th:data-value="${us.idUsuario}" data-placement="bottom"
+                                                                title="ELIMINAR"></i></button>
                                                     </td>
                                                     <td >
                                                         <ul>

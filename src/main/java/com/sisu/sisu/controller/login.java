@@ -1,7 +1,5 @@
 package com.sisu.sisu.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,13 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.IRolesService;
-// import com.sisu.sisu.Service.IMenuService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
-import com.sisu.sisu.entitys.Enlace;
-// import com.sisu.sisu.entitys.Menu;
 import com.sisu.sisu.entitys.Roles;
-//import com.sisu.sisu.entitys.UsrRoles;
 import com.sisu.sisu.entitys.Usuario;
 
 @Controller
@@ -30,12 +24,8 @@ public class login {
 	@Autowired
 	UsrRolesService usrRolesService;
 	
-	
 	@Autowired
 	UsuarioService usuarioService;
-	
-	// @Autowired
-	// IMenuService menuService;
 
 	@Autowired
 	private IRolesService iRolesService;
@@ -46,8 +36,6 @@ public class login {
 		return "index/login";
 	}
 
-	
-
 	@RequestMapping(value = "/loginK", method = RequestMethod.GET)
 	public String Ficha(Model model, HttpServletRequest request) {
 
@@ -55,23 +43,6 @@ public class login {
 		return "index/loginK";
 	}
 
-	// @RequestMapping(value = "roles", method = RequestMethod.GET)
-	// public String roles(Model model, HttpServletRequest request) {
-		
-		
-	// 	UsrRoles usr=new UsrRoles();
-		
-	// 	List<UsrRoles>listadeUsuarios=usrRolesService.findAll();
-		
-	// 	System.out.println("hola");
-
-	// 	model.addAttribute("listadeUsuarios", listadeUsuarios);
-	// 	return "formularios/formulario";
-	// }
-	
-	
-	//NUEVOS CONTROLADORES
-	
 	@RequestMapping(value = "usuarioContrasena", method = RequestMethod.POST)
 	public String selecionRoles(HttpServletRequest request, Model model, @RequestParam("usuario") String usuario,
 			@RequestParam("clave") String clave , RedirectAttributes flash) {
@@ -79,45 +50,32 @@ public class login {
 		Usuario user = usuarioService.loguearse(usuario, clave);
 
 		if (user != null) {
-			
 			if (user.getRoles().size() == 0) {
 				String msn = "No tiene roles vigentes, comuniquese con el encargado de sistemas";
 				model.addAttribute("msn", msn);
 				return "index/login";
 			}
-			
 			model.addAttribute("lRoles", user.getRoles());
 			model.addAttribute("idUsuario", user.getIdUsuario());
-
 			HttpSession sesion = request.getSession();
-
-			// sesion.setAttribute("sessionlRoles", lRolesUsr);
 			sesion.setAttribute("usuarioSession", user);
 			return "index/selecioneRoles";
 
 		} else {
-
 			String msn = "Error: Revise Usuario y Clave ";
 			model.addAttribute("msn", msn);
 			return "index/login";
 		}
-
 	}
-	
 	
 	@RequestMapping(value = "seleccionarRoles", method = RequestMethod.POST)
 	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idRol") Integer idRol) {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
-
 		if (usuario == null) {
-
 			return "index/login";
-
 		}
-
 		Roles roles = iRolesService.findOne(idRol);
-
 		HttpSession sesion = request.getSession(false);
 		sesion.setAttribute("usuario", usuario);
 		sesion.setAttribute("sessionlPadres", roles.getEnlaces());
@@ -126,20 +84,14 @@ public class login {
 		return "index/inicio";
 	}
 	
-	
-
 	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
 	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession session = request.getSession();
 		if (session != null) {
 			session.invalidate();
-
 		}
 		return "redirect:/";
-		
 	}
 
-	
-	
 }

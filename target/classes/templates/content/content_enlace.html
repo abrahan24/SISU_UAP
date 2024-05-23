@@ -1,0 +1,33 @@
+<div th:fragment="modal_enlace">
+    <form th:action="@{/guardar_roles}" id="miFormulario1" method="post">
+        <div class="modal-header bg-success white">
+            <h4 class="modal-title" id="myModalLabel9">
+                <div class="fonticon-wrap">
+                    <i class="ft-user-check"></i>
+                </div>FORMULARIO ASIGNACION DE ENLACES
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5><i class="fa fa-arrow-right"></i> ENLACES</h5>
+    
+            <input  th:field="${rol.idRol}" type="hidden">
+            
+            
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
+                <div class="col-md-8">
+                    <select class="js-example-basic-multiple" th:field="${usuario.roles}" multiple="multiple" style="width: 100%;">
+                        <option th:each="r : ${roles}" th:if="${r.estado != 'X'}" value="" th:text="${r.rol}" th:value="${r.idRol}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+        </div>
+    </form>
+</div>
