@@ -116,47 +116,29 @@ public class login {
 
 		}
 
-		// UsrRoles usrRol = new UsrRoles();
-
-		// usrRol = usrRolesService.findByIdUsrRol(idUsrRol);
-
 		Roles roles = iRolesService.findOne(idRol);
 
-		for (Enlace enlace : roles.getEnlaces()) {
-			System.out.println(enlace.getNombre_enlace());
-		}
-
-		// List<Menu> lEnlaces = menuService.findByIdRol(usrRol.getIdRol());
-
-		// List<Menu> lHijos = menuService.findByIdRol(usrRol.getIdRol());
-
-		// model.addAttribute("Padres", lEnlaces);
-		// model.addAttribute("Hijos", lHijos);
-		// model.addAttribute("usuario", usuario);
-
-		HttpSession sesion = request.getSession(true);
+		HttpSession sesion = request.getSession(false);
 		sesion.setAttribute("usuario", usuario);
 		sesion.setAttribute("sessionlPadres", roles.getEnlaces());
-		// sesion.setAttribute("usrRolSession", usrRol);
+		sesion.setAttribute("RolSession", roles);
 
 		return "index/inicio";
 	}
 	
 	
 
-	// @RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
-	// public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
+	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
-	// 	HttpSession session = request.getSession();
-	// 	if (session != null) {
-	// 		session.invalidate();
+		HttpSession session = request.getSession();
+		if (session != null) {
+			session.invalidate();
 
-	// 		System.out.print(request.getSession().getAttribute("estado_user"));
-
-	// 	}
-	// 	return "redirect:/";
+		}
+		return "redirect:/";
 		
-	// }
+	}
 
 	
 	

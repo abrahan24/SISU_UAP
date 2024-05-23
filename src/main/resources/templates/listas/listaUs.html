@@ -84,17 +84,17 @@
                                                     </td>
                                                     <td >
                                                         <ul>
-                                                            <li th:if="${us.usr_Roles.size() > 0}" th:each="ur : ${us.usr_Roles}" th:text="${ur.idRol.rol}"></li>
-                                                            <li th:if="${us.usr_Roles.size() <= 0}" th:text="${'SIN ROLES ASIGNADOS'}"></li>
+                                                            <li th:if="${us.roles.size() > 0}" th:each="ur : ${us.roles}" th:text="${ur.rol}"></li>
+                                                            <li th:if="${us.roles.size() <= 0}" th:text="${'SIN ROLES ASIGNADOS'}"></li>
                                                         </ul>
                                                     </td>
                                                     <td class="text-center">
-                                                        <button class="btn btn-success" type="button" title="AGREGAR ROL" data-toggle="tooltip" data-placement="bottom"
+                                                        <button class="btn btn-success" type="button" title="AGREGAR ROL O EDITAR ROL" data-toggle="tooltip" data-placement="bottom"
                                                             th:data-value="${us.idUsuario}" onclick="buscarR(this.getAttribute('data-value'))"> <i
                                                                 class="fas fa-user-cog"></i></button>
-                                                        <button class="btn btn-warning" type="button" title="EDITAR ROLES" data-toggle="tooltip" data-placement="bottom"
+                                                        <!-- <button class="btn btn-warning" type="button" title="EDITAR ROLES" data-toggle="tooltip" data-placement="bottom"
                                                             th:data-value="${us.idUsuario}" onclick="editarR(this.getAttribute('data-value'))"> <i
-                                                                class="fas fa-user-cog"></i></button>
+                                                                class="fas fa-user-cog"></i></button> -->
                                                     
                                                         <button class="btn btn-primary" type="button" title="SELECCIONAR ENLACES" data-toggle="tooltip"
                                                             data-placement="bottom"> <i class="fas fa-file-medical"></i></button>
@@ -190,24 +190,6 @@
               });
         }
 
-        function editarR(valor) {
-            
-            $.ajax({
-                url: "/editar_roles/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
-                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
-                success: function (response) {
-                    $("#replace").html(response); // Actualiza el contenido del div con la respuesta del servidor
-                    $('.js-example-basic-multiple').select2({
-                        placeholder : "Seleccione..."
-                    });
-                    $('#success').modal('show');
-                },
-                error: function (xhr, status, error) {
-                  // Maneja los errores de la solicitud AJAX
-                  console.log(error);
-                },
-              });
-        }
 
         function editarU(valor) {
             

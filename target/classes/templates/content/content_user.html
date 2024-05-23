@@ -1,5 +1,5 @@
 <div th:fragment="modal_user">
-    <form th:action="@{/guardar_roles}" method="post">
+    <form th:action="@{/guardar_roles}" id="miFormulario1" method="post">
         <div class="modal-header bg-success white">
             <h4 class="modal-title" id="myModalLabel9">
                 <div class="fonticon-wrap">
@@ -13,21 +13,18 @@
         <div class="modal-body">
             <h5><i class="fa fa-arrow-right"></i> ROLES</h5>
     
-            <input name="idUsuario" th:value="${idUsuario}" type="hidden">
+            <input  th:field="${usuario.idUsuario}" type="hidden">
+            <input  th:field="${usuario.apodo}" type="hidden">
+            <input  th:field="${usuario.clave}" type="hidden">
+            <input  th:field="${usuario.estado_usuario}" type="hidden">
+            <input  th:field="${usuario.registro}" type="hidden">
+            <input  th:field="${usuario.persona.idPersona}" type="hidden">
             
             <div class="form-group row">
                 <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
                 <div class="col-md-8">
-                    <select class="js-example-basic-multiple" name="idRol" multiple="multiple" style="width: 100%;">
-                        <th:block th:each="r : ${roles}" th:if="${r.estado != 'X'}">
-                            <option th:if="${roles_asignados.size() <= 0}" th:text="${r.rol}" th:value="${r.idRol}"></option>
-                            <th:block th:if="${roles_asignados.size() > 0}">
-                                <th:block th:each="ra : ${roles_asignados}" th:if="${ra.estado != 'X'}">
-                                    <option th:if="${ra.idRol.idRol == r.idRol}" th:text="${r.rol}" th:value="${r.idRol}" selected></option>
-                                    <option th:if="${ra.idRol.idRol != r.idRol}" th:text="${r.rol}" th:value="${r.idRol}"></option>
-                                </th:block>
-                            </th:block>
-                        </th:block>
+                    <select class="js-example-basic-multiple" th:field="${usuario.roles}" multiple="multiple" style="width: 100%;">
+                        <option th:each="r : ${roles}" th:if="${r.estado != 'X'}" value="" th:text="${r.rol}" th:value="${r.idRol}"></option>
                     </select>
                 </div>
             </div>
@@ -37,6 +34,57 @@
             <button type="submit" class="btn btn-outline-success">ENVIAR</button>
         </div>
     </form>
+    <script>
+        $(document).ready(function(){
+            var passwordInput = document.getElementById('clave');
+            if (passwordInput.type === 'text') {
+                passwordInput.type = 'password';
+            } 
+            $('#miFormulario1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario1"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Fallido!',
+                                icon: "error",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        }else if(mensaje == "2"){
+                            Swal.fire({
+                                title: '¡El registro Se ah Modificado con Exito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
 </div>
 
 <div th:fragment="modal_new_user">
