@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -34,7 +35,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import com.sisu.sisu.Dao.IAseguradoDao;
 import com.sisu.sisu.Service.FichaService;
@@ -92,12 +96,15 @@ public class FichaSisuController {
 	@Autowired
 	private HorarioServicioService horarioServicioService;
 
+	@Autowired
+	private SpringTemplateEngine templateEngine;
+
 	private static String capitalizeFirstLetter(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        }
-        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-    } 
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
 
 	@RequestMapping(value = "universitario", method = RequestMethod.GET)
 	public String obtenerDatosUniversitario(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
@@ -245,12 +252,12 @@ public class FichaSisuController {
 
 				}
 
-			}else{
+			} else {
 				redirectAttrs
-							.addFlashAttribute("mensaje",
-									"No existe esa Matricula de Estudiante, Por favor coloque un R.U. Válido")
-							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
-					return "redirect:/inicioCliente";	
+						.addFlashAttribute("mensaje",
+								"No existe esa Matricula de Estudiante, Por favor coloque un R.U. Válido")
+						.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+				return "redirect:/inicioCliente";
 			}
 			return "Client/vistaDatosUniversitario";
 
@@ -268,10 +275,10 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoUniCreado;
 
 	@RequestMapping(value = "/generarFicha", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFicha(Model model, @RequestParam(name = "servicio")Integer idServicio) {
-		
-		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio); 
-		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+	public ResponseEntity<String> generarFicha(Model model, @RequestParam(name = "servicio") Integer idServicio) {
+
+		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
 		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
@@ -281,18 +288,17 @@ public class FichaSisuController {
 												// verificar sus datos
 		}
 		Date fechaActualD = new Date();
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(),
+				fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
 		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
 		String nombreDiaCapitalizado = capitalizeFirstLetter(nombreDiaEnEspanol);
 
-
 		if (existeFicha != null) {
 			System.out.println("ESTE UNIVERSITARIO YA TIENE UNA FICHA");
 
-			
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -302,11 +308,11 @@ public class FichaSisuController {
 		}
 
 		for (HorarioServicio horario : listaHorariosServicio) {
-		
+
 			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
-				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= " + horario.getCantidad_fichas());
 				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
-					return ResponseEntity.ok("error2"); // Limite 
+					return ResponseEntity.ok("error2"); // Limite
 				}
 			}
 		}
@@ -365,7 +371,6 @@ public class FichaSisuController {
 			RestTemplate restTemplate = new RestTemplate();
 
 			ResponseEntity<Map> resp = restTemplate.exchange(url, HttpMethod.POST, req, Map.class);
-		
 
 			if (resp.getBody().get("status").toString().equals("200")) {
 				System.out.println("----------------------------------SS--------");
@@ -427,7 +432,6 @@ public class FichaSisuController {
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
 
-
 					existePersonaD.setEstado("RD");
 					existePersonaD.setNombres(data.get("nombres").toString());
 					existePersonaD.setApPaterno(data.get("apellido_paterno").toString());
@@ -482,12 +486,12 @@ public class FichaSisuController {
 					historialSeguro.setAsegurado(aseguradoD);
 					historialSeguroService.save(historialSeguro);
 				}
-			}else{
+			} else {
 				redirectAttrs
-				.addFlashAttribute("mensaje",
-						"No existe esa Matricula de Docente, Por favor coloque un R.D. Válido")
-				.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
-		return "redirect:/inicioCliente";	
+						.addFlashAttribute("mensaje",
+								"No existe esa Matricula de Docente, Por favor coloque un R.D. Válido")
+						.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
+				return "redirect:/inicioCliente";
 			}
 			return "Client/vistaDatosDocente";
 		} catch (Exception e) {
@@ -504,10 +508,10 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoDocenteCreado;
 
 	@RequestMapping(value = "/generarFichaD", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFichaD(Model model,@RequestParam(name = "servicio")Integer idServicio) {
+	public ResponseEntity<String> generarFichaD(Model model, @RequestParam(name = "servicio") Integer idServicio) {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
-		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
 		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
@@ -518,8 +522,8 @@ public class FichaSisuController {
 		}
 		Date fechaActualD = new Date();
 
-
-		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(), fechaActualD);
+		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(),
+				fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
 		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
@@ -529,7 +533,7 @@ public class FichaSisuController {
 		if (existeFicha != null) {
 
 			// Verificar si la fecha de registro de la ficha es igual a la fecha actual
-			
+
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -539,11 +543,11 @@ public class FichaSisuController {
 		}
 
 		for (HorarioServicio horario : listaHorariosServicio) {
-		
+
 			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
-				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= " + horario.getCantidad_fichas());
 				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
-					return ResponseEntity.ok("error2"); // Limite 
+					return ResponseEntity.ok("error2"); // Limite
 				}
 			}
 		}
@@ -571,7 +575,8 @@ public class FichaSisuController {
 		try {
 			request1.put("usuario", codigoAdministrativo);
 
-			// String url ="http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
+			// String url
+			// ="http://172.16.21.2:3333/api/londraPost/v1/personaLondra/obtenerDatos";
 			String url = "http://virtual.uap.edu.bo:7174/api/londraPost/v1/personaLondra/obtenerDatos";
 
 			HttpHeaders headers = new HttpHeaders();
@@ -590,7 +595,8 @@ public class FichaSisuController {
 				}
 				if (mensaje != null && mensaje.equals("Las credenciales son incorrectas")) {
 					redirectAttrs
-							.addFlashAttribute("mensaje", "Código de Funcionario Incorrecto, Por favor Ingrese un Código de Funcionario Válido")
+							.addFlashAttribute("mensaje",
+									"Código de Funcionario Incorrecto, Por favor Ingrese un Código de Funcionario Válido")
 							.addFlashAttribute("clase", "danger alert-dismissible fade show mb-0");
 					return "redirect:/inicioCliente";
 				} else {
@@ -634,7 +640,6 @@ public class FichaSisuController {
 					dip.setIdDip(1);
 					gradoAcademico.setIdGradoAcademico(1);
 					tiposEstadoCivil.setIdTipoEstadoCivil(1);
-
 
 					existPersonaA.setEstado("RA");
 					existPersonaA.setNombres(data.get("per_nombres").toString());
@@ -708,10 +713,10 @@ public class FichaSisuController {
 	private Asegurado codigoAseguradoAdCreado;
 
 	@RequestMapping(value = "/generarFichaA", method = RequestMethod.POST)
-	public ResponseEntity<String> generarFichaA(Model model, @RequestParam(name = "servicio")Integer idServicio) {
+	public ResponseEntity<String> generarFichaA(Model model, @RequestParam(name = "servicio") Integer idServicio) {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
-		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
 		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
 		if (asegurado == null) {
@@ -730,7 +735,6 @@ public class FichaSisuController {
 		if (existeFicha != null) {
 			System.out.println("ESTE ADMINISTRATIVO YA TIENE UNA FICHA");
 
-		
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -741,11 +745,11 @@ public class FichaSisuController {
 		}
 
 		for (HorarioServicio horario : listaHorariosServicio) {
-		
+
 			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
-				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= " + horario.getCantidad_fichas());
 				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
-					return ResponseEntity.ok("error2"); // Limite 
+					return ResponseEntity.ok("error2"); // Limite
 				}
 			}
 		}
@@ -761,9 +765,9 @@ public class FichaSisuController {
 	}
 
 	@RequestMapping(value = "/externo", method = RequestMethod.GET)
-	public String externo( HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
+	public String externo(HttpServletRequest request, Model model, RedirectAttributes redirectAttrs,
 			@RequestParam("ci") String ci) {
-	
+
 		Persona persona = personaService.validarCI(ci);
 
 		if (persona != null) {
@@ -836,9 +840,9 @@ public class FichaSisuController {
 
 	@PostMapping(value = "generarFichaE")
 	public ResponseEntity<String> generarFichaE(RedirectAttributes flash,
-			HttpServletRequest request, Model model, @RequestParam(name = "servicio")Integer idServicio) {
+			HttpServletRequest request, Model model, @RequestParam(name = "servicio") Integer idServicio) {
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
-		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio); 
+		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
 		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
@@ -856,7 +860,6 @@ public class FichaSisuController {
 
 		if (existeFicha != null) {
 
-			
 			LocalDate fechaRegistroFicha = existeFicha.getFechaRegistroFichaa().toInstant()
 					.atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -866,15 +869,15 @@ public class FichaSisuController {
 		}
 
 		for (HorarioServicio horario : listaHorariosServicio) {
-		
+
 			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
-				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= "+ horario.getCantidad_fichas());
+				System.out.println(listaFichasServicioSinAsignar.size() + " =?>?= " + horario.getCantidad_fichas());
 				if (listaFichasServicioSinAsignar.size() >= horario.getCantidad_fichas()) {
-					return ResponseEntity.ok("error2"); // Limite 
+					return ResponseEntity.ok("error2"); // Limite
 				}
 			}
 		}
-		
+
 		Ficha ficha = new Ficha();
 		ficha.setServicioMedico(servicioMedico);
 		ficha.setEstado("A");
@@ -886,17 +889,22 @@ public class FichaSisuController {
 
 	}
 
-
 	@PostMapping("/tableFichas")
-    public String tableFichas( @RequestParam(name = "ci")String ci,Model model,RedirectAttributes flash,HttpServletRequest request) throws Exception {
-		
-        List<Ficha> fichas = fichaService.listaFichasSeguimientoPersona(ci);
-        model.addAttribute("fichas", fichas);
+	public ResponseEntity<?> tableFichas(@RequestParam(name = "ci") String ci, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Ficha> fichas = fichaService.listaFichasSeguimientoPersona(ci);
 
-        
-        return "Fichas/tableFichas";
-    }
-	
+		if (fichas == null || fichas.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay fichas activas para el CI proporcionado.");
+		}
 
+		model.addAttribute("fichas", fichas);
+
+		WebContext context = new WebContext(request, response, request.getServletContext());
+		context.setVariables(model.asMap());
+
+		String htmlContent = templateEngine.process("Fichas/tableFichas", context);
+		return ResponseEntity.ok().body(htmlContent);
+	}
 
 }

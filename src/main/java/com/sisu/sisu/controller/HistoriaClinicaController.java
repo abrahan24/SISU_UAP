@@ -35,6 +35,18 @@ public class HistoriaClinicaController {
     @Autowired
     private IAseguradoService aseguradoService;
 
+
+    @GetMapping(value = "/verModeloHistoria")
+    public String verModeloHistoria(
+            Model model) {
+
+        
+
+        return "historialClinico/ficha_tecnica";
+    }
+
+
+
     @GetMapping(value = "/formHistorialClinico/{id}")
     public String registroRoles(@Validated HistoriaClinica historiaClinica, @PathVariable(name = "id") Integer id,
             Model model) {

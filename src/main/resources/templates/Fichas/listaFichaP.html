@@ -108,11 +108,11 @@
                                                 <th>Genero:</th>
                                                 <th>Num. Celular:</th>
                                          
-                                                <th>Historial</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="f : ${fichas}">
+                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado != 'X'}">
                                                 <!-- <td th:text="${f.asegurado.persona.nombres}"></td> -->
                                                 <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.nombres}"></td>
                                                 <!-- <td th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td> -->
@@ -146,14 +146,21 @@
                                                             <i class="mdi mdi-folder-plus-outline"></i>
                                                         </a>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas">
-                                                            <i class="mdi mdi-pencil"></i>
+                                                            <i class="mdi mdi-folder-plus-outline"></i>
                                                         </button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Orden Quirurgica">
-                                                            <i class="mdi mdi-pencil"></i>
+                                                            <i class="mdi mdi-folder-plus-outline"></i>
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Rechazar">
+                                                        <a th:attr="onclick='completarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'"
+                                                        type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Completar">
+                                                            <i class="mdi mdi-check-bold"></i>
+                                                        </a>
+                                                        <a th:attr="onclick='rechazarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'" 
+                                                        type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Rechazar">
                                                             <i class="mdi mdi-trash-can"></i>
-                                                        </button>
+                                                        </a>
+
+                                                        
                                                     </div>
                                                 
                                                     <!--<form th:action="@{'../../../../vistaHistorialSeguro'}" method="POST">
@@ -226,6 +233,79 @@
     <script src="../../../../assets/js/js-dateTimePicker-bs4/bootstrap-datetimepicker.js"></script>
     <script src="../../../../assets/js/js-dateTimePicker-bs4/bootstrap-datetimepicker.min.js"></script>
     <script src="../../../../assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script th:inline="javascript">
+        function rechazarFicha(id, nombre, idusuario) {
+            Swal.fire({
+                title: "Atencion!",
+                text: "¿Esta seguro que desea rechazar la ficha del paciente: " + nombre + "?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "SI, Rechazar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario hace clic en "Sí, eliminar"
+                    $.ajax({
+                        type: 'POST',
+                        url: "/rechazar-ficha/" + id,
+                        success: function (response) {
+                            Swal.fire(
+                                'Rechazado!',
+                                'La Ficha fue rechaza con éxito.',
+                                'success'
+                            ).then((result) => {
+                                // Redirigir a otro método después de eliminar
+                                window.location.href = "/fichasAsegurado/" +idusuario;
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        }
+
+        function completarFicha(id, nombre, idusuario) {
+            Swal.fire({
+                title: "Atencion!",
+                text: "¿Esta seguro que desea completar la atención del paciente: " + nombre + "?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "SI, Aceptar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario hace clic en "Sí, eliminar"
+                    $.ajax({
+                        type: 'POST',
+                        url: "/completar-ficha/" + id,
+                        success: function (response) {
+                            Swal.fire(
+                                'Completado!',
+                                'La Atención fue completada con éxito.',
+                                'success'
+                            ).then((result) => {
+                                // Redirigir a otro método después de eliminar
+                                window.location.href = "/fichasAsegurado/" +idusuario;
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        }
+        
+    </script>
 
 </body>
 

@@ -422,13 +422,13 @@
        <script src="../../../../assets/libs/selectize/js/standalone/selectize.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
        <script>
         $(document).ready(function () {
-            
           $('#form1').submit(function (event) {
             event.preventDefault();
             var form = document.getElementById("form1");
-            var action = form.action;
             var formData = $(this).serialize();
       
             $.ajax({
@@ -436,22 +436,28 @@
               url: $(this).attr('action'),
               data: formData,
               contentType: 'application/x-www-form-urlencoded',
-              success: function (response) {
-        
-                $("#TablaFicha").html(response);
-      
+              success: function (response, status, xhr) {
+                if (xhr.status === 204) {
+                 
+                    Swal.fire({
+                            title: 'No hay fichas activas para el CI proporcionado.',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                } else {
+                  $("#TablaFicha").html(response);
+                }
               },
               error: function (xhr, status, error) {
                 toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
                 console.error(error);
-                // Manejo de errores
               }
             });
-      
           });
         });
       </script>
-
+      
 </body>
 
 </html>

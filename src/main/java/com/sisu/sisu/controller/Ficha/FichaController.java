@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sisu.sisu.Dao.HorarioServicioDao;
 import com.sisu.sisu.Dao.PersonalMedicoDao;
@@ -151,7 +152,30 @@ public class FichaController {
         System.out.println(listFichas.size());
         System.out.println(id_usuario);
         model.addAttribute("fichas", listFichas);
+        model.addAttribute("idUsuario", usuario.getIdUsuario());
 
         return "Fichas/listaFichaP";
     }
+    @PostMapping(value = "/rechazar-ficha/{idFicha}")
+    @ResponseBody
+    public void rechazarFicha(HttpServletRequest request, Model model,
+            @PathVariable("idFicha") int idFicha) {
+                Ficha ficha = fichaService.findOne(idFicha);
+                ficha.setEstado("X");
+                fichaService.save(ficha);
+     
+
+    }
+
+    @PostMapping(value = "/completar-ficha/{idFicha}")
+    @ResponseBody
+    public void completarFicha(HttpServletRequest request, Model model,
+            @PathVariable("idFicha") int idFicha) {
+                Ficha ficha = fichaService.findOne(idFicha);
+                ficha.setEstado("AAA");
+                fichaService.save(ficha);
+     
+
+    }
+ 
 }

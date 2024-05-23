@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+
+
+
+<!-- Bootstrap Core Css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style type="text/css">
+    body {
+        font-size: 10px;
+        line-height: 1;
+    }
+
+    h6 {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 2px 0;
+        /* Ajusta el tamaño según lo que necesites */
+    }
+
+    #nota {
+        margin-top: 0px;
+    }
+
+    #tabla1 {
+        margin-bottom: 5px;
+    }
+
+    #tabla2 {
+        margin-bottom: 5px;
+    }
+
+    #tabla3 {
+        margin-bottom: 0px;
+    }
+
+    #tabla4 {
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
+
+    #tabla5 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    /* Establecer el tamaño de la hoja a carta (8.5x11 pulgadas) */
+    @page {
+        size: 8.5in 11in;
+        margin: 0.5in;
+        /* Márgenes de 0.5 pulgadas en cada lado */
+    }
+
+    /* Estilos para el pie de página */
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #f0f0f0;
+    }
+
+
+
+    #footer img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Estilos para centrar el contenido en la fila */
+    .text-center {
+        text-align: center;
+
+    }
+
+    /* Estilos para alinear el contenido a la derecha */
+    .text-end {
+        text-align: right;
+    }
+</style>
+
+<body>
+    <script>
+        function comprobarAncho() {
+            var altoContenido = window.innerHeight - 50;
+            var footer = document.getElementById('footer');
+
+            if (!(altoContenido < 600)) {
+                footer.style.position = 'relative';
+            } else {
+                footer.style.position = 'fixed';
+            }
+        }
+
+        function imprimirPagina() {
+            // Establecer el tamaño de hoja por defecto como CARTA
+
+            // Llamar a la función de impresión
+            window.print();
+        }
+
+        // Llama a la función comprobarAncho cuando se carga la página y cuando se cambia el tamaño de la ventana.
+        window.onload = function () {
+            comprobarAncho();
+            imprimirPagina();
+        };
+
+        window.addEventListener('resize', comprobarAncho);
+    </script>
+    <div class="container-fluid">
+        <header>
+            <div class="row">
+                <table class="table table-bordered border-dark table-sm" id="tabla1">
+                    <tbody>
+                        <tr>
+                            <th class="text-center" width="20%"><img src="../../../../assets/images/logo UAP.png"
+                                    width="55" height="55"></th>
+                            <th class="text-center" width="60%">
+                                <h6>UNIVERSIDAD AMAZÓNICA DE PANDO</h6>
+                                <h6>SISTEMA INTEGRAL SOCIAL UNIVERSITARIO</h6>
+                                <h6>HISTORIA CLINICA</h6>
+                            <th class="text-center" width="20%"><img src="../../../../assets/images/logoS.png"
+                                    width="60" height="55"></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </header>
+        <div class="row">
+            <table class="table table-bordered border-dark table-sm" id="tabla2">
+                <tbody>
+                    
+                    <tr>
+                        <th scope="row" width="20%">NOMBRE :</th>
+                        <td > Marco Alejandro Cuellar Ferreira</td>
+                       
+                        <th>COD. ASEGURADO :</th>
+                        <td>DFG4216537</td>
+                        <th >FECHA :</th>
+                        <td >2024-05-23</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">MOTIVO DE LA CONSULTA :</th>
+                        <td colspan="5">Chequeo General</td>
+                    </tr>
+                    <tr>
+                        <th colspan="6" >HISTORIA ENFERMEDAD ACTUAL: </th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="text-center">EXAMEN FÍSICO GENERAL</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" >SIGNOS VITALES
+                            <p></p>
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">Presión arterial:</p><p style="display: inline; margin: 0 5px; ">2</p><p style="display: inline; margin: 0 5px; ">mmHg</p>
+                                <p style="display: inline; margin: 0 5px; ">Frecuencia Cardiaca:</p><p style="display: inline; margin: 0 5px; ">2</p><p style="display: inline; margin: 0 5px; ">lpm</p>
+                                <p style="display: inline; margin: 0 5px; ">Frecuencia Respiratoria:</p><p style="display: inline; margin: 0 5px; ">120</p><p style="display: inline; margin: 0 5px; ">rpm</p>
+                                <p style="display: inline; margin: 0 5px; ">Temperatura Corporal:</p><p style="display: inline; margin: 0 5px; ">120</p><p style="display: inline; margin: 0 5px; ">C</p>
+
+                            </p>
+                           
+                            <p style="display: inline; margin: 0 5px; ">Peso:</p><p style="display: inline; margin: 0 5px; ">70</p><p style="display: inline; margin: 0 5px; ">kg</p>
+                            <p style="display: inline; margin: 0 5px; ">Talla:</p><p style="display: inline; margin: 0 5px; ">1.70</p><p style="display: inline; margin: 0 5px; ">m</p>
+                            <p style="display: inline; margin: 0 5px; ">IMC:</p><p style="display: inline; margin: 0 5px; ">22</p>
+                        
+
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="text-center">EXAMEN FÍSICO SEGMENTARIO</th>
+                    </tr>
+                    <tr>
+                        <th scope="row">PIEL Y MUCOSAS :</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">CABEZA Y CUELLO :</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">SISTEMA CARDIOVASCULAR :</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">SISTEMA RESPIRATORIO :</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ABDOMEN :</th>
+                        <td colspan="5"></td>
+                    </tr>
+                   
+                    <tr>
+                        <th colspan="6" class="text-center">EXAMEN OBSTÉTRICO</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" >
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">A.F.U.:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">Posición:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">Situación:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">Presentación:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">Movimientos Fetales:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">D.U.:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                
+
+                            </p>
+                            <p style="display: inline; margin: 0 5px; ">Tacto Vaginal:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                            <p></p>
+                            ANTECEDENTES OBSTÉTRICOS
+                            
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">Menarca:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">PAP:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">G:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">P:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">A:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">C:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">FUM:</p><p style="display: inline; margin: 0 5px; ">???</p>
+
+                            </p>
+
+                           
+                           
+                        
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+        <div class="row">
+
+            <table class="table table-bordered border-dark table-sm" id="tabla5">
+                <tbody>
+                    <tr height="70">
+                        <th class="text-center" width="50%">
+                            <th:block>MEDICO ENCARGADO</th:block>
+                        </th>
+
+                        <th class="text-center" width="50%">
+                            <th:block>PACIENTE</th:block>
+                        </th>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <footer>
+            <div id="footer">
+                <table>
+                    <tbody>
+
+                        <tr class="text-center">
+                            <th width="10%">
+                                <span>www.uap.edu.bo</span>
+                            </th>
+                            <td width="20%">
+
+                            </td>
+                            <td width="70%" class="text-end">
+                                <img src="../../../../images/logo.webp" width="150" height="40">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!-- Jquery Core Js -->
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+lfU1zK9z6v4iOmz5n5zce7gQipzRZ5z5w5j5Pzp5Qf5r5Pzp"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-Xe8dpq5lRs2s7x2J5w0nZt77jXnFqYeLs4z5j5z5z5g5B2p5kz5Sf5S5O5i5P5Z5z"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
