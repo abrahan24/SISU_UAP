@@ -124,6 +124,15 @@ public class HistoriaClinica implements Serializable {
 	@Column(name = "menarca")
 	private String menarca;
 
+	@Column(name = "pap")
+	private String pap; //Papanicolaou
+
+	@Column(name = "fum")
+	private String fum; //FUM Fecha de la Última Menstruación
+
+	@Column(name = "num_hijos")
+	private String num_hijos; //C
+
 	@Column(name = "menst_ritmo")
 	private String menstRitmo;
 
@@ -147,6 +156,33 @@ public class HistoriaClinica implements Serializable {
 
 	@Column(name = "metodo_anticeptivo")
 	private String metodoAnticeptivo;
+
+	// ----------EXAMEN OBSTÉTRICO-------------
+	@Column(name = "afu")
+	private String afu; //A.F.U. Altura del Fondo Uterino
+
+	@Column(name = "posicion_feto")
+	private String posicion_feto; //Se refiere a la posición del feto dentro del útero en relación con la pelvis materna
+
+	@Column(name = "situacion_feto")
+	private String situacion_feto; //se refiere a la parte del cuerpo fetal que está más cercana al canal del parto
+
+	@Column(name = "presentacion_feto")
+	private String presentacion_feto; //describe la parte del cuerpo fetal que está más próxima al canal del parto
+
+	@Column(name = "movimiento_fetal")
+	private String movimiento_fetal; // indica si la paciente percibe los movimientos del feto dentro del útero
+
+	@Column(name = "du")
+	private String du; // Diámetro Uterino
+
+	@Column(name = "tacto_vaginal")
+	private String tacto_vaginal; 
+
+	@Column(name = "especulo")
+	private String especulo; // instrumento médico utilizado en ginecología para examinar la vagina y el cuello uterino de una paciente
+
+
 
 	// ----------ESTADO DEL PACIENTE IMPRESIÓN GENERAL-------------
 
@@ -182,6 +218,9 @@ public class HistoriaClinica implements Serializable {
 
 	@Column(name = "tratamiento")
 	private String tratamiento;
+
+	@Column(name = "conducta")
+	private String conducta;
 
 	@Column(name = "imc")
 	private String imc;

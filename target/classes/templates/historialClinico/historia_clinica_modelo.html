@@ -145,19 +145,19 @@
                     
                     <tr>
                         <th scope="row" width="20%">NOMBRE :</th>
-                        <td th:value="${asegurado.persona.nombres} + ' ' + ${asegurado.persona.apPaterno} + ' ' + ${asegurado.persona.apMaterno}"></td>
+                        <td th:text="${asegurado.persona.nombres} + ' ' + ${asegurado.persona.apPaterno} + ' ' + ${asegurado.persona.apMaterno}"></td>
                        
                         <th>COD. ASEGURADO :</th>
-                        <td th:value="${asegurado.codigoAsegurado}"></td>
+                        <td th:text="${asegurado.codigoAsegurado}"></td>
                         <th >FECHA :</th>
-                        <td th:value="${fechaH}"></td>
+                        <td th:text="${fechaH}"></td>
                     </tr>
                     <tr>
                         <th scope="row">MOTIVO DE LA CONSULTA :</th>
                         <td colspan="5" th:text="${historiaClinica.motivoConsulta}"></td>
                     </tr>
                     <tr>
-                        <th scope="row">HISTORIA ENFERMEDAD ACTUAL:</th>
+                        <th scope="row">ENFERMEDAD ACTUAL:</th>
                         <th colspan="5" th:text="${historiaClinica.enfermedadActual}"> </th>
                       
                     </tr>
@@ -204,40 +204,86 @@
                     </tr>
                    
                     <tr>
-                        <th colspan="6" class="text-center">EXAMEN OBSTÉTRICO</th>
+                        <th colspan="6" class="text-center">ANTECEDENTES OBSTÉTRICOS</th>
                     </tr>
                     <tr>
                         <th colspan="6" >
                             <p>
-                                <p style="display: inline; margin: 0 5px; ">A.F.U.:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">Posición:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">Situación:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">Presentación:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">Movimientos Fetales:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">D.U.:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                
-
-                            </p>
-                            <p style="display: inline; margin: 0 5px; ">Tacto Vaginal:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                            <p></p>
-                            ANTECEDENTES OBSTÉTRICOS
-                            
-                            <p>
                                 <p style="display: inline; margin: 0 5px; ">Menarca:</p><p th:text="${historiaClinica.menarca}" style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">PAP:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">G:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">P:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">A:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">C:</p><p style="display: inline; margin: 0 5px; ">???</p>
-                                <p style="display: inline; margin: 0 5px; ">FUM:</p><p style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">PAP:</p><p th:text="${historiaClinica.pap}" style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">G:</p><p th:text="${historiaClinica.numeroEmbarazos}" style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">P:</p><p th:text="${historiaClinica.numeroPartos}" style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">A:</p><p th:text="${historiaClinica.numeroAbortos}" style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">C:</p><p th:text="${historiaClinica.num_hijos}" style="display: inline; margin: 0 5px; ">???</p>
+                                <p style="display: inline; margin: 0 5px; ">FUM:</p><p th:text="${historiaClinica.fum}" style="display: inline; margin: 0 5px; ">???</p>
 
                             </p>
+                        </th>
+                         
+                      
+                            
+                          
+                    </tr>
 
-                           
-                           
-                        
+                    <tr>
+                        <th colspan="6" class="text-center"> EXAMEN OBSTÉTRICO</th>
 
                     </tr>
+                    <tr>
+                        <th colspan="6" >
+                        <p>
+                            <p style="display: inline; margin: 0 5px; ">A.F.U.:</p><p th:text="${historiaClinica.afu}" style="display: inline; margin: 0 5px; ">???</p>
+                            <p style="display: inline; margin: 0 5px; ">Posición:</p><p th:text="${historiaClinica.posicion_feto}" style="display: inline; margin: 0 5px; ">???</p>
+                            <p style="display: inline; margin: 0 5px; ">Situación:</p><p th:text="${historiaClinica.situacion_feto}" style="display: inline; margin: 0 5px; ">???</p>
+                            <p style="display: inline; margin: 0 5px; ">Presentación:</p><p th:text="${historiaClinica.presentacion_feto}" style="display: inline; margin: 0 5px; ">???</p>
+                            <p style="display: inline; margin: 0 5px; ">Movimientos Fetales:</p><p th:text="${historiaClinica.movimiento_fetal}" style="display: inline; margin: 0 5px; ">???</p>
+                            <p style="display: inline; margin: 0 5px; ">D.U.:</p><p th:text="${historiaClinica.du}" style="display: inline; margin: 0 5px; ">???</p>
+                            
+
+                        </p>
+                    </th>
+              
+                       
+                    
+                    </tr>
+                    <tr>
+                        <th colspan="6" >
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">Tacto Vaginal:</p><p th:text="${historiaClinica.tacto_vaginal}"  style="display: inline; margin: 0 5px; ">???</p>
+                            </p>
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">Espéculo:</p><p th:text="${historiaClinica.especulo}" style="display: inline; margin: 0 5px; ">???</p>
+                            </p>
+                            <p>
+                                <p style="display: inline; margin: 0 5px; ">Extremidades:</p><p th:text="${historiaClinica.extremidades}" style="display: inline; margin: 0 5px; ">???</p>
+                            </p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="text-center"> DIAGNÓSTICOS</th>
+
+                    </tr>
+                    <tr>
+                        <th colspan="6" >
+                            <p>
+                                <p style="display: inline; margin: 0 5px; " th:text="${historiaClinica.diagnostico}"></p>
+                            </p>
+                          
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" class="text-center" > CONDUCTA</th>
+
+                    </tr>
+                    <tr>
+                        <th colspan="6" >
+                            <p>
+                                <p style="display: inline; margin: 0 5px; " th:text="${historiaClinica.conducta}"></p>
+                            </p>
+                          
+                        </th>
+                    </tr>
+                   
                 </tbody>
             </table>
         </div>
@@ -263,24 +309,7 @@
 
 
         <footer>
-            <div id="footer">
-                <table>
-                    <tbody>
-
-                        <tr class="text-center">
-                            <th width="10%">
-                                <span>www.uap.edu.bo</span>
-                            </th>
-                            <td width="20%">
-
-                            </td>
-                            <td width="70%" class="text-end">
-                                <img src="../../../../images/logo.webp" width="150" height="40">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           
         </footer>
 
     </div>

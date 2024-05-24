@@ -36,11 +36,15 @@ public class HistoriaClinicaController {
     private IAseguradoService aseguradoService;
 
 
-    @GetMapping(value = "/verModeloHistoria")
+    @GetMapping(value = "/verModeloHistoria/{idHistoriaClinica}")
     public String verModeloHistoria(
-            Model model) {
-
-        
+            Model model,@PathVariable(name = "idHistoriaClinica")Integer idHistoriaClinica) {
+                HistoriaClinica historiaClinica = historiaClinicaService.findOne(idHistoriaClinica);
+                LocalDate fecha = historiaClinica.getFechaAtencionMedica().toInstant().atZone(ZoneId.systemDefault())
+                .toLocalDate();
+                model.addAttribute("asegurado", historiaClinica.getHistorialSeguro().getAsegurado());
+                model.addAttribute("historiaClinica", historiaClinica);
+                model.addAttribute("fechaH", fecha);
 
         return "historialClinico/historia_clinica_modelo";
     }
@@ -84,6 +88,7 @@ public class HistoriaClinicaController {
             historiaClinica.setEstadoHistoriaClinica("A");
             historiaClinica.setFechaAtencionMedica(new Date());
             historiaClinica.setRegistro(new Date());
+            historiaClinica.setHistorialSeguro(historialSeguroService.findOne(idHistorialSeguro));
             historiaClinicaService.save(historiaClinica);
             model.addAttribute("historialSeguro", historialSeguroService.findOne(idHistorialSeguro));
             model.addAttribute("asegurado", aseguradoService.findOne(idAsegurado));
@@ -101,7 +106,7 @@ public class HistoriaClinicaController {
                     .toLocalTime();
             model.addAttribute("fechaH", fecha);
             model.addAttribute("horaH", hora);
-            return "historialClinico/historia_clinica_modelo";
+            return "redirect:/verModeloHistoria/"+ historiaClinica.getIdHistoriaClinica();
         } catch (Exception e) {
 
             return "redirect:/formHistorialClinico";

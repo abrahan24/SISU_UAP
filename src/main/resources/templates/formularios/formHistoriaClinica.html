@@ -25,6 +25,10 @@
     <!-- App Css-->
     <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
+    <style>
+       
+    </style>
+
 </head>
 
 <body data-topbar="colored">
@@ -154,7 +158,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" id="seccion1-tab" data-toggle="tab"
                                                 href="#seccion1" role="tab" aria-controls="home"
-                                                aria-selected="true">Signos Vitales</a>
+                                                aria-selected="true">Examen Físico general</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="seccion2-tab" data-toggle="tab" href="#seccion2"
@@ -178,6 +182,11 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="seccion6-tab" data-toggle="tab" href="#seccion6"
+                                                role="tab" aria-controls="contact" aria-selected="false">Examen
+                                                Obstétrico</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="seccion7-tab" data-toggle="tab" href="#seccion7"
                                                 role="tab" aria-controls="contact" aria-selected="false">Estado del
                                                 Paciente</a>
                                         </li>
@@ -196,25 +205,36 @@
                                                     <div class="card-body">
                                                         <fieldset>
                                                             <div class="row">
+                                                                <!-- CAMPO PESO -->
+
                                                                 <div class="col-md-3">
-                                                                    <label for="peso">PESO</label>
+                                                                    <label for="peso">PESO   <i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="El peso debe ser un número válido (ej. 60,
+                                                                        70.8)"></i> 
+                                                                       
+                                                                    </label>
                                                                     <div class="form-group">
                                                                         <div class="input-group">
-                                                                            <input type="text"  th:field="${historiaClinica.peso}" class="form-control datepickerformM" id="peso" placeholder="" >
+                                                                            <input type="text" class="form-control"
+                                                                                id="peso" placeholder="" required>
                                                                             <div class="input-group-append">
                                                                                 <span class="input-group-text">kg</span>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
+                                                                        
                                                                     </div>
                                                                 </div>
+                                                                <!-- CAMPO PESO -->
+
                                                                 <div class="col-md-3">
-                                                                    <label for="talla">TALLA</label>
+                                                                    <label for="talla">ALTURA <i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="La altura debe ser un número válido (ej. 1.68,
+                                                                        1.70)"></i> 
+                                                                       </label>
                                                                     <div class="form-group">
                                                                         <div class="input-group">
-                                                                            <input type="text" th:field="${historiaClinica.talla}" class="form-control datepickerformM" id="talla" placeholder="" >
+                                                                            <input type="text"
+                                                                                th:field="${historiaClinica.talla}"
+                                                                                class="form-control "
+                                                                                id="talla" placeholder="" required>
                                                                             <div class="input-group-append">
                                                                                 <span class="input-group-text">m</span>
                                                                             </div>
@@ -225,12 +245,15 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <label for="imc">IMC</label>
+                                                                    <label for="imc">IMC <i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="El valor de este campo se calcula automaticamente del peso y altura ingresada"></i> </label>
                                                                     <div class="form-group">
                                                                         <div class="input-group">
-                                                                            <input type="text" th:field="${historiaClinica.imc}" class="form-control" id="imc" readonly>
+                                                                            <input type="text"
+                                                                                th:field="${historiaClinica.imc}"
+                                                                                class="form-control" id="imc" readonly>
                                                                             <div class="input-group-append">
-                                                                                <span class="input-group-text">kg/m²</span>
+                                                                                <span
+                                                                                    class="input-group-text">kg/m²</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -241,31 +264,29 @@
 
                                                                 <div class="col-md-3">
                                                                     <label for="validationCustom02">PRESIÓN
-                                                                        ARTERIAL</label>
+                                                                        ARTERIAL<i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="Ingrese un valor válido por ejemplo, 120/80 "></i></label>
                                                                     <div class="form-group">
                                                                         <div class="input-group">
                                                                             <input type="text"
                                                                                 class="form-control datepickerformM"
                                                                                 th:field="${historiaClinica.presionArterial}"
-                                                                                placeholder="" >
+                                                                                placeholder="" required>
                                                                             <div class="input-group-append">
                                                                                 <span
                                                                                     class="input-group-text">mmHg</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
+                                                                 
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label for="validationCustom02">FRECUENCIA
-                                                                        CARDIACA</label>
+                                                                        CARDIACA <i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="Ingrese un valor válido por ejemplo, 70 "></i></label>
                                                                     <div class="input-group">
                                                                         <input type="text"
                                                                             class="form-control datepickerformM"
                                                                             th:field="${historiaClinica.frecuenciaCardiaca}"
-                                                                            placeholder="" >
+                                                                            placeholder="" required>
                                                                         <div class="input-group-append">
                                                                             <span class="input-group-text">lpm</span>
                                                                         </div>
@@ -276,12 +297,12 @@
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label for="validationCustom02">FRECUENCIA
-                                                                        RESPIRATORIA</label>
+                                                                        RESPIRATORIA <i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="Ingrese un valor válido por ejemplo, 16 "></i></label>
                                                                     <div class="input-group">
                                                                         <input type="text"
                                                                             class="form-control datepickerformM"
                                                                             th:field="${historiaClinica.frecuenciaRespiratoria}"
-                                                                            placeholder="" >
+                                                                            placeholder="" required>
                                                                         <div class="input-group-append">
                                                                             <span class="input-group-text">rpm</span>
                                                                         </div>
@@ -292,12 +313,12 @@
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label for="validationCustom02">TEMPERATURA
-                                                                        CORPORAL</label>
+                                                                        CORPORAL<i style="font-size: 18px;"class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="Ingrese un valor válido Por ejemplo, 36.5 "></i></label>
                                                                     <div class="input-group">
                                                                         <input type="text"
                                                                             class="form-control datepickerformM"
                                                                             th:field="${historiaClinica.temperaturaCorporal}"
-                                                                            placeholder="" >
+                                                                            placeholder="" required>
                                                                         <div class="input-group-append">
                                                                             <span class="input-group-text">C</span>
                                                                         </div>
@@ -330,7 +351,7 @@
                                                                 <label for="validationCustom02">DOMICILIO:</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     th:field="${historiaClinica.domicilioInformante}"
-                                                                    placeholder="" >
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
@@ -340,7 +361,7 @@
                                                                     DE CONSULTA:</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     th:field="${historiaClinica.motivoConsulta}"
-                                                                    placeholder="" >
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
@@ -351,7 +372,7 @@
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     name="fechaFinal"
                                                                     th:field="${historiaClinica.enfermedadActual}"
-                                                                    placeholder="" >
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
@@ -367,7 +388,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                         
+
                                             <div class="tab-pane fade" id="seccion5" role="tabpanel"
                                                 aria-labelledby="contact-tab">
                                                 <div class="card">
@@ -380,93 +401,70 @@
                                                             <div class="col-md-3">
                                                                 <label for="validationCustom02">Menarca:</label>
                                                                 <input type="text" class="form-control datepickerformM"
-                                                                    th:field="${historiaClinica.menarca}" placeholder=""
-                                                                    >
+                                                                    th:field="${historiaClinica.menarca}"
+                                                                    placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">Menst.
-                                                                    Ritmo:</label>
+                                                                <label for="validationCustom02">PAP:</label>
                                                                 <input type="text" class="form-control datepickerformM"
-                                                                    th:field="${historiaClinica.menstRitmo}"
-                                                                    placeholder="" >
+                                                                    th:field="${historiaClinica.pap}" placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">Met.
-                                                                    Anticeptivo:</label>
-                                                                <input type="text" class="form-control datepickerformM"
-                                                                    th:field="${historiaClinica.metodoAnticeptivo}"
-                                                                    placeholder="" >
-                                                                <div class="valid-feedback">
-                                                                    Looks good!
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="validationCustom02">Menopausia:</label>
-                                                                <input type="text" class="form-control datepickerformM"
-                                                                    th:field="${historiaClinica.menopausia}"
-                                                                    placeholder="" >
-                                                                <div class="valid-feedback">
-                                                                    Looks good!
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="validationCustom02">Nro. de
-                                                                    Embarazos:</label>
+                                                                <label for="validationCustom02">G:</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     th:field="${historiaClinica.numeroEmbarazos}"
-                                                                    placeholder="" >
+                                                                    placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">Nro. de Partos:</label>
+                                                                <label for="validationCustom02">P:</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     th:field="${historiaClinica.numeroPartos}"
-                                                                    placeholder="" >
+                                                                    placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
+
+
+
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">Nro. de Abortos:</label>
+                                                                <label for="validationCustom02">A:</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     th:field="${historiaClinica.numeroAbortos}"
-                                                                    placeholder="" >
+                                                                    placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">Nro. de
-                                                                    Cesarias:</label>
+                                                                <label for="validationCustom02">C:</label>
                                                                 <input type="text" class="form-control datepickerformM"
-                                                                    th:field="${historiaClinica.numeroCesarias}"
-                                                                    placeholder="" >
+                                                                    th:field="${historiaClinica.num_hijos}"
+                                                                    placeholder="">
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-2">
-                                                                <fieldset>
-                                                                    <label for="validationCustom02">Vida
-                                                                        sexual:</label>
-                                                                    <input th:field="${historiaClinica.vidaSexual}"
-                                                                        type="radio" name="vs" value="+"
-                                                                        style=" margin: 0 12px;" >SI
-                                                                    <input th:field="${historiaClinica.vidaSexual}"
-                                                                        type="radio" name="vs" value="-"
-                                                                        style=" margin:  0 12px;" >NO
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
-                                                                </fieldset>
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">FUM:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.fum}" placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -480,7 +478,126 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="tab-pane fade" id="seccion6" role="tabpanel"
+                                                aria-labelledby="contact-tab">
+                                                <div class="card">
+                                                    <div class="card-header" style="background-color: white;">
+                                                        <h4 class="header-title">Examen Obstétrico</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">A.F.U.:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.afu}" placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Posición:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.posicion_feto}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Situación:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.situacion_feto}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Presentación:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.presentacion_feto}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Movimientos
+                                                                    Fetales:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.movimiento_fetal}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">D.U.:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.du}" placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Tacto Vaginal:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.tacto_vaginal}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">Espéculo:</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    th:field="${historiaClinica.especulo}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">EXTREMIDADES</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    name="fechaFinal"
+                                                                    th:field="${historiaClinica.extremidades}"
+                                                                    placeholder="">
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="card-footer d-flex justify-content-between"
+                                                        style="background-color: rgb(255, 255, 255);">
+                                                        <a type="button" class="btn btn-info" style="color: white; "
+                                                            onclick="cambiarSeccion(5)">Atrás</a>
+
+                                                        <a type="button" class="btn btn-info" style="color: white;"
+                                                            onclick="cambiarSeccion(7)">Siguiente</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="tab-pane fade" id="seccion7" role="tabpanel"
                                                 aria-labelledby="contact-tab">
                                                 <div class="card">
                                                     <div class="card-header" style="background-color: white;">
@@ -495,108 +612,76 @@
                                                                 <label for="validationCustom02">PIEL Y MUCOSA</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     name="fechaFinal"
-                                                                    th:field="${historiaClinica.piel_mucosa}" placeholder=""
-                                                                    >
+                                                                    th:field="${historiaClinica.piel_mucosa}"
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
 
-                                                          
-                                                                <div class="col-md-3">
-                                                                    <label for="validationCustom02">CABEZA Y CUELLO</label>
-                                                                    <input type="text" class="form-control datepickerformM"
-                                                                        name="fechaFinal"
-                                                                        th:field="${historiaClinica.cabeza_cuello}" placeholder=""
-                                                                        >
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="col-md-3">
-                                                                    <label for="validationCustom02">SISTEMA CARDIOVASCULAR</label>
-                                                                    <input type="text" class="form-control datepickerformM"
-                                                                        name="fechaFinal"
-                                                                        th:field="${historiaClinica.cardiovascular}" placeholder=""
-                                                                        >
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
+                                                            <div class="col-md-3">
+                                                                <label for="validationCustom02">CABEZA Y CUELLO</label>
+                                                                <input type="text" class="form-control datepickerformM"
+                                                                    name="fechaFinal"
+                                                                    th:field="${historiaClinica.cabeza_cuello}"
+                                                                    placeholder="" required>
+                                                                <div class="valid-feedback">
+                                                                    Looks good!
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="col-md-3">
-                                                                    <label for="validationCustom02">SISTEMA RESPIRATORIO</label>
-                                                                    <input type="text" class="form-control datepickerformM"
-                                                                        name="fechaFinal"
-                                                                        th:field="${historiaClinica.respiratorio}" placeholder=""
-                                                                        >
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
-                                                                </div>
-                                                           
-                                                                <div class="col-md-3">
-                                                                    <label for="validationCustom02">ABDOMEN</label>
-                                                                    <input type="text" class="form-control datepickerformM"
-                                                                        name="fechaFinal"
-                                                                        th:field="${historiaClinica.abdomen}" placeholder=""
-                                                                        >
-                                                                    <div class="valid-feedback">
-                                                                        Looks good!
-                                                                    </div>
-                                                                </div>
-                                                           
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">EXTREMIDADES</label>
+                                                                <label for="validationCustom02">SISTEMA
+                                                                    CARDIOVASCULAR</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     name="fechaFinal"
-                                                                    th:field="${historiaClinica.extremidades}"
-                                                                    placeholder="" >
+                                                                    th:field="${historiaClinica.cardiovascular}"
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">NEUROLOGICO</label>
+                                                                <label for="validationCustom02">SISTEMA
+                                                                    RESPIRATORIO</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     name="fechaFinal"
-                                                                    th:field="${historiaClinica.neurologico}"
-                                                                    placeholder="" >
+                                                                    th:field="${historiaClinica.respiratorio}"
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">EXAMENES
-                                                                    COMPLEMENTARIOS</label>
+                                                                <label for="validationCustom02">ABDOMEN</label>
                                                                 <input type="text" class="form-control datepickerformM"
                                                                     name="fechaFinal"
-                                                                    th:field="${historiaClinica.examenesComplementarios}"
-                                                                    placeholder="" >
+                                                                    th:field="${historiaClinica.abdomen}"
+                                                                    placeholder="" required>
                                                                 <div class="valid-feedback">
                                                                     Looks good!
                                                                 </div>
                                                             </div>
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">DIAGNOSTICO</label>
-                                                                <input type="text" class="form-control datepickerformM"
-                                                                    name="fechaFinal"
-                                                                    th:field="${historiaClinica.diagnostico}"
-                                                                    placeholder="" >
-                                                                <div class="valid-feedback">
-                                                                    Looks good!
-                                                                </div>
+                                                                <label>DIAGNOSTICO</label>
+
+                                                                <textarea th:field="${historiaClinica.diagnostico}"
+                                                                    id="textarea" class="form-control" maxlength="225"
+                                                                    rows="3" placeholder="..." required></textarea>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="validationCustom02">TRATAMIENTO</label>
-                                                                <input type="text" class="form-control datepickerformM"
-                                                                    name="fechaFinal"
-                                                                    th:field="${historiaClinica.tratamiento}"
-                                                                    placeholder="" >
-                                                                <div class="valid-feedback">
-                                                                    Looks good!
-                                                                </div>
+                                                                <label>CONDUCTA</label>
+
+                                                                <textarea th:field="${historiaClinica.conducta}"
+                                                                    id="textarea" class="form-control" maxlength="225"
+                                                                    rows="3" placeholder="..." required></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -604,7 +689,7 @@
                                                 <div class="card-footer d-flex justify-content-between"
                                                     style="background-color: rgb(255, 255, 255);">
                                                     <a type="button" class="btn btn-info" style="color: white; "
-                                                        onclick="cambiarSeccion(5)">Atrás</a>
+                                                        onclick="cambiarSeccion(6)">Atrás</a>
                                                     <input type="submit" class="btn btn-success" value="Registrar">
                                                 </div>
                                             </div>
@@ -671,69 +756,100 @@
     <script src="../../../../assets/js/app.js"></script>
 
     <script>
-        // $(document).ready(function () {
-        //     // radio Patologia
 
-        //     $('input[name="radioPatologia"]').change(function () {
-        //         // Verifica si la opción seleccionada es "retencion"
-        //         if ($(this).val() === 'OTROSpatologia') {
-        //             //alert('AAAAAAAAAAA');
-        //             $('#inputPatologia').html('<input type="text" class="form-control datepickerformM" ' +
-        //                 'id="otrosInput1" name="patolgiaImput"' +
-        //                 'placeholder="Escriba otra Patología" required>' +
-        //                 '<div class="valid-feedback">Looks good!</div>');
-        //             document.querySelectorAll('.form-outline').forEach((formOutline) => {
-        //                 new mdb.Input(formOutline).init();
-        //             });
-        //         } else {
-        //             $('#inputPatologia').html('');
-        //         }
-        //     });
-
-        //     // radio factores de riesgo
-        //     $('input[name="factoresRiesgo"]').change(function () {
-        //         // Verifica si la opción seleccionada es "retencion"
-        //         if ($(this).val() === 'OtroFactoresRiesgo') {
-        //             //alert('AAAAAAAAAAA');
-        //             $('#factorInput').html('<input type="text" class="form-control datepickerformM" ' +
-        //                 ' name="factorImput"' +
-        //                 'placeholder="Escriba otro factor de riesgo" required>' +
-        //                 '<div class="valid-feedback">Looks good!</div>');
-        //             document.querySelectorAll('.form-outline').forEach((formOutline) => {
-        //                 new mdb.Input(formOutline).init();
-        //             });
-        //         } else {
-        //             $('#factorInput').html('');
-        //         }
-        //     });
-        // });
 
         function cambiarSeccion(id) {
             $('#seccion' + id + '-tab').click();
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-        const pesoInput = document.getElementById("peso");
-        const tallaInput = document.getElementById("talla");
-        const imcInput = document.getElementById("imc");
+        document.addEventListener("DOMContentLoaded", function () {
+            const pesoInput = document.getElementById("peso");
+            const tallaInput = document.getElementById("talla");
+            const imcInput = document.getElementById("imc");
 
-        function calculateIMC() {
-            const peso = parseFloat(pesoInput.value);
-            const talla = parseFloat(tallaInput.value);
+            function calculateIMC() {
+                const peso = parseFloat(pesoInput.value);
+                const talla = parseFloat(tallaInput.value);
 
-            if (!isNaN(peso) && !isNaN(talla) && talla > 0) {
-                const imc = peso / (talla * talla);
-                imcInput.value = imc.toFixed(2); // Mostrar IMC con 2 decimales
-            } else {
-                imcInput.value = ""; // Vaciar el campo si los valores no son válidos
+                if (!isNaN(peso) && !isNaN(talla) && talla > 0) {
+                    const imc = peso / (talla * talla);
+                    imcInput.value = imc.toFixed(2); // Mostrar IMC con 2 decimales
+                } else {
+                    imcInput.value = ""; // Vaciar el campo si los valores no son válidos
+                }
             }
-        }
 
-        pesoInput.addEventListener("input", calculateIMC);
-        tallaInput.addEventListener("input", calculateIMC);
+            pesoInput.addEventListener("input", calculateIMC);
+            tallaInput.addEventListener("input", calculateIMC);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    function validarInput(input, regex, validFeedback, invalidFeedback) {
+        const valor = input.value;
+        if (regex.test(valor)) {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+            validFeedback.style.display = 'block';
+            invalidFeedback.style.display = 'none';
+        } else {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+            invalidFeedback.style.display = 'block';
+            validFeedback.style.display = 'none';
+        }
+    }
+
+    const pesoInput = document.getElementById('peso');
+    const pesoValidFeedback = pesoInput.parentElement.querySelector('.feedback.valid');
+    const pesoInvalidFeedback = pesoInput.parentElement.querySelector('.feedback.invalid');
+    const tallaInput = document.getElementById('talla');
+    const tallaValidFeedback = tallaInput.parentElement.querySelector('.feedback.valid');
+    const tallaInvalidFeedback = tallaInput.parentElement.querySelector('.feedback.invalid');
+    const presionArterialInput = document.getElementById('presionArterial');
+    const presionArterialValidFeedback = presionArterialInput.parentElement.querySelector('.valid-feedback');
+    const presionArterialInvalidFeedback = presionArterialInput.parentElement.querySelector('.invalid-feedback');
+    const frecuenciaCardiacaInput = document.getElementById('frecuenciaCardiaca');
+    const frecuenciaCardiacaValidFeedback = frecuenciaCardiacaInput.parentElement.querySelector('.valid-feedback');
+    const frecuenciaCardiacaInvalidFeedback = frecuenciaCardiacaInput.parentElement.querySelector('.invalid-feedback');
+    const frecuenciaRespiratoriaInput = document.getElementById('frecuenciaRespiratoria');
+    const frecuenciaRespiratoriaValidFeedback = frecuenciaRespiratoriaInput.parentElement.querySelector('.valid-feedback');
+    const frecuenciaRespiratoriaInvalidFeedback = frecuenciaRespiratoriaInput.parentElement.querySelector('.invalid-feedback');
+    const temperaturaCorporalInput = document.getElementById('temperaturaCorporal');
+    const temperaturaCorporalValidFeedback = temperaturaCorporalInput.parentElement.querySelector('.valid-feedback');
+    const temperaturaCorporalInvalidFeedback = temperaturaCorporalInput.parentElement.querySelector('.invalid-feedback');
+
+    const regexDecimal = /^\d+(\.\d{1,2})?$/;
+    const regexEntero = /^\d+$/;
+    const regexPresionArterial = /^(?:\d{2,3}\/\d{2,3}|\d{2,3}-\d{2,3})$/; // Example formats: 120/80 or 120-129
+
+    pesoInput.addEventListener('input', function() {
+        validarInput(pesoInput, regexDecimal, pesoValidFeedback, pesoInvalidFeedback);
     });
+
+    tallaInput.addEventListener('input', function() {
+        validarInput(tallaInput, regexDecimal, tallaValidFeedback, tallaInvalidFeedback);
+    });
+
+    presionArterialInput.addEventListener('input', function() {
+        validarInput(presionArterialInput, regexPresionArterial, presionArterialValidFeedback, presionArterialInvalidFeedback);
+    });
+
+    frecuenciaCardiacaInput.addEventListener('input', function() {
+        validarInput(frecuenciaCardiacaInput, regexEntero, frecuenciaCardiacaValidFeedback, frecuenciaCardiacaInvalidFeedback);
+    });
+
+    frecuenciaRespiratoriaInput.addEventListener('input', function() {
+        validarInput(frecuenciaRespiratoriaInput, regexEntero, frecuenciaRespiratoriaValidFeedback, frecuenciaRespiratoriaInvalidFeedback);
+    });
+
+    temperaturaCorporalInput.addEventListener('input', function() {
+        validarInput(temperaturaCorporalInput, regexDecimal, temperaturaCorporalValidFeedback, temperaturaCorporalInvalidFeedback);
+    });
+});
+
+
     </script>
-  
+
 </body>
 
 </html>
