@@ -128,25 +128,43 @@ public class EnlaceController {
     }
 
     @PostMapping(value = "/guardar_enlace")
-    public ResponseEntity<String> guardar_enlace(@Validated Enlace enlace,
-            @RequestParam(name = "roles") Integer rolesId) {
+    public ResponseEntity<String> guardar_enlace(@Validated Enlace enlace) {
 
         enlace.setEstado("A");
         enlace.setObs("0");
         enlace.setTabla(1);
         enlace.setId_usuario(usuarioService.findOne(1));
 
-        // Crear un conjunto de Roles
-        Set<Roles> rolesSet = new HashSet<>();
-        rolesSet.add(rolesService.findOne(rolesId));
+        enlaceService.save(enlace);
+        return ResponseEntity.ok("1");
+    }
 
-        // Pasar el conjunto al método setRoles
-        enlace.setRoles(rolesSet);
-        System.out.println(enlace.getRoles().size());
+    @PostMapping(value = "/guardar_enlace_hijo")
+    public ResponseEntity<String> guardar_enlace_hijo(@Validated Enlace enlace,@RequestParam(name = "id_Enlace")Integer idEnlace) {
+
+        enlace.setEstado("A");
+        enlace.setObs("1");
+        enlace.setTabla(idEnlace);
+        enlace.setId_usuario(usuarioService.findOne(1));
         enlaceService.save(enlace);
         return ResponseEntity.ok("1");
     }
     
+    @PostMapping(value = "/asignar_enlace_padre")
+    public ResponseEntity<String> asignar_enlace_padre(@Validated Roles roles) {
+
+        roles.setEstado("A");
+        rolesService.save(roles);
+        return ResponseEntity.ok("1");
+    }
+
+    @PostMapping(value = "/asignar_enlace_hijo")
+    public ResponseEntity<String> asignar_enlace_hijo(@Validated Roles roles) {
+
+        roles.setEstado("A");
+        rolesService.save(roles);
+        return ResponseEntity.ok("1");
+    }
 
     /* LISTAR */
     @GetMapping(value = "/ListaEnlace")
@@ -166,17 +184,30 @@ public class EnlaceController {
 
         Roles roles = rolesService.findOne(idRol);
         model.addAttribute("rol", roles);
-        model.addAttribute("enlaces", roles.getEnlaces());
+        model.addAttribute("enlaces", enlaceService.findAll());
         return "content/content_enlace :: modal_enlace";
+    }
+    @GetMapping(value = "/enlaces_hijos/{idRol}")
+    public String mostrar_enlaces_hijos(@PathVariable(name = "idRol")Integer idRol, Model model) {
+
+        Roles roles = rolesService.findOne(idRol);
+        model.addAttribute("rol", roles);
+        model.addAttribute("enlaces", enlaceService.findAll());
+        return "content/content_enlace :: modal_enlace2";
     }
     
     @GetMapping(value = "/nuevo_enlace")
     public String nuevo_enlace(Model model) {
 
-        model.addAttribute("rol", new Roles());
-        model.addAttribute("roles", rolesService.findAll());
         model.addAttribute("enlace", new Enlace());
         return "content/content_enlace :: modal_nuevo_enlace";
+    }
+    @GetMapping(value = "/nuevo_enlace_hijo")
+    public String nuevo_enlace_hijo(Model model) {
+
+        model.addAttribute("enlace", new Enlace());
+        model.addAttribute("enlaces", enlaceService.findAll());
+        return "content/content_enlace :: modal_nuevo_enlace_hijo";
     }
     
 

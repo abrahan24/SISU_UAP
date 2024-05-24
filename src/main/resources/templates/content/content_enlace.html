@@ -1,5 +1,5 @@
 <div th:fragment="modal_enlace">
-    <form th:action="@{/guardar_roles}" id="miFormulario1" method="post">
+    <form th:action="@{/asignar_enlace_padre}" id="miFormulario1" method="post">
         <div class="modal-header bg-success white">
             <h4 class="modal-title" id="myModalLabel9">
                 <div class="fonticon-wrap">
@@ -13,14 +13,25 @@
         <div class="modal-body">
             <h5><i class="fa fa-arrow-right"></i> ENLACES</h5>
     
-            <input  th:field="${rol.idRol}" type="hidden">
+            <input th:field="${rol.idRol}" type="hidden">
+            <input th:field="${rol.descripcion}" type="hidden">
+            <input th:field="${rol.simbolo}" type="hidden">
+            <input th:field="${rol.rol}" type="hidden">
+            <input th:field="${rol.registro}" type="hidden">
+            <input th:field="${rol.modificacion}" type="hidden">
+            <input th:field="${rol.observacion}" type="hidden">
             
             <div class="form-group row">
-                <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
+                <label for="example-time-input" class="col-md-4 col-form-label">ENLACES PADRES HABILITADOS</label>
                 <div class="col-md-8">
-                    <select class="js-example-basic" th:field="${role.}" style="width: 100%;">
-                        <option value="" selected></option>
-                       
+                    <select class="js-example-basic-multiple" multiple="multiple" th:field="${rol.enlaces}" style="width: 100%;">
+                        <!-- <optgroup th:each="e : ${enlaces}" th:if="${e.estado != 'X'}" th:text="${e.nombre_enlace}"
+                        th:value="${e.idEnlace}">
+                            <option th:each="e : ${enlaces}" th:if="${e.estado != 'X'}" th:text="${e.nombre_enlace}"
+                            th:value="${e.idEnlace}"></option>
+                        </optgroup> -->
+                        <option th:each="e : ${enlaces}" th:if="${e.estado != 'X'}" th:text="${e.nombre_enlace}"
+                            th:value="${e.idEnlace}"></option>
                     </select>
                 </div>
             </div>
@@ -30,15 +41,54 @@
             <button type="submit" class="btn btn-outline-success">ENVIAR</button>
         </div>
     </form>
+    <script>
+        $(document).ready(function(){
+            $('#enlaces').select2({
+                placeholder : "Seleccione..."
+            });
+            $('#miFormulario1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario1"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../ListaEnlace";
+                            }, 1600);
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
 </div>
-
-<div th:fragment="modal_nuevo_enlace">
-    <form th:action="@{/guardar_enlace}" id="miFormulario2" method="post">
+<div th:fragment="modal_enlace2">
+    <form th:action="@{/asignar_enlace_hijo}" id="miFormulario4" method="post">
         <div class="modal-header bg-success white">
             <h4 class="modal-title" id="myModalLabel9">
                 <div class="fonticon-wrap">
                     <i class="ft-user-check"></i>
-                </div>FORMULARIO REGISTRO DE ENLACES
+                </div>FORMULARIO ASIGNACION DE ENLACES
             </h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -47,17 +97,88 @@
         <div class="modal-body">
             <h5><i class="fa fa-arrow-right"></i> ENLACES</h5>
     
-            <input th:field="${enlace.idEnlace}" type="hidden">
-<!--             
+            <input th:field="${rol.idRol}" type="hidden">
+            <input th:field="${rol.descripcion}" type="hidden">
+            <input th:field="${rol.simbolo}" type="hidden">
+            <input th:field="${rol.rol}" type="hidden">
+            <input th:field="${rol.registro}" type="hidden">
+            <input th:field="${rol.modificacion}" type="hidden">
+            <input th:field="${rol.observacion}" type="hidden">
+            
             <div class="form-group row">
-                <label for="example-time-input" class="col-md-4 col-form-label">ROLES HABILITADOS</label>
+                <label for="example-time-input" class="col-md-4 col-form-label">ENLACES HIJOS HABILITADOS</label>
                 <div class="col-md-8">
-                    <select class="js-example-basic" th:field="${enlace.roles}" style="width: 100%;">
-                        <option value="" selected></option>
-                        <option th:each="r : ${roles}" th:if="${r.estado != 'X'}" th:value="${r.idRol}" th:text="${r.rol}"></option>
+                    <select class="js-example-basic-multiple" multiple="multiple" th:field="${rol.enlaces}" style="width: 100%;">
+                        <option th:each="e : ${enlaces}" th:if="${e.estado != 'X' && e.obs == '1'}" th:text="${e.nombre_enlace}"
+                            th:value="${e.idEnlace}"></option>
                     </select>
                 </div>
-            </div> -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function(){
+            $('.js-example-basic-multiple').select2({
+                placeholder : "Seleccione..."
+            });
+            $('#miFormulario4').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario4"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../ListaEnlace";
+                            }, 1600);
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
+</div>
+
+<div th:fragment="modal_nuevo_enlace">
+    <form th:action="@{/guardar_enlace}" id="miFormulario2" method="post">
+        <div class="modal-header bg-success white">
+            <h4 class="modal-title" id="myModalLabel9">
+                <div class="fonticon-wrap">
+                    <i class="ft-user-check"></i>
+                </div>FORMULARIO REGISTRO DE ENLACES PADRES
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5><i class="fa fa-arrow-right"></i> ENLACES PADRES</h5>
+
+            <input th:field="${enlace.idEnlace}" type="hidden">
+
             <div class="form-group row">
                 <label for="example-time-input" class="col-md-4 col-form-label">NOMBRE ENLACE</label>
                 <div class="col-md-8">
@@ -73,4 +194,129 @@
             <button type="submit" class="btn btn-outline-success">ENVIAR</button>
         </div>
     </form>
+    <script>
+        $(document).ready(function(){
+            $('#miFormulario2').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario2"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../ListaEnlace";
+                            }, 1600);
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
+</div>
+
+<div th:fragment="modal_nuevo_enlace_hijo">
+    <form th:action="@{/guardar_enlace_hijo}" id="miFormulario3" method="post">
+        <div class="modal-header bg-success white">
+            <h4 class="modal-title" id="myModalLabel9">
+                <div class="fonticon-wrap">
+                    <i class="ft-user-check"></i>
+                </div>FORMULARIO REGISTRO DE ENLACES HIJOS
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5><i class="fa fa-arrow-right"></i> ENLACES HIJOS</h5>
+
+            <input th:field="${enlace.idEnlace}" type="hidden">
+
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">ENLACES PADRES HABILITADOS</label>
+                <div class="col-md-8">
+                    <select class="js-example-basic" name="id_Enlace" style="width: 100%;">
+                        <option th:each="e : ${enlaces}" th:if="${e.estado != 'X' && e.obs == '0'}" th:text="${e.nombre_enlace}" th:value="${e.idEnlace}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">NOMBRE ENLACE</label>
+                <div class="col-md-8">
+                    <div class="form-group form-group-custom mb-4">
+                        <input type="text" class="form-control" th:field="${enlace.nombre_enlace}" required>
+                        <label for="useremail">Enlace</label> 
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-time-input" class="col-md-4 col-form-label">DIRECCION O RUTA</label>
+                <div class="col-md-8">
+                    <div class="form-group form-group-custom mb-4">
+                        <input type="text" class="form-control" th:field="${enlace.ruta}" required>
+                        <label for="useremail">Ruta</label> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function(){
+            $('#miFormulario3').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario3"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../ListaEnlace";
+                            }, 1600);
+                        } 
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
 </div>

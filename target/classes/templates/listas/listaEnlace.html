@@ -35,8 +35,11 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-right mb-3">
-                                            <button type="button" class="btn btn-info btn-sm waves-effect waves-light" onclick="NuevoRegistro()">AGREGAR
-                                                NUEVO REGISTRO
+                                            <button type="button" class="btn btn-info btn-sm waves-effect waves-light" onclick="NuevoRegistro()"><b>AGREGAR
+                                                NUEVO ENLACE PADRE</b>
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-sm waves-effect waves-light" onclick="NuevoRegistro1()"> <b>AGREGAR
+                                                NUEVO ENLACE HIJO</b>
                                             </button>
                                         </div>
                                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH"
@@ -46,8 +49,8 @@
                                                     <th>N°</th>
                                                     <th>Rol</th>
                                                     <th>Enlaces Disponibles</th>
-                                                    <th>Funciones</th>
                                                     <th>Sub Enlaces Disponibles</th>
+                                                    <!-- <th>Funciones</th> -->
                                                     <th>Operaciones</th>
                                                 </tr>
                                             </thead>
@@ -61,11 +64,6 @@
                                                                 th:text="${e.nombre_enlace}"></li>
                                                         </ul>
                                                     </td>
-                                                    <td class="text-center">
-                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES PADRES" data-toggle="tooltip" data-placement="bottom"
-                                                        th:data-value="${r.idRol}" onclick="buscarR(this.getAttribute('data-value'))"> <i
-                                                            class="fas fa-user-cog"></i></button>
-                                                    </td>
                                                     <td>
                                                         <ul>
                                                             <li th:each="e : ${r.enlaces}" th:if="${e.estado != 'X' && e.obs == '1'}">
@@ -76,12 +74,17 @@
                                                             </li>
                                                         </ul>
                                                     </td>
-                                                    
                                                     <td class="text-center">
-                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES HIJOS" data-toggle="tooltip" data-placement="bottom"
-                                                        th:data-value="${r.idRol}" onclick="buscarR(this.getAttribute('data-value'))"> <i
+                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES" data-toggle="tooltip" data-placement="bottom"
+                                                        th:data-value="${r.idRol}" onclick="buscarE(this.getAttribute('data-value'))"> <i
                                                             class="fas fa-user-cog"></i></button>
                                                     </td>
+                                                    
+                                                    <!-- <td class="text-center">
+                                                        <button class="btn btn-success" type="button" title="MODIFICAR ENLACES HIJOS" data-toggle="tooltip" data-placement="bottom"
+                                                        th:data-value="${r.idRol}" onclick="buscarEH(this.getAttribute('data-value'))"> <i
+                                                            class="fas fa-user-cog"></i></button>
+                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -109,10 +112,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bs-example-modal-lg" id="modal_nuevo_enlace_hijo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id="replace_3">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade bs-example-modal-lg" id="modal_enlace" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div id="replace_2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="modal_enlace_hijo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id="replace_4">
 
                 </div>
             </div>
@@ -136,16 +157,46 @@
                 },
               });
         }
+        function NuevoRegistro1() {
+            $.ajax({
+                url: "/nuevo_enlace_hijo" , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_3").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    $('.js-example-basic').select2({
+                        placeholder : "Seleccione..."
+                    });
+                    $('#modal_nuevo_enlace_hijo').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
         function buscarE(valor) {
             $.ajax({
-                url: "/enlace/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                url: "/enlaces/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
                 method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
                 success: function (response) {
                     $("#replace_2").html(response); // Actualiza el contenido del div con la respuesta del servidor
-                    $('.js-example-basic-multiple').select2({
-                        placeholder : "Seleccione..."
-                    });
+                    
                     $('#modal_enlace').modal('show');
+                },
+                error: function (xhr, status, error) {
+                  // Maneja los errores de la solicitud AJAX
+                  console.log(error);
+                },
+              });
+        }
+        function buscarEH(valor) {
+            $.ajax({
+                url: "/enlaces_hijos/" + valor, // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                success: function (response) {
+                    $("#replace_4").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                    
+                    $('#modal_enlace_hijo').modal('show');
                 },
                 error: function (xhr, status, error) {
                   // Maneja los errores de la solicitud AJAX
