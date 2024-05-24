@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sisu.sisu.Service.TipoUsoService;
 import com.sisu.sisu.entitys.TipoUso;
+import com.sisu.sisu.entitys.Usuario;
 
 @Controller
 public class TipoUsoController {
@@ -47,8 +48,13 @@ public class TipoUsoController {
     //-------------------------------to list---------------------------------
 
        @GetMapping(value="/l-TipoUso")
-    public String listaTipoUso(Model model, @Validated TipoUso tipoUso) {
-
+    public String listaTipoUso(Model model, @Validated TipoUso tipoUso, HttpServletRequest request) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
         model.addAttribute("tipoUso", new TipoUso());
         model.addAttribute("tipoUsos", tipoUsoService.findAll()); 
        

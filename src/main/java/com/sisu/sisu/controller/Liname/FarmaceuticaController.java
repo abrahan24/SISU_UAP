@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sisu.sisu.Service.FarmaceuticaService;
 import com.sisu.sisu.entitys.FormaFarmaceutica;
+import com.sisu.sisu.entitys.Usuario;
 
 
 @Controller
@@ -45,8 +46,14 @@ public class FarmaceuticaController {
     //-------------------------------to list---------------------------------
 
     @GetMapping(value="/l-Farmaceutica")
-    public String listaTipoUso(Model model, @Validated FormaFarmaceutica formaFarmaceutica) {
+    public String listaTipoUso(Model model, @Validated FormaFarmaceutica formaFarmaceutica, HttpServletRequest request) {
 
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
         model.addAttribute("formaFarmaceutica", new FormaFarmaceutica());
         model.addAttribute("farmaceuticas", formaFarmaceuticaService.findAll());
        

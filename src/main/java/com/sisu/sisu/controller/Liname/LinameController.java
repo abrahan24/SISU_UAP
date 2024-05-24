@@ -20,6 +20,7 @@ import com.sisu.sisu.Service.TipoUsoService;
 import com.sisu.sisu.entitys.FormaFarmaceutica;
 import com.sisu.sisu.entitys.ListaLiname;
 import com.sisu.sisu.entitys.TipoUso;
+import com.sisu.sisu.entitys.Usuario;
 
 
 
@@ -72,7 +73,14 @@ public class LinameController {
     //-------------------------------to list---------------------------------
 
        @GetMapping(value="/l-Liname")
-    public String listaLiname(Model model, @Validated ListaLiname listLiname) {
+    public String listaLiname(Model model, @Validated ListaLiname listLiname,HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
 
         model.addAttribute("listLiname", new ListaLiname());
         model.addAttribute("listLinames", listaLinameService.findAll());
