@@ -42,7 +42,7 @@ public class HistoriaClinicaController {
 
         
 
-        return "historialClinico/ficha_tecnica";
+        return "historialClinico/historia_clinica_modelo";
     }
 
 
@@ -101,7 +101,7 @@ public class HistoriaClinicaController {
                     .toLocalTime();
             model.addAttribute("fechaH", fecha);
             model.addAttribute("horaH", hora);
-            return "formularios/VistaHistoriaClinica2";
+            return "historialClinico/historia_clinica_modelo";
         } catch (Exception e) {
 
             return "redirect:/formHistorialClinico";
