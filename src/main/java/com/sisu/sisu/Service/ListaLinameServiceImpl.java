@@ -38,5 +38,11 @@ public class ListaLinameServiceImpl implements ListaLinameService{
         
         linameDao.deleteById(id);
     }
+
+    @Override
+    public ListaLiname getLiname_codigo(String codigoLiname) {
+        // TODO Auto-generated method stub
+        return linameDao.getLiname_codigo(codigoLiname);
+    }
     
 }

@@ -136,13 +136,13 @@
                             }, 1600);
                         } else if (mensaje == "3") {
                             Swal.fire({
-                                title: '¡El registro Se ah Editado con Exito!',
-                                icon: "success",
+                                title: '¡El registro que estás intentando agregar ya existe en nuestra base de datos!',
+                                icon: "info",
                                 showConfirmButton: false,
                                 timer: 1500
                             })
                             setTimeout(function () {
-                                location.href = "../../../../listaUs";
+                                location.href = "../../../../l-Liname";
                             }, 1600);
                         }
                     },

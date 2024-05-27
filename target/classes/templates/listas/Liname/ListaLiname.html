@@ -128,7 +128,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation" th:action="@{/saveLiname}" method="post">
+                        <form class="needs-validation" th:action="@{/saveLiname}" id="miFormulario" method="post">
                             <input type="hidden" th:field="${listLiname.idLiname}">
                             <input type="hidden" th:field="${listLiname.registro}">
                             <div>
@@ -250,6 +250,59 @@
             function NuevoRegistro(){
                 $('.js-example-basic').select2({
                     placeholder : "Seleccione..."
+                });
+                $('#miFormulario').submit(function (event) {
+                    event.preventDefault();
+                    var form = document.getElementById("miFormulario");
+                    var action = form.action;
+                    var formData = $(this).serialize();
+    
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function (response) {
+                            var mensaje = response;
+                            if (mensaje == "1") {
+                                Swal.fire({
+                                    title: 'Registro Realizado con Exitoso!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../l-Liname";
+                                }, 1600);
+                            } else if (mensaje == "2") {
+                                Swal.fire({
+                                    title: '¡El registro Se ah Editado con Exito!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../l-Liname";
+                                }, 1600);
+                            } else if (mensaje == "3") {
+                                Swal.fire({
+                                    title: '¡El registro que estás intentando agregar ya existe en nuestra base de datos!',
+                                    icon: "info",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                setTimeout(function () {
+                                    location.href = "../../../../l-Liname";
+                                }, 1600);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                            console.error(error);
+                            // Manejo de errores
+                        }
+                    });
+    
                 });
                 $('#exampleModalScrollable1').modal('show');
             }

@@ -66,12 +66,17 @@ public class LinameController {
     ) { 
 
         if (listLiname.getIdLiname() == null) {
-            listLiname.setEstadoLiname("A");
-            listLiname.setForma_farmaceutica(farmaceuticaService.findOne(idFormaFarmaceutica));
-            listLiname.setTipo_uso(tipoUsoService.findOne(idTipoUso));
-            listLiname.setRegistro(new Date());
-            listaLinameService.save(listLiname);
-            return ResponseEntity.ok("1");
+            if (listaLinameService.getLiname_codigo(listLiname.getCodigoLiname()) == null) {
+                listLiname.setEstadoLiname("A");
+                listLiname.setForma_farmaceutica(farmaceuticaService.findOne(idFormaFarmaceutica));
+                listLiname.setTipo_uso(tipoUsoService.findOne(idTipoUso));
+                listLiname.setRegistro(new Date());
+                listaLinameService.save(listLiname);
+                return ResponseEntity.ok("1");
+            } else {
+                return ResponseEntity.ok("3");
+            }
+
         } else {
             listLiname.setModificacion(new Date());
             listLiname.setEstadoLiname("A");

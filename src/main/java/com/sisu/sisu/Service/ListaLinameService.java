@@ -13,4 +13,7 @@ public interface ListaLinameService {
     public ListaLiname findOne(Integer id);  // MOSTRAR UN REGSITRO
 
     public void delete(Integer id); // ELIMINAR REGISTRO
+
+    public ListaLiname getLiname_codigo(String codigoLiname);
+
 }
