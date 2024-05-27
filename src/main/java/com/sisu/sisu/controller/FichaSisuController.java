@@ -438,7 +438,7 @@ public class FichaSisuController {
 					existePersonaD.setApMaterno(data.get("apellido_materno").toString());
 					existePersonaD.setCi(data.get("ci").toString());
 					existePersonaD.setDireccion(data.get("direccion").toString());
-					// existePersonaD.setCelular(Integer.parseInt(data.get("celular").toString()));
+					existePersonaD.setCelular(data.get("celular").toString());
 					existePersonaD.setSexo(data.get("sexo").toString());
 					existePersonaD.setFecha_nac(LocalDate.parse(data.get("fecha_nacimiento").toString()));
 					existePersonaD.setDip(dip);

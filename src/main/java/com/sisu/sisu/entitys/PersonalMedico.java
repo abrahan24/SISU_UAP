@@ -58,6 +58,9 @@ public class PersonalMedico implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
 
+    @Column(name = "especialidad")
+    private String especialidad;
+
     //---------------------RELACIONES-------------------------------------------
 
     @ManyToOne(fetch = FetchType.LAZY)
