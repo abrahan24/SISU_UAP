@@ -25,8 +25,8 @@
                                         <th:block th:if="${p.idEnlace == hijos.tabla}">
                                             <th:block th:if="${hijos.obs == '1'}">
                                                 <li>
-                                                    <a  th:if="${hijos.nombre_enlace != 'Fichas Asignadas'}" th:href="${hijos.ruta}" th:text="${hijos.nombre_enlace}"></a>
-                                                    <a  th:if="${hijos.nombre_enlace == 'Fichas Asignadas'}" th:href="${hijos.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.nombre_enlace}"></a>
+                                                    <a  th:if="${hijos.nombre_enlace != 'Lista de Fichas Asignadas'}" th:href="${hijos.ruta}" th:text="${hijos.nombre_enlace}"></a>
+                                                    <a  th:if="${hijos.nombre_enlace == 'Lista de Fichas Asignadas'}" th:href="${hijos.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.nombre_enlace}"></a>
                                                 </li>
                                             </th:block>
                                             <!-- <th:block th:if="${hijos.idEnlace.nombre_enlace == 'Fichas Asignadas'}">

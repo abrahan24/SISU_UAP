@@ -111,7 +111,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                             <tr th:each="p : ${personas}" th:if="${p.estado =='A' or p.estado =='RU' or p.estado =='RA' or p.estado =='RD'}">
+                                             <tr th:each="p : ${personas}" th:if="${p.estado != 'X' && p.idPersona != 1}">
                                                     <td th:text="${p.nombres}"></td>
                                                     <td th:text="${p.apPaterno}"></td>
                                                     <td th:text="${p.apMaterno}"></td>
