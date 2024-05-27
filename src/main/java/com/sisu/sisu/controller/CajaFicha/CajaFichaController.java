@@ -564,6 +564,7 @@ for (HorarioServicio horario : listaHorariosServicio) {
 				response.put("descripcionA", data.get("p_descripcion").toString());
 				response.put("descripcionA2", data.get("cp_descripcion").toString());
 				response.put("nivel", data.get("nivelInstruccion").toString());
+				response.put("celular", data.get("perd_celular").toString());
 
 				Persona existPersonaA = personaService.findByCi(data.get("per_num_doc").toString());
 
@@ -594,6 +595,7 @@ for (HorarioServicio horario : listaHorariosServicio) {
 					existPersonaA.setApMaterno(data.get("per_ap_materno").toString());
 					existPersonaA.setCi(data.get("per_num_doc").toString());
 					existPersonaA.setSexo(data.get("per_sexo").toString());
+					existPersonaA.setCelular(data.get("perd_celular").toString());
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					LocalDate fechaNacimiento = LocalDate.parse(data.get("fecha_nac").toString(), formatter);
 					existPersonaA.setFecha_nac(fechaNacimiento);

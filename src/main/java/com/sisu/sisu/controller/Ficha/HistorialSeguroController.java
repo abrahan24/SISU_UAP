@@ -1,5 +1,7 @@
 package com.sisu.sisu.controller.Ficha;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,20 +44,27 @@ public class HistorialSeguroController {
         // }
         
        HistorialSeguro historialSeguro = historialSeguroService.getHistorial_por_id_seguro(idAsegurado);
-        if (historialSeguro == null) {
-            System.out.println("NO ENCONTRO HISTORIAL");
-        }else{
-            System.out.println("Si ENCONTRO HISTORIAL");
-        }   
+       List<HistoriaClinica> listaHistoriaClinicas = historiaClinicaService.listaHistoriaClinicasValidacion(historialSeguro.getIdHistorialSeguro());
+
+      
         
         model.addAttribute("historiaClinica", new HistoriaClinica());
         model.addAttribute("asegurado", aseguradoService.findOne(idAsegurado));
         model.addAttribute("historial_seguro", historialSeguro);
+
+        if (listaHistoriaClinicas.size() == 0) {
+ 
+            return "formularios/formHistoriaClinica";
+        }else{
+
+            return "formularios/formHistoriaClinicaReConsulta";
+            
+        }   
     
         // System.out.println("NOMBRE: " + historialSeguro.getAsegurado().getPersona().getNombres());
         // System.out.println("IDFicha: " + idFicha);
     
         // Devolver la vista correspondiente
-        return "formularios/formHistoriaClinica";
+       
     }
 }

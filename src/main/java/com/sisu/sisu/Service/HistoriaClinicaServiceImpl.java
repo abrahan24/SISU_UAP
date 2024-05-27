@@ -33,5 +33,10 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService{
     public void delete(Integer id) {
         historiaClinicaDao.deleteById(id);
     }
+
+    @Override
+    public List<HistoriaClinica> listaHistoriaClinicasValidacion(Integer id_historial_seguro) {
+        return (List<HistoriaClinica>) historiaClinicaDao.listaHistoriaClinicasValidacion(id_historial_seguro);
+    }
     
 }

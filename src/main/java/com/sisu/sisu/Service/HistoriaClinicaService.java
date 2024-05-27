@@ -12,5 +12,6 @@ public interface HistoriaClinicaService {
     public void save(HistoriaClinica dip); //Guarda registro
     public HistoriaClinica findOne(Integer id); //Muestra un registro
     public void delete(Integer id); //Elimina registro
+    List<HistoriaClinica> listaHistoriaClinicasValidacion(Integer id_historial_seguro);
     
 }

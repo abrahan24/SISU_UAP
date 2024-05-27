@@ -618,6 +618,7 @@ public class FichaSisuController {
 				model.addAttribute("nivel", data.get("nivelInstruccion").toString());
 				model.addAttribute("nivel", data.get("nivelInstruccion").toString());
 				model.addAttribute("servicios", servicioMedicoService.findAll());
+				model.addAttribute("celular", data.get("perd_celular").toString());
 
 				Persona existPersonaA = personaService.findByCi(data.get("per_num_doc").toString());
 
@@ -647,6 +648,7 @@ public class FichaSisuController {
 					existPersonaA.setApMaterno(data.get("per_ap_materno").toString());
 					existPersonaA.setCi(data.get("per_num_doc").toString());
 					existPersonaA.setSexo(data.get("per_sexo").toString());
+					existPersonaA.setCelular(data.get("perd_celular").toString());
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					LocalDate fechaNacimiento = LocalDate.parse(data.get("fecha_nac").toString(), formatter);
 					existPersonaA.setFecha_nac(fechaNacimiento);
