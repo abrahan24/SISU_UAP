@@ -1,8 +1,11 @@
 package com.sisu.sisu.controller.Liname;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sisu.sisu.Service.FarmaceuticaService;
@@ -56,19 +60,27 @@ public class LinameController {
     //-------------------------------save---------------------------------
 
     @PostMapping(value = "/saveLiname") // Enviar datos de Registro a Lista
-	public String guaradarLinam(@Validated ListaLiname listLiname, RedirectAttributes flash,HttpServletRequest request,
+	public ResponseEntity<String> guaradarLinam(@Validated ListaLiname listLiname, RedirectAttributes flash,HttpServletRequest request,
     @RequestParam(name="farmaceutica",required = false)Integer idFormaFarmaceutica,
     @RequestParam(name="tipoUso",required = false)Integer idTipoUso
     ) { 
-        listLiname.setEstadoLiname("A");
-        listLiname.setForma_farmaceutica(farmaceuticaService.findOne(idFormaFarmaceutica));
-        listLiname.setTipo_uso(tipoUsoService.findOne(idTipoUso));
 
-        listaLinameService.save(listLiname);
-
-		return "redirect:/l-Liname";
+        if (listLiname.getIdLiname() == null) {
+            listLiname.setEstadoLiname("A");
+            listLiname.setForma_farmaceutica(farmaceuticaService.findOne(idFormaFarmaceutica));
+            listLiname.setTipo_uso(tipoUsoService.findOne(idTipoUso));
+            listLiname.setRegistro(new Date());
+            listaLinameService.save(listLiname);
+            return ResponseEntity.ok("1");
+        } else {
+            listLiname.setModificacion(new Date());
+            listLiname.setEstadoLiname("A");
+            listLiname.setForma_farmaceutica(farmaceuticaService.findOne(idFormaFarmaceutica));
+            listLiname.setTipo_uso(tipoUsoService.findOne(idTipoUso));
+            listaLinameService.save(listLiname);
+            return ResponseEntity.ok("2");
+        }
 	}
-
 
     //-------------------------------to list---------------------------------
 
@@ -98,13 +110,12 @@ public class LinameController {
 
     //-------------------------------Delete---------------------------------
     @RequestMapping(value = "/eliminLiname/{idLiname}")
-    public String eliminarLiname(@PathVariable("idLiname")Integer idLiname){
+    @ResponseBody
+    public void eliminarLiname(@PathVariable("idLiname")Integer idLiname){
 
         ListaLiname listLiname = listaLinameService.findOne(idLiname);
         listLiname.setEstadoLiname("X");
         listaLinameService.save(listLiname);
-
-        return "redirect:/l-Liname";
     }
 
 

@@ -2,93 +2,161 @@
 <!------------------------------------------------------------Liname-------------------------------------------------------------------->
 
 <div th:fragment="contentLiname">
-    <input type="hidden" th:field="${listLiname.idLiname}">
-    <div>
-        <div class="row">
-            <div class="col-sm-6">
-                <label for="validationCustom01">Medicamento</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="text" name="liname" th:field="${listLiname.medicamento}" placeholder="medicamento"
-                        class="form-control" id="listLiname" required>
+    <form class="needs-validation" th:action="@{/saveLiname}" id="miFormulario" method="post">
+        <input type="hidden" th:field="${listLiname.idLiname}">
+        <input type="hidden" th:field="${listLiname.registro}">
+        <div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Medicamento</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="text" name="liname" th:field="${listLiname.medicamento}" placeholder="medicamento"
+                            class="form-control" id="listLiname" required>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Concentracion</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="text" name="listLiname" th:field="${listLiname.concentracion}"
+                            placeholder="0.00 gr" class="form-control" id="liname1" required>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <label for="validationCustom01">Concentracion</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="text" name="listLiname" th:field="${listLiname.concentracion}" placeholder="0.00 gr"
-                        class="form-control" id="liname1" required>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Codigo Liname</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="text" name="liname" th:field="${listLiname.codigoLiname}" placeholder="code"
+                            class="form-control" id="listLiname" required>
+                    </div>
                 </div>
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Codigo ATQ</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="text" name="listLiname" th:field="${listLiname.codigoATQ}" placeholder="ATQ"
+                            class="form-control" id="liname1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Fecha Incluido</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="date" name="listLiname" th:field="${listLiname.fechaIncluido}"
+                            placeholder="last name" class="form-control" id="liname2" required>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Fecha Excluido</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="date" name="listLiname" th:field="${listLiname.fechaExcluido}"
+                            placeholder="last name" class="form-control" id="liname3">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Medicamento en:</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <select class="js-example-basic" style="width: 100%;" name="farmaceutica">
+                            <option value="">Elegir..</option>
+                            <th:block th:each="f: ${farmaceuticas}" th:if="${f.estadoFF != 'X'}">
+                                <th:block th:if="${listLiname.forma_farmaceutica != null}">
+                                    <option
+                                        th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica == f.idFormaFarmaceutica}"
+                                        th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"
+                                        selected></option>
+                                    <option
+                                        th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica != f.idFormaFarmaceutica}"
+                                        th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}">
+                                    </option>
+                                </th:block>
+                                <!-- <option th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"></option> -->
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="validationCustom01">De uso:</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <select class="js-example-basic" style="width: 100%;" name="tipoUso">
+                            <option value="">Elegir..</option>
+                            <th:block th:each="tu: ${tipoUsos}" th:if="${tu.estado != 'X'}">
+                                <th:block th:if="${listLiname.tipo_uso != null}">
+                                    <option th:if="${listLiname.tipo_uso.idTipoUso == tu.idTipoUso}"
+                                        th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}" selected></option>
+                                    <option th:if="${listLiname.tipo_uso.idTipoUso != tu.idTipoUso}"
+                                        th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}"></option>
+                                </th:block>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+                <button type="submit" class="btn btn-outline-success">ENVIAR</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <label for="validationCustom01">Codigo Liname</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="text" name="liname" th:field="${listLiname.codigoLiname}" placeholder="code"
-                        class="form-control" id="listLiname" required>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <label for="validationCustom01">Codigo ATQ</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="text" name="listLiname" th:field="${listLiname.codigoATQ}" placeholder="ATQ"
-                        class="form-control" id="liname1" required>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <label for="validationCustom01">Fecha Incluido</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="date" name="listLiname" th:field="${listLiname.fechaIncluido}" placeholder="last name"
-                        class="form-control" id="liname2" required>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <label for="validationCustom01">Fecha Excluido</label>
-                <div class="form-group form-group-custom mb-6">
-                    <input type="date" name="listLiname" th:field="${listLiname.fechaExcluido}" placeholder="last name"
-                        class="form-control" id="liname3" >
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <label for="validationCustom01">Medicamento en:</label>
-                <div class="form-group form-group-custom mb-6">
-                    <select class="custom-select" name="farmaceutica" >
-                      <option value="">Elegir..</option>
-                      <th:block th:each="f: ${farmaceuticas}" th:if="${f.estadoFF != 'X'}">
-                      <th:block th:if="${listLiname.forma_farmaceutica != null}"> 
-                        <option th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica == f.idFormaFarmaceutica}" th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}" selected></option>
-                        <option th:if="${listLiname.forma_farmaceutica.idFormaFarmaceutica != f.idFormaFarmaceutica}" th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"></option>
-                     </th:block>
-                       <!-- <option th:value="${f.idFormaFarmaceutica}" th:text="${f.nombreFormaFarmaceutica}"></option> -->
-                      </th:block>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <label for="validationCustom01">De uso:</label>
-                <div class="form-group form-group-custom mb-6">
-                <select class="custom-select" name="tipoUso" >
-                    <option value="">Elegir..</option>
-                    <th:block th:each="tu: ${tipoUsos}" th:if="${tu.estado != 'X'}">
-                    <th:block th:if="${listLiname.tipo_uso != null}">
-                        <option th:if="${listLiname.tipo_uso.idTipoUso == tu.idTipoUso}" th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}" selected></option>
-                        <option th:if="${listLiname.tipo_uso.idTipoUso != tu.idTipoUso}" th:value="${tu.idTipoUso}" th:text="${tu.nombreTipoUso}"></option>
-                    </th:block>
-                    </th:block>
-                </select>
-                </div>
-            </div>
-        </div>
-       
-        <div class="modal-footer">
-            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
-            <button type="submit" class="btn btn-outline-success">ENVIAR</button>
-        </div>
-    </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $('#miFormulario').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario");
+                var action = form.action;
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../l-Liname";
+                            }, 1600);
+                        } else if (mensaje == "2") {
+                            Swal.fire({
+                                title: '¡El registro Se ah Editado con Exito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../l-Liname";
+                            }, 1600);
+                        } else if (mensaje == "3") {
+                            Swal.fire({
+                                title: '¡El registro Se ah Editado con Exito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../listaUs";
+                            }, 1600);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+
+            });
+        });
+    </script>
 </div>
 
 <!------------------------------------------------------------Historial-------------------------------------------------------------------->

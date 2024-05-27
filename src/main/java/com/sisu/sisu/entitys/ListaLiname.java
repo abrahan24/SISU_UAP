@@ -58,10 +58,12 @@ public class ListaLiname implements Serializable{
     private String codigoATQ;
 
     @Column(name = "registro")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registro;
     
     @Column(name = "modificacion")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
 
