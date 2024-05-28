@@ -78,12 +78,13 @@ public class Personacontroller {
         Persona existingPersona = personaService.findByCi(persona.getCi());
 
         if (existingPersona != null) {
+            System.out.println("ENCONTRO A LA PERSONA");
             if ("A".equals(existingPersona.getEstado())) {
                 flash.addFlashAttribute("error", "Ya existe una persona con ese CI en estado 'A': " + persona.getCi());
                 return "redirect:/formRegistro";
             } else {
                 // Actualiza el registro existente con estado 'X' a 'A'
-                persona.setEstado("A");
+                //persona.setEstado("A");
                 persona.setGrado_academico(gradoService.findOne(idGradoAcademico));
                 persona.setDip(dipService.findOne(idDip));
                 persona.setTipos_estado_civil(estadoCivilService.findOne(idTipoEstadoCivil));
@@ -91,6 +92,7 @@ public class Personacontroller {
                 return "redirect:/formRegistro";
             }
         } else {
+            System.out.println("NO ENCONTRO A LA PERSONA");
             // No existe una persona con el mismo CI, crea un nuevo registro
             persona.setEstado("A");
             persona.setGrado_academico(gradoService.findOne(idGradoAcademico));
@@ -175,7 +177,19 @@ public class Personacontroller {
     /* Guardar Cambios */
     @PostMapping(value = "/guardarCambiosPersona")
     public String guardarCambiosPersona(@ModelAttribute Persona persona) {
-        persona.setEstado("A");
+        
+        // if (persona.getEstado().equals("RU")) {
+        //     persona.setEstado(persona.getEstado());   
+        // }
+        // if (persona.getEstado().equals("RD")) {
+        //     persona.setEstado(persona.getEstado());   
+        // }
+        // if (persona.getEstado().equals("RA")) {
+        //     persona.setEstado(persona.getEstado());   
+        // }else{
+        //     persona.setEstado("A");
+        // }
+        
         personaService.save(persona);
         return "redirect:/ListaPersona";
     }
