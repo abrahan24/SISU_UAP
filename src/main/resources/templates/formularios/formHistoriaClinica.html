@@ -214,7 +214,7 @@
                                                                     </label>
                                                                     <div class="form-group">
                                                                         <div class="input-group">
-                                                                            <input type="text" class="form-control"
+                                                                            <input type="text" class="form-control" th:field="${historiaClinica.peso}"
                                                                                 id="peso" placeholder="" required>
                                                                             <div class="input-group-append">
                                                                                 <span class="input-group-text">kg</span>
@@ -326,6 +326,17 @@
                                                                     <div class="valid-feedback">
                                                                         Looks good!
                                                                     </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <label for="validationCustom02">Saturación O2
+                                                                        <i style="font-size: 18px;" class="mdi mdi-help-circle" data-toggle="tooltip" data-placement="top" title="Ingrese un valor válido Por ejemplo, 95 "></i>
+                                                                    </label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control datepickerformM" id="saturacionO2" th:field="${historiaClinica.saturacion_o2}" placeholder="" required>
+                                                                    </div>
+                                                                    <div class="valid-feedback">Looks good!</div>
+                                                                    <div class="invalid-feedback">Ingrese un valor válido. Por ejemplo, 95.</div>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -817,10 +828,14 @@
     const temperaturaCorporalInput = document.getElementById('temperaturaCorporal');
     const temperaturaCorporalValidFeedback = temperaturaCorporalInput.parentElement.querySelector('.valid-feedback');
     const temperaturaCorporalInvalidFeedback = temperaturaCorporalInput.parentElement.querySelector('.invalid-feedback');
+    const saturacionO2Input = document.getElementById('saturacionO2');
+    const saturacionO2ValidFeedback = saturacionO2Input.parentElement.querySelector('.valid-feedback');
+    const saturacionO2InvalidFeedback = saturacionO2Input.parentElement.querySelector('.invalid-feedback');
 
     const regexDecimal = /^\d+(\.\d{1,2})?$/;
     const regexEntero = /^\d+$/;
     const regexPresionArterial = /^(?:\d{2,3}\/\d{2,3}|\d{2,3}-\d{2,3})$/; // Example formats: 120/80 or 120-129
+    const regexSaturacionO2 = /^\d+$/;
 
     pesoInput.addEventListener('input', function() {
         validarInput(pesoInput, regexDecimal, pesoValidFeedback, pesoInvalidFeedback);
@@ -844,6 +859,10 @@
 
     temperaturaCorporalInput.addEventListener('input', function() {
         validarInput(temperaturaCorporalInput, regexDecimal, temperaturaCorporalValidFeedback, temperaturaCorporalInvalidFeedback);
+    });
+
+    saturacionO2Input.addEventListener('input', function() {
+        validarInput(saturacionO2Input, regexSaturacionO2, saturacionO2ValidFeedback, saturacionO2InvalidFeedback);
     });
 });
 

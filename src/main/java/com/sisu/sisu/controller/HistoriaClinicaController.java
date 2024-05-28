@@ -113,4 +113,54 @@ public class HistoriaClinicaController {
         }
     }
 
+
+    @PostMapping(value = "/guardarHistorialClinicoReConsulta")
+    public String guardarHistorialClinicoReConsulta(@Validated HistoriaClinica historiaClinica, Model model,
+            @RequestParam(value = "idAsegurado", required = false) Integer idAsegurado,
+            @RequestParam(value = "idHistorialSeguro", required = false) Integer idHistorialSeguro) {
+        System.out.println("ASEGURADO: " + idAsegurado);
+        System.out.println("idHistorialSeguro: " + idHistorialSeguro);
+        try {
+           
+            historiaClinica.setEstadoHistoriaClinica("A");
+            historiaClinica.setFechaAtencionMedica(new Date());
+            historiaClinica.setRegistro(new Date());
+            historiaClinica.setHistorialSeguro(historialSeguroService.findOne(idHistorialSeguro));
+            historiaClinicaService.save(historiaClinica);
+            model.addAttribute("historialSeguro", historialSeguroService.findOne(idHistorialSeguro));
+            model.addAttribute("asegurado", aseguradoService.findOne(idAsegurado));
+            model.addAttribute("historiaClinica", historiaClinica);
+            Asegurado asegurado = aseguradoService.findOne(idAsegurado);
+            System.out.println("fecha Nac:" + asegurado.getPersona().getFecha_nac());
+            LocalDate fechaActual = LocalDate.now();
+            int edad = Period.between(asegurado.getPersona().getFecha_nac(), fechaActual).getYears();
+            System.out.println("EDAD ACTUAL:" + edad);
+            model.addAttribute("edad", edad);
+
+            LocalDate fecha = historiaClinica.getFechaAtencionMedica().toInstant().atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            LocalTime hora = historiaClinica.getFechaAtencionMedica().toInstant().atZone(ZoneId.systemDefault())
+                    .toLocalTime();
+            model.addAttribute("fechaH", fecha);
+            model.addAttribute("horaH", hora);
+            return "redirect:/verModeloHistoriaReConsulta/"+ historiaClinica.getIdHistoriaClinica();
+        } catch (Exception e) {
+
+            return "redirect:/formHistorialClinico";
+        }
+    }
+
+    @GetMapping(value = "/verModeloHistoriaReConsulta/{idHistoriaClinica}")
+    public String verModeloHistoriaReConsulta(
+            Model model,@PathVariable(name = "idHistoriaClinica")Integer idHistoriaClinica) {
+                HistoriaClinica historiaClinica = historiaClinicaService.findOne(idHistoriaClinica);
+                LocalDate fecha = historiaClinica.getFechaAtencionMedica().toInstant().atZone(ZoneId.systemDefault())
+                .toLocalDate();
+                model.addAttribute("asegurado", historiaClinica.getHistorialSeguro().getAsegurado());
+                model.addAttribute("historiaClinica", historiaClinica);
+                model.addAttribute("fechaH", fecha);
+
+        return "historialClinico/historia_clinica_modelo_re_consulta";
+    }
+
 }

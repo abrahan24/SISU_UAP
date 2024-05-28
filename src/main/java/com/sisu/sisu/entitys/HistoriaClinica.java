@@ -82,6 +82,9 @@ public class HistoriaClinica implements Serializable {
 	@Column(name = "temperatura_corporal")
 	private String temperaturaCorporal;
 
+	@Column(name = "saturacion_o2")
+	private String saturacion_o2;
+
 	// ----------MOTIVO DE CONSULTA ; ENFERMEDAD ACTUAL-------------
 
 	@Column(name = "motivo_consulta")
