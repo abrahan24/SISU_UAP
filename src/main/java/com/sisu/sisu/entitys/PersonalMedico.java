@@ -85,6 +85,9 @@ public class PersonalMedico implements Serializable{
       @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal_medico", fetch = FetchType.LAZY)
 	  private List<PersonalMedicoFicha> personalMedicoFicha;
 
+      @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal_medico", fetch = FetchType.LAZY)
+	  private List<HorarioMedico> horarioMedico;
+
 
 
 

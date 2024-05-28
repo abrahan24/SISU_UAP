@@ -25,4 +25,6 @@ public interface FichaService {
     List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico);
 
     List<Ficha> listaFichasSeguimientoPersona(String ci);
+
+    List<Ficha> listaFichasAsignadas(Integer id_personal_medico);
 }

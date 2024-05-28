@@ -2,11 +2,15 @@ package com.sisu.sisu.controller.Ficha;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,11 +31,13 @@ import com.sisu.sisu.Dao.PersonalMedicoDao;
 import com.sisu.sisu.Dao.PersonalMedicoFichaDao;
 import com.sisu.sisu.Service.FichaService;
 import com.sisu.sisu.Service.HistorialSeguroService;
+import com.sisu.sisu.Service.HorarioMedicoService;
 import com.sisu.sisu.Service.IAseguradoService;
 import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.PersonalMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
+import com.sisu.sisu.entitys.HorarioMedico;
 import com.sisu.sisu.entitys.HorarioServicio;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.PersonalMedico;
@@ -61,6 +67,15 @@ public class FichaController {
 
     @Autowired
     private HorarioServicioDao horarioServicioDao;
+
+    @Autowired
+    private HorarioMedicoService horarioMedicoService;
+    private static String capitalizeFirstLetter(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
 
     @RequestMapping(value = "/vistaF", method = RequestMethod.GET)
 	public String vistaFicha(Model model ) { 
@@ -113,15 +128,22 @@ public class FichaController {
      @PostMapping("/asignar_medico")
      public ResponseEntity<String> postMethodName(@RequestParam(name = "idFicha")Integer idFicha,
       @RequestParam(name = "idPersonalMedico")Integer idPersonalMedico,@RequestParam(name = "fechaAtencion") String fechaAtencion ) {
+
+
         // Define el formato de la fecha y hora recibida
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         
         // Parsear la cadena a LocalDateTime
         LocalDateTime localDateTime = LocalDateTime.parse(fechaAtencion, formatter);
+
+        LocalDate fechaActual = LocalDate.now();
+		DayOfWeek diaDeLaSemana = fechaActual.getDayOfWeek();
+		String nombreDiaEnEspanol = diaDeLaSemana.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		String nombreDiaCapitalizado = capitalizeFirstLetter(nombreDiaEnEspanol);
         
         // Convertir LocalDateTime a Date
         Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-  
+        PersonalMedico personalMedico = personalMedicoService.buscarId(idPersonalMedico);
         Ficha ficha = fichaService.findOne(idFicha);
         ficha.setEstado("AA");
          ficha.setHorario(date);
@@ -132,6 +154,19 @@ public class FichaController {
         personalMedicoFicha.setRegistro(new Date());
         personalMedicoFicha.setHorario(date);
         personalMedicoFichaDao.save(personalMedicoFicha);
+
+        List<HorarioMedico> listaHorariosMedicos = horarioMedicoService.listaHorariosMedicos(personalMedico.getIdPersonalMedico());
+		List<Ficha> listaFichasMedicosAsignadas = fichaService.listaFichasAsignadas(idPersonalMedico);
+
+        for (HorarioMedico horario : listaHorariosMedicos) {
+
+			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
+				System.out.println(listaFichasMedicosAsignadas.size() + " =?>?= " + horario.getCantidad_fichas());
+				if (listaFichasMedicosAsignadas.size() >= horario.getCantidad_fichas()) {
+					return ResponseEntity.ok("error2"); // Limite
+				}
+			}
+		}
 
         return ResponseEntity.ok("1");
      }
