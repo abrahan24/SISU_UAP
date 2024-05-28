@@ -18,6 +18,7 @@ import com.sisu.sisu.Service.HistoriaLinameService;
 import com.sisu.sisu.Service.ListaLinameService;
 import com.sisu.sisu.entitys.HistorialLiname;
 import com.sisu.sisu.entitys.ListaLiname;
+import com.sisu.sisu.entitys.Usuario;
 
 @Controller
 public class HistorialLinameController {
@@ -61,7 +62,15 @@ public class HistorialLinameController {
     //-------------------------------to list---------------------------------
 
        @GetMapping(value="/l-Historial")
-    public String listaLiname(Model model, @Validated HistorialLiname historialLiname) {
+    public String listaLiname(Model model, @Validated HistorialLiname historialLiname, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
 
         model.addAttribute("historial", new HistorialLiname());
         model.addAttribute("historiales", historialService.findAll());

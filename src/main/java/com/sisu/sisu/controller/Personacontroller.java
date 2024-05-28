@@ -29,6 +29,7 @@ import com.sisu.sisu.entitys.GradoAcademico;
 import com.sisu.sisu.entitys.HistorialSeguro;
 import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.TiposEstadoCivil;
+import com.sisu.sisu.entitys.Usuario;
 
 @Controller
 public class Personacontroller {
@@ -159,7 +160,16 @@ public class Personacontroller {
     /* Lista */
 
     @GetMapping(value = "/ListaPersona")
-    public String listarPersona(Model model) {
+    public String listarPersona(Model model, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
+
         model.addAttribute("personas", personaService.findAll());
 
         model.addAttribute("dip", new Dip());

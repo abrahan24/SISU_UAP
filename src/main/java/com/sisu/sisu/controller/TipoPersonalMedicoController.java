@@ -2,6 +2,8 @@ package com.sisu.sisu.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sisu.sisu.Service.TipoPersonalMedicoService;
 import com.sisu.sisu.entitys.TipoPersonalMedico;
+import com.sisu.sisu.entitys.Usuario;
 
 @Controller
 public class TipoPersonalMedicoController {
@@ -55,7 +58,16 @@ public class TipoPersonalMedicoController {
     }
 
     @GetMapping(value = "/ListaTipoPersonalMedico")
-    public String ListaTipoPersonalMedico(Model model) {
+    public String ListaTipoPersonalMedico(Model model, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "redirect:/";
+			
+		}
+
         model.addAttribute("listaTipoPersonalMedico", tipoPersonalMedicoService.listarTodo());
         return "listas/listaTipoPersonalMedico";
     }
