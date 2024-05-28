@@ -162,7 +162,7 @@ public class CajaFichaController {
 					System.out.println(
 							"-------------------- ESTE UNIVERSITARIO YA ESTÁ REGISTRADO EN LA BASE DE DATOS -------------------");
 				} else {
-
+					System.out.println("NO SESPETA PESSO");
 					univPersona = new Persona();
 					Dip dip = new Dip();
 					GradoAcademico gradoAcademico = new GradoAcademico();
@@ -187,7 +187,7 @@ public class CajaFichaController {
 
 					personaService.save(univPersona);
 
-					personaUniCreada = univPersona;
+					// personaUniCreada = univPersona;
 				}
 
 				Asegurado codUniAseguradoExiste = aseguradoService.findAseguradoByPersonaId(univPersona.getIdPersona());
