@@ -52,7 +52,6 @@ public class LinameController {
         model.addAttribute("tipoUso", new TipoUso());
         model.addAttribute("tipoUsos", tipoUsoService.findAll()); 
 
-
        return "Liname";
     
     }
@@ -76,7 +75,6 @@ public class LinameController {
             } else {
                 return ResponseEntity.ok("3");
             }
-
         } else {
             listLiname.setModificacion(new Date());
             listLiname.setEstadoLiname("A");
@@ -94,9 +92,7 @@ public class LinameController {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 		if (usuario == null) {
-			
 			return "redirect:/";
-			
 		}
 
         model.addAttribute("listLiname", new ListaLiname());
