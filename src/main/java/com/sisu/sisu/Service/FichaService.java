@@ -22,7 +22,7 @@ public interface FichaService {
     Ficha findFichaByAseguradoId(Integer aseguradoId, Date fecha);
 
     List<Ficha> listaFichasFechaActual(Date fecha);
-    List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico);
+    List<Ficha> listaFichasSinAsignar(Integer id_servicio_medico, Date fecha);
 
     List<Ficha> listaFichasSeguimientoPersona(String ci);
 

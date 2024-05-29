@@ -78,7 +78,17 @@
                         setTimeout(function () {
                             location.href = "../../../../listaFichasGeneral";
                         }, 1500);
-                    } 
+                    } else{
+                        Swal.fire({
+                            title: 'Limite de Fichas Asignadas para este Medico!',
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        setTimeout(function () {
+                            location.href = "../../../../listaFichasGeneral";
+                        }, 2000);  
+                    }
                 },
                 error: function(xhr, status, error) {
                     toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);

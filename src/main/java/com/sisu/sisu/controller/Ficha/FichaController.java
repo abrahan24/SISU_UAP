@@ -147,19 +147,19 @@ public class FichaController {
         Ficha ficha = fichaService.findOne(idFicha);
         ficha.setEstado("AA");
          ficha.setHorario(date);
-        fichaService.save(ficha);
+       
         PersonalMedicoFicha personalMedicoFicha = new PersonalMedicoFicha();
         personalMedicoFicha.setFicha(ficha);
         personalMedicoFicha.setPersonal_medico(personalMedicoService.buscarId(idPersonalMedico));
         personalMedicoFicha.setRegistro(new Date());
         personalMedicoFicha.setHorario(date);
-        personalMedicoFichaDao.save(personalMedicoFicha);
+        
 
         List<HorarioMedico> listaHorariosMedicos = horarioMedicoService.listaHorariosMedicos(personalMedico.getIdPersonalMedico());
 		List<Ficha> listaFichasMedicosAsignadas = fichaService.listaFichasAsignadas(idPersonalMedico);
 
         for (HorarioMedico horario : listaHorariosMedicos) {
-
+ 
 			if (horario.getHorarios().getDia().equals(nombreDiaCapitalizado)) {
 				System.out.println(listaFichasMedicosAsignadas.size() + " =?>?= " + horario.getCantidad_fichas());
 				if (listaFichasMedicosAsignadas.size() >= horario.getCantidad_fichas()) {
@@ -167,6 +167,8 @@ public class FichaController {
 				}
 			}
 		}
+        fichaService.save(ficha);
+        personalMedicoFichaDao.save(personalMedicoFicha);
 
         return ResponseEntity.ok("1");
      }

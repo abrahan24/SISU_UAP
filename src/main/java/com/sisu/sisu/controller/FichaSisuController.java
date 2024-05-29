@@ -279,7 +279,8 @@ public class FichaSisuController {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
-		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+		Date fechaActualD = new Date();
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio, fechaActualD);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaCreada.getIdPersona());
 		if (asegurado == null) {
@@ -287,7 +288,7 @@ public class FichaSisuController {
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
-		Date fechaActualD = new Date();
+		
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoUniCreado.getIdAsegurado(),
 				fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
@@ -512,7 +513,9 @@ public class FichaSisuController {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
-		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+		Date fechaActualD = new Date();
+
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio, fechaActualD);
 
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaDocenteCreado.getIdPersona());
 		if (asegurado == null) {
@@ -520,8 +523,7 @@ public class FichaSisuController {
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
-		Date fechaActualD = new Date();
-
+		
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoDocenteCreado.getIdAsegurado(),
 				fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
@@ -719,14 +721,15 @@ public class FichaSisuController {
 
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
-		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+		Date fechaActualD = new Date();
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio, fechaActualD);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaACreada.getIdPersona());
 		if (asegurado == null) {
 
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
-		Date fechaActualD = new Date();
+		
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(codigoAseguradoAdCreado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
@@ -845,14 +848,15 @@ public class FichaSisuController {
 			HttpServletRequest request, Model model, @RequestParam(name = "servicio") Integer idServicio) {
 		ServicioMedico servicioMedico = servicioMedicoService.findOne(idServicio);
 		List<HorarioServicio> listaHorariosServicio = horarioServicioService.listaHorariosValidar(idServicio);
-		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio);
+		Date fechaActualD = new Date();
+		List<Ficha> listaFichasServicioSinAsignar = fichaService.listaFichasSinAsignar(idServicio, fechaActualD);
 		Asegurado asegurado = aseguradoService.findAseguradoByPersonaId(personaECreada.getIdPersona());
 		if (asegurado == null) {
 
 			return ResponseEntity.ok("error"); // No está habilitado para generar Fichas, debe apersonarse a SISU y
 												// verificar sus datos
 		}
-		Date fechaActualD = new Date();
+		
 		Ficha existeFicha = fichaService.findFichaByAseguradoId(asegurado.getIdAsegurado(), fechaActualD);
 		// Verificar si la fecha de registro de la ficha es igual a la fecha actual
 		LocalDate fechaActual = LocalDate.now();
