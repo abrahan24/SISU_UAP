@@ -17,11 +17,8 @@ import com.sisu.sisu.Service.HorariosService;
 import com.sisu.sisu.Service.ServicioMedicoService;
 import com.sisu.sisu.entitys.HorarioServicio;
 import com.sisu.sisu.entitys.Usuario;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 
 
