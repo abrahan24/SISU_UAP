@@ -91,7 +91,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="header-title">Asegurados</h4><br>
+                                        <h4 class="header-title">Servicios de Asegurados Completados</h4><br>
 
                                        
                                             
@@ -112,7 +112,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado == 'AA'}">
+                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado == 'AAA'}">
                                                 <!-- <td th:text="${f.asegurado.persona.nombres}"></td> -->
                                                 <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.nombres}"></td>
                                                 <!-- <td th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td> -->
@@ -142,10 +142,10 @@
                                                 <td>
                                                     <input type="hidden" th:hidden="${f != null and f.ficha.asegurado != null}" />
                                                     <div class="btn-group" role="group">
-                                                        <a type="button" th:href="@{'../../../../vistaHistorialSeguro/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Historia Clinica">
+                                                        <a type="button" th:href="@{'../../../../verHistorialMedico/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Historias Medicas">
                                                             <i class="mdi mdi-folder-plus-outline"></i>
                                                         </a>
-                                                        <a type="button" th:href="@{'../../../../verModeloIndicacionMedica/'+${f.ficha.asegurado.idAsegurado}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas" target="_blank">
+                                                        <!-- <a type="button" th:href="@{'../../../../verModeloIndicacionMedica/'+${f.ficha.asegurado.idAsegurado}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas" target="_blank">
                                                             <i class="mdi mdi-folder-plus-outline"></i>
                                                         </a>
                                                         
@@ -159,7 +159,7 @@
                                                         <a th:attr="onclick='rechazarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'" 
                                                         type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Rechazar">
                                                             <i class="mdi mdi-trash-can"></i>
-                                                        </a>
+                                                        </a> -->
 
                                                         
                                                     </div>

@@ -91,88 +91,76 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="header-title">Asegurados</h4><br>
+                                        <h4 class="header-title">Documentos Generados</h4><br>
 
-                                       
-                                            
-                                        <table id="datatable-buttons"
-                                        class="table table-striped table-bordered dt-responsive nowrap botonesH"
-                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre:</th>
-                                                <th>Apellidos:</th>
-                                                <th>ci:</th>
-                                                <th>Expedido</th>
-                                                <th>Codigo Asegurado:</th>
-                                                <th>Genero:</th>
-                                                <th>Num. Celular:</th>
-                                         
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado == 'AA'}">
-                                                <!-- <td th:text="${f.asegurado.persona.nombres}"></td> -->
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.nombres}"></td>
-                                                <!-- <td th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td> -->
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.apPaterno + '  ' + f.ficha.asegurado.persona.apMaterno}"></td>
-                                                <!-- <td th:text="${f.asegurado.persona.ci}"></td> -->
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.ci}"></td>
-                                                <!-- <td th:text="${f.asegurado.persona.dip.codDip}"></td>
-                                                <td th:text="${f.asegurado.codigoAsegurado}"></td>
-                                                <td th:text="${f.asegurado.persona.sexo}"></td> -->
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null and f.ficha.asegurado.persona.dip != null}" th:text="${f.ficha.asegurado.persona.dip.codDip}"></td>
-                                                <td th:if="${f.ficha.asegurado != null}" th:text="${f.ficha.asegurado.codigoAsegurado}"></td>
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.sexo}"></td>
-                                                <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.celular}"></td>
-
-                                                <!-- <td th:if="${f.asegurado.persona.tipos_estado_civil != null}" th:text="${f.asegurado.persona.tipos_estado_civil.NomEstadoCivil}"></td>
-                                                <td th:if="${f.asegurado.persona.grado_academico != null}" th:text="${f.asegurado.persona.grado_academico.nombre_gradoAcademico}"></td> -->
-
-                                               
-
-                                                <!-- <td>
-                                                    <input type="hidden" th:hidden="${f.idFicha}">
-                                                    <form th:action="@{'../../../../vistaHistorialSeguro'}" method="POST">
-                                                        <input type="hidden" th:name="idFicha" th:value="${f.asegurado.idAsegurado}">
-                                                        <button class="btn btn-primary sombre" type="submit">Historial</button>
-                                                    </form>
-                                                </td> -->
-                                                <td>
-                                                    <input type="hidden" th:hidden="${f != null and f.ficha.asegurado != null}" />
-                                                    <div class="btn-group" role="group">
-                                                        <a type="button" th:href="@{'../../../../vistaHistorialSeguro/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Historia Clinica">
-                                                            <i class="mdi mdi-folder-plus-outline"></i>
-                                                        </a>
-                                                        <a type="button" th:href="@{'../../../../verModeloIndicacionMedica/'+${f.ficha.asegurado.idAsegurado}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas" target="_blank">
-                                                            <i class="mdi mdi-folder-plus-outline"></i>
-                                                        </a>
-                                                        
-                                                        <a type="button" th:href="@{'../../../../verModeloOrdenQuirurgico/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Orden Quirurgica" target="_blank">
-                                                            <i class="mdi mdi-folder-plus-outline"></i>
-                                                        </a>
-                                                        <a th:attr="onclick='completarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'"
-                                                        type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Completar">
-                                                            <i class="mdi mdi-check-bold"></i>
-                                                        </a>
-                                                        <a th:attr="onclick='rechazarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'" 
-                                                        type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Rechazar">
-                                                            <i class="mdi mdi-trash-can"></i>
-                                                        </a>
-
-                                                        
+                                       <br>
+                                       <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                    
+                                                  
+                    
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                                                                <a class="nav-link active mb-2" id="v-pills-left-home-tab" data-toggle="pill" href="#v-pills-left-home" role="tab" aria-controls="v-pills-left-home" aria-selected="true">
+                                                                    <i class="fas fa-home mr-1"></i> Historias Clinicas
+                                                                </a>
+                                                                <a class="nav-link mb-2" id="v-pills-left-profile-tab" data-toggle="pill" href="#v-pills-left-profile" role="tab" aria-controls="v-pills-left-profile" aria-selected="false">
+                                                                    <i class="fas fa-user mr-1"></i> Indicaciones Medicas
+                                                                </a>
+                                                                <a class="nav-link mb-2" id="v-pills-left-messages-tab" data-toggle="pill" href="#v-pills-left-messages" role="tab" aria-controls="v-pills-left-messages" aria-selected="false">
+                                                                    <i class="far fa-envelope mr-1"></i> Ordenes de Pro. Quirurgico
+                                                                </a>
+                                                                <a class="nav-link" id="v-pills-left-setting-tab" data-toggle="pill" href="#v-pills-left-setting" role="tab" aria-controls="v-pills-left-setting" aria-selected="false">
+                                                                    <i class="fas fa-cog mr-1"></i> Recetarios
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <div class="tab-content mt-4 mt-sm-0">
+                                                                <div class="tab-pane fade show active" id="v-pills-left-home" role="tabpanel" aria-labelledby="v-pills-left-home-tab">
+                                                                    <p>
+                                                                        Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing.
+                                                                    </p>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="v-pills-left-profile" role="tabpanel" aria-labelledby="v-pills-left-profile-tab">
+                                                                    <p>
+                                                                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress mollit.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Qui photo booth letterpress.
+                                                                    </p>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="v-pills-left-messages" role="tabpanel" aria-labelledby="v-pills-left-messages-tab">
+                                                                    <p>
+                                                                        Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park vinyl keffiyeh Lomo wolf viral, mustache.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        Everyone realizes why a new common language would be desirable. one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation.
+                                                                    </p>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="v-pills-left-setting" role="tabpanel" aria-labelledby="v-pills-left-setting-tab">
+                                                                    <p>
+                                                                        Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher sweater eu banh mi, qui irure terry ex.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Qui photo booth letterpress.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                
-                                                    <!--<form th:action="@{'../../../../vistaHistorialSeguro'}" method="POST">
-                                                        <input type="hidden" th:if="${f != null and f.asegurado != null}" th:name="idFicha" th:value="${f.asegurado.idAsegurado}" />
-                                                        <button class="btn btn-primary sombre" type="submit">Historial</button>
-                                                    </form>-->
-                                                </td>
-                                                
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                            
+                    
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div> 
                                
                                     </div>
                                 </div>

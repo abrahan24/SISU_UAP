@@ -112,7 +112,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado != 'X'}">
+                                            <tr th:each="f : ${fichas}" th:if="${f.ficha.estado == 'AA'}">
                                                 <!-- <td th:text="${f.asegurado.persona.nombres}"></td> -->
                                                 <td th:if="${f.ficha.asegurado != null and f.ficha.asegurado.persona != null}" th:text="${f.ficha.asegurado.persona.nombres}"></td>
                                                 <!-- <td th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td> -->

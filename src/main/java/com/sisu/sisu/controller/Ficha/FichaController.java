@@ -211,8 +211,28 @@ public class FichaController {
                 Ficha ficha = fichaService.findOne(idFicha);
                 ficha.setEstado("AAA");
                 fichaService.save(ficha);
-     
 
+    }
+
+
+    @GetMapping (value = "/fichasAseguradoC/{id_usuario}")
+    public String fichasAseguradoCompletados( @PathVariable("id_usuario") int id_usuario,Model model, @Validated Ficha ficha, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		
+		if (usuario == null) {
+			
+			return "index/login";
+			
+		}
+
+        List<PersonalMedicoFicha> listFichas = personalMedicoFichaDao.personalMedicoFichasCompletadas(id_usuario);
+        System.out.println(listFichas.size());
+        System.out.println(id_usuario);
+        model.addAttribute("fichas", listFichas);
+        model.addAttribute("idUsuario", usuario.getIdUsuario());
+
+        return "Fichas/listaFichaCompletadas";
     }
  
 }
