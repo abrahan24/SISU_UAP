@@ -2,28 +2,28 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<title>Login | Xoric - Responsive Bootstrap 4 Admin Dashboard</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-	<meta content="Themesdesign" name="author" />
-	<!-- App favicon -->
-	<link rel="shortcut icon" href="assets/images/favicon.ico">
+    <meta charset="utf-8" />
+    <title>Login | SISU-UAP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
 
-	<!-- Bootstrap Css -->
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<!-- Icons Css -->
-	<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-	<!-- App Css-->
-	<link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
-	<style>
-		body {
-			background-image: url("assets/images/sisu2.jpg") !important;
-			background-repeat: no-repeat;
-			background-size: cover !important;
-		}
-	</style>
-
+        <!-- Bootstrap Css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        
+         <style>
+            body {
+                background-image: url("assets/images/sisu2.jpg")!important;
+                background-repeat: no-repeat;
+                background-size: cover!important;
+            }
+        </style>
 </head>
 
 <body class="bg-primary bg-pattern">
@@ -36,10 +36,10 @@
 			<div class="row" >
 				<div class="col-lg-12">
 					<div class="text-center mb-5">
-                            <a href="index.html" class="logo"><img src="assets/images/logoS.png" height="180" alt="logo"> </a>
-					   <br>
-                                                        <br>
-                                <h5 class="font-size-20 text-white-50 mb-10">  <b>UNIVERSIDAD AMAZONICA DE PANDO </b></h5>
+						<a href="index.html" class="logo"><img src="assets/images/logoS.png" height="180" alt="logo"> </a>
+						<br>
+						<br>
+						<h5 class="font-size-20 text-white-50 mb-10"> <b>UNIVERSIDAD AMAZONICA DE PANDO </b></h5>
 					</div>
 				</div>
 			</div>
@@ -55,10 +55,10 @@
 									<p class="login-box-msg">
 										<center>
 											<i class="fa fa-user icon-title"></i> Seleccionar Rol
-											</center>
+										</center>
 									</p>
 									
-									<form method="post" action="seleccionarRoles">
+									<form method="post" th:action="@{/seleccionarRoles}">
 
                                      <input type="hidden" name="idUsuario" th:value="${idUsuario}">
 

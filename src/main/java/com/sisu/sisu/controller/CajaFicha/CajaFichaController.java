@@ -38,6 +38,7 @@ import com.sisu.sisu.Service.IDipService;
 import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.ITiposEstadoCivilService;
+import com.sisu.sisu.Service.InstitucionService;
 import com.sisu.sisu.Service.ServicioMedicoService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Dip;
@@ -84,6 +85,9 @@ public class CajaFichaController {
 
 	@Autowired
 	private HorarioServicioService horarioServicioService;
+
+	@Autowired
+	private InstitucionService institucionService;
 
 	@RequestMapping(value = "/Ficha", method = RequestMethod.GET)
 	public String ficha(Model model, HttpServletRequest request) {
@@ -641,6 +645,9 @@ for (HorarioServicio horario : listaHorariosServicio) {
 					historialSeguro.setFechaBaja(new Date());
 					historialSeguro.setTitularHS(true);
 					historialSeguro.setAsegurado(aseguradoA);
+					historialSeguro.setInstitucion(null);
+					historialSeguro.setEstado_seguro(null);
+					historialSeguro.setTipo_seguro(null);
 					historialSeguroService.save(historialSeguro);
 				}
 

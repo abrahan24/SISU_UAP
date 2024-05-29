@@ -1,5 +1,12 @@
 package com.sisu.sisu.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sisu.sisu.Service.IRolesService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
+import com.sisu.sisu.entitys.Enlace;
 import com.sisu.sisu.entitys.Roles;
 import com.sisu.sisu.entitys.Usuario;
 
@@ -55,7 +63,17 @@ public class login {
 				model.addAttribute("msn", msn);
 				return "index/login";
 			}
-			model.addAttribute("lRoles", user.getRoles());
+			// Obtener el conjunto de roles
+			Set<Roles> rolesSet = user.getRoles();
+
+			// Convertir el conjunto a una lista
+			List<Roles> rolesList = new ArrayList<>(rolesSet);
+
+			// Ordenar la lista
+			Collections.sort(rolesList, Comparator.comparing(Roles::getRol));
+
+			// Añadir la lista ordenada al modelo
+			model.addAttribute("lRoles", rolesList);
 			model.addAttribute("idUsuario", user.getIdUsuario());
 			HttpSession sesion = request.getSession();
 			sesion.setAttribute("usuarioSession", user);
@@ -68,7 +86,7 @@ public class login {
 		}
 	}
 	
-	@RequestMapping(value = "seleccionarRoles", method = RequestMethod.POST)
+	@RequestMapping(value = "/seleccionarRoles", method = RequestMethod.POST)
 	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idRol") Integer idRol) {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
@@ -78,7 +96,10 @@ public class login {
 		Roles roles = iRolesService.findOne(idRol);
 		HttpSession sesion = request.getSession(false);
 		sesion.setAttribute("usuario", usuario);
-		sesion.setAttribute("sessionlPadres", roles.getEnlaces());
+		Set<Enlace> enlacesSet = roles.getEnlaces();
+		List<Enlace> enlaceList = new ArrayList<>(enlacesSet);
+		Collections.sort(enlaceList, Comparator.comparing(Enlace::getNombre_enlace));
+		sesion.setAttribute("sessionlPadres", enlaceList);
 		sesion.setAttribute("RolSession", roles);
 
 		return "index/inicio";

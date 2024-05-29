@@ -88,22 +88,12 @@
                             <div class="col-md-4">
                                 <div class="float-right d-none d-md-block">
                                     <div class="dropdown">
-                                        <button class="btn btn-light btn-rounded dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-settings-outline mr-1"></i> OPCIONES
-                                        </button>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                           
                                             <div class="dropdown-divider"></div>
-                                            
                                             <form th:action="@{${url}}" method="get">
-                                               
                                                 <input type="submit" th:value="${nameButton1}">
-                                              </form>
-
+                                            </form>
                                             <div class="dropdown-divider"></div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -123,11 +113,15 @@
                                 <span class="animated-text">Hola, Por favor termina tu Módulo</span>
                                 <i class="fas fa-frog"></i>
                             </div> -->
-            
-                            <button id="animateButton" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light" style="font-size: 18px;">
-                                <i class="mdi mdi-spin mdi-star"></i><i class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-i-box"></i><i class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-u-box"></i><i class="fas fa-ambulance"></i>
+                            <div style="max-width: 100%; overflow: hidden; text-align: center;">
+                                <img src="assets/images/titulo_sisu.png" style="width: 100%; max-width: 450px; height: auto;" alt="titulo_sisu">
+                            </div>
+                            
+                            <button id="animateButton" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light"
+                                style="font-size: 18px;">
+                                <i class="mdi mdi-spin mdi-star"></i><i class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-i-box"></i><i
+                                    class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-u-box"></i><i class="fas fa-ambulance"></i>
                             </button>
-            
                         </div>
                     </div>
                 </div>
