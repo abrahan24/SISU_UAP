@@ -27,10 +27,10 @@
                         <div class="container-fluid">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    <h4 class="page-title mb-1">Lista de Medicamentos Esenciales</h4>
+                                    <h4 class="page-title mb-1">GESTION HORARIOS</h4>
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Liname</a></li>
-                                    <li class="breadcrumb-item active">Medicamentos</li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Horarios</a></li>
+                                    <li class="breadcrumb-item active">Lista Horarios Servicios</li>
                                     </ol>
                                 </div>
                             </div>
@@ -51,38 +51,30 @@
                                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Medicamento</th>
-                                                        <th>Concentracion</th>
-                                                        <th>Forma Farmaceutica</th>
-                                                        <th>Liname codigo</th>
-                                                        <th>ATQ Codigo</th>
-                                                        <th>Tipo Uso</th>
-                                                        <th>Fecha Incluido</th>
-                                                        <th>Fecha Excluido</th>   
+                                                        <th>N°</th>
+                                                        <th>Cantidad de Fichas</th>
+                                                        <th>Fecha Registro</th>
+                                                        <th>Horario (Dia)</th>
+                                                        <th>Servicio</th> 
                                                         <th>Operaciones</th>
                                                     </tr>
                                                 </thead>
             
                                                 <tbody>
-                                                    <tr th:each="l : ${listLinames}" th:if="${l.estadoLiname != 'X'}">
-                                                        <td th:text="${l.medicamento}"></td>
-                                                        <td th:text="${l.concentracion}"></td>
-                                                        <td th:text="${l.forma_farmaceutica.nombreFormaFarmaceutica}"></td>
-                                                        <td th:text="${l.codigoLiname}"></td>
-                                                        <td th:text="${l.codigoATQ}"></td>
-                                                        <td th:text="${l.tipo_uso.nombreTipoUso}"></td>
-                                                        <td th:text="${#dates.format(l.fechaIncluido, 'dd-MM-yyyy')}"></td>
-                                                        <td th:if="${l.fechaExcluido != null}" th:text="${#dates.format(l.fechaExcluido, 'dd-MM-yyyy')}"></td>
-                                                        <td th:if="${l.fechaExcluido == null}" th:text="${'SIN FECHA'}"></td>
-                                                        <td>
+                                                    <tr th:each="h, num : ${horarios}" th:if="${h.estado != 'X'}">
+                                                        <td th:text="${num.index +1}"></td>
+                                                        <td th:text="${h.cantidad_fichas}"></td>
+                                                        <td th:text="${#dates.format(h.fechaRegistroFichaa, 'dd-MM-yyyy')}"></td>
+                                                        <td th:text="${h.horarios.dia}"></td>
+                                                        <td th:text="${h.servicioMedico.servicio.servicios}"></td>
+                                                        <td class="text-center">
                                                             <button type="button" class="btn btn-success " th:data-target="${'#exampleModalScrollableL'}"
-                                                                th:data-value="${l.idLiname}" onclick="editar(this.getAttribute('data-value'))" data-toggle="tooltip"
-                                                                title="EDITAR LINAME" data-placement="bottom">
+                                                                th:data-value="${h.idHorarioServicio}" onclick="editar(this.getAttribute('data-value'))" data-toggle="tooltip"
+                                                                title="EDITAR HORARIO" data-placement="bottom">
                                                                 <i class="dripicons-document-edit"></i>
                                                             </button>
-                                                            <button type="button" class="btn btn-danger" th:data-value="${l.idLiname}"
-                                                                onclick="eliminar(this.getAttribute('data-value'))" data-toggle="tooltip" title="ELIMINAR LINAME"
-                                                                th:attr="onclick='eliminar(\'' + ${l.idLiname} + '\',\'' + ${l.medicamento} + '\')'"
+                                                            <button type="button" class="btn btn-danger" data-toggle="tooltip" title="ELIMINAR HORARIO"
+                                                                th:attr="onclick='eliminar(\'' + ${h.idHorarioServicio} + '\',\'' + ${h.horarios.dia} + '\')'"
                                                                 data-placement="bottom">
                                                                 <i class="dripicons-trash"></i>
                                                             </button>
@@ -90,19 +82,14 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            
                                         </div>
                                     </div>
-                                </div> <!-- end col -->
-                            </div> <!-- end row -->
-
+                                </div> 
+                            </div> 
                         </div>
-                        <!-- end container-fluid -->
                     </div> 
-                    <!-- end page-content-wrapper -->
                 </div>
-                <!-- End Page-content -->
-
+               
                 <div th:insert ="~{layout/footer :: footer}"></div>
             
             </div>
@@ -111,7 +98,7 @@
         </div>
         <!-- END layout-wrapper -->
         <!-- Small modal -->
-        <div class="modal fade bs-example-modal-lg" id="exampleModalScrollable1" tabindex="-1" role="dialog"
+        <!-- <div class="modal fade bs-example-modal-lg" id="exampleModalScrollable1" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -212,9 +199,9 @@
                             </div>
                         </form>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+            </div>
+        </div> -->
 
         <div class="modal fade bs-example-modal-lg" id="exampleModalScrollableL" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -223,14 +210,14 @@
                         <h4 class="modal-title" id="myModalLabel9">
                             <div class="fonticon-wrap">
                                 <i class="ft-user-check"></i>
-                            </div>FORMULARIO REGISTRO LINAME
+                            </div>FORMULARIO REGISTRO HORARIO SERVICIO
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="replace_divLiname">
+                        <div id="replace_hs">
                     
                         </div>
                     </div>
@@ -246,71 +233,29 @@
         
         <script>
             function NuevoRegistro(){
-                $('.js-example-basic').select2({
-                    placeholder : "Seleccione..."
-                });
-                $('#miFormulario').submit(function (event) {
-                    event.preventDefault();
-                    var form = document.getElementById("miFormulario");
-                    var action = form.action;
-                    var formData = $(this).serialize();
-    
-                    $.ajax({
-                        type: 'POST',
-                        url: $(this).attr('action'),
-                        data: formData,
-                        contentType: 'application/x-www-form-urlencoded',
-                        success: function (response) {
-                            var mensaje = response;
-                            if (mensaje == "1") {
-                                Swal.fire({
-                                    title: 'Registro Realizado con Exitoso!',
-                                    icon: "success",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                setTimeout(function () {
-                                    location.href = "../../../../l-Liname";
-                                }, 1600);
-                            } else if (mensaje == "2") {
-                                Swal.fire({
-                                    title: '¡El registro Se ah Editado con Exito!',
-                                    icon: "success",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                setTimeout(function () {
-                                    location.href = "../../../../l-Liname";
-                                }, 1600);
-                            } else if (mensaje == "3") {
-                                Swal.fire({
-                                    title: '¡El registro que estás intentando agregar ya existe en nuestra base de datos!',
-                                    icon: "info",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                })
-                                setTimeout(function () {
-                                    location.href = "../../../../l-Liname";
-                                }, 1600);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                            console.error(error);
-                            // Manejo de errores
-                        }
-                    });
-    
-                });
-                $('#exampleModalScrollable1').modal('show');
+                $.ajax({
+                    url: "/nuevo_horario_servicio" , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                    method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
+                    success: function (response) {
+                        $("#replace_hs").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                        $('.js-example-basic').select2({
+                            placeholder : "Seleccione..."
+                        });
+                        $('#exampleModalScrollableL').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                      // Maneja los errores de la solicitud AJAX
+                      console.log(error);
+                    },
+                  });
             }
 
             function editar(id) {
                 $.ajax({
-                    url: "/listLiname/"+id , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
+                    url: "/edit_horario_servicio/"+id , // Reemplaza '/ruta_del_servidor' por la URL de tu servidor
                     method: "GET", // Utiliza el método HTTP que corresponda (GET, POST, etc.)
                     success: function (response) {
-                        $("#replace_divLiname").html(response); // Actualiza el contenido del div con la respuesta del servidor
+                        $("#replace_hs").html(response); // Actualiza el contenido del div con la respuesta del servidor
                         $('.js-example-basic').select2({
                             placeholder : "Seleccione..."
                         });
@@ -331,12 +276,13 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
+                    cancelButtonText:'Cancelar',
                     confirmButtonText: 'Si, eliminar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            type: 'POST',
-                            url: "/eliminLiname/" + id,
+                            type: 'GET',
+                            url: "/eliminar_horario_servicio/" + id,
                             success: function () {
                                 Swal.fire({
                                     icon: 'success',
@@ -345,7 +291,7 @@
                                     timer: 1500
                                 });
                                 setTimeout(function () {
-                                    location.href = "../../../../l-Liname";
+                                    location.href = "../../../../lista_horario_servicio";
                                 }, 1600);
                             }
                         });

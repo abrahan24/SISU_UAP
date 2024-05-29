@@ -74,7 +74,6 @@
                                                         <td th:text="${#dates.format(l.fechaIncluido, 'dd-MM-yyyy')}"></td>
                                                         <td th:if="${l.fechaExcluido != null}" th:text="${#dates.format(l.fechaExcluido, 'dd-MM-yyyy')}"></td>
                                                         <td th:if="${l.fechaExcluido == null}" th:text="${'SIN FECHA'}"></td>
-                                                         <!-- <td th:text="${l.persona.apPaterno + '  ' + p.persona.apMaterno}"></td> -->
                                                         <td>
                                                             <button type="button" class="btn btn-success " th:data-target="${'#exampleModalScrollableL'}"
                                                                 th:data-value="${l.idLiname}" onclick="editar(this.getAttribute('data-value'))" data-toggle="tooltip"
@@ -112,7 +111,6 @@
         </div>
         <!-- END layout-wrapper -->
         <!-- Small modal -->
-        <!-- <button type="button" style="margin-right: 5%;" class="btn btn-info btn-sm waves-effect waves-light" data-placement="top" title="Registate" data-toggle="modal" data-target="#exampleModalScrollable1"><i class="mdi mdi-plus-thick"></i>Registrar</button> -->
         <div class="modal fade bs-example-modal-lg" id="exampleModalScrollable1" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg">

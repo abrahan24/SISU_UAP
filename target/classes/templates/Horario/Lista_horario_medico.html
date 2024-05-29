@@ -74,6 +74,7 @@
                                                         <td th:text="${#dates.format(l.fechaIncluido, 'dd-MM-yyyy')}"></td>
                                                         <td th:if="${l.fechaExcluido != null}" th:text="${#dates.format(l.fechaExcluido, 'dd-MM-yyyy')}"></td>
                                                         <td th:if="${l.fechaExcluido == null}" th:text="${'SIN FECHA'}"></td>
+                                                         <!-- <td th:text="${l.persona.apPaterno + '  ' + p.persona.apMaterno}"></td> -->
                                                         <td>
                                                             <button type="button" class="btn btn-success " th:data-target="${'#exampleModalScrollableL'}"
                                                                 th:data-value="${l.idLiname}" onclick="editar(this.getAttribute('data-value'))" data-toggle="tooltip"
