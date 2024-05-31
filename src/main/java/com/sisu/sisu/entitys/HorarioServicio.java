@@ -38,7 +38,7 @@ public class HorarioServicio implements Serializable {
 
     @Column(name = "fecha_registro_ficha")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date fechaRegistroFichaa;
 
     @Column(name = "estado")
@@ -46,7 +46,7 @@ public class HorarioServicio implements Serializable {
 
     @Column(name = "modificacion")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date modificacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
