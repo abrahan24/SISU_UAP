@@ -94,5 +94,98 @@
 </div>
 
 <div th:fragment="h_medico">
-
+    <form class="needs-validation" th:action="@{/guardar_horario_medico}" id="miFormulario" method="post">
+        <input type="hidden" th:field="${horario.idHorarioMedico}">
+        <input type="hidden" th:field="${horario.fechaRegistroFichaa}">
+        <div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="validationCustom01">Cantidad de Fichas</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <input type="number"  th:field="${horario.cantidad_fichas}" placeholder="cantidad fichas"
+                            class="form-control" min="1"  required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Horario (Dia)</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <select class="js-example-basic" style="width: 100%;" th:field="${horario.horarios}">
+                            <option value="">Elegir..</option>
+                            <option th:each="hr : ${horarios}" th:if="${hr.estado != 'X'}" th:text="${hr.dia}" th:value="${hr.idHorario}">
+                            </option>
+                        
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="validationCustom01">Medico</label>
+                    <div class="form-group form-group-custom mb-6">
+                        <select class="js-example-basic" style="width: 100%;" th:field="${horario.personal_medico}">
+                            <option value="">Elegir..</option>
+                            <option th:each="m : ${medicos}" th:if="${m.estado != 'X'}"
+                                th:text="${m.persona.nombres+' '+m.persona.apPaterno+' '+m.persona.apMaterno+' - '+m.persona.ci}"
+                                th:value="${m.idPersonalMedico}">
+                            </option>
+                        
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">CANCELAR</button>
+                <button th:if="${horario.idHorarioMedico == null}" type="submit" class="btn btn-outline-success">ENVIAR</button>
+                <button th:if="${horario.idHorarioMedico != null}" type="submit" class="btn btn-outline-success">MODIFICAR</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function(){
+            $('#miFormulario').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("miFormulario"); 
+                var action = form.action;
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Registro Realizado con Exitoso!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../lista_horario_medico";
+                            }, 1600);
+                        }else if (mensaje == "2"){
+                            Swal.fire({
+                                title: '¡El registro Se ah Editado con Exito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.href = "../../../../lista_horario_medico";
+                            }, 1600);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                        // Manejo de errores
+                    }
+                });
+    
+            });
+        });
+    </script>
 </div>
