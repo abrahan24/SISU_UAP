@@ -145,13 +145,22 @@
                                                         <a type="button" th:href="@{'../../../../vistaHistorialSeguro/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Historia Clinica">
                                                             <i class="mdi mdi-folder-plus-outline"></i>
                                                         </a>
-                                                        <a type="button" th:href="@{'../../../../verModeloIndicacionMedica/'+${f.ficha.asegurado.idAsegurado}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas" target="_blank">
+                                                        <!-- <a type="button" th:href="@{'../../../../verModeloIndicacionMedica/'+${f.ficha.asegurado.idAsegurado}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Indicaciones Medicas" target="_blank">
                                                             <i class="mdi mdi-folder-plus-outline"></i>
-                                                        </a>
+                                                        </a> -->
                                                         
                                                         <a type="button" th:href="@{'../../../../verModeloOrdenQuirurgico/'+${f.ficha.asegurado.idAsegurado}+'/'+${f.ficha.idFicha}}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Orden Quirurgica" target="_blank">
                                                             <i class="mdi mdi-folder-plus-outline"></i>
                                                         </a>
+                                                        <div class="btn-group" role="group">
+                                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                              indicaciones<i class="mdi mdi-chevron-down ml-1"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                              <a class="dropdown-item" th:href="@{'../../../../verModeloIndicacionMedicaObservacion/'+${f.ficha.asegurado.idAsegurado}}" target="_blank">Observación</a>
+                                                              <a class="dropdown-item" th:href="@{'../../../../verModeloIndicacionMedicaInternacion/'+${f.ficha.asegurado.idAsegurado}}" target="_blank">Internación</a>
+                                                            </div>
+                                                          </div>
                                                         <a th:attr="onclick='completarFicha(\'' + ${f.ficha.idFicha} + '\' , \'' + ${f.ficha.asegurado.persona.nombres} + '\', \'' + ${idUsuario} + '\')'"
                                                         type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Completar">
                                                             <i class="mdi mdi-check-bold"></i>
@@ -161,7 +170,7 @@
                                                             <i class="mdi mdi-trash-can"></i>
                                                         </a>
 
-                                                        
+                                                     
                                                     </div>
                                                 
                                                     <!--<form th:action="@{'../../../../vistaHistorialSeguro'}" method="POST">
