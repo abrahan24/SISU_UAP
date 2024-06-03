@@ -47,7 +47,7 @@ public class RecetaReportController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "inline;filename=" + "Reporte PERSONA"
+                        "inline;filename=" + "Recibo Recetario"
                                 + ".pdf")
                 .contentType(MediaType.APPLICATION_PDF)
                 .contentLength(bytes.length)

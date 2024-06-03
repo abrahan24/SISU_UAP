@@ -30,6 +30,8 @@
 		</box>
 	</style>
 	<subDataset name="Dataset1" uuid="14c76330-c5e5-4448-8cc1-03d900f66d8b">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
