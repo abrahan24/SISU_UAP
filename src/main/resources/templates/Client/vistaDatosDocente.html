@@ -47,130 +47,114 @@
     </head>
 
     <body>
-        <div class="home-btn d-none d-sm-block">
-            <a href="index.html"><i class="mdi mdi-home-variant h2"></i></a>
-        </div>
+      
 
-        <div class="account-pages my-3 pt-sm-3">
+        <div class="account-pages my-5 pt-sm-1">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="text-center mb-5">
-                            <img src="assets/images/logoS.png" height="100" alt="logo">
-                            <h4 class="mt-4">Servicio Integral de Salud Universitaria</h4>
-                            <p class="text-muted">Universidad Amazonica de Pando</p>
-                        </div>
-                        
-                    </div>
-                    <div class="container">     
-                        <div class="row justify-content-center" style="height: 65vh;">
-                            <div class="col-xl-8 col-sm-8 d-flex align-items-center justify-content-center" style="height: 600px;">
-                                <div class="card bg-light">
-                                    <div class="card  bg-danger mt-0">
-                                        <h2 style="text-align: center; color: rgb(245, 245, 245);">Datos Personales</h2>
-    
-                                    </div>
-                                    <div class="card-body p-4">   
-                                        <form id="form1" action="/generarFichaD" method="post">
-                                            <input type="hidden" id="codigoDocente" name="codigoDocente" value="${codigoDocente}" />
-                                           
-                                               
-                                
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="nombreUniversitario">Nombre del Universitario:</label>
-                                                    <input type="text" id="nombreUniversitario" name="nombreUniversitario" class="form-control" th:value="${DatosDocente}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="apPaterno">Apellido Paterno</label>
-                                                    <input type="text" id="apPaterno" name="apPaterno" class="form-control" th:value="${apellidoPaterno}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="apMaterno">Apellido Materno</label>
-                                                    <input type="text" id="apMaterno" name="apMaterno" class="form-control" th:value="${apellidoMaterno}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="ci">CI:</label>
-                                                    <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="rd">RD:</label>
-                                                    <input type="text" id="rd" name="rd" class="form-control" th:value="${rd}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="titulo">Titulo:</label>
-                                                    <input type="text" id="titulo" name="titulo" class="form-control" th:value="${titulo}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="direccionD">Dirección:</label>
-                                                    <input type="text" id="direccionD" name="direccionD" class="form-control" th:value="${direccionD}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="gradoAcademico">Grado Academico:</label>
-                                                    <input type="text" id="corrgradoAcademicoeo" name="gradoAcademico" class="form-control" th:value="${gradoAcademico}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="celularD">Celular:</label>
-                                                    <input type="text" id="celularD" name="celularD" class="form-control" th:value="${celularD}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="tipoSanguineoD">Tipo Sanguíne:</label>
-                                                    <input type="text" id="tipoSanguineoD" name="tipoSanguineoD" class="form-control" th:value="${tipoSanguineoD}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="sexoD">Sexo:</label>
-                                                    <input type="text" id="sexoD" name="sexoD" class="form-control" th:value="${sexoD}" readonly>
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                                                    <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" th:value="${fechaNacimiento}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <label for="activo">Estado Matricula</label>
-                                                    <input type="text" id="activo" name="activo" class="form-control" th:value="${activo}" readonly>
-                                                    <p th:if="${activo}" class="text-success">Matrícula activa</p>
-                                                    <p th:if="${!activo}" class="text-danger">Matrícula inactiva</p>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <label for="estadoMatriculacion">Seleccionar Servicio Requerido</label>
-                                                    <select class="selectize" name="servicio" required>
-                                                        <option value="">Elegir..</option>
-    
-                                                        <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
-                                                            <option th:value="${ser.idServicioMedico}"
-                                                                th:text="${ser.servicio.servicios}"></option>
-                                                        </th:block>
-    
-                                                    </select>
-                                                 
-                                                </div>
-                                            </div>
-                                            <div class="container mt-3">
-                                                <div class="row">
-                                                    <div>
-                                                        <a style="margin-right: 215px;" class="btn btn-secondary"
-                                                            name="submitCancelar" href="../../../inicioCliente">Cancelar</a>
-                                                    </div>
-                                                    <div>
-                                                        <button type="submit" class="btn btn-success" name="submitRegistrar"
-                                                            formaction="/registroCliente">Generar Ficha</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                    <div class="col-lg-6">
+                        <div class="text-center">
+                          
+                            <div style="max-width: 100%; overflow: hidden; text-align: center;">
+                                <img src="assets/images/titulo_sisu.png" style="width: 100%; max-width: 450px; height: auto;" alt="titulo_sisu">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end row -->
+                <br>
+                <div class="row justify-content-center" >
+                    <div class="col-xl-8 col-sm-10 " >
+                        <div class="card bg-light">
+                            <div class="card-header bg-danger text-center">
+                                <h2 class="text-white">Datos Personales</h2>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="form1" action="/generarFichaD" method="post">
+                                    <input type="hidden" id="codigoDocente" name="codigoDocente" value="${codigoDocente}" />
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="nombreUniversitario">Nombre del Universitario:</label>
+                                            <input type="text" id="nombreUniversitario" name="nombreUniversitario" class="form-control" th:value="${DatosDocente}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="apPaterno">Apellido Paterno</label>
+                                            <input type="text" id="apPaterno" name="apPaterno" class="form-control" th:value="${apellidoPaterno}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="apMaterno">Apellido Materno</label>
+                                            <input type="text" id="apMaterno" name="apMaterno" class="form-control" th:value="${apellidoMaterno}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="ci">CI:</label>
+                                            <input type="text" id="ci" name="ci" class="form-control" th:value="${ci}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="rd">RD:</label>
+                                            <input type="text" id="rd" name="rd" class="form-control" th:value="${rd}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="titulo">Titulo:</label>
+                                            <input type="text" id="titulo" name="titulo" class="form-control" th:value="${titulo}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="direccionD">Dirección:</label>
+                                            <input type="text" id="direccionD" name="direccionD" class="form-control" th:value="${direccionD}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="gradoAcademico">Grado Académico:</label>
+                                            <input type="text" id="gradoAcademico" name="gradoAcademico" class="form-control" th:value="${gradoAcademico}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="celularD">Celular:</label>
+                                            <input type="text" id="celularD" name="celularD" class="form-control" th:value="${celularD}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="tipoSanguineoD">Tipo Sanguíneo:</label>
+                                            <input type="text" id="tipoSanguineoD" name="tipoSanguineoD" class="form-control" th:value="${tipoSanguineoD}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="sexoD">Sexo:</label>
+                                            <input type="text" id="sexoD" name="sexoD" class="form-control" th:value="${sexoD}" readonly>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                            <input type="text" id="fechaNacimiento" name="fechaNacimiento" class="form-control" th:value="${fechaNacimiento}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="activo">Estado Matrícula</label>
+                                            <input type="text" id="activo" name="activo" class="form-control" th:value="${activo}" readonly>
+                                            <p th:if="${activo}" class="text-success">Matrícula activa</p>
+                                            <p th:if="${!activo}" class="text-danger">Matrícula inactiva</p>
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label for="servicio">Seleccionar Servicio Requerido</label>
+                                            <select class="form-control" name="servicio" required>
+                                                <option value="">Elegir..</option>
+                                                <th:block th:each="ser: ${servicios}" th:if="${ser.estado != 'X'}">
+                                                    <option th:value="${ser.idServicioMedico}" th:text="${ser.servicio.servicios}"></option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 mb-3">
+                                            <a class="btn btn-secondary btn-block" href="../../../inicioCliente">Cancelar</a>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <button type="submit" class="btn btn-success btn-block" name="submitRegistrar" formaction="/registroCliente">Generar Ficha</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- end Account pages -->

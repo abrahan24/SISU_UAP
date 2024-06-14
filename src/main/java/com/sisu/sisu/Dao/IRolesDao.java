@@ -8,8 +8,8 @@ import com.sisu.sisu.entitys.Roles;
 
 public interface IRolesDao extends JpaRepository<Roles, Integer>{
 
-    @Query(value = "SELECT id_rol, estado FROM ROLES WHERE UPPER(ROL) = UPPER(:rol) LIMIT 1", nativeQuery = true)
-    Roles findByRol(@Param("rol") String rol);
+    @Query(value = "SELECT id_rol, estado FROM ROLES WHERE UPPER(ROL) = UPPER(?1) LIMIT 1", nativeQuery = true)
+    Roles findByRol(String rol);
 
 
     @Query(value = "SELECT ro FROM Roles ro WHERE ro.rol=?1 AND ro.descripcion=?2 AND ro.estado='A'")
