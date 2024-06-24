@@ -27,6 +27,7 @@
                                                 <li>
                                                     <a  th:if="${hijos.nombre_enlace != 'Lista de Fichas Asignadas'}" th:href="${hijos.ruta}" th:text="${hijos.nombre_enlace}"></a>
                                                     <a  th:if="${hijos.nombre_enlace == 'Lista de Fichas Asignadas'}" th:href="${hijos.ruta+ '/' +session.usuario.idUsuario} " th:text="${hijos.nombre_enlace}"></a>
+                                                    <!-- <a  th:if="${hijos.nombre_enlace == 'Recibo Receta'}" th:href="${hijos.ruta}" target="_blank" th:text="${hijos.nombre_enlace}"></a> -->
                                                     <!-- <a  th:if="${hijos.nombre_enlace == 'Recibo Receta'}" onclick="verReportePrint()" th:text="${hijos.nombre_enlace}"></a> -->
                                                 </li>
                                             </th:block>
