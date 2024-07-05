@@ -41,6 +41,9 @@ public class RecetaRemedios implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date modificacion;
 
+	@Column(name = "cantidad_recetada")
+    private String cantidad_recetada;
+
     //-----------------RELACIONES-----------------------------------------------
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,87 +51,14 @@ public class RecetaRemedios implements Serializable{
     private Receta receta;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idRemediosFarmacia")
-    private RemediosFarmacia remedios_farmacia;
+	@JoinColumn(name = "id_liname")
+    private ListaLiname lista_liname;
 
-	public RecetaRemedios() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "idRemediosFarmacia")
+    // private RemediosFarmacia remedios_farmacia;
 
-	public RecetaRemedios(Integer idRecetaRemedios, String estado, Date registro, Date modificacion, Receta receta,
-			RemediosFarmacia remedios_farmacia) {
-		super();
-		this.idRecetaRemedios = idRecetaRemedios;
-		this.estado = estado;
-		this.registro = registro;
-		this.modificacion = modificacion;
-		this.receta = receta;
-		this.remedios_farmacia = remedios_farmacia;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public static void setSerialversionuid(long serialversionuid) {
-		serialVersionUID = serialversionuid;
-	}
-
-	public Integer getIdRecetaRemedios() {
-		return idRecetaRemedios;
-	}
-
-	public void setIdRecetaRemedios(Integer idRecetaRemedios) {
-		this.idRecetaRemedios = idRecetaRemedios;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Date getRegistro() {
-		return registro;
-	}
-
-	public void setRegistro(Date registro) {
-		this.registro = registro;
-	}
-
-	public Date getModificacion() {
-		return modificacion;
-	}
-
-	public void setModificacion(Date modificacion) {
-		this.modificacion = modificacion;
-	}
-
-	public Receta getReceta() {
-		return receta;
-	}
-
-	public void setReceta(Receta receta) {
-		this.receta = receta;
-	}
-
-	public RemediosFarmacia getRemedios_farmacia() {
-		return remedios_farmacia;
-	}
-
-	public void setRemedios_farmacia(RemediosFarmacia remedios_farmacia) {
-		this.remedios_farmacia = remedios_farmacia;
-	}
-
-	@Override
-	public String toString() {
-		return "RecetaRemedios [idRecetaRemedios=" + idRecetaRemedios + ", estado=" + estado + ", registro=" + registro
-				+ ", modificacion=" + modificacion + ", receta=" + receta + ", remedios_farmacia=" + remedios_farmacia
-				+ "]";
-	}
+	
     
     
     

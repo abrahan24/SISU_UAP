@@ -13,5 +13,7 @@ public interface HistorialMedicoService {
     public HistorialMedico findOne(Integer id);
 
     public void delete (Integer id);
+
+    public HistorialMedico getHistorialMedico_por_id_seguro(Integer id_asegurado);
     
 }

@@ -33,5 +33,10 @@ public class HistorialMedicoServiceImpl implements HistorialMedicoService{
     public void delete(Integer id) {
       historialMedicoDao.deleteById(id);
     }
+
+    @Override
+    public HistorialMedico getHistorialMedico_por_id_seguro(Integer id_asegurado) {
+     return historialMedicoDao.getHistorialMedico_por_id_seguro(id_asegurado);
+    }
     
 }

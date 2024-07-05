@@ -75,5 +75,7 @@ public class Ficha implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ficha", fetch = FetchType.LAZY)
 	  private List<PersonalMedicoFicha> personalMedicoFicha;
 
+  
+
  
 }
