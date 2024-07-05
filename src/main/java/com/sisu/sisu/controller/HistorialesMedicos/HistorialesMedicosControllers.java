@@ -100,15 +100,19 @@ public class HistorialesMedicosControllers {
             recetaRemedioDao.save(recetaRemedios);
         }
 
-        HistorialMedico historialMedicoValidar = historialMedicoService.findOne(id_asegurado);
+        HistorialMedico historialMedicoValidar = historialMedicoService.getHistorialMedico_por_id_seguro(id_asegurado);
 
         if (historialMedicoValidar != null) {
+            System.out.println(
+							" ----------------------- ESTE ASEGURADO YA TIENE UN HISTORIAL MEDICO EN LA BASE DE DATOS ---------------------------");
             HistorialReceta historialReceta = new HistorialReceta();
             historialReceta.setEstado("A");
             historialReceta.setHistorial_medico(historialMedicoValidar);
             historialReceta.setReceta(receta);
             historialRecetaService.save(historialReceta);
         } else {
+            System.out.println(
+                " ----------------------- ESTE ASEGURADO NOO TIENE UN HISTORIAL MEDICO EN LA BASE DE DATOS ---------------------------");
             HistorialMedico historialMedico = new HistorialMedico();
             historialMedico.setEstado("A");
             historialMedico.setAsegurado(asegurado);
