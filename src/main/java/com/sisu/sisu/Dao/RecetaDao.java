@@ -19,7 +19,7 @@ public interface RecetaDao extends CrudRepository<Receta, Integer>{
                 "where r.estado = 'S'", nativeQuery = true)
                 List<Object[]>  listaRecetasPendientes();
 
-                @Query(value = "select p.nombres, p.ap_paterno, p.ap_materno, p.ci, a.codigo_asegurado, r.fecha, r.estado from receta r \n" + //
+                @Query(value = "select p.nombres, p.ap_paterno, p.ap_materno, p.ci, a.codigo_asegurado, r.fecha, r.id_receta from receta r \n" + //
                 "left join historial_receta hr on hr.id_receta = r.id_receta \n" + //
                 "left join historial_medico hm on hm.id_historial_medico = hr.id_historial_medico \n" + //
                 "left join asegurado a on a.id_asegurado = hm.id_asegurado \n" + //
