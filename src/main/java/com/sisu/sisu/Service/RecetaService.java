@@ -9,4 +9,6 @@ public interface RecetaService {
     public void registrarReceta(Receta receta);
     public Receta buscarRecetaId(Integer id);
     public void eliminarReceta(Receta receta);
+    List<Object[]>  listaRecetasPendientes();
+    List<Object[]>  listaRecetasGeneral();
 }

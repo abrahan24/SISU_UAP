@@ -35,4 +35,16 @@ public class IRecetaServiceImlp implements RecetaService{
         recetaDao.save(receta);
     }
 
+    @Override
+    public List<Object[]> listaRecetasPendientes() {
+      return recetaDao.listaRecetasPendientes();
+    }
+
+    @Override
+    public List<Object[]> listaRecetasGeneral() {
+      return recetaDao.listaRecetasGeneral();
+    }
+
+  
+
 }

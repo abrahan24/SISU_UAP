@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head th:insert="~{layout/head :: head}">
+</head>
+
+<body data-topbar="colored">
+
+    <div id="layout-wrapper">
+
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+        <div class="vertical-menu">
+            <div th:insert="~{layout/sidebar :: sidebar}"></div>
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">Lista Recetas</h4>
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Recetas</a></li>
+                                  
+                                </ol>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                      
+                                        <h4 class="header-title">Recetas</h4><br>
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
+                                                    <i class="fas fa-file-powerpoint mr-1"></i> <span class="d-none d-md-inline-block">Pendientes</span> 
+                                                </a>
+                                            </li>
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">
+                                                    <i class="fab fa-buffer mr-1"></i> <span class="d-none d-md-inline-block">General</span>
+                                                </a>
+                                            </li>
+                                           
+                                        </ul>
+                                        <br>
+                                        <div class="tab-content p-3">
+                                            <div class="tab-pane active" id="home-1" role="tabpanel">
+                                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre:</th>
+                                                            <th>Apellidos:</th>
+                                                            <th>ci:</th>
+                                                            <th>Codigo Asegurado:</th>
+                                                            <th>Fecha de Generación</th>    
+                                                            <th>Accion</th>
+                                                       
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="lrp : ${listaRecetasP}" >
+                                                            <td th:text="${lrp[0]}">a</td>
+                                                            <td th:text="${lrp[1]} +' '+ ${lrp[2]}">a</td>
+                                                            <td th:text="${lrp[3]}">a</td>
+                                                            <td th:text="${lrp[4]}">a</td>
+                                                            <td th:text="${lrp[5]}">a</td>
+                                                            <!-- <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.nombres}"></td>
+                                                          
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td>
+                                                          
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.ci}"></td>
+                                                         
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.dip != null}" th:text="${f.asegurado.persona.dip.codDip}"></td>
+                                                            <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
+                                                            <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+            
+                                                          
+                                                         
+            
+                                                         
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
+                                                                onclick="enviarID(this.getAttribute('data-value'))"
+                                                                >
+                                                                    Generar
+                                                                </button>
+                                                                <!-- <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
+                                                                th:data-value="${f.idFicha}" 
+                                                                onclick="enviarID(this.getAttribute('data-value'))"
+                                                                >
+                                                                    Generar
+                                                                </button> -->
+                                                            </td>
+                                                         
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane" id="profile-1" role="tabpanel">
+                                                <table id="datatable-buttons2" class="table table-striped table-bordered dt-responsive nowrap botonesH" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre:</th>
+                                                            <th>Apellidos:</th>
+                                                            <th>ci:</th>
+                                                            <th>Codigo Asegurado:</th>
+                                                            <th>Fecha de Generación</th>    
+                                                            <th>Accion</th>
+                                                       
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="lrg : ${listaRecetasG}" >
+                                                            <td th:text="${lrg[0]}">a</td>
+                                                            <td th:text="${lrg[1]} +' '+ ${lrg[2]}">a</td>
+                                                            <td th:text="${lrg[3]}">a</td>
+                                                            <td th:text="${lrg[4]}">a</td>
+                                                            <td th:text="${lrg[5]}">a</td>
+                                                            <!-- <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.nombres}"></td>
+                                                          
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td>
+                                                          
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.ci}"></td>
+                                                         
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.dip != null}" th:text="${f.asegurado.persona.dip.codDip}"></td>
+                                                            <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
+                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
+                                                            <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+            
+                                                          
+                                                         
+            
+                                                         
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
+                                                                onclick="enviarID(this.getAttribute('data-value'))"
+                                                                >
+                                                                    Ver
+                                                                </button>
+                                                                <!-- <button type="button" class="btn btn-outline-success btn-block btn" data-toggle="modal" data-target="#success"
+                                                                th:data-value="${f.idFicha}" 
+                                                                onclick="enviarID(this.getAttribute('data-value'))"
+                                                                >
+                                                                    Generar
+                                                                </button> -->
+                                                            </td>
+                                                         
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                            
+                                
+                               
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div th:insert="~{layout/footer :: footer}"></div>
+    </div>
+    </div>
+    <!-- <div class="modal fade text-left" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success white">
+                    <h4 class="modal-title" id="myModalLabel9"><div class="fonticon-wrap">
+                        <i class="ft-user-check"></i>
+                    </div> ASIGNAR FICHA</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="replace">
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
+    <!-- <div class="rightbar-overlay"></div> -->
+    
+
+
+     
+    <div th:insert="~{layout/scripts :: scripts}"></div>
+    <script>
+        // function enviarID(valor) {
+        //     var url = "../../../../lista_medicos/" + valor;
+        //     $('#replace').load(url, function() {
+        //         // Re-inicializar los plugins aquí
+        //         $('.js-example-basic-single').select2();
+        //         $('input.datepicker-here').datetimepicker({
+        //             timepicker: true,
+        //             language: 'es',
+        //             dateFormat: 'dd-mm-yyyy',
+        //             timeFormat: 'hh:ii'
+        //         });
+
+        //     });
+        // }
+    </script>
+</body>
+
+</html>

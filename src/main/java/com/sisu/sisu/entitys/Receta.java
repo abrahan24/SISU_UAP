@@ -41,6 +41,9 @@ public class Receta implements Serializable {
     @Column(name = "prescripcion_medica")
     private String prescripcionMedica;
 
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @Column(name = "registro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registro;

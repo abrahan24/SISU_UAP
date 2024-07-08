@@ -77,17 +77,20 @@ public class HistorialesMedicosControllers {
     public ResponseEntity<String> generarReceta(
             @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
             @RequestParam(value = "cantidad") List<String> lista_cantidad,
-            @RequestParam(value = "id_asegurado") Integer id_asegurado, HttpServletRequest request) {
+            @RequestParam(value = "id_asegurado") Integer id_asegurado,
+            @RequestParam(value = "indicacion") String indicacion, HttpServletRequest request) {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
         String id_usuario = usuario.getIdUsuario()+"";
-
+        Date fechaActualD = new Date();
         TipoReceta tipoReceta = tipoRecetaService.findOne(1);
         Asegurado asegurado = aseguradoService.findOne(id_asegurado);
         // CREAR LA RECETA
         Receta receta = new Receta();
-        receta.setEstado("A");
+        receta.setEstado("S");
         receta.setTipo_receta(tipoReceta);
+        receta.setFecha(fechaActualD);
+        receta.setDescripcion(indicacion);
         recetaService.registrarReceta(receta);
 
         for (int i = 0; i < lista_medicamentos.size(); i++) {
