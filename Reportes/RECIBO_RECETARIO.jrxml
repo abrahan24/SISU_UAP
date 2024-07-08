@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RECIBO_RECETARIO" pageWidth="467" pageHeight="609" orientation="Landscape" columnWidth="427" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5791aa11-d309-40ca-89fe-0d4e1a3fa608">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -36,14 +36,57 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
-	<queryString>
-		<![CDATA[]]>
+	<queryString language="plsql">
+		<![CDATA[SELECT p.id_persona ,a.id_asegurado ,concat(p.nombres,' ',p.ap_paterno,' ',p.ap_materno)AS nombre_completo, a.codigo_asegurado,p.sexo,p.fecha_nacimiento,p.ci,DATE_PART('year', AGE(p.fecha_nacimiento)) AS edad from receta r 
+left join historial_receta hr on hr.id_receta = r.id_receta 
+left join historial_medico hm on hm.id_historial_medico = hr.id_historial_medico 
+left join asegurado a on a.id_asegurado = hm.id_asegurado 
+left join persona p on p.id_persona = a.id_persona 
+where r.id_receta = 1]]>
 	</queryString>
+	<field name="id_persona" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_persona"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_persona"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
+	</field>
+	<field name="id_asegurado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_asegurado"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_asegurado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="asegurado"/>
+	</field>
+	<field name="nombre_completo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_completo"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_completo"/>
+	</field>
+	<field name="codigo_asegurado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codigo_asegurado"/>
+		<property name="com.jaspersoft.studio.field.label" value="codigo_asegurado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="asegurado"/>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sexo"/>
+		<property name="com.jaspersoft.studio.field.label" value="sexo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
+	</field>
+	<field name="fecha_nacimiento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_nacimiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_nacimiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
+	</field>
+	<field name="ci" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ci"/>
+		<property name="com.jaspersoft.studio.field.label" value="ci"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
+	</field>
+	<field name="edad" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="edad"/>
+		<property name="com.jaspersoft.studio.field.label" value="edad"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="142" splitType="Stretch">
+		<band height="148" splitType="Stretch">
 			<staticText>
 				<reportElement x="60" y="10" width="290" height="50" uuid="6c8e3a84-25a7-455c-8170-6212037dfbbb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -63,30 +106,100 @@ RECIBO/RECETARIO]]></text>
 			<staticText>
 				<reportElement x="0" y="78" width="100" height="22" uuid="e25d41cc-1e46-4815-ad38-a871b16dfedd"/>
 				<textElement>
-					<font size="9"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Datos del Paciente]]></text>
+				<text><![CDATA[DATOS DEL PACIENTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="98" width="430" height="22" uuid="98ff3da9-7479-4583-a481-6edd94723bd3"/>
+				<reportElement x="0" y="98" width="50" height="22" uuid="98ff3da9-7479-4583-a481-6edd94723bd3"/>
 				<textElement textAlignment="Left">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Nombre:....................................................................................................Edad:................................................]]></text>
+				<text><![CDATA[Nombre :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="120" width="430" height="22" uuid="2fccdb38-709a-4c2f-ad05-d82f2f4408c7"/>
+				<reportElement x="0" y="120" width="40" height="18" uuid="2fccdb38-709a-4c2f-ad05-d82f2f4408c7"/>
 				<textElement textAlignment="Left">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Codigo:.........................................Sexo:....................................Fecha:...............................C.I:.........................]]></text>
+				<text><![CDATA[Codigo :]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="50" y="98" width="100" height="22" uuid="3ba653d7-cbcd-486a-b3ab-c9d85400ecbd"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_completo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="120" width="90" height="18" uuid="a751565f-9f86-4c43-8c56-9fe46adb02e5"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_asegurado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="98" width="30" height="22" uuid="22304b15-455e-4088-9a57-61650464e4e8"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Edad :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="98" width="80" height="22" uuid="82b2c8a6-577f-432d-b844-c4d2f942e37c"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="120" width="40" height="18" uuid="c5553229-c2bf-4e94-a6aa-12d9d57ae692"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Genero :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="120" width="90" height="18" uuid="445f12ce-cb55-405b-9814-dc9214b32cc3"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="120" width="60" height="18" uuid="33e8b526-ce74-46bc-a040-8a945b84a084"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="120" width="60" height="18" uuid="81799f77-4022-4eb8-bc63-34a70af7d718"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{fecha_nacimiento})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="120" width="20" height="18" uuid="048d85ff-e9b6-48c7-ab82-37103d1a9547"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CI :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="390" y="120" width="50" height="18" uuid="7e4b90f9-4958-455b-85a4-249df5aa7edb"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ci}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="12" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="-10" width="130" height="22" uuid="fc16616b-b5ce-4d39-8733-f7af6dc6fbfc"/>
+				<reportElement x="0" y="-10" width="130" height="20" uuid="fc16616b-b5ce-4d39-8733-f7af6dc6fbfc"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
@@ -97,7 +210,7 @@ RECIBO/RECETARIO]]></text>
 	<detail>
 		<band height="128" splitType="Stretch">
 			<componentElement>
-				<reportElement x="-7" y="-10" width="440" height="40" uuid="0ab5cdd0-3c81-49e2-9fbe-009582ffad38">
+				<reportElement x="-5" y="0" width="440" height="40" uuid="0ab5cdd0-3c81-49e2-9fbe-009582ffad38">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>

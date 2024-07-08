@@ -92,7 +92,7 @@ where id_persona = $P{idPersona}]]>
 		</group>
 	</subDataset>
 	<parameter name="idPersona" class="java.lang.Integer"/>
-	<queryString>
+	<queryString language="plsql">
 		<![CDATA[select p.id_persona, p.ci, p.nombres, p.ap_paterno, p.ap_materno,p.celular from persona p where p.id_persona=1;]]>
 	</queryString>
 	<field name="id_persona" class="java.lang.Integer">
@@ -121,25 +121,32 @@ where id_persona = $P{idPersona}]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
 	</field>
 	<field name="celular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="celular"/>
+		<property name="com.jaspersoft.studio.field.label" value="celular"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
 		<fieldDescription><![CDATA[celular]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="90" splitType="Stretch">
+		<band height="119" splitType="Stretch">
 			<staticText>
-				<reportElement x="160" y="31" width="229" height="19" uuid="b21a409b-b2b5-4845-a11b-ed667496c364">
+				<reportElement x="158" y="20" width="229" height="19" forecolor="#01070A" backcolor="#050000" uuid="b21a409b-b2b5-4845-a11b-ed667496c364">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bed6d0e5-1535-42c2-bf13-446875db132b"/>
 				</reportElement>
 				<textElement textAlignment="Center" markup="styled">
-					<font size="15"/>
+					<font size="15" isBold="true"/>
 					<paragraph lineSpacingSize="8.0"/>
 				</textElement>
 				<text><![CDATA[LISTA DE PERSONAS]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="189" splitType="Stretch">
 			<componentElement>
-				<reportElement x="42" y="16" width="465" height="59" uuid="638cfe62-3f10-4d35-8baf-862a9a2d5beb">
+				<reportElement x="50" y="11" width="465" height="59" uuid="638cfe62-3f10-4d35-8baf-862a9a2d5beb">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -242,14 +249,6 @@ where id_persona = $P{idPersona}]]>
 					</jr:column>
 				</jr:table>
 			</componentElement>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="189" splitType="Stretch">
-			<image>
-				<reportElement x="234" y="0" width="80" height="80" uuid="7c918887-1f1c-4494-b5bd-db4b7b236bf4"/>
-				<imageExpression><![CDATA["/home/usic02/Documentos/Logos/Logo UAP (1).png"]]></imageExpression>
-			</image>
 		</band>
 	</detail>
 	<columnFooter>
