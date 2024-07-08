@@ -44,6 +44,9 @@ public class RecetaRemedios implements Serializable{
 	@Column(name = "cantidad_recetada")
     private String cantidad_recetada;
 
+    @Column(name = "cantidad_dispensada")
+    private String cantidad_dispensada;
+
     //-----------------RELACIONES-----------------------------------------------
 
     @ManyToOne(fetch = FetchType.LAZY)
