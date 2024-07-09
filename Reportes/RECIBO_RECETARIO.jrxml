@@ -34,7 +34,7 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="id_receta" class="java.lang.Integer"/>
 		<queryString language="plsql">
-			<![CDATA[SELECT  ll.id_lista_liname, ll.medicamento,ll.codigo_liname,ll.concentracion,rr.cantidad_recetada from receta r 
+			<![CDATA[SELECT  ll.id_lista_liname, ll.medicamento,ll.codigo_liname,ll.concentracion,rr.cantidad_recetada,rr.cantidad_dispensada from receta r 
 left join historial_receta hr on hr.id_receta = r.id_receta 
 left join receta_remedios rr on rr.id_receta = r.id_receta 
 left join lista_liname ll on ll.id_lista_liname = rr.id_liname 
@@ -63,6 +63,11 @@ where r.id_receta = $P{id_receta}]]>
 		<field name="cantidad_recetada" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="cantidad_recetada"/>
 			<property name="com.jaspersoft.studio.field.label" value="cantidad_recetada"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="receta_remedios"/>
+		</field>
+		<field name="cantidad_dispensada" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="cantidad_dispensada"/>
+			<property name="com.jaspersoft.studio.field.label" value="cantidad_dispensada"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="receta_remedios"/>
 		</field>
 		<variable name="contador" class="java.lang.Integer" calculation="Count">
@@ -281,7 +286,7 @@ RECIBO/RECETARIO]]></text>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Dataset1" uuid="74ba7612-6522-4c4e-8b44-5b8ea3e559da">
+					<datasetRun subDataset="Dataset1" uuid="83eafa1e-de75-49e2-af12-8189944a3cd5">
 						<datasetParameter name="id_receta">
 							<datasetParameterExpression><![CDATA[$P{id_receta}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -410,7 +415,18 @@ RECIBO/RECETARIO]]></text>
 								<text><![CDATA[Cant. Dispensada]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="20"/>
+						<jr:detailCell style="Table_TD" height="20">
+							<frame>
+								<reportElement x="0" y="0" width="80" height="20" uuid="d09483df-206a-4a25-b1a5-b99011b9f5d4"/>
+								<textField>
+									<reportElement x="0" y="0" width="80" height="20" uuid="970a469a-14cd-4d5e-aba5-c3ba1618c979"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="7"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{cantidad_dispensada}]]></textFieldExpression>
+								</textField>
+							</frame>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>

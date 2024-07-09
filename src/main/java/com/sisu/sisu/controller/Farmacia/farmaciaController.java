@@ -1,5 +1,8 @@
 package com.sisu.sisu.controller.Farmacia;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,8 +19,10 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +42,7 @@ import com.sisu.sisu.Service.ITipoRecetaService;
 import com.sisu.sisu.Service.ListaLinameService;
 import com.sisu.sisu.Service.RecetaService;
 import com.sisu.sisu.Service.ResetaRemedioService;
+import com.sisu.sisu.Service.UtilidadesService.UtilidadesService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.HistoriaClinica;
@@ -50,6 +56,8 @@ import com.sisu.sisu.entitys.Receta;
 import com.sisu.sisu.entitys.RecetaRemedios;
 import com.sisu.sisu.entitys.TipoReceta;
 import com.sisu.sisu.entitys.Usuario;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 public class farmaciaController {
@@ -77,6 +85,9 @@ public class farmaciaController {
 
     @Autowired
     private ResetaRemedioService resetaRemedioService;
+
+    @Autowired
+    private UtilidadesService utilidadesServices;
 
     //TODO PARA RECETA INICIO
     @GetMapping(value = "/listaRecetasGeneral")
@@ -143,5 +154,28 @@ public class farmaciaController {
         
     }
 
-    //TODO PARA RECETA FIN
+    @PostMapping(value ="/recibo_receta")
+    public ResponseEntity<ByteArrayResource> recibo_receta(
+    @RequestParam(name = "id_receta" ,required = false)Integer id_receta,
+    HttpServletRequest request) throws IOException, JRException, SQLException {
+
+        String nombreArchivo = "RECIBO_RECETARIO.jrxml";
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("id_receta", id_receta);
+
+        ByteArrayOutputStream stream = utilidadesServices.compilarAndExportarReporte(nombreArchivo,parametros);
+
+        byte[] bytes = stream.toByteArray();
+
+        ByteArrayResource resource = new ByteArrayResource(bytes);
+        
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "inline;filename=" + "Recibo Receta"
+                                + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(bytes.length)
+                .body(resource);
+    }
 }

@@ -197,8 +197,20 @@
                                         <input type="hidden" name="id_receta" id="id_receta">
 
 
-                                        <div id="inputsContainer">
-                                            <!-- Aquí se generarán los inputs dinámicamente -->
+                                                <div id="inputsContainer">
+                                                    <!-- Aquí se generarán los inputs dinámicamente -->
+                                                </div>
+
+                                             
+                                                <div id="contenedorInputs" class="mt-3">
+                                                </div>
+
+                                                <div class="form-group mt-4 text-center">
+                                                    <button id="submitButton" class="btn btn-primary waves-effect waves-light"
+                                                        type="submit" >Generar</button>
+                                                </div>
+                                            </form>
+                                            
                                         </div>
 
 
@@ -223,10 +235,69 @@
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <!-- <div class="rightbar-overlay"></div> -->
 
-
-
-
     <div th:insert="~{layout/scripts :: scripts}"></div>
+    <script>
+        $(document).ready(function () {
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("form1");
+                var action = form.action;
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Generacion de Receta Realizada con Éxito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function () {
+                                location.href = "../../../../listaRecetasGeneral";
+                            }, 1500);
+                            
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                        console.error(error);
+                    }
+                });
+            });
+
+            $('#submitButton').click(function(event) {
+                event.preventDefault(); // Prevenir el envío del formulario
+
+                // Capturar el valor del campo oculto
+                var idReceta = $('#id_receta').val();
+                console.log('Valor de id_receta:', idReceta);
+
+                // Realizar la llamada AJAX al método POST del controlador
+                $.ajax({
+                    url: '/recibo_receta',
+                    type: 'POST',
+                    data: { id_receta: idReceta },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function(data, status, xhr) {
+                        var blob = new Blob([data], { type: 'application/pdf' });
+                        var url = window.URL.createObjectURL(blob);
+                        window.open(url, '_blank');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al generar el recibo:', error);
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         function abriModal(idReceta) {
             $('#id_receta').val(idReceta);
