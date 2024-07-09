@@ -23,7 +23,7 @@
                                 <h4 class="page-title mb-1">Lista Recetas</h4>
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Recetas</a></li>
-                                  
+
                                 </ol>
                             </div>
                         </div>
@@ -37,39 +37,43 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                      
+
                                         <h4 class="header-title">Recetas</h4><br>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-pills" role="tablist">
                                             <li class="nav-item waves-effect waves-light">
                                                 <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">
-                                                    <i class="fas fa-file-powerpoint mr-1"></i> <span class="d-none d-md-inline-block">Pendientes</span> 
+                                                    <i class="fas fa-file-powerpoint mr-1"></i> <span
+                                                        class="d-none d-md-inline-block">Pendientes</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item waves-effect waves-light">
                                                 <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">
-                                                    <i class="fab fa-buffer mr-1"></i> <span class="d-none d-md-inline-block">General</span>
+                                                    <i class="fab fa-buffer mr-1"></i> <span
+                                                        class="d-none d-md-inline-block">General</span>
                                                 </a>
                                             </li>
-                                           
+
                                         </ul>
                                         <br>
                                         <div class="tab-content p-3">
                                             <div class="tab-pane active" id="home-1" role="tabpanel">
-                                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap botonesH" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <table id="datatable-buttons"
+                                                    class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Nombre:</th>
                                                             <th>Apellidos:</th>
                                                             <th>ci:</th>
                                                             <th>Codigo Asegurado:</th>
-                                                            <th>Fecha de Generación</th>    
+                                                            <th>Fecha de Generación</th>
                                                             <th>Accion</th>
-                                                       
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="lrp : ${listaRecetasP}" >
+                                                        <tr th:each="lrp : ${listaRecetasP}">
                                                             <td th:text="${lrp[0]}">a</td>
                                                             <td th:text="${lrp[1]} +' '+ ${lrp[2]}">a</td>
                                                             <td th:text="${lrp[3]}">a</td>
@@ -85,35 +89,38 @@
                                                             <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
                                                             <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
                                                             <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
-            
-                                                          
-                                                         
-            
-                                                         
+
+
+
+
+
                                                             <td>
                                                                 <a type="button" th:onclick="abriModal([[${lrp[7]}]]
-                                                                )"  class="btn btn-outline-success btn-block btn">Generar</a>
+                                                                )"
+                                                                    class="btn btn-outline-success btn-block btn">Generar</a>
                                                             </td>
-                                                         
+
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div class="tab-pane" id="profile-1" role="tabpanel">
-                                                <table id="datatable-buttons2" class="table table-striped table-bordered dt-responsive nowrap botonesH" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <table id="datatable-buttons2"
+                                                    class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Nombre:</th>
                                                             <th>Apellidos:</th>
                                                             <th>ci:</th>
                                                             <th>Codigo Asegurado:</th>
-                                                            <th>Fecha de Generación</th>    
+                                                            <th>Fecha de Generación</th>
                                                             <th>Accion</th>
-                                                       
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="lrg : ${listaRecetasG}" >
+                                                        <tr th:each="lrg : ${listaRecetasG}">
                                                             <td th:text="${lrg[0]}">a</td>
                                                             <td th:text="${lrg[1]} +' '+ ${lrg[2]}">a</td>
                                                             <td th:text="${lrg[3]}">a</td>
@@ -129,26 +136,35 @@
                                                             <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
                                                             <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
                                                             <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
-            
-                                                          
-                                                         
-            
-                                                         
-                                                            <td>
 
-                                                            
-                                                                 
-                                                              
+
+
+
+
+                                                            <td>
+                                                                <form id="form2" th:action="@{/recibo_receta}" target="_blank"
+                                                                    method="POST">
+                                                                    <input type="hidden" name="id_receta"
+                                                                        id="id_receta" th:value="${lrg[6]}">
+                                                                    <div class="form-group mt-4 text-center">
+                                                                        <button
+                                                                            class="btn btn-primary waves-effect waves-light"
+                                                                            type="submit">Generar</button>
+                                                                    </div>
+                                                                </form>
+
+
+
                                                             </td>
-                                                         
+
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                            
-                                
-                               
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -161,105 +177,105 @@
         <div th:insert="~{layout/footer :: footer}"></div>
     </div>
     </div>
-   
+
     <div class="modal fade bd-example-modal-xl" tabindex="-1" id="modal1" role="dialog"
-                aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>GENERAR RECETA</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <form id="form1" th:action="@{/generarRecetaFarmacia}" method="POST">
-                                                <input type="hidden" name="id_receta" id="id_receta">
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>GENERAR RECETA</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form1" th:action="@{/generarRecetaFarmacia}" method="POST">
+                                        <input type="hidden" name="id_receta" id="id_receta">
 
 
-                                                <div id="inputsContainer">
-                                                    <!-- Aquí se generarán los inputs dinámicamente -->
-                                                </div>
-
-                                             
-                                                <div id="contenedorInputs" class="mt-3">
-                                                </div>
-
-                                                <div class="form-group mt-4 text-center">
-                                                    <button class="btn btn-primary waves-effect waves-light"
-                                                        type="submit">Generar</button>
-                                                </div>
-                                            </form>
+                                        <div id="inputsContainer">
+                                            <!-- Aquí se generarán los inputs dinámicamente -->
                                         </div>
-                                    </div>
+
+
+                                        <div id="contenedorInputs" class="mt-3">
+                                        </div>
+
+                                        <div class="form-group mt-4 text-center">
+                                            <button class="btn btn-primary waves-effect waves-light"
+                                                type="submit">Generar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
             </div>
-    
+        </div>
+    </div>
+
     <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
     <!-- <div class="rightbar-overlay"></div> -->
-    
 
 
-     
+
+
     <div th:insert="~{layout/scripts :: scripts}"></div>
     <script>
-     function abriModal(idReceta) {
-        $('#id_receta').val(idReceta);
-    $.ajax({
-        url: '/obtenerRecetaRemedios',
-        type: 'GET',
-        data: { idReceta: idReceta },
-        success: function(response) {
-            generarInputs(response);
-            $('#modal1').modal('show');
-        },
-        error: function(error) {
-            console.error('Error al obtener los remedios:', error);
+        function abriModal(idReceta) {
+            $('#id_receta').val(idReceta);
+            $.ajax({
+                url: '/obtenerRecetaRemedios',
+                type: 'GET',
+                data: { idReceta: idReceta },
+                success: function (response) {
+                    generarInputs(response);
+                    $('#modal1').modal('show');
+                },
+                error: function (error) {
+                    console.error('Error al obtener los remedios:', error);
+                }
+            });
         }
-    });
-}
 
-function generarInputs(recetaRemedios) {
-    var container = $('#inputsContainer');
-    container.empty();
+        function generarInputs(recetaRemedios) {
+            var container = $('#inputsContainer');
+            container.empty();
 
-    recetaRemedios.forEach(function(remedio, index) {
-    var textoOption = remedio.lista_liname.medicamento + ' - ' + 
-                      remedio.lista_liname.codigoLiname + ' - ' + 
-                      remedio.lista_liname.concentracion;
+            recetaRemedios.forEach(function (remedio, index) {
+                var textoOption = remedio.lista_liname.medicamento + ' - ' +
+                    remedio.lista_liname.codigoLiname + ' - ' +
+                    remedio.lista_liname.concentracion;
 
-    var rowHtml = '<div class="row justify-content-center">' +
+                var rowHtml = '<div class="row justify-content-center">' +
                     '<div class="form-group col-md-6">' +
-                      '<label for="remedio' + index + '">Medicamento ' + (index + 1) + '</label>' +
-                      '<select class="form-control" id="medicamento' + index + '" name="medicamentos">' +
-                        '<option value="' + remedio.lista_liname.id_lista_liname + '">' + textoOption + '</option>' +
-                      '</select>' +
+                    '<label for="remedio' + index + '">Medicamento ' + (index + 1) + '</label>' +
+                    '<select class="form-control" id="medicamento' + index + '" name="medicamentos">' +
+                    '<option value="' + remedio.lista_liname.id_lista_liname + '">' + textoOption + '</option>' +
+                    '</select>' +
                     '</div>' +
                     '<div class="form-group col-md-2">' +
-                      '<label for="cantidadR' + index + '">Cantidad Recetada</label>' +
-                      '<input readonly type="text" class="form-control" id="cantidadR' + index + '" name="cantidadR" value="' + (remedio.cantidad_recetada || '') + '">' +
+                    '<label for="cantidadR' + index + '">Cantidad Recetada</label>' +
+                    '<input readonly type="text" class="form-control" id="cantidadR' + index + '" name="cantidadR" value="' + (remedio.cantidad_recetada || '') + '">' +
                     '</div>' +
                     '<div class="form-group col-md-2">' +
-                      '<label for="cantidadD' + index + '">Cantidad Dispensada</label>' +
-                      '<input  required type="text" class="form-control" id="cantidadD' + index + '" name="cantidadD" placeholder="Ingresar">' +
+                    '<label for="cantidadD' + index + '">Cantidad Dispensada</label>' +
+                    '<input  required type="text" class="form-control" id="cantidadD' + index + '" name="cantidadD" placeholder="Ingresar">' +
                     '</div>' +
                     '<div class="form-group col-md-2">' +
-                      '<input required type="hidden" class="form-control" id="id_remedio' + index + '" name="id_remedio" value="' + remedio.idRecetaRemedios + '">' +
+                    '<input required type="hidden" class="form-control" id="id_remedio' + index + '" name="id_remedio" value="' + remedio.idRecetaRemedios + '">' +
                     '</div>' +
-                  '</div>';
+                    '</div>';
 
-    container.append(rowHtml);
-});
-}
+                container.append(rowHtml);
+            });
+        }
     </script>
 </body>
 
