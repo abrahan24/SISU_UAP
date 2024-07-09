@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,7 +50,7 @@ public class RecetaRemedios implements Serializable{
     private String cantidad_dispensada;
 
     //-----------------RELACIONES-----------------------------------------------
-
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idReceta")
     private Receta receta;

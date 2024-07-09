@@ -9,4 +9,5 @@ public interface ResetaRemedioService {
     public void registrar(RecetaRemedios recetaRemedios);
     public RecetaRemedios buscarId(Integer id);
     public void eliminar(RecetaRemedios recetaRemedios);
+    List<RecetaRemedios> listaRecetaRemediosPorIdReceta(int id_receta);
 }

@@ -36,6 +36,7 @@ import com.sisu.sisu.Service.IAseguradoService;
 import com.sisu.sisu.Service.ITipoRecetaService;
 import com.sisu.sisu.Service.ListaLinameService;
 import com.sisu.sisu.Service.RecetaService;
+import com.sisu.sisu.Service.ResetaRemedioService;
 import com.sisu.sisu.entitys.Asegurado;
 import com.sisu.sisu.entitys.Ficha;
 import com.sisu.sisu.entitys.HistoriaClinica;
@@ -74,6 +75,10 @@ public class farmaciaController {
     @Autowired
     private IAseguradoService aseguradoService;
 
+    @Autowired
+    private ResetaRemedioService resetaRemedioService;
+
+    //TODO PARA RECETA INICIO
     @GetMapping(value = "/listaRecetasGeneral")
     public String listaRecetasGeneral(Model model, HttpServletRequest request) {
 
@@ -91,6 +96,11 @@ public class farmaciaController {
         return "farmacia/listaRecetaGeneral";
     }
 
+    @GetMapping("/obtenerRecetaRemedios")
+    @ResponseBody
+    public List<RecetaRemedios> obtenerRecetaRemedios(@RequestParam int idReceta) {
+        return resetaRemedioService.listaRecetaRemediosPorIdReceta(idReceta);
+    }
 
+    //TODO PARA RECETA FIN
 }
-

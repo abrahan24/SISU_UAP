@@ -35,4 +35,9 @@ public class IResetaRemedioServiceImpl implements ResetaRemedioService{
         recetaRemedioDao.save(recetaRemedios);
     }
 
+    @Override
+    public List<RecetaRemedios> listaRecetaRemediosPorIdReceta(int id_receta) {
+        return (List<RecetaRemedios>) recetaRemedioDao.listaRecetaRemediosPorIdReceta(id_receta);
+    }
+
 }

@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +43,7 @@ public class Receta implements Serializable {
     @Column(name = "prescripcion_medica")
     private String prescripcionMedica;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", length = 1000)
     private String descripcion;
 
     @Column(name = "registro")
@@ -56,6 +58,7 @@ public class Receta implements Serializable {
     private String estado;
     //-------------------RELACIONES---------------------------------------------
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta", fetch = FetchType.LAZY)
 	private List<RecetaRemedios> receta_remedios;
 

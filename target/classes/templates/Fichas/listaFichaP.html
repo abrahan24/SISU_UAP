@@ -210,7 +210,7 @@
                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header ">
                             <h3>DATOS DEL RECETARIO</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -359,7 +359,7 @@
                 success: function (response) {
                     $(nuevoSelect).empty();
                     response.forEach(liname => {
-                        var option = $('<option></option>').attr('value', liname.idLiname).text(liname.medicamento);
+                        var option = $('<option></option>').attr('value', liname.idLiname).text(liname.medicamento + ' - ' + liname.codigoLiname + ' - ' + liname.concentracion);
                         $(nuevoSelect).append(option);
                     });
                 },
