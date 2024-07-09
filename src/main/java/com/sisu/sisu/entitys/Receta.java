@@ -56,6 +56,15 @@ public class Receta implements Serializable {
 
     @Column(name = "estado")
     private String estado;
+
+    @Column(name = "id_usuario")
+    private Integer id_usuario;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "fecha_farmacia")
+    private Date fecha_farmacia;
+
+
     //-------------------RELACIONES---------------------------------------------
 
     @JsonManagedReference

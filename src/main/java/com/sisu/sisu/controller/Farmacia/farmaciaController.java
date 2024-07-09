@@ -102,5 +102,46 @@ public class farmaciaController {
         return resetaRemedioService.listaRecetaRemediosPorIdReceta(idReceta);
     }
 
+
+    @PostMapping(value = "/generarRecetaFarmacia", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> generarRecetaFarmacia(
+            @RequestParam(value = "id_receta") Integer id_receta,
+            // @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
+            // @RequestParam(value = "cantidadR") List<String> lista_cantidadR,
+              @RequestParam(value = "id_remedio") List<Integer> lista_remedio,
+            @RequestParam(value = "cantidadD") List<String> lista_cantidadD,
+       HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+        String id_usuario = usuario.getIdUsuario()+"";
+        Date fechaActualD = new Date();
+        TipoReceta tipoReceta = tipoRecetaService.findOne(1);
+        // Asegurado asegurado = aseguradoService.findOne(id_asegurado);
+
+
+        // CREAR LA RECETA
+        Receta receta = recetaService.buscarRecetaId(id_receta);
+        receta.setEstado("A");
+        receta.setTipo_receta(tipoReceta);
+        receta.setId_usuario(usuario.getIdUsuario());
+        receta.setFecha_farmacia(fechaActualD);
+        // receta.setFecha(fechaActualD);
+        recetaService.registrarReceta(receta);
+
+        for (int i = 0; i < lista_remedio.size(); i++) {
+    
+            RecetaRemedios recetaRemedios = resetaRemedioService.buscarId(lista_remedio.get(i));
+            recetaRemedios.setEstado("A");
+            recetaRemedios.setReceta(receta);
+            recetaRemedios.setCantidad_dispensada(lista_cantidadD.get(i));
+            recetaRemedioDao.save(recetaRemedios);
+        }
+
+      
+        return ResponseEntity.ok("1");
+    
+        
+    }
+
     //TODO PARA RECETA FIN
 }

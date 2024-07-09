@@ -177,8 +177,8 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <form id="form1" th:action="@{/}" method="POST">
-                                                <!-- <input type="hidden" name="id_asegurado" id="id_asegurado"> -->
+                                            <form id="form1" th:action="@{/generarRecetaFarmacia}" method="POST">
+                                                <input type="hidden" name="id_receta" id="id_receta">
 
 
                                                 <div id="inputsContainer">
@@ -213,6 +213,7 @@
     <div th:insert="~{layout/scripts :: scripts}"></div>
     <script>
      function abriModal(idReceta) {
+        $('#id_receta').val(idReceta);
     $.ajax({
         url: '/obtenerRecetaRemedios',
         type: 'GET',
@@ -239,8 +240,8 @@ function generarInputs(recetaRemedios) {
     var rowHtml = '<div class="row justify-content-center">' +
                     '<div class="form-group col-md-6">' +
                       '<label for="remedio' + index + '">Medicamento ' + (index + 1) + '</label>' +
-                      '<select class="form-control" id="remedio' + index + '" name="medicamentos">' +
-                        '<option value="' + remedio.idRecetaRemedios + '">' + textoOption + '</option>' +
+                      '<select class="form-control" id="medicamento' + index + '" name="medicamentos">' +
+                        '<option value="' + remedio.lista_liname.id_lista_liname + '">' + textoOption + '</option>' +
                       '</select>' +
                     '</div>' +
                     '<div class="form-group col-md-2">' +
@@ -250,6 +251,9 @@ function generarInputs(recetaRemedios) {
                     '<div class="form-group col-md-2">' +
                       '<label for="cantidadD' + index + '">Cantidad Dispensada</label>' +
                       '<input  required type="text" class="form-control" id="cantidadD' + index + '" name="cantidadD" placeholder="Ingresar">' +
+                    '</div>' +
+                    '<div class="form-group col-md-2">' +
+                      '<input required type="hidden" class="form-control" id="id_remedio' + index + '" name="id_remedio" value="' + remedio.idRecetaRemedios + '">' +
                     '</div>' +
                   '</div>';
 
