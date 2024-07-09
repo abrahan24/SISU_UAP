@@ -116,7 +116,7 @@ public class farmaciaController {
 
     @PostMapping(value = "/generarRecetaFarmacia", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> generarRecetaFarmacia(
-            @RequestParam(value = "id_receta") Integer id_receta,
+            @RequestParam(value = "id_receta2") Integer id_receta,
             // @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
             // @RequestParam(value = "cantidadR") List<String> lista_cantidadR,
               @RequestParam(value = "id_remedio") List<Integer> lista_remedio,

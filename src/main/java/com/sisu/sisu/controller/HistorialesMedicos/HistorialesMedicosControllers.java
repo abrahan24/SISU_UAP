@@ -131,4 +131,63 @@ public class HistorialesMedicosControllers {
     
         
     }
+
+
+    @PostMapping(value = "/generarRecetaQuirurgica", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> generarRecetaQuirurgica(
+            @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
+            @RequestParam(value = "cantidad") List<String> lista_cantidad,
+            @RequestParam(value = "id_asegurado") Integer id_asegurado, HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+        String id_usuario = usuario.getIdUsuario()+"";
+        Date fechaActualD = new Date();
+        TipoReceta tipoReceta = tipoRecetaService.findOne(2);
+        Asegurado asegurado = aseguradoService.findOne(id_asegurado);
+        // CREAR LA RECETA
+        Receta receta = new Receta();
+        receta.setEstado("S");
+        receta.setTipo_receta(tipoReceta);
+        receta.setFecha(fechaActualD);
+        // receta.setDescripcion(indicacion);
+        recetaService.registrarReceta(receta);
+
+        for (int i = 0; i < lista_medicamentos.size(); i++) {
+            ListaLiname liname = listaLinameService.findOne(lista_medicamentos.get(i));
+            RecetaRemedios recetaRemedios = new RecetaRemedios();
+            recetaRemedios.setEstado("A");
+            recetaRemedios.setCantidad_recetada(lista_cantidad.get(i));
+            recetaRemedios.setLista_liname(liname);
+            recetaRemedios.setReceta(receta);
+            recetaRemedioDao.save(recetaRemedios);
+        }
+
+        HistorialMedico historialMedicoValidar = historialMedicoService.getHistorialMedico_por_id_seguro(id_asegurado);
+
+        if (historialMedicoValidar != null) {
+            System.out.println(
+							" ----------------------- ESTE ASEGURADO YA TIENE UN HISTORIAL MEDICO EN LA BASE DE DATOS ---------------------------");
+            HistorialReceta historialReceta = new HistorialReceta();
+            historialReceta.setEstado("A");
+            historialReceta.setHistorial_medico(historialMedicoValidar);
+            historialReceta.setReceta(receta);
+            historialRecetaService.save(historialReceta);
+        } else {
+            System.out.println(
+                " ----------------------- ESTE ASEGURADO NOO TIENE UN HISTORIAL MEDICO EN LA BASE DE DATOS ---------------------------");
+            HistorialMedico historialMedico = new HistorialMedico();
+            historialMedico.setEstado("A");
+            historialMedico.setAsegurado(asegurado);
+            historialMedicoService.save(historialMedico);
+            HistorialReceta historialReceta = new HistorialReceta();
+            historialReceta.setEstado("A");
+            historialReceta.setHistorial_medico(historialMedico);
+            historialReceta.setReceta(receta);
+            historialRecetaService.save(historialReceta);
+
+        }
+        return ResponseEntity.ok(id_usuario);
+    
+        
+    }
 }
