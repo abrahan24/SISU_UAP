@@ -73,7 +73,8 @@ where r.id_receta = $P{id_receta}]]>
 	<queryString language="plsql">
 		<![CDATA[SELECT p.id_persona AS id_persona_asegurado ,a.id_asegurado ,concat(p.nombres,' ',p.ap_paterno,' ',p.ap_materno)AS nom_completo_asegurado,
 (SELECT concat(p2.nombres,' ',p2.ap_paterno,' ',p2.ap_materno) FROM persona p2 WHERE p2.id_persona = pm.id_persona) AS nom_completo_medico,
-r.fecha AS fecha_receta,
+(SELECT concat(p3.nombres,' ',p3.ap_paterno,' ',p3.ap_materno) FROM persona p3 WHERE p3.id_persona = u.id_persona) AS nom_usuario,
+r.fecha AS fecha_receta,r.fecha_farmacia ,
 a.codigo_asegurado,p.sexo,p.fecha_nacimiento,p.ci,r.descripcion ,
 CAST(DATE_PART('year', AGE(p.fecha_nacimiento)) AS INTEGER) AS edad
 from receta r 
@@ -84,7 +85,8 @@ left join persona p on p.id_persona = a.id_persona
 LEFT JOIN ficha f ON f.id_asegurado = a.id_asegurado 
 LEFT JOIN personal_medico_ficha pmf ON pmf.id_ficha = f.id_ficha 
 LEFT JOIN personal_medico pm ON pm.id_personal_medico = pmf.id_personal_medico
-LEFT JOIN grado_academico ga ON ga.id_grado_academico = p.id_grado_academico 
+LEFT JOIN grado_academico ga ON ga.id_grado_academico = p.id_grado_academico
+LEFT JOIN usuarios u ON u.id_usuario = r.id_usuario 
 where r.id_receta = 1]]>
 	</queryString>
 	<field name="id_persona_asegurado" class="java.lang.Integer">
@@ -105,9 +107,18 @@ where r.id_receta = 1]]>
 		<property name="com.jaspersoft.studio.field.name" value="nom_completo_medico"/>
 		<property name="com.jaspersoft.studio.field.label" value="nom_completo_medico"/>
 	</field>
+	<field name="nom_usuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom_usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom_usuario"/>
+	</field>
 	<field name="fecha_receta" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.name" value="fecha_receta"/>
 		<property name="com.jaspersoft.studio.field.label" value="fecha_receta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="receta"/>
+	</field>
+	<field name="fecha_farmacia" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_farmacia"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_farmacia"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="receta"/>
 	</field>
 	<field name="codigo_asegurado" class="java.lang.String">
@@ -176,13 +187,13 @@ RECIBO/RECETARIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="210" y="90" width="38" height="22" uuid="2fccdb38-709a-4c2f-ad05-d82f2f4408c7"/>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Center">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Codigo :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="46" y="90" width="160" height="22" uuid="3ba653d7-cbcd-486a-b3ab-c9d85400ecbd"/>
+				<reportElement x="43" y="90" width="160" height="22" uuid="3ba653d7-cbcd-486a-b3ab-c9d85400ecbd"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -211,7 +222,7 @@ RECIBO/RECETARIO]]></text>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="112" width="40" height="18" uuid="c5553229-c2bf-4e94-a6aa-12d9d57ae692"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Genero :]]></text>
@@ -231,8 +242,8 @@ RECIBO/RECETARIO]]></text>
 				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="112" width="60" height="18" uuid="81799f77-4022-4eb8-bc63-34a70af7d718"/>
-				<textElement>
+				<reportElement x="249" y="112" width="89" height="18" uuid="81799f77-4022-4eb8-bc63-34a70af7d718"/>
+				<textElement textAlignment="Left">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{fecha_nacimiento})]]></textFieldExpression>
@@ -245,7 +256,7 @@ RECIBO/RECETARIO]]></text>
 				<text><![CDATA[CI :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="378" y="112" width="50" height="18" uuid="7e4b90f9-4958-455b-85a4-249df5aa7edb"/>
+				<reportElement x="376" y="112" width="50" height="18" uuid="7e4b90f9-4958-455b-85a4-249df5aa7edb"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -463,10 +474,17 @@ Firma y Sello de la Farmacia]]></text>
 Firma y del Paciente]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="1" y="10" width="129" height="54" uuid="811694ee-4a51-42c9-a7f7-61efdeb32ec2"/>
+				<reportElement x="3" y="21" width="125" height="44" uuid="811694ee-4a51-42c9-a7f7-61efdeb32ec2"/>
 				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<jr:codeExpression><![CDATA["Autorizado por : "+$F{nom_completo_medico}+ "\n" +
 "Fecha : " + new SimpleDateFormat("dd-MM-yyyy").format($F{fecha_receta})]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<componentElement>
+				<reportElement x="152" y="20" width="126" height="48" uuid="9931d70d-acba-476e-aff5-1c6f37351f1d"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA["Autorizado por : "+$F{nom_usuario}+ "\n" +
+"Fecha : " + new SimpleDateFormat("dd-MM-yyyy").format($F{fecha_farmacia})]]></jr:codeExpression>
 				</jr:QRCode>
 			</componentElement>
 		</band>
