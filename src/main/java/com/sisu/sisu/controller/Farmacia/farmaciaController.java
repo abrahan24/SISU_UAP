@@ -154,28 +154,44 @@ public class farmaciaController {
         
     }
 
-    @PostMapping(value ="/recibo_receta")
-    public ResponseEntity<ByteArrayResource> recibo_receta(
-    @RequestParam(name = "id_receta" ,required = false)Integer id_receta,
-    HttpServletRequest request) throws IOException, JRException, SQLException {
+    @PostMapping(value = "/recibo_receta")
+    public ResponseEntity<ByteArrayResource> reciboReceta(
+            @RequestParam(name = "id_receta", required = false) Integer idReceta,
+            HttpServletRequest request) throws IOException, JRException, SQLException {
 
-        String nombreArchivo = "RECIBO_RECETARIO.jrxml";
+        // Buscar la receta por ID
+        Receta receta = recetaService.buscarRecetaId(idReceta);
 
+        // Determinar el nombre del archivo según el tipo de receta
+        String nombreArchivo;
+        if (receta.getTipo_receta().getIdTipoRe() == 1) {
+            nombreArchivo = "RECIBO_RECETARIO.jrxml";
+        } else if (receta.getTipo_receta().getIdTipoRe() == 2) {
+            nombreArchivo = "RECIBO_RECETARIO_QUIROFANO.jrxml";
+        } else {
+            throw new IllegalArgumentException("Tipo de receta no soportado");
+        }
+
+        // Crear los parámetros para el reporte
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("id_receta", id_receta);
+        parametros.put("id_receta", idReceta);
 
-        ByteArrayOutputStream stream = utilidadesServices.compilarAndExportarReporte(nombreArchivo,parametros);
+        // Compilar y exportar el reporte a un ByteArrayOutputStream
+        ByteArrayOutputStream stream = utilidadesServices.compilarAndExportarReporte(nombreArchivo, parametros);
 
+        // Convertir el ByteArrayOutputStream a un array de bytes
         byte[] bytes = stream.toByteArray();
 
+        // Crear un ByteArrayResource a partir del array de bytes
         ByteArrayResource resource = new ByteArrayResource(bytes);
-        
+
+        // Devolver la respuesta con el PDF
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "inline;filename=" + "Recibo Receta"
-                                + ".pdf")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=Recibo_Receta.pdf")
                 .contentType(MediaType.APPLICATION_PDF)
                 .contentLength(bytes.length)
                 .body(resource);
     }
+
+    
 }
