@@ -126,14 +126,14 @@ public class farmaciaController {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
         String id_usuario = usuario.getIdUsuario()+"";
         Date fechaActualD = new Date();
-        TipoReceta tipoReceta = tipoRecetaService.findOne(1);
+        // TipoReceta tipoReceta = tipoRecetaService.findOne(1);
         // Asegurado asegurado = aseguradoService.findOne(id_asegurado);
 
 
         // CREAR LA RECETA
         Receta receta = recetaService.buscarRecetaId(id_receta);
         receta.setEstado("A");
-        receta.setTipo_receta(tipoReceta);
+        // receta.setTipo_receta(tipoReceta);
         receta.setId_usuario(usuario.getIdUsuario());
         receta.setFecha_farmacia(fechaActualD);
         // receta.setFecha(fechaActualD);

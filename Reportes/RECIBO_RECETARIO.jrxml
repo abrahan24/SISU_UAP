@@ -198,7 +198,7 @@ RECIBO/RECETARIO]]></text>
 				<text><![CDATA[Codigo :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="43" y="90" width="160" height="22" uuid="3ba653d7-cbcd-486a-b3ab-c9d85400ecbd"/>
+				<reportElement x="43" y="90" width="166" height="22" uuid="3ba653d7-cbcd-486a-b3ab-c9d85400ecbd"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
