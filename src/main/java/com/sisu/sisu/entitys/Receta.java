@@ -64,6 +64,12 @@ public class Receta implements Serializable {
     @Column(name = "fecha_farmacia")
     private Date fecha_farmacia;
 
+    @Column(name = "otros")
+    private String otros;
+
+    @Column(name = "estudio_gabinete")
+    private String estudio_gabinete;
+
 
     //-------------------RELACIONES---------------------------------------------
 

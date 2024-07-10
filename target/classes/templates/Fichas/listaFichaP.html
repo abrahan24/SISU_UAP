@@ -166,8 +166,8 @@
                                                                     [[${f.ficha.asegurado.persona.ci}]],[[${fecha}]], [[${f.ficha.asegurado.persona.fecha_nac}]]
                                                                     )" class="dropdown-item">Recibo/recetario</a>
 
-                                                                    <a class="dropdown-item">Solicitud examenes de
-                                                                        laboratorio</a>
+                                                                    <!-- <a class="dropdown-item">Solicitud examenes de
+                                                                        laboratorio</a> -->
                                                                     <a type="button" th:onclick="abriModal2([[${f.ficha.asegurado.idAsegurado}]], [[${f.ficha.asegurado.persona.nombres}]], [[${f.ficha.asegurado.persona.apPaterno}]]
                                                                     ,[[${f.ficha.asegurado.persona.apMaterno}]],[[${f.ficha.asegurado.codigoAsegurado}]], [[${f.ficha.asegurado.persona.sexo}]],
                                                                     [[${f.ficha.asegurado.persona.ci}]],[[${fecha}]], [[${f.ficha.asegurado.persona.fecha_nac}]]
@@ -281,7 +281,7 @@
                                                     <div class="">
                                                         <br>
                                                         <button type="button" class="btn btn-primary btn-sm"
-                                                            onclick="agregarInput()">
+                                                        onclick="agregarInput('contenedorInputs')">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                         <span>Agregar Medicamentos</span>
@@ -383,7 +383,7 @@
                                                     <div class="">
                                                         <br>
                                                         <button type="button" class="btn btn-primary btn-sm"
-                                                            onclick="agregarInput()">
+                                                        onclick="agregarInput('contenedorInputs2')">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                         <span>Agregar Medicamentos</span>
@@ -420,10 +420,12 @@
 
 
     <script type="text/javascript" th:inline="javascript">
-        var contadorInputs = 0;
-        function agregarInput() {
-            contadorInputs++;
-
+        var contadorInputs1 = 0;
+        var contadorInputs2 = 0;
+    
+        function agregarInput(contenedorId) {
+            var contador = contenedorId === "contenedorInputs" ? ++contadorInputs1 : ++contadorInputs2;
+            
             var contenidoHTML = `
                 <div class="form-group row justify-content-center">
                     <div class="">
@@ -432,27 +434,24 @@
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <select id="miSelect_${contadorInputs}" class="js-example-basic" style="width: 100%;" name="medicamentos" required>
+                        <select id="miSelect_${contenedorId}_${contador}" class="js-example-basic" style="width: 100%;" name="medicamentos" required>
                             <option></option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <input id="miInputTexto_${contadorInputs}" class="form-control" type="text" name="cantidad" placeholder="cantidad recetada" required>
+                        <input id="miInputTexto_${contenedorId}_${contador}" class="form-control" type="text" name="cantidad" placeholder="cantidad recetada" required>
                     </div>
                 </div>
             `;
-
+    
             var nuevoFormGroup = document.createElement("div");
             nuevoFormGroup.innerHTML = contenidoHTML;
-
-            var contenedor = document.getElementById("contenedorInputs");
+    
+            var contenedor = document.getElementById(contenedorId);
             contenedor.appendChild(nuevoFormGroup);
-
-            var contenedor2 = document.getElementById("contenedorInputs2");
-            contenedor2.appendChild(nuevoFormGroup);
-
-            var nuevoSelect = document.getElementById(`miSelect_${contadorInputs}`);
-
+    
+            var nuevoSelect = document.getElementById(`miSelect_${contenedorId}_${contador}`);
+    
             $.ajax({
                 url: '/linames',
                 method: 'GET',
@@ -462,16 +461,18 @@
                         var option = $('<option></option>').attr('value', liname.idLiname).text(liname.medicamento + ' - ' + liname.codigoLiname + ' - ' + liname.concentracion);
                         $(nuevoSelect).append(option);
                     });
+                    
+                    // Inicializar Select2 después de cargar las opciones
+                    $(nuevoSelect).select2({
+                        placeholder: "Seleccione..."
+                    });
                 },
                 error: function () {
                     console.error('Error al obtener los linames');
                 }
             });
-            $('.js-example-basic').select2({
-                placeholder: "Seleccione..."
-            });
         }
-
+    
         function eliminarInput(element) {
             var formGroup = element.closest('.form-group');
             formGroup.remove();

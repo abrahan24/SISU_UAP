@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+
+<head th:insert="~{layout/head :: head}">
+</head>
+
+<body data-topbar="colored">
+
+    <div id="layout-wrapper">
+
+        <div th:insert="~{layout/topbar :: topbar}"></div>
+        <div class="vertical-menu">
+            <div th:insert="~{layout/sidebar :: sidebar}"></div>
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+
+                <!-- Page-Title -->
+                <div class="page-title-box">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="page-title mb-1">Lista de Asegurados</h4>
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Asegurados</a></li>
+
+                                </ol>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <h4 class="header-title">Asegurados</h4><br>
+
+
+
+                                        <table id="datatable-buttons"
+                                            class="table table-striped table-bordered dt-responsive nowrap botonesH"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre Completo:</th>
+                                                    <th>ci:</th>
+                                                    <th>Codigo Asegurado:</th>
+                                                    <th>Accion</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="lta : ${listaAsegurado}">
+                                                    <td
+                                                        th:text="${lta.persona.nombres} +' '+ ${lta.persona.apPaterno} +' '+ ${lta.persona.apMaterno}">
+                                                        a</td>
+                                                    <td th:text="${lta.persona.ci}">a</td>
+                                                    <td th:text="${lta.codigoAsegurado}">a</td>
+
+                                                    <td>
+                                                        <a type="button"
+                                                            th:onclick="abriModal([[${lta.idAsegurado}]] , [[${lta.persona.nombres}]] , [[${lta.persona.apPaterno}]] , [[${lta.persona.apMaterno}]]
+                                                            ,[[${lta.codigoAsegurado}]], [[${lta.persona.sexo}]],
+                                                                    [[${lta.persona.ci}]],[[${fecha}]], [[${lta.persona.fecha_nac}]]
+                                                            )"
+                                                            class="btn btn-outline-success btn-block btn">Generar
+                                                            Laboratorio</a>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div th:insert="~{layout/footer :: footer}"></div>
+    </div>
+    </div>
+
+    <!-- MODAL LABORATORIO -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h3>FORMULARIO PARA LABORTORIO DEL ASEGURADO</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form1" th:action="@{/generarSolicitudLaboratorio}" method="POST">
+                                        <input type="hidden" name="id_asegurado" id="id_asegurado">
+
+
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">Nombre Completo</label>
+                                                <input type="text" class="form-control" name="nombre" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">Edad</label>
+                                                <input type="text" class="form-control" name="edad" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">Código</label>
+                                                <input type="text" class="form-control" name="codigo" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">Sexo</label>
+                                                <input type="text" class="form-control" name="sexo" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">Fecha</label>
+                                                <input type="text" class="form-control" name="fecha" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="nombreAdministrativo">C.I.</label>
+                                                <input type="text" class="form-control" name="ci" readonly>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="nombreAdministrativo">Otros:</label>
+                                                <textarea required class="form-control" rows="3"
+                                                name="otros"></textarea>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="nombreAdministrativo">Estudio de Gabinete:</label>
+                                                <textarea required class="form-control" rows="3"
+                                                name="gabinete"></textarea>
+                                            </div>
+                                         
+                                        
+                                        </div>
+
+                                        <hr>
+                                        <h5 class="modal-title mt-0">Seleccionar Laboratorios:</h5>
+
+                                        <div class="form-group row">
+
+                                            <div class="col-md-12">
+                                               <select class="js-example-basic-multiple" multiple="multiple"  style="width: 100%;" name="laboratorio">
+                                                   <option th:each="l : ${laboratorios}" th:if="${l.estado != 'X' }" th:text="${l.nombre_laboratorio}"
+                                                       th:value="${l.idLaboratorio}"></option>
+                                               </select>
+                                           </div>
+
+
+                                        </div>
+
+
+                                        <div class="form-group mt-4 text-center">
+                                            <button class="btn btn-primary waves-effect waves-light"
+                                                type="submit">Generar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- MODAL LABORATORIO FIN-->
+
+    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
+    <!-- <div class="rightbar-overlay"></div> -->
+
+
+
+
+    <div th:insert="~{layout/scripts :: scripts}"></div>
+    <script>
+        //ABRIR MODAL
+        function abriModal(idAsegurado, nombres, apPaterno, apMaterno, codigoAsegurado, sexo, ci, fecha, fechaN) {
+            // Mostrar el modal
+            $('#modal1').modal('show');
+
+            // Configurar select2
+            $('.js-example-basic-multiple').select2({
+                placeholder: "Seleccione..."
+            });
+
+            // Asignar valores a los inputs del modal
+            $('input[name="nombre"]').val(nombres + ' ' + apPaterno + ' ' + apMaterno);
+            $('input[name="codigo"]').val(codigoAsegurado);
+            $('input[name="sexo"]').val(sexo);
+            $('input[name="ci"]').val(ci);
+            $('input[name="fecha"]').val(fecha);
+            $('input[name="id_asegurado"]').val(idAsegurado);
+
+            // Calcular la edad
+            var birthDate = new Date(fechaN);
+            var actualDate = new Date(fecha);
+            var age = actualDate.getFullYear() - birthDate.getFullYear();
+            var month = actualDate.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && actualDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            $('input[name="edad"]').val(age);
+
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("form1");
+                var action = form.action;
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Generación de Laboratorio Realizado con Éxito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function () {
+                                location.href = "../../../../listaAseguradosLaboratorioGeneral";
+                            }, 1500);
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                        console.error(error);
+                    }
+                });
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>
