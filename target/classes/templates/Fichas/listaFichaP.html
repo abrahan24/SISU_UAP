@@ -168,7 +168,10 @@
 
                                                                     <a class="dropdown-item">Solicitud examenes de
                                                                         laboratorio</a>
-                                                                    <a class="dropdown-item">Recibo/recetario
+                                                                    <a type="button" th:onclick="abriModal2([[${f.ficha.asegurado.idAsegurado}]], [[${f.ficha.asegurado.persona.nombres}]], [[${f.ficha.asegurado.persona.apPaterno}]]
+                                                                    ,[[${f.ficha.asegurado.persona.apMaterno}]],[[${f.ficha.asegurado.codigoAsegurado}]], [[${f.ficha.asegurado.persona.sexo}]],
+                                                                    [[${f.ficha.asegurado.persona.ci}]],[[${fecha}]], [[${f.ficha.asegurado.persona.fecha_nac}]]
+                                                                    )" class="dropdown-item">Recibo/recetario
                                                                         quirofano</a>
 
                                                                 </div>
@@ -206,6 +209,7 @@
                     </div>
                 </div>
             </div>
+            <!-- MODAL RECETARIO -->
             <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal1" role="dialog"
                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -313,6 +317,99 @@
                     </div>
                 </div>
             </div>
+            <!-- MODAL RECETARIO FIN-->
+
+
+
+                <!-- MODAL RECETARIO QUIROFANO -->
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal2" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header ">
+                            <h3>DATOS DEL RECETARIO</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form id="form2" th:action="@{/generarRecetaQuirurgica}" method="POST">
+                                                <input type="hidden" name="id_asegurado2" id="id_asegurado2">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">Nombre Completo</label>
+                                                        <input type="text" class="form-control" name="nombre2" readonly>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">Edad</label>
+                                                        <input type="text" class="form-control" name="edad2" readonly>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">Código</label>
+                                                        <input type="text" class="form-control" name="codigo2" readonly>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">Sexo</label>
+                                                        <input type="text" class="form-control" name="sexo2" readonly>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">Fecha</label>
+                                                        <input type="text" class="form-control" name="fecha2" readonly>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="nombreAdministrativo">C.I.</label>
+                                                        <input type="text" class="form-control" name="ci2" readonly>
+                                                    </div>
+
+                                                </div>
+                                              
+                                                <h5 class="modal-title mt-0">Medicamentos Recetados:</h5>
+
+                                                <div class="form-group row">
+
+                                                    <!-- <div class="col-md-8">
+                                                        <select class="js-example-basic-multiple" multiple="multiple"  style="width: 100%;">
+                                                            <option th:each="l : ${linames}" th:if="${l.estadoLiname != 'X' }" th:text="${l.medicamento}"
+                                                                th:value="${l.idLiname}"></option>
+                                                        </select>
+                                                    </div> -->
+
+                                                    <div class="">
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                            onclick="agregarInput()">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                        <span>Agregar Medicamentos</span>
+                                                    </div>
+                                                
+                                                </div>
+                                                <div id="contenedorInputs2" class="mt-3">
+                                                </div>
+
+                                                <div class="form-group mt-4 text-center">
+                                                    <button class="btn btn-primary waves-effect waves-light"
+                                                        type="submit">Generar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL RECETARIO QUIROFANO FIN-->
+
+            
         </div>
         <div th:insert="~{layout/footer :: footer}"></div>
     </div>
@@ -351,6 +448,9 @@
             var contenedor = document.getElementById("contenedorInputs");
             contenedor.appendChild(nuevoFormGroup);
 
+            var contenedor2 = document.getElementById("contenedorInputs2");
+            contenedor2.appendChild(nuevoFormGroup);
+
             var nuevoSelect = document.getElementById(`miSelect_${contadorInputs}`);
 
             $.ajax({
@@ -379,7 +479,7 @@
     </script>
 
     <script th:inline="javascript">
-
+        //ABRIR MODAL DE RECETA NORMAL
         function abriModal(idAsegurado, nombres, apPaterno, apMaterno, codigoAsegurado, sexo, ci, fecha, fechaN) {
             // Mostrar el modal
             $('#modal1').modal('show');
@@ -442,6 +542,75 @@
             });
         });
         }
+        //ABRIR MODAL DE RECETA NORMAL FIN
+
+
+         //ABRIR MODAL DE RECETA QUIROFANO
+         function abriModal2(idAsegurado, nombres, apPaterno, apMaterno, codigoAsegurado, sexo, ci, fecha, fechaN) {
+            // Mostrar el modal
+            $('#modal2').modal('show');
+
+            // Configurar select2
+            $('.js-example-basic').select2({
+                placeholder: "Seleccione..."
+            });
+
+            // Asignar valores a los inputs del modal
+            $('input[name="nombre2"]').val(nombres + ' ' + apPaterno + ' ' + apMaterno);
+            $('input[name="codigo2"]').val(codigoAsegurado);
+            $('input[name="sexo2"]').val(sexo);
+            $('input[name="ci2"]').val(ci);
+            $('input[name="fecha2"]').val(fecha);
+            $('input[name="id_asegurado2"]').val(idAsegurado);
+
+            // Calcular la edad
+            var birthDate = new Date(fechaN);
+            var actualDate = new Date(fecha);
+            var age = actualDate.getFullYear() - birthDate.getFullYear();
+            var month = actualDate.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && actualDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            $('input[name="edad2"]').val(age);
+
+            $('#form2').submit(function(event) {
+            event.preventDefault();
+            var form = document.getElementById("form2"); 
+            var action = form.action;
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    var mensaje = response;
+                    if(mensaje == "1"){
+                        Swal.fire({
+                            title: 'Asignación Realizada con Éxito!',
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            location.href = "../../../../fichasAsegurado/"+mensaje;
+                        }, 1500);
+                    }
+                      
+                   
+                },
+                error: function(xhr, status, error) {
+                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                    console.error(error);
+                }
+            });
+        });
+        }
+
+
+          //ABRIR MODAL DE RECETA QUIROFANO FIN
 
 
         function rechazarFicha(id, nombre, idusuario) {

@@ -137,7 +137,7 @@ public class HistorialesMedicosControllers {
     public ResponseEntity<String> generarRecetaQuirurgica(
             @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
             @RequestParam(value = "cantidad") List<String> lista_cantidad,
-            @RequestParam(value = "id_asegurado") Integer id_asegurado, HttpServletRequest request) {
+            @RequestParam(value = "id_asegurado2") Integer id_asegurado, HttpServletRequest request) {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
         String id_usuario = usuario.getIdUsuario()+"";
