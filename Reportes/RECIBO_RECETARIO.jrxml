@@ -80,7 +80,7 @@ where r.id_receta = $P{id_receta}]]>
 (SELECT concat(p2.nombres,' ',p2.ap_paterno,' ',p2.ap_materno) FROM persona p2 WHERE p2.id_persona = pm.id_persona) AS nom_completo_medico,
 (SELECT concat(p3.nombres,' ',p3.ap_paterno,' ',p3.ap_materno) FROM persona p3 WHERE p3.id_persona = u.id_persona) AS nom_usuario,
 r.fecha AS fecha_receta,r.fecha_farmacia ,
-a.codigo_asegurado,p.sexo,p.fecha_nacimiento,p.ci,r.descripcion ,
+a.codigo_asegurado,p.sexo,p.fecha_nacimiento,p.ci,r.descripcion AS descripcion_receta ,
 CAST(DATE_PART('year', AGE(p.fecha_nacimiento)) AS INTEGER) AS edad
 from receta r 
 left join historial_receta hr on hr.id_receta = r.id_receta 
@@ -92,7 +92,7 @@ LEFT JOIN personal_medico_ficha pmf ON pmf.id_ficha = f.id_ficha
 LEFT JOIN personal_medico pm ON pm.id_personal_medico = pmf.id_personal_medico
 LEFT JOIN grado_academico ga ON ga.id_grado_academico = p.id_grado_academico
 LEFT JOIN usuarios u ON u.id_usuario = r.id_usuario 
-where r.id_receta = 1]]>
+where r.id_receta = $P{id_receta}]]>
 	</queryString>
 	<field name="id_persona_asegurado" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id_persona_asegurado"/>
@@ -146,9 +146,9 @@ where r.id_receta = 1]]>
 		<property name="com.jaspersoft.studio.field.label" value="ci"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="persona"/>
 	</field>
-	<field name="descripcion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
-		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+	<field name="descripcion_receta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion_receta"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion_receta"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="receta"/>
 	</field>
 	<field name="edad" class="java.lang.Integer">
@@ -456,10 +456,10 @@ RECIBO/RECETARIO]]></text>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descripcion_receta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="94" width="428" height="20" uuid="2b1d8875-a5d7-44f7-8a31-e89818066b28"/>
+				<reportElement x="1" y="94" width="427" height="20" uuid="2b1d8875-a5d7-44f7-8a31-e89818066b28"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
@@ -482,7 +482,7 @@ Firma y Sello del Medico]]></text>
 Firma y Sello de la Farmacia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="299" y="60" width="130" height="34" uuid="493782ca-51ce-44ed-be8b-70c1f166b25c"/>
+				<reportElement x="299" y="60" width="129" height="34" uuid="493782ca-51ce-44ed-be8b-70c1f166b25c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
