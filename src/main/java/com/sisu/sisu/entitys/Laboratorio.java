@@ -28,20 +28,18 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "receta")
-public class Receta implements Serializable {
+@Table(name = "laboratorio")
+public class Laboratorio implements Serializable {
+
+
     private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_receta")
-    private Integer idReceta;
+    @Column(name = "id_laboratorio")
+    private Integer idLaboratorio;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "fecha")
-    private Date fecha;
-
-    @Column(name = "prescripcion_medica")
-    private String prescripcionMedica;
+    @Column(name = "nombre_laboratorio")
+    private String nombre_laboratorio;
 
     @Column(name = "descripcion", length = 1000)
     private String descripcion;
@@ -57,37 +55,17 @@ public class Receta implements Serializable {
     @Column(name = "estado")
     private String estado;
 
-    @Column(name = "id_usuario")
-    private Integer id_usuario;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "fecha_farmacia")
-    private Date fecha_farmacia;
 
 
     //-------------------RELACIONES---------------------------------------------
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta", fetch = FetchType.LAZY)
-	private List<RecetaRemedios> receta_remedios;
-
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "laboratorio", fetch = FetchType.LAZY)
 	private List<RecetaLaboratorios> receta_laboratorios;
 
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receta", fetch = FetchType.LAZY)
-	private List<HistorialReceta> historial_receta;
-
 
     
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTipoRe")
-    private TipoReceta tipo_receta;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idEstadoReceta")
-    private EstadoReceta estado_receta;
-
+  
 	
     
     
