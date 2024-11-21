@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SisuApplication<sisu>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sisu.sisu.SisuApplication",
+            "projectName": "sisu",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
