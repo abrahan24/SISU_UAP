@@ -119,7 +119,7 @@ public class FichaSisuController {
 
 			requests.put("ru", ru);
 
-			String url = "http://181.115.188.250:9993/v1/service/api/cee024514f4e4b1f970bfb2b6486b421";
+			String url = "http://190.129.216.246:9993/v1/service/api/cee024514f4e4b1f970bfb2b6486b421";
 			String key = "key 70c8b6fc339aa5e6312dd42edf0636558948bb6008f1a0f867885d5e60e26c57";
 
 			HttpHeaders headers = new HttpHeaders();
@@ -360,7 +360,7 @@ public class FichaSisuController {
 
 			request1.put("rd", rd);
 
-			String url = "http://181.115.188.250:9993/v1/service/api/ae7ce0054d4c4f38a4a92bf1c0422b55";
+			String url = "http://190.129.216.246:9993/v1/service/api/ae7ce0054d4c4f38a4a92bf1c0422b55";
 			String key = "key 70c8b6fc339aa5e6312dd42edf0636558948bb6008f1a0f867885d5e60e26c57";
 
 			HttpHeaders headers = new HttpHeaders();
