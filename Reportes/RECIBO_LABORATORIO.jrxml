@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RECIBO_RECETARIO" pageWidth="467" pageHeight="609" orientation="Landscape" columnWidth="427" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5791aa11-d309-40ca-89fe-0d4e1a3fa608">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU_LOCAL"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -292,7 +292,7 @@ SEGURO SOCIAL UNIVERSITARIO]]></text>
 				</box>
 				<componentElement>
 					<reportElement x="11" y="9" width="130" height="14" uuid="8f8735c0-e840-4d8a-b4e6-32631d78328f"/>
-					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 						<datasetRun subDataset="Dataset1" uuid="39e88950-1652-45a7-9026-fe818c877aa1">
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>

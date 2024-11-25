@@ -68,6 +68,7 @@
                                                             <th>ci:</th>
                                                             <th>Codigo Asegurado:</th>
                                                             <th>Fecha de Generación</th>
+                                                            <th>Tipo Receta</th>
                                                             <th>Accion</th>
 
                                                         </tr>
@@ -79,24 +80,10 @@
                                                             <td th:text="${lrp[3]}">a</td>
                                                             <td th:text="${lrp[4]}">a</td>
                                                             <td th:text="${lrp[5]}">a</td>
-                                                            <!-- <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.nombres}"></td>
-                                                          
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td>
-                                                          
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.ci}"></td>
-                                                         
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.dip != null}" th:text="${f.asegurado.persona.dip.codDip}"></td>
-                                                            <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
-                                                            <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
-
-
-
-
-
+                                                            <td th:text="${lrp[8]}">a</td>
+                                                     
                                                             <td>
-                                                                <a type="button" th:onclick="abriModal([[${lrp[7]}]]
-                                                                )"
+                                                                <a type="button" th:onclick="abriModal([[${lrp[7]}]])"
                                                                     class="btn btn-outline-success btn-block btn">Generar</a>
                                                             </td>
 
@@ -115,6 +102,7 @@
                                                             <th>ci:</th>
                                                             <th>Codigo Asegurado:</th>
                                                             <th>Fecha de Generación</th>
+                                                            <th>Tipo Receta</th>
                                                             <th>Accion</th>
 
                                                         </tr>
@@ -126,21 +114,8 @@
                                                             <td th:text="${lrg[3]}">a</td>
                                                             <td th:text="${lrg[4]}">a</td>
                                                             <td th:text="${lrg[5]}">a</td>
-                                                            <!-- <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.nombres}"></td>
-                                                          
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.apPaterno + '  ' + f.asegurado.persona.apMaterno}"></td>
-                                                          
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.ci}"></td>
-                                                         
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null and f.asegurado.persona.dip != null}" th:text="${f.asegurado.persona.dip.codDip}"></td>
-                                                            <td th:if="${f.asegurado != null}" th:text="${f.asegurado.codigoAsegurado}"></td>
-                                                            <td th:if="${f.asegurado != null and f.asegurado.persona != null}" th:text="${f.asegurado.persona.sexo}"></td>
-                                                            <td th:if="${f.asegurado != null}" th:text="${#dates.format(f.fechaRegistroFichaa, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
-
-
-
-
-
+                                                            <td th:text="${lrg[7]}">a</td>
+                                                            
                                                             <td>
                                                                 <form id="form2" th:action="@{/recibo_receta}" target="_blank"
                                                                     method="POST">

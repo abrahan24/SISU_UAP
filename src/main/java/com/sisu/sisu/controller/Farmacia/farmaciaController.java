@@ -104,6 +104,7 @@ public class farmaciaController {
 
         model.addAttribute("listaRecetasP", recetaService.listaRecetasPendientes());
         model.addAttribute("listaRecetasG", recetaService.listaRecetasGeneral());
+       
         return "farmacia/listaRecetaGeneral";
     }
 
@@ -148,10 +149,8 @@ public class farmaciaController {
             recetaRemedioDao.save(recetaRemedios);
         }
 
-      
         return ResponseEntity.ok("1");
     
-        
     }
 
     @PostMapping(value = "/recibo_receta")

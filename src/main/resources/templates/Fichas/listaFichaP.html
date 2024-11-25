@@ -257,12 +257,13 @@
 
                                                 </div>
                                                 <hr>
-                                                
+
                                                 <div class="form-group row">
                                                     <h5 class="modal-title ">Indicaciones:</h5>
                                                     <div class="col-md-10 mb-3">
                                                         <div>
-                                                            <textarea required class="form-control" rows="3" name="indicacion"></textarea>
+                                                            <textarea required class="form-control" rows="3"
+                                                                name="indicacion"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -281,7 +282,7 @@
                                                     <div class="">
                                                         <br>
                                                         <button type="button" class="btn btn-primary btn-sm"
-                                                        onclick="agregarInput('contenedorInputs')">
+                                                            onclick="agregarInput('contenedorInputs')">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                         <span>Agregar Medicamentos</span>
@@ -321,8 +322,8 @@
 
 
 
-                <!-- MODAL RECETARIO QUIROFANO -->
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal2" role="dialog"
+            <!-- MODAL RECETARIO QUIROFANO -->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal2" role="dialog"
                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -368,7 +369,7 @@
                                                     </div>
 
                                                 </div>
-                                              
+
                                                 <h5 class="modal-title mt-0">Medicamentos Recetados:</h5>
 
                                                 <div class="form-group row">
@@ -383,12 +384,12 @@
                                                     <div class="">
                                                         <br>
                                                         <button type="button" class="btn btn-primary btn-sm"
-                                                        onclick="agregarInput('contenedorInputs2')">
+                                                            onclick="agregarInput('contenedorInputs2')">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                         <span>Agregar Medicamentos</span>
                                                     </div>
-                                                
+
                                                 </div>
                                                 <div id="contenedorInputs2" class="mt-3">
                                                 </div>
@@ -409,7 +410,7 @@
             </div>
             <!-- MODAL RECETARIO QUIROFANO FIN-->
 
-            
+
         </div>
         <div th:insert="~{layout/footer :: footer}"></div>
     </div>
@@ -422,10 +423,10 @@
     <script type="text/javascript" th:inline="javascript">
         var contadorInputs1 = 0;
         var contadorInputs2 = 0;
-    
+
         function agregarInput(contenedorId) {
             var contador = contenedorId === "contenedorInputs" ? ++contadorInputs1 : ++contadorInputs2;
-            
+
             var contenidoHTML = `
                 <div class="form-group row justify-content-center">
                     <div class="">
@@ -443,15 +444,15 @@
                     </div>
                 </div>
             `;
-    
+
             var nuevoFormGroup = document.createElement("div");
             nuevoFormGroup.innerHTML = contenidoHTML;
-    
+
             var contenedor = document.getElementById(contenedorId);
             contenedor.appendChild(nuevoFormGroup);
-    
+
             var nuevoSelect = document.getElementById(`miSelect_${contenedorId}_${contador}`);
-    
+
             $.ajax({
                 url: '/linames',
                 method: 'GET',
@@ -461,7 +462,7 @@
                         var option = $('<option></option>').attr('value', liname.idLiname).text(liname.medicamento + ' - ' + liname.codigoLiname + ' - ' + liname.concentracion);
                         $(nuevoSelect).append(option);
                     });
-                    
+
                     // Inicializar Select2 después de cargar las opciones
                     $(nuevoSelect).select2({
                         placeholder: "Seleccione..."
@@ -472,7 +473,7 @@
                 }
             });
         }
-    
+
         function eliminarInput(element) {
             var formGroup = element.closest('.form-group');
             formGroup.remove();
@@ -509,45 +510,45 @@
 
             $('input[name="edad"]').val(age);
 
-            $('#form1').submit(function(event) {
-            event.preventDefault();
-            var form = document.getElementById("form1"); 
-            var action = form.action;
-            var formData = $(this).serialize();
+            $('#form1').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("form1");
+                var action = form.action;
+                var formData = $(this).serialize();
 
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function(response) {
-                    var mensaje = response;
-                    if(mensaje == "1"){
-                        Swal.fire({
-                            title: 'Asignación Realizada con Éxito!',
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        setTimeout(function () {
-                            location.href = "../../../../fichasAsegurado/"+mensaje;
-                        }, 1500);
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Asignación Realizada con Éxito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function () {
+                                location.href = "../../../../fichasAsegurado/" + mensaje;
+                            }, 1500);
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                        console.error(error);
                     }
-                      
-                   
-                },
-                error: function(xhr, status, error) {
-                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
-                    console.error(error);
-                }
+                });
             });
-        });
         }
         //ABRIR MODAL DE RECETA NORMAL FIN
 
 
-         //ABRIR MODAL DE RECETA QUIROFANO
-         function abriModal2(idAsegurado, nombres, apPaterno, apMaterno, codigoAsegurado, sexo, ci, fecha, fechaN) {
+        //ABRIR MODAL DE RECETA QUIROFANO
+        function abriModal2(idAsegurado, nombres, apPaterno, apMaterno, codigoAsegurado, sexo, ci, fecha, fechaN) {
             // Mostrar el modal
             $('#modal2').modal('show');
 
@@ -575,43 +576,43 @@
 
             $('input[name="edad2"]').val(age);
 
-            $('#form2').submit(function(event) {
-            event.preventDefault();
-            var form = document.getElementById("form2"); 
-            var action = form.action;
-            var formData = $(this).serialize();
+            $('#form2').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("form2");
+                var action = form.action;
+                var formData = $(this).serialize();
 
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function(response) {
-                    var mensaje = response;
-                    if(mensaje == "1"){
-                        Swal.fire({
-                            title: 'Asignación Realizada con Éxito!',
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        setTimeout(function () {
-                            location.href = "../../../../fichasAsegurado/"+mensaje;
-                        }, 1500);
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje == "1") {
+                            Swal.fire({
+                                title: 'Asignación Realizada con Éxito!',
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function () {
+                                location.href = "../../../../fichasAsegurado/" + mensaje;
+                            }, 1500);
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                        console.error(error);
                     }
-                      
-                   
-                },
-                error: function(xhr, status, error) {
-                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
-                    console.error(error);
-                }
+                });
             });
-        });
         }
 
 
-          //ABRIR MODAL DE RECETA QUIROFANO FIN
+        //ABRIR MODAL DE RECETA QUIROFANO FIN
 
 
         function rechazarFicha(id, nombre, idusuario) {

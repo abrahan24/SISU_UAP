@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RECIBO_RECETARIO" pageWidth="467" pageHeight="609" orientation="Landscape" columnWidth="427" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5791aa11-d309-40ca-89fe-0d4e1a3fa608">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SISU_LOCAL"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -170,7 +170,7 @@ RECIBO/RECETARIO]]></text>
 			</staticText>
 			<image>
 				<reportElement x="0" y="2" width="69" height="68" uuid="056fc530-4a62-4c4a-a570-337c9c9ebee0"/>
-				<imageExpression><![CDATA["/home/usic02/Documentos/SISU_2/SISU/src/main/resources/static/assets/images/logo UAP.png"]]></imageExpression>
+				<imageExpression><![CDATA["/home/usic02/Documentos/Spring/SISU_UAP/src/main/resources/static/assets/images/logo UAP.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="330" y="1" width="110" height="70" uuid="263c9ff6-7b16-4def-8d95-226cd0c0bfb1"/>
@@ -423,7 +423,8 @@ RECIBO/RECETARIO]]></text>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font size="7"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{cantidad_dispensada}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{cantidad_dispensada} == null ? "sin asignada" : $F{cantidad_dispensada}
+]]></textFieldExpression>
 								</textField>
 							</frame>
 						</jr:detailCell>

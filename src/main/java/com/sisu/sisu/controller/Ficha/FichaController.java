@@ -120,7 +120,14 @@ public class FichaController {
     }
 
     @GetMapping(value = "/lista_medicos/{idFicha}")
-    public String getMethodName(@PathVariable(name = "idFicha") Integer idFicha, Model model) {
+    public String getMethodName(@PathVariable(name = "idFicha") Integer idFicha, Model model,HttpServletRequest request) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+
+        if (usuario == null) {
+
+            return "redirect:/";
+
+        }
         model.addAttribute("ficha", new Ficha());
         model.addAttribute("idFicha", idFicha);
         model.addAttribute("p_medicos", personalMedicoService.listaPersonalMedicoPorServicioFicha(idFicha));
@@ -193,7 +200,7 @@ public class FichaController {
 
         if (usuario == null) {
 
-            return "index/login";
+            return "redirect:/";
 
         }
         // Obtener la fecha actual y formatearla

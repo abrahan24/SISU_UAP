@@ -63,7 +63,7 @@
                                      <input type="hidden" name="idUsuario" th:value="${idUsuario}">
 
 										<div class="input-group col-xs-12">
-											<select name="idRol"  class="form-control">
+											<select name="idRol"  class="form-control" required>
 												<option value="" selected disabled>Seleccione...</option>
 												<option th:each="r ,num : ${lRoles}" th:value="${r.idRol}"
 													th:text="${num.index +1 + '-' + r.rol}"></option>
