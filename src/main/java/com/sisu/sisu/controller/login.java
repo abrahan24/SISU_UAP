@@ -25,13 +25,15 @@ import com.sisu.sisu.Service.UsuarioService;
 import com.sisu.sisu.entitys.Enlace;
 import com.sisu.sisu.entitys.Roles;
 import com.sisu.sisu.entitys.Usuario;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class login {
 
 	@Autowired
 	UsrRolesService usrRolesService;
-	
+
 	@Autowired
 	UsuarioService usuarioService;
 
@@ -53,8 +55,8 @@ public class login {
 
 	@RequestMapping(value = "usuarioContrasena", method = RequestMethod.POST)
 	public String selecionRoles(HttpServletRequest request, Model model, @RequestParam("usuario") String usuario,
-			@RequestParam("clave") String clave , RedirectAttributes flash) {
-		
+			@RequestParam("clave") String clave, RedirectAttributes flash) {
+
 		Usuario user = usuarioService.loguearse(usuario, clave);
 
 		if (user != null) {
@@ -85,9 +87,11 @@ public class login {
 			return "index/login";
 		}
 	}
-	
+
 	@RequestMapping(value = "/seleccionarRoles", method = RequestMethod.POST)
-	public String seleccionRoles(HttpServletRequest request, Model model, @RequestParam("idRol") Integer idRol) {
+	public String seleccionRoles(HttpServletRequest request, Model model,
+			@RequestParam("idUsuario") Integer idUsuario,
+			@RequestParam("idRol") Integer idRol) {
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
 		if (usuario == null) {
@@ -98,13 +102,20 @@ public class login {
 		sesion.setAttribute("usuario", usuario);
 		Set<Enlace> enlacesSet = roles.getEnlaces();
 		List<Enlace> enlaceList = new ArrayList<>(enlacesSet);
-		Collections.sort(enlaceList, Comparator.comparing(Enlace::getNombre_enlace));
+		enlaceList.sort(Comparator.comparing(Enlace::getNombre_enlace));
 		sesion.setAttribute("sessionlPadres", enlaceList);
 		sesion.setAttribute("RolSession", roles);
+
+		return "redirect:/inicio";
+	}
+
+	@GetMapping("/inicio")
+	public String inicio(HttpServletRequest request, Model model) {
 
 		return "index/inicio";
 	}
 	
+
 	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
 	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {
 
