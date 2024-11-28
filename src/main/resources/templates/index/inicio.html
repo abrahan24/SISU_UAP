@@ -1,55 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <title>SISU | UAP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="../../../../assets/images/logoS.png">
+<head th:insert="~{layout/head :: head}">
 
-    <!-- DataTables -->
-    <link href="../../../../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="../../../../assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
-        type="text/css" />
-
-    <!-- Responsive datatable examples -->
-    <link href="../../../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
-        rel="stylesheet" type="text/css" />
-
-    <link href="../../../../assets/libs/alertifyjs/build/css/alertify.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../../assets/libs/alertifyjs/build/css/themes/default.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Bootstrap Css -->
-    <link href="../../../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="../../../../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="../../../../assets/css/app.min.css" rel="stylesheet" type="text/css" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        .page-content-wrapper {
-            animation: fadeIn 1.5s;
-        }
-
-        #welcomeText {
-            color: rgb(165, 12, 12);
-        }
-
-        #animateButton {
-            background-color: rgb(10, 10, 185); /* Cambia el color del botón a azul */
-            color: white; /* Cambia el color del texto del botón a blanco */
-        }
-
-        .fa-frog {
-            animation: bounce 1s infinite; /* Aplica la animación "bounce" a las ranas */
-        }
-    </style>
-   
 </head>
 
 <body data-topbar="colored">
@@ -65,11 +18,7 @@
             <div th:insert="~{layout/sidebar :: sidebar}"></div>
 
         </div>
-        <!-- Left Sidebar End -->
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
         <div class="main-content">
 
             <div class="page-content">
@@ -85,21 +34,29 @@
                                     <li class="breadcrumb-item active">INICIO</li>
                                 </ol>
                             </div>
-                            <div class="col-md-4">
-                                <div class="float-right d-none d-md-block">
-                                    <div class="dropdown">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                            <div class="dropdown-divider"></div>
-                                            <form th:action="@{${url}}" method="get">
-                                                <input type="submit" th:value="${nameButton1}">
-                                            </form>
-                                            <div class="dropdown-divider"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
+                    </div>
+                </div>
+
+                <div th:if="${session.RolSession.rol != 'FARMACIA'}" class="page-content-wrapper">
+
+                    <div class="card">
+                        <div class="card-body" style="text-align: center;">
+
+                            <div style="max-width: 100%; overflow: hidden; text-align: center;">
+                                <img src="../../../../assets/images/titulo_sisu.png"
+                                    style="width: 100%; max-width: 450px; height: auto;" alt="titulo_sisu">
+                            </div>
+
+                            <button id="animateButton" type="button"
+                                class="btn btn-primary btn-lg btn-block waves-effect waves-light"
+                                style="font-size: 18px;">
+                                <i class="mdi mdi-spin mdi-star"></i><i class="mdi mdi-alpha-s-box"></i><i
+                                    class="mdi mdi-alpha-i-box"></i><i class="mdi mdi-alpha-s-box"></i><i
+                                    class="mdi mdi-alpha-u-box"></i><i class="fas fa-ambulance"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -107,70 +64,274 @@
 
                     <div class="card">
                         <div class="card-body" style="text-align: center;">
-            
-                            <!-- <div id="welcomeText" class="animate__animated animate__bounce" style="font-size: 50px;">
-                                <i class="fas fa-frog"></i>
-                                <span class="animated-text">Hola, Por favor termina tu Módulo</span>
-                                <i class="fas fa-frog"></i>
-                            </div> -->
+
                             <div style="max-width: 100%; overflow: hidden; text-align: center;">
-                                <img src="assets/images/titulo_sisu.png" style="width: 100%; max-width: 450px; height: auto;" alt="titulo_sisu">
+                                <img src="../../../../assets/images/titulo_sisu.png"
+                                    style="width: 100%; max-width: 300px; height: auto;" alt="titulo_sisu">
                             </div>
-                            
-                            <button id="animateButton" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light"
-                                style="font-size: 18px;">
-                                <i class="mdi mdi-spin mdi-star"></i><i class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-i-box"></i><i
-                                    class="mdi mdi-alpha-s-box"></i><i class="mdi mdi-alpha-u-box"></i><i class="fas fa-ambulance"></i>
-                            </button>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <h4 class="header-title">Nav justified</h4>
+                                    <p class="card-title-desc">Example nav justified.</p> -->
+
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-pills nav-justified" role="tablist">
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link active" data-toggle="tab" href="#home-justify"
+                                                role="tab">
+                                                <i class="fas fa-home mr-1"></i> <span
+                                                    class="d-none d-md-inline-block">Recetas Pendientes</span>
+                                                <span class="badge badge-pill badge-danger float-right"
+                                                    th:text="${receteas_pendientes.size()}">07</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-toggle="tab" href="#profile-justify" role="tab">
+                                                <i class="fas fa-user mr-1"></i> <span
+                                                    class="d-none d-md-inline-block">Venta</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-toggle="tab" href="#messages-justify" role="tab">
+                                                <i class="far fa-envelope mr-1"></i> <span
+                                                    class="d-none d-md-inline-block">Messages</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link" data-toggle="tab" href="#settings-justify" role="tab">
+                                                <i class="fas fa-cog mr-1"></i> <span
+                                                    class="d-none d-md-inline-block">Settings</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content p-3">
+                                        <div class="tab-pane active" id="home-justify" role="tabpanel">
+                                            <table id="datatable-buttons"
+                                                class="table table-striped table-bordered dt-responsive nowrap"
+                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Nombre Completo</th>
+                                                        <th>CI</th>
+                                                        <th>Codigo Asegurado</th>
+                                                        <th>Fecha de Generación</th>
+                                                        <th>Tipo Receta</th>
+                                                        <th>Generar Receta</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="lrp, count : ${receteas_pendientes}">
+                                                        <td th:text="${count.index +1}">a</td>
+                                                        <td th:text="${lrp[0]} +' ' + ${lrp[1]} +' '+ ${lrp[2]}">a</td>
+                                                        <td th:text="${lrp[3]}">a</td>
+                                                        <td th:text="${lrp[4]}">a</td>
+                                                        <td th:text="${#dates.format(lrp[5], 'dd/MM/yyyy hh:mm a')}">a
+                                                        </td>
+                                                        <td th:text="${lrp[8]}">a</td>
+
+                                                        <td>
+                                                            <a type="button" th:onclick="abriModal([[${lrp[7]}]])"
+                                                                class="btn btn-outline-success btn-block btn">Generar</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="profile-justify" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <h4 class="header-title">Tipo Cliente</h4>
+                                                    <select class="js-example-basic-single" name="state"
+                                                        style="width: 100%; " id="tipoCliente"
+                                                        
+                                                        th:attr="onchange='generarInputsClientes(\'' + ${dipsJson} + '\', \'' + ${gradosJson} + '\', \'' + ${estadosCivilJson} + '\')'">
+                                                        <option value=""></option>
+                                                        <option value="N">Nuevo</option>
+                                                        <option value="A">Antiguo</option>
+                                                    </select>
+                                                    <br><br>
+                                                    <div id="InputsClienteNuevo" >
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    f
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="messages-justify" role="tabpanel">
+                                            <p class="mb-0">
+                                                Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                                                single-origin coffee squid. Exercitation +1 labore velit, blog
+                                                sartorial PBR leggings next level wes anderson artisan four loko
+                                                farm-to-table craft beer twee. Qui photo booth letterpress,
+                                                commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                                                vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                                                aesthetic magna delectus mollit.
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane" id="settings-justify" role="tabpanel">
+                                            <p class="mb-0">
+                                                Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                                art party before they sold out master cleanse gluten-free squid
+                                                scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                                art party locavore wolf cliche high life echo park Austin. Cred
+                                                vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                                farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                                mustache.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-        <div th:insert="~{layout/footer :: footer}"></div>
-    </div>
-    </div>
-    <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div>
-    <!-- /Right-bar -->
-
-    <!-- Right bar overlay-->
-    <div class="rightbar-overlay"></div>
-
-    <!-- JAVASCRIPT -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../../../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../../../assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="../../../../assets/libs/simplebar/simplebar.min.js"></script>
-<script src="../../../../assets/libs/node-waves/waves.min.js"></script>
-<script src="https://unicons.iconscout.com/release/v2.0.1/script/monochrome/bundle.js"></script>
-
-<!-- Required datatable js -->
-<script src="../../../../assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../../../../assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-<!-- Buttons examples -->
-<script src="../../../../assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../../../assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="../../../../assets/libs/jszip/jszip.min.js"></script>
-<script src="../../../../assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="../../../../assets/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="../../../../assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-<!-- Responsive examples -->
-<script src="../../../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
-<!-- Datatable init js -->
-<script src="../../../../assets/js/pages/datatables.init.js"></script>
-
-<!-- alert -->
-<script src="../../../../assets/libs/alertifyjs/build/alertify.min.js"></script>
-<script src="../../../../assets/js/pages/alertifyjs.init.js"></script>
+                <div th:insert="~{layout/footer :: footer}"></div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" id="modal1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>GENERAR RECETA</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="form1" th:action="@{/generarRecetaFarmacia}" method="POST">
+                                            <input type="hidden" name="id_receta2" id="id_receta2">
 
 
+                                            <div id="inputsContainer">
+                                                <!-- Aquí se generarán los inputs dinámicamente -->
+                                            </div>
 
-<script src="../../../../assets/js/app.js"></script>
+                                            <div class="form-group mt-4 text-center">
+                                                <button class="btn btn-primary waves-effect waves-light"
+                                                    type="submit">Generar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div th:insert="~{layout/right-sidebar :: right-sidebar}"></div> -->
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- JAVASCRIPT -->
+
+        <div th:insert="~{layout/scripts :: scripts}"></div>
+
+        <script src="../../../../assets/js/js.Inicio/inicio.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('.js-example-basic-single').select2({
+                    placeholder: 'Seleccione...'
+                });
+
+                $('#form1').submit(function (event) {
+
+                    event.preventDefault();
+                    var form = document.getElementById("form1");
+                    var idReceta = $('#id_receta2').val();
+
+                    var action = form.action;
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function (response) {
+                            var mensaje = response;
+                            if (mensaje == "1") {
+                                Swal.fire({
+                                    title: 'Generacion de Recibo Realizada con Éxito!',
+                                    icon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                $.ajax({
+                                    url: '/recibo_receta',
+                                    type: 'POST',
+                                    data: { id_receta: idReceta },
+                                    xhrFields: {
+                                        responseType: 'blob'
+                                    },
+                                    success: function (data, status, xhr) {
+                                        var blob = new Blob([data], { type: 'application/pdf' });
+                                        var url = window.URL.createObjectURL(blob);
+                                        window.open(url, '_blank');
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('Error al generar el recibo:', error);
+                                    }
+                                });
+                                setTimeout(function () {
+                                    location.href = "../../../../inicio";
+                                }, 1500);
+
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente. ' + xhr, status, error);
+                            console.error(error);
+                        }
+                    });
+                });
+                $('#submitButton').click(function (event) {
+                    event.preventDefault(); // Prevenir el envío del formulario
+
+                    // Capturar el valor del campo oculto
+                    var idReceta = $('#id_receta2').val();
+                    console.log('Valor de id_receta:', idReceta);
+
+                    // Realizar la llamada AJAX al método POST del controlador
+                    $.ajax({
+                        url: '/recibo_receta',
+                        type: 'POST',
+                        data: { id_receta: idReceta },
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function (data, status, xhr) {
+                            var blob = new Blob([data], { type: 'application/pdf' });
+                            var url = window.URL.createObjectURL(blob);
+                            window.open(url, '_blank');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al generar el recibo:', error);
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>

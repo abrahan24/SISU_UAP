@@ -13,11 +13,13 @@ import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "tipos_estado_civil")
+@ToString
 public class TiposEstadoCivil implements Serializable {
 
 	private static long serialVersionUID = 1L;
@@ -40,86 +42,4 @@ public class TiposEstadoCivil implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificacion;
 
-	public TiposEstadoCivil() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public TiposEstadoCivil(Integer idTipoEstadoCivil, String nomEstadoCivil, String estado, Date registro,
-			Date modificacion) {
-		super();
-		this.idTipoEstadoCivil = idTipoEstadoCivil;
-		NomEstadoCivil = nomEstadoCivil;
-		this.estado = estado;
-		this.registro = registro;
-		this.modificacion = modificacion;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public static void setSerialversionuid(long serialversionuid) {
-		serialVersionUID = serialversionuid;
-	}
-
-	public Integer getIdTipoEstadoCivil() {
-		return idTipoEstadoCivil;
-	}
-
-	public void setIdTipoEstadoCivil(Integer idTipoEstadoCivil) {
-		this.idTipoEstadoCivil = idTipoEstadoCivil;
-	}
-
-	public String getNomEstadoCivil() {
-		return NomEstadoCivil;
-	}
-
-	public void setNomEstadoCivil(String nomEstadoCivil) {
-		NomEstadoCivil = nomEstadoCivil;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Date getRegistro() {
-		return registro;
-	}
-
-	public void setRegistro(Date registro) {
-		this.registro = registro;
-	}
-
-	public Date getModificacion() {
-		return modificacion;
-	}
-
-	public void setModificacion(Date modificacion) {
-		this.modificacion = modificacion;
-	}
-
-	@Override
-	public String toString() {
-		return "TiposEstadoCivil [idTipoEstadoCivil=" + idTipoEstadoCivil + ", NomEstadoCivil=" + NomEstadoCivil
-				+ ", estado=" + estado + ", registro=" + registro + ", modificacion=" + modificacion + "]";
-	}
-
-    public static TiposEstadoCivil parse(String string) {
-        return null;
-    }
-
-	
-	/* 
-	 * RELACION */
-
-	
-	
-	
-	
-	
 }

@@ -19,14 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sisu.sisu.Service.IDipService;
+import com.sisu.sisu.Service.IGradoService;
 import com.sisu.sisu.Service.IRolesService;
+import com.sisu.sisu.Service.ITiposEstadoCivilService;
+import com.sisu.sisu.Service.RecetaService;
 import com.sisu.sisu.Service.UsrRolesService;
 import com.sisu.sisu.Service.UsuarioService;
 import com.sisu.sisu.entitys.Enlace;
 import com.sisu.sisu.entitys.Roles;
 import com.sisu.sisu.entitys.Usuario;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 public class login {
@@ -39,6 +44,18 @@ public class login {
 
 	@Autowired
 	private IRolesService iRolesService;
+
+	@Autowired
+	private RecetaService recetaService;
+
+	@Autowired
+	private IGradoService gradoService;
+
+	@Autowired
+	private ITiposEstadoCivilService estadoCivilService;
+
+	@Autowired
+	private IDipService dipService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String iniciosesion(Model model) {
@@ -63,7 +80,7 @@ public class login {
 			if (user.getRoles().size() == 0) {
 				String msn = "No tiene roles vigentes, comuniquese con el encargado de sistemas";
 				model.addAttribute("msn", msn);
-				return "index/login";
+				return "redirect:/inicio";
 			}
 			// Obtener el conjunto de roles
 			Set<Roles> rolesSet = user.getRoles();
@@ -84,7 +101,7 @@ public class login {
 		} else {
 			String msn = "Error: Revise Usuario y Clave ";
 			model.addAttribute("msn", msn);
-			return "index/login";
+			return "redirect:/inicio";
 		}
 	}
 
@@ -112,9 +129,30 @@ public class login {
 	@GetMapping("/inicio")
 	public String inicio(HttpServletRequest request, Model model) {
 
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
+		Roles rol = (Roles) request.getSession().getAttribute("RolSession");
+		if (usuario == null) {
+			return "redirect:/";
+		}
+
+		if (rol.getRol().equals("FARMACIA")) {
+			model.addAttribute("receteas_pendientes", recetaService.listaRecetasPendientes());
+			model.addAttribute("grados", gradoService.findAll());
+			model.addAttribute("estados_civil", estadoCivilService.findAll());
+			model.addAttribute("dips", dipService.findAll());
+			try {
+				model.addAttribute("dipsJson", new ObjectMapper().writeValueAsString(dipService.findAll()));
+				model.addAttribute("gradosJson", new ObjectMapper().writeValueAsString(gradoService.findAll()));
+				model.addAttribute("estadosCivilJson", new ObjectMapper().writeValueAsString(estadoCivilService.findAll()));
+			} catch (JsonProcessingException e) {
+				model.addAttribute("dipsJson", "[]"); // En caso de error
+				model.addAttribute("gradosJson", "[]"); // En caso de error
+				model.addAttribute("estadosCivilJson", "[]"); // En caso de error
+			}
+		}
+
 		return "index/inicio";
 	}
-	
 
 	@RequestMapping(value = "/cerrar.da", method = RequestMethod.GET)
 	public String Cerrar(HttpServletRequest request, HttpServletResponse response) {

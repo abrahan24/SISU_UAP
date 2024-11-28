@@ -18,11 +18,13 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,11 +35,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sisu.sisu.Dao.IRecetaRemedioDao;
 import com.sisu.sisu.Dao.TipoRecetaDao;
 import com.sisu.sisu.Service.HistorialMedicoService;
 import com.sisu.sisu.Service.HistorialRecetaService;
 import com.sisu.sisu.Service.IAseguradoService;
+import com.sisu.sisu.Service.IPersonaService;
 import com.sisu.sisu.Service.ITipoRecetaService;
 import com.sisu.sisu.Service.ListaLinameService;
 import com.sisu.sisu.Service.RecetaService;
@@ -50,6 +56,7 @@ import com.sisu.sisu.entitys.HistorialMedico;
 import com.sisu.sisu.entitys.HistorialReceta;
 import com.sisu.sisu.entitys.HorarioMedico;
 import com.sisu.sisu.entitys.ListaLiname;
+import com.sisu.sisu.entitys.Persona;
 import com.sisu.sisu.entitys.PersonalMedico;
 import com.sisu.sisu.entitys.PersonalMedicoFicha;
 import com.sisu.sisu.entitys.Receta;
@@ -58,6 +65,7 @@ import com.sisu.sisu.entitys.TipoReceta;
 import com.sisu.sisu.entitys.Usuario;
 
 import net.sf.jasperreports.engine.JRException;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class farmaciaController {
@@ -89,7 +97,10 @@ public class farmaciaController {
     @Autowired
     private UtilidadesService utilidadesServices;
 
-    //TODO PARA RECETA INICIO
+    @Autowired
+    private IPersonaService personaService;
+
+    // TODO PARA RECETA INICIO
     @GetMapping(value = "/listaRecetasGeneral")
     public String listaRecetasGeneral(Model model, HttpServletRequest request) {
 
@@ -104,7 +115,7 @@ public class farmaciaController {
 
         model.addAttribute("listaRecetasP", recetaService.listaRecetasPendientes());
         model.addAttribute("listaRecetasG", recetaService.listaRecetasGeneral());
-       
+
         return "farmacia/listaRecetaGeneral";
     }
 
@@ -114,22 +125,20 @@ public class farmaciaController {
         return resetaRemedioService.listaRecetaRemediosPorIdReceta(idReceta);
     }
 
-
     @PostMapping(value = "/generarRecetaFarmacia", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> generarRecetaFarmacia(
             @RequestParam(value = "id_receta2") Integer id_receta,
             // @RequestParam(value = "medicamentos") List<Integer> lista_medicamentos,
             // @RequestParam(value = "cantidadR") List<String> lista_cantidadR,
-              @RequestParam(value = "id_remedio") List<Integer> lista_remedio,
+            @RequestParam(value = "id_remedio") List<Integer> lista_remedio,
             @RequestParam(value = "cantidadD") List<String> lista_cantidadD,
-       HttpServletRequest request) {
+            HttpServletRequest request) {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSession");
-        String id_usuario = usuario.getIdUsuario()+"";
+        String id_usuario = usuario.getIdUsuario() + "";
         Date fechaActualD = new Date();
         // TipoReceta tipoReceta = tipoRecetaService.findOne(1);
         // Asegurado asegurado = aseguradoService.findOne(id_asegurado);
-
 
         // CREAR LA RECETA
         Receta receta = recetaService.buscarRecetaId(id_receta);
@@ -141,7 +150,7 @@ public class farmaciaController {
         recetaService.registrarReceta(receta);
 
         for (int i = 0; i < lista_remedio.size(); i++) {
-    
+
             RecetaRemedios recetaRemedios = resetaRemedioService.buscarId(lista_remedio.get(i));
             recetaRemedios.setEstado("A");
             recetaRemedios.setReceta(receta);
@@ -150,7 +159,7 @@ public class farmaciaController {
         }
 
         return ResponseEntity.ok("1");
-    
+
     }
 
     @PostMapping(value = "/recibo_receta")
@@ -192,5 +201,16 @@ public class farmaciaController {
                 .body(resource);
     }
 
-    
+    @PostMapping("/buscarPersonaCI/{ci}")
+    public ResponseEntity<?> buscarPersonaCI(@PathVariable(name = "ci") String ci) {
+        Persona persona = personaService.findByCi(ci);
+
+        if (persona != null) {
+        
+            return ResponseEntity.ok(persona);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Persona no encontrada.");
+        }
+    }
+
 }

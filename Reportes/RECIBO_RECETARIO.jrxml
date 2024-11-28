@@ -423,8 +423,7 @@ RECIBO/RECETARIO]]></text>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font size="7"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$F{cantidad_dispensada} == null ? "sin asignada" : $F{cantidad_dispensada}
-]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{cantidad_dispensada} == null ? "sin asignada" : $F{cantidad_dispensada}]]></textFieldExpression>
 								</textField>
 							</frame>
 						</jr:detailCell>
@@ -437,14 +436,7 @@ RECIBO/RECETARIO]]></text>
 		<band height="10" splitType="Stretch"/>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="235">
-			<staticText>
-				<reportElement x="1" y="128" width="428" height="96" uuid="bb6bae1f-9a04-4f36-a2ae-fe417be1be10"/>
-				<textElement textAlignment="Left" verticalAlignment="Top">
-					<font size="9"/>
-				</textElement>
-				<text><![CDATA[__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________]]></text>
-			</staticText>
+		<band height="242">
 			<staticText>
 				<reportElement x="1" y="114" width="130" height="14" uuid="a32f3b5a-87d7-4da6-ba06-7287e2c06f66"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -453,9 +445,9 @@ RECIBO/RECETARIO]]></text>
 				<text><![CDATA[INDICACIONES:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="1" y="128" width="428" height="96" uuid="19446c02-156b-4197-9f71-eccd6fc5c0a4"/>
-				<textElement>
-					<font size="8"/>
+				<reportElement x="1" y="128" width="428" height="102" uuid="19446c02-156b-4197-9f71-eccd6fc5c0a4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="7" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descripcion_receta}]]></textFieldExpression>
 			</textField>

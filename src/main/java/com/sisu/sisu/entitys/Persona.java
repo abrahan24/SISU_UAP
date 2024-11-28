@@ -21,13 +21,18 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "persona")
+@ToString
 public class Persona implements Serializable {
 
     private static long serialVersionUID = 1L;
@@ -73,34 +78,29 @@ public class Persona implements Serializable {
     private Date modificacion;
 
     // --------------------------RELACION--------------------------------------
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idGradoAcademico")
     private GradoAcademico grado_academico;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTipoEstadoCivil")
     private TiposEstadoCivil tipos_estado_civil;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idDip")
     private Dip dip;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Asegurado> asegurado;
 
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
     private List<PersonalMedico> personal_medico;
-
-
-
-    
-    
-    
-
 
 }
