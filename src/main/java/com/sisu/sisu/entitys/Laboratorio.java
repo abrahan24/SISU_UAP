@@ -55,6 +55,10 @@ public class Laboratorio implements Serializable {
     @Column(name = "estado")
     private String estado;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_tipo_laboratorio")
+	private TipoLaboratorio tipoLaboratorio;
+
 
 
     //-------------------RELACIONES---------------------------------------------

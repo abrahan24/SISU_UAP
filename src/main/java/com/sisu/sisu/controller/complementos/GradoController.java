@@ -20,9 +20,6 @@ public class GradoController {
 
     @Autowired
     private IGradoService gradoService;
-    // muestra mi formulario y mi lista
-
-    /* eliminar */
 
     @RequestMapping(value = "/eliminarGrado/{id_grado}")
     public String eliminarGrado(@PathVariable("id_grado") Integer id_grado) {
@@ -33,7 +30,6 @@ public class GradoController {
 
         return "redirect:/ListaGrado";
     }
-    /* Listar */
 
     @GetMapping(value = "/ListaGrado")
     public String listarGrado(@Validated GradoAcademico gradoAcademico, Model model) {
@@ -44,8 +40,6 @@ public class GradoController {
         return "listas/listaGrado";
     }
 
-    /* Cuando apretar sabe en editar, llama esta funcion: Modificación Modal */
-
     @RequestMapping(value = "/grado/{idGradoAcademico}")
     public String getContentGA(@PathVariable(value = "idGradoAcademico") Integer idGradoAcademico, Model model,
             HttpServletRequest request) {
@@ -54,7 +48,6 @@ public class GradoController {
         return "contentGA :: contentGrado";
     }
 
-    /* Guardar Cambios */
     @PostMapping(value = "/guardarCambiosGrado")
     public String guardarCambiosGrado(@ModelAttribute GradoAcademico gradoAcademico) {
 

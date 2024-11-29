@@ -37,6 +37,13 @@ public class ILaboratorioServiceImlp implements LaboratorioService{
         laboratorioDao.save(laboratorio);
     }
 
-  
+    @Override
+    public void save(Laboratorio laboratorio) {
+        laboratorioDao.save(laboratorio);
+    }
 
+    @Override
+    public Laboratorio findOne(Integer id) {
+        return laboratorioDao.findById(id).orElse(null);
+    }
 }

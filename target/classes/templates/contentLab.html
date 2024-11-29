@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <div th:fragment="content_laboratorio">
+        <input type="hidden" th:field="${laboratorio.id_laboratorio}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Nombre</label>
+                <input type="text" class="form-control" name="nombre_laboratorio" th:field="${laboratorio.nombre_laboratorio}" placeholder="Introduce el nombre del laboratorio" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Descripción</label>
+                <input type="text" class="form-control" name="descripcion" th:field="${laboratorio.descripcion}" placeholder="Añade una descripción" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Tipo Laboratorio</label>
+                <select class="custom-select" th:field="${laboratorio.tipo_laboratorio}" required>
+                    <option value="">Seleccione una opcion</option>
+                    <th:block th:each="tipos: ${tipo_laboratorios}" th:if="${tipos.estado != 'X'}">    
+                        <option th:value="${tipos.id_tipo_laboratorio}" th:text="${tipos.nombre}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback">Debes Seleccionar un tipo de laboratorio</div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="content_tipoLaboratorio">
+        <input type="hidden" th:field="${tipo_laboratorio.id_tipo_laboratorio}">
+        <h4 class="header-title">INTRODUZCA LOS SIGUIENTES DATOS</h4>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom03">Nombre</label>
+                <input type="text" class="form-control" name="nombre" th:field="${tipo_laboratorio.nombre}" placeholder="Introduce el nombre del tipo laboratorio" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,20 +1,14 @@
 <!doctype html>
 <html lang="en">
-
-<head th:insert="~{layout/head :: head}">
-</head>
-
+<head th:insert="~{layout/head :: head}"></head>
 <body data-topbar="colored">
-
     <div id="layout-wrapper">
-
         <div th:insert="~{layout/topbar :: topbar}"></div>
         <div class="vertical-menu">
             <div th:insert="~{layout/sidebar :: sidebar}"></div>
         </div>
         <div class="main-content">
             <div class="page-content">
-
                 <!-- Page-Title -->
                 <div class="page-title-box">
                     <div class="container-fluid">
@@ -23,25 +17,19 @@
                                 <h4 class="page-title mb-1">Lista de Asegurados</h4>
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Asegurados</a></li>
-
                                 </ol>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
                 <div class="page-content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-
                                         <h4 class="header-title">Asegurados</h4><br>
-
-
-
                                         <table id="datatable-buttons"
                                             class="table table-striped table-bordered dt-responsive nowrap botonesH"
                                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -71,14 +59,9 @@
                                                             class="btn btn-outline-success btn-block btn">Generar
                                                             Laboratorio</a>
                                                     </td>
-
                                                 </tr>
                                             </tbody>
                                         </table>
-
-
-
-
                                     </div>
                                 </div>
                             </div>
